@@ -1,16 +1,3535 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
-    <meta http-equiv="Content-Script-Type" content="text/javascript" />
-    <title>OpenID Foundation Japan ドキュメント翻訳プロジェクト</title>
-    <meta name="keywords" content="OpenID, translation, Japan, Japanese" />
-    <meta name="description" content="OpenID Foundation Japan ドキュメント翻訳プロジェクト" />
-    <meta name="author" content="OpenID Foundation Japan" />
-    <meta name="copyright" content="(C) 2009 OpenID Foundation Japan" />
-  </head>
-  <body>
-  </body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Final: OpenID Authentication 2.0 - 最終版</title>
+<meta http-equiv="Expires" content="Thu, 14 Jan 2010 06:20:59 +0000">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="OpenID Authentication 2.0 - 最終版">
+<meta name="generator" content="xml2rfc v1.34 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">Final</td><td class="header"> specs@openid.net</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">December 2007</td></tr>
+</table></td></tr></table>
+<h1><br />OpenID Authentication 2.0 - 最終版</h1>
+
+<h3>Abstract</h3>
+
+<p>
+        OpenID 認証は、エンドユーザが識別子  (Identifier)  を管理していることを証明する方法を提供するものである。OpenID 認証を利用すれば、リライングパーティー (Relying Party、以下 RP) はエンドユーザのパスワードやメールアドレスなどにアクセスする必要がなくなる。
+        
+      
+</p>
+<p>
+        OpenID は、分散方式であり、RP や OpenID プロバイダ (OpenID Provider 、以下 OP) の承認・登録を行なう中央集権的な機関は存在しない。エンドユーザは利用する OP を自由に選択することができ、OP を変更しても自身の識別子をそのまま継続して利用することができる。
+        
+      
+</p>
+<p>
+        プロトコル自体は JavaScript や最新ブラウザを必要としないが、AJAX を利用しても認証 (authentication) の仕組みは上手く機能する。つまり、エンドユーザは、現在のウェブページから離れずに、RP に自らの身元を証明できるのである。
+        
+      
+</p>
+<p>
+        OpenID 認証は、HTTP(S) の標準的な要求／応答だけを用いているため、ユーザエージェント (User-Agent) やクライアントソフトウェアが特別な機能を備えている必要はない。OpenID は、cookie をはじめ、RP や OP 特有のセッション管理方法には全く依存していない。ユーザエージェントの機能拡張により、エンドユーザの操作を簡素化できるが、プロトコル利用上は必ずしも必要ではない。
+        
+      
+</p>
+<p>
+        プロファイル情報の交換や、本仕様に記されていないその他の情報の交換については、本プロトコル上にサービスタイプを追加し、仕組みを構築することで実現可能である。OpenID 認証は、ポータブル (環境に依存せずに使用可能) でユーザセントリックなデジタルアイデンティティを、自由かつ分散的な方式で実現するための基盤サービスを提供するために設計された。
+        
+      
+</p><a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#anchor1">1.</a>&nbsp;
+要求記法および規則<br />
+<a href="#terminology">2.</a>&nbsp;
+用語<br />
+<a href="#anchor2">3.</a>&nbsp;
+プロトコルの概要<br />
+<a href="#anchor3">4.</a>&nbsp;
+データフォーマット<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">4.1.</a>&nbsp;
+プロトコルメッセージ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#btwoc">4.2.</a>&nbsp;
+整数表現<br />
+<a href="#anchor6">5.</a>&nbsp;
+通信形式<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#direct_comm">5.1.</a>&nbsp;
+直接通信 (Direct Communication)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#indirect_comm">5.2.</a>&nbsp;
+間接通信 (Indirect Communication)<br />
+<a href="#generating_signatures">6.</a>&nbsp;
+署名の生成<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor11">6.1.</a>&nbsp;
+署名の生成手順<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#sign_algos">6.2.</a>&nbsp;
+署名アルゴリズム<br />
+<a href="#anchor12">7.</a>&nbsp;
+開始とディスカバリ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#initiation">7.1.</a>&nbsp;
+開始<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#normalization">7.2.</a>&nbsp;
+正規化<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#discovery">7.3.</a>&nbsp;
+ディスカバリ<br />
+<a href="#associations">8.</a>&nbsp;
+アソシエーションの確立<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor17">8.1.</a>&nbsp;
+アソシエーションセッション要求<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor20">8.2.</a>&nbsp;
+アソシエーションセッション応答<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#assoc_types">8.3.</a>&nbsp;
+アソシエーション形式<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#assoc_sess_types">8.4.</a>&nbsp;
+アソシエーションセッション形式<br />
+<a href="#requesting_authentication">9.</a>&nbsp;
+認証要求<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor27">9.1.</a>&nbsp;
+要求パラメータ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#realms">9.2.</a>&nbsp;
+レルム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor28">9.3.</a>&nbsp;
+即時要求<br />
+<a href="#responding_to_authentication">10.</a>&nbsp;
+認証要求に対する応答<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#positive_assertions">10.1.</a>&nbsp;
+肯定アサーション<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#negative_assertions">10.2.</a>&nbsp;
+否定アサーション<br />
+<a href="#verification">11.</a>&nbsp;
+アサーションの検証<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_return_to">11.1.</a>&nbsp;
+戻り URL の検証<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_disco">11.2.</a>&nbsp;
+ディスカバリによって得られた情報の検証<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_nonce">11.3.</a>&nbsp;
+ノンスのチェック<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#verifying_signatures">11.4.</a>&nbsp;
+署名の検証<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#identifying">11.5.</a>&nbsp;
+エンドユーザの識別<br />
+<a href="#extensions">12.</a>&nbsp;
+拡張仕様<br />
+<a href="#rp_discovery">13.</a>&nbsp;
+OpenID リライングパーティーのディスカバリ<br />
+<a href="#compat_mode">14.</a>&nbsp;
+OpenID Authentication 1.1 との互換性<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor34">14.1.</a>&nbsp;
+OpenID Authentication 1.1 からの変更点<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor38">14.2.</a>&nbsp;
+OpenID Authentication 1.1 互換性の実装<br />
+<a href="#security_considerations">15.</a>&nbsp;
+セキュリティに関する考慮事項<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor41">15.1.</a>&nbsp;
+アタック（攻撃）からの防御<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor43">15.2.</a>&nbsp;
+ユーザエージェント<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor44">15.3.</a>&nbsp;
+ユーザインタフェースに関する考慮事項<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor45">15.4.</a>&nbsp;
+HTTP および HTTPS URL 識別子<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor46">15.5.</a>&nbsp;
+サービス妨害攻撃 （DoS 攻撃）<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor47">15.6.</a>&nbsp;
+プロトコルの可変項目<br />
+<a href="#anchor48">Appendix&nbsp;A.</a>&nbsp;
+使用例<br />
+<a href="#normalization_example">Appendix&nbsp;A.1.</a>&nbsp;
+正規化<br />
+<a href="#anchor49">Appendix&nbsp;A.2.</a>&nbsp;
+OP ローカル識別子<br />
+<a href="#XRDS_Sample">Appendix&nbsp;A.3.</a>&nbsp;
+XRDS<br />
+<a href="#anchor50">Appendix&nbsp;A.4.</a>&nbsp;
+HTML 識別子のマークアップ<br />
+<a href="#anchor51">Appendix&nbsp;A.5.</a>&nbsp;
+XRI 正準化 ID<br />
+<a href="#pvalue">Appendix&nbsp;B.</a>&nbsp;
+Diffie-Hellman 鍵交換のデフォルト値<br />
+<a href="#anchor52">Appendix&nbsp;C.</a>&nbsp;
+謝辞<br />
+<a href="#rfc.references1">16.</a>&nbsp;
+参考文献<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Author's Address<br />
+</p>
+<br clear="all" />
+
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+要求記法および規則</h3>
+
+<p>
+      本文書で用いられる各キーワード「MUST (しなければならない)」、「MUST NOT (してはならない)」、「REQUIRED (必須である)」、「SHALL (するものとする)」、「SHALL NOT (しないものとする)」、「SHOULD (すべきである)」、「SHOULD NOT (すべきではない)」、「RECOMMENDED (推奨される)」、「MAY (してもよい)」、「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, B., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; .</span><span>)</span></a> で述べられている通りに解釈されるべきものである。
+      
+      
+</p>
+<p>
+      本文書では、書いてあるままに解釈されるべき値は引用符 ("") で囲んで示している。プロトコルメッセージの中でこれらの値を使用する場合は、値の一部として引用符を用いてはならない (MUST NOT)。
+      
+      
+</p>
+<a name="terminology"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+用語</h3>
+
+<p>
+        </p>
+<blockquote class="text"><dl>
+<dt>識別子 (Identifier):</dt>
+<dd>
+            識別子は、"http" または "https" URI (本文書では、通例に従い "URL" と表記)、もしくは <a class='info' href='#XRI_Syntax_2.0'>XRI<span> (</span><span class='info'>Reed, D. and D. McAlpin, &ldquo;Extensible Resource Identifier (XRI) Syntax V2.0,&rdquo; .</span><span>)</span></a> [XRI_Syntax_2.0] のいずれかである。本文書では、様々な種類の識別子を定義するが、それぞれ異なるコンテキストでの使用を目的としている。
+            
+          
+</dd>
+<dt>ユーザエージェント (User-Agent):</dt>
+<dd>
+            HTTP/1.1 <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; .</span><span>)</span></a> を実装したエンドユーザのウェブブラウザ。
+            
+          
+</dd>
+<dt>リライングパーティー (Relying Party):</dt>
+<dd>
+            略語は RP。エンドユーザが識別子を管理しているという証明を要求するウェブアプリケーション。
+          
+          
+</dd>
+<dt>OpenID プロバイダ (OpenID Provider):</dt>
+<dd>
+            略語は OP。エンドユーザが識別子を管理しているというアサーション (assertion) を得るために RP が依存する OpenID 認証サーバ。
+            
+          
+</dd>
+<dt>OP エンドポイントURL (OP Endpoint URL):</dt>
+<dd>
+            OpenID 認証プロトコルメッセージを受け入れる URL で、ユーザ入力識別子 (User-Supplied Identifier) のディスカバリ (discovery) を実行することにより得られる。この値は、HTTP または HTTPS の絶対 URL でなければならない (MUST)。
+            
+          
+</dd>
+<dt>OP 識別子 (OP Identifier):</dt>
+<dd>
+            OP の識別子。
+            
+          
+</dd>
+<dt>ユーザ入力識別子 (User-Supplied Identifier):</dt>
+<dd>
+            エンドユーザが RP に提示する識別子、または OP においてユーザが選択した識別子。プロトコルの開始 (initiation) フェーズでは、エンドユーザは、自らの識別子、OP 識別子のどちらを入力してもよい。OP 識別子を用いる場合、OP は、エンドユーザが RP に提示する識別子の選択を支援してもよい。
+            
+          
+</dd>
+<dt>主張識別子 (Claimed Identifier):</dt>
+<dd>
+            エンドユーザが自らのものであると主張する識別子。プロトコル全体の狙いは、この主張を検証することにある。主張識別子は、以下のいずれかである。
+            
+            
+<ul class="text">
+<li>
+                URL の場合、ユーザ入力識別子を<a class='info' href='#normalization'>正規化<span> (</span><span class='info'>正規化</span><span>)</span></a>することで得られる識別子。
+                
+              
+</li>
+<li>
+                XRI の場合、<a class='info' href='#canonicalid'>正準化 ID (CanonicalID)<span> (</span><span class='info'>XRI および正準化 ID エレメント</span><span>)</span></a>。
+                
+              
+</li>
+</ul>
+          
+</dd>
+<dt>OP ローカル識別子 (OP-Local Identifier):</dt>
+<dd>
+            特定の OP でエンドユーザを識別するためにローカルに用いられる代替の識別子。必ずしもエンドユーザが管理しているものではない。
+            
+          
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+プロトコルの概要</h3>
+
+<p>
+        </p>
+<ol class="text">
+<li>
+            エンドユーザは、ユーザエージェントを通じて RP にユーザ入力識別子を提示することによって、<a class='info' href='#initiation'>認証を開始<span> (</span><span class='info'>開始</span><span>)</span></a>する。
+          
+          
+</li>
+<li>
+            ユーザ入力識別子を<a class='info' href='#normalization'>正規化<span> (</span><span class='info'>正規化</span><span>)</span></a>した後、RP はその<a class='info' href='#discovery'>ディスカバリを実行<span> (</span><span class='info'>ディスカバリ</span><span>)</span></a>し、エンドユーザが認証に用いる OP エンドポイント URL を確定する。ユーザ入力識別子は、OP 識別子である可能性があることに留意する必要があるが、この点については <a class='info' href='#discovered_info'>Section&nbsp;7.3.1<span> (</span><span class='info'>ディスカバリによって得られる情報</span><span>)</span></a> で述べる。OP 識別子のときは、OP で主張識別子を選択することができる。また、<a class='info' href='#extensions'>拡張仕様<span> (</span><span class='info'>拡張仕様</span><span>)</span></a>を利用して実用的な代替手段が取られている場合は、主張識別子を用いずにプロトコルを続行することもできる。
+          
+          
+</li>
+<li>
+            (オプション) 
+            RP と OP の間の<a class='info' href='#associations'>アソシエーション (association)<span> (</span><span class='info'>アソシエーションの確立</span><span>)</span></a> の確立は、<a class='info' href='#RFC2631'>Diffie-Hellman 鍵交換<span> (</span><span class='info'>Rescorla, E., &ldquo;Diffie-Hellman Key Agreement Method,&rdquo; .</span><span>)</span></a> [RFC2631]を用いた共有秘密鍵の発行をもって行う。OP はその後のメッセージに署名するためにアソシエーションを用い、RP はこれらのメッセージを検証するためにアソシエーションを用いる。その結果、それぞれの認証要求／応答に続く署名検証のための直接要求を行なう必要がなくなる。
+            
+          
+</li>
+<li>
+            RP は、エンドユーザのユーザエージェントを、OpenID <a class='info' href='#requesting_authentication'>認証要求<span> (</span><span class='info'>認証要求</span><span>)</span></a>とともに OP にリダイレクトする。
+            
+          
+</li>
+<li>
+            OP は、エンドユーザが OpenID 認証の実行を許可されているかどうか、さらにエンドユーザが認証の実行を求めているかどうかを確定する。OP におけるエンドユーザの認証方法およびそのような認証に関わるポリシーは全て、本文書の対象範囲外である。
+            
+          
+</li>
+<li>
+            OP は、エンドユーザのユーザエージェントを、<a class='info' href='#positive_assertions'>認証が承認された<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>ことを示すアサーション、<a class='info' href='#negative_assertions'>認証が失敗した<span> (</span><span class='info'>否定アサーション</span><span>)</span></a>ことを示すメッセージのどちらかとともに RP へリダイレクトする。
+            
+          
+</li>
+<li>
+            RP は、OP から受け取った情報を<a class='info' href='#verification'>検証<span> (</span><span class='info'>アサーションの検証</span><span>)</span></a>し、戻り URL (Return URL) のチェック、ディスカバリによって得られた情報の検証、ノンス (nonce) のチェックなどを行なう。また、アソシエーション確立時に発行した共有鍵、あるいは OP への直接要求のいずれかを用いて、署名を検証する。
+            
+           
+</li>
+</ol><p>
+      
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+データフォーマット</h3>
+
+<a name="anchor4"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1"></a><h3>4.1.&nbsp;
+プロトコルメッセージ</h3>
+
+<p>
+        OpenID 認証プロトコルメッセージは、プレーンテキストのキーとプレーンテキストの値とをマッピングしたものである。キーおよび値には、Unicode 文字セット (UCS) を全て使用することができる。キーおよび値とバイト形式との間の変換が必要な場合は、<a class='info' href='#RFC3629'>UTF-8<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of Unicode and ISO 10646,&rdquo; .</span><span>)</span></a> [RFC3629] を用いてエンコードしなければならない (MUST)。
+        
+        
+</p>
+<p>
+          メッセージは、同じ名前のパラメータを複数含んではならない (MUST NOT)。
+          
+        
+</p>
+<p>
+          本文書に記されている OpenID メッセージのパラメータは、全て必須である (REQUIRED)。ただし、任意である (OPTIONAL) と明示されている場合は、その限りではない。
+          
+        
+</p>
+<a name="kvform"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.1"></a><h3>4.1.1.&nbsp;
+キー・バリュー形式エンコーディング</h3>
+
+<p>
+            キー・バリュー形式のメッセージは、一連の行からなる。各行の最初はキーで、その後ろにコロンを付加し、キーと関連する値が続く。各行は、一個の改行文字 (UCS 文字コード番号 10, "\n") で終わる。キーまたは値は、改行文字を含んではならない (MUST NOT)。また、キーは、コロンを含んではならない (MUST NOT)。
+            
+          
+</p>
+<p>
+            空白を含む追加文字は、コロンまたは改行文字の前後に追加してはならない (MUST NOT)。メッセージからバイト文字列を生成するときは、UTF-8 でエンコードしなければならない (MUST)。
+            
+          
+</p>
+<p>
+          キー・バリュー形式エンコーディングは、署名計算および RP への<a class='info' href='#direct_response'>直接応答<span> (</span><span class='info'>直接応答 (Direct Response)</span><span>)</span></a>に利用される。
+          
+          
+</p>
+<a name="http_encoding"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.2"></a><h3>4.1.2.&nbsp;
+HTTP エンコーディング</h3>
+
+<p>
+          HTTP サーバにメッセージを送るときは、<a class='info' href='#HTML401'>[HTML401]<span> (</span><span class='info'>W3C, &ldquo;HTML 4.01 Specification,&rdquo; .</span><span>)</span></a> の Section 17.13.4 に定められるフォームエンコーディングを用いてエンコードしなければならない (MUST)。同様に、要求のヘッダに "Content-Type" ヘッダが含まれている場合は、その値も <a class='info' href='#HTML401'>[HTML401]<span> (</span><span class='info'>W3C, &ldquo;HTML 4.01 Specification,&rdquo; .</span><span>)</span></a> の Section 17.13.4 に定められたエンコーディングでなければならない (MUST)。
+          
+          
+</p>
+<p>
+            要求メッセージの全てのキーは、その前に "openid." プレフィックスを付加しなければならない (MUST)。このプレフィックスを付加することにより、OpenID 認証メッセージとともに受け渡される他のパラメータとの干渉を回避できる。メッセージを POST で送るとき、OpenID パラメータは常に POST ボディに格納して送り、POST ボディから抽出しなければならない (MUST)。
+            
+          
+</p>
+<p>
+            HTTP 要求 (GET または POST) として送られるメッセージは全て、以下のフィールドを含んでいなければならない (MUST)。
+            
+            </p>
+<ul class="text">
+<li>
+                openid.ns
+                
+<blockquote class="text">
+<p>
+                    値: "http://specs.openid.net/auth/2.0"
+                  
+</p>
+<p>
+                    要求が OpenID Authentication 2.0 として有効な要求であるためには、上記の値が存在していなければならない (MUST)。仕様の将来版においては、メッセージ受信者が要求を適切に解釈できるように、異なる値が定義される場合もある。
+                    
+                  
+</p>
+<p>
+                    この値が存在しない、あるいは "http://openid.net/signon/1.1" 、"http://openid.net/signon/1.0" のどちらかの値が設定されている場合、そのメッセージの解釈には、<a class='info' href='#compat_mode'>OpenID Authentication 1.1 互換モード<span> (</span><span class='info'>OpenID Authentication 1.1 との互換性</span><span>)</span></a>を用いるべきである (SHOULD)。
+                   
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.mode
+                
+<blockquote class="text">
+<p>
+                    値: メッセージタイプごとに個別に指定。
+                    
+                  
+</p>
+<p>
+                    "openid.mode" パラメータを用いることによって、メッセージ受信者は、処理中のメッセージの種類を知ることができる。"openid.mode" がない場合、メッセージ処理側は、その要求が OpenID メッセージではないと見なすべきである (SHOULD)。
+                  
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            このモデルは、ユーザエージェントから RP に送られるメッセージ、ユーザエージェントから OP に送られるメッセージ、そして RP から OP に送られるメッセージにも適用される。
+           
+          
+</p>
+<a name="anchor5"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.3"></a><h3>4.1.3.&nbsp;
+用例</h3>
+
+<p>
+            
+            参考
+          
+</p>
+<p>
+            下記は、次の情報のエンコード例である。
+            
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+キー    | 値
+--------+---------------------------
+mode    | error
+error   | This is an example message
+
+</pre></div>
+<p>
+            エンコードされたキー・バリュー形式：
+            
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>mode:error
+error:This is an example message
+
+</pre></div>
+<p>
+                HTTP POST ボディまたは URL のクエリ文字列に含まれるときなど x-www-urlencoded の場合 (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., &ldquo;Uniform Resource Identifiers (URI): Generic Syntax,&rdquo; .</span><span>)</span></a> Section 3) ：
+            
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>openid.mode=error&amp;openid.error=This%20is%20an%20example%20message</pre></div>
+<a name="btwoc"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.2"></a><h3>4.2.&nbsp;
+整数表現</h3>
+
+<p>
+          任意精度整数は、ビッグエンディアン符号付き 2 の補数表現バイナリ文字列にエンコードしなければならない (MUST)。以後 "btwoc" は、任意精度整数を引数とし、最も短いビッグエンディアン 2 の補数表現を返す関数とする。Diffie-Hellman 鍵交換で用いる整数は全て、正の数とする。つまり、2 の補数表現の最上位ビットはゼロでなければならない (MUST)。そうでない場合、文字列の先頭にゼロバイトを付加する実装をしなければならない (MUST)。
+          
+        
+</p>
+<p> 参考例:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+10 進数表現      | btwoc文字列表現
+---------------+----------------------------
+0              | "\x00"
+127            | "\x7F"
+128            | "\x00\x80"
+255            | "\x00\xFF"
+32768          | "\x00\x80\x00"
+
+</pre></div>
+<a name="anchor6"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+通信形式</h3>
+
+<a name="direct_comm"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+直接通信 (Direct Communication)</h3>
+
+<p>
+          直接通信は、OP エンドポイント URL に対し、RP 側から開始され、<a class='info' href='#associations'>アソシエーションの確立<span> (</span><span class='info'>アソシエーションの確立</span><span>)</span></a>および<a class='info' href='#check_auth'>認証アサーションの検証<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a>のために用いられる。
+          
+        
+</p>
+<a name="direct_request"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.1"></a><h3>5.1.1.&nbsp;
+直接要求 (Direct Request)</h3>
+
+<p>
+            メッセージは、<a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で指定した通り、POST ボディとしてエンコードしなければならない (MUST)。
+            
+          
+</p>
+<p>
+            直接要求は全て HTTP POST であり、そのため、<a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で示した必須フィールドを含む。
+            
+          
+</p>
+<a name="direct_response"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2"></a><h3>5.1.2.&nbsp;
+直接応答 (Direct Response)</h3>
+
+<p>
+            <a class='info' href='#direct_request'>直接要求<span> (</span><span class='info'>直接要求 (Direct Request)</span><span>)</span></a>への応答のボディは、<a class='info' href='#kvform'>キー・バリュー形式<span> (</span><span class='info'>キー・バリュー形式エンコーディング</span><span>)</span></a>の中の HTTP 応答ボディで構成される。応答の content-type は、"text/plain" とすべきである (SHOULD)。
+            
+          
+</p>
+<p>
+            キー・バリュー形式のメッセージは全て、以下のフィールドを含まなければならない (MUST)。
+            
+            </p>
+<ul class="text">
+<li>
+                ns
+                
+<blockquote class="text">
+<p>
+                    値: "http://specs.openid.net/auth/2.0"
+                  
+</p>
+<p>
+                    応答が OpenID 2.0 として有効な応答であるためには、上記の値が存在していなければならない (MUST)。仕様の将来版においては、メッセージ受信者が応答を適切に解釈できるように、異なる値が定義される場合もある。
+                    
+                  
+</p>
+<p>
+                    この値が存在しない、あるいは "http://openid.net/signon/1.1"、"http://openid.net/signon/1.0" のどちらかの値が設定されている場合、そのメッセージの解釈には、<a class='info' href='#compat_mode'>OpenID Authentication 1.1 互換モード<span> (</span><span class='info'>OpenID Authentication 1.1 との互換性</span><span>)</span></a>を用いるべきである (SHOULD)。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor7"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2.1"></a><h3>5.1.2.1.&nbsp;
+成功時の応答 (Successful Responses)</h3>
+
+<p>
+              サーバが有効な要求を受け取ったときは、HTTP ステータスコード 200 の応答を送らなければならない (MUST)。
+              
+            
+</p>
+<a name="anchor8"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2.2"></a><h3>5.1.2.2.&nbsp;
+エラー時の応答 (Error Responses)</h3>
+
+<p>
+              不正な要求があった場合や無効な引数が含まれていた場合、サーバは、HTTP ステータスコード 400 を含む応答を送らなければならない (MUST)。応答のボディは、以下のフィールドを含む<a class='info' href='#kvform'>キー・バリュー形式<span> (</span><span class='info'>キー・バリュー形式エンコーディング</span><span>)</span></a>メッセージでなければならない (MUST):
+              
+            
+</p>
+<p>
+              </p>
+<ul class="text">
+<li>
+                  ns
+                  
+<blockquote class="text">
+<p>
+                      <a class='info' href='#direct_response'>Section&nbsp;5.1.2<span> (</span><span class='info'>直接応答 (Direct Response)</span><span>)</span></a> で指定した通り。
+                      
+                    
+</p>
+</blockquote>
+                
+</li>
+<li>
+                  error
+                  
+<blockquote class="text">
+<p>
+                      
+                      値: 人間が解読可能なメッセージ。エラーの原因を示す。
+                    
+</p>
+</blockquote>
+                
+</li>
+<li>
+                  contact
+                  
+<blockquote class="text">
+<p>
+                      値: (オプション) サーバ管理者の連絡先。連絡先は、人間に対して表示するためのものなので、どのような形で記述してもよい。
+                      
+                    
+</p>
+</blockquote>
+                
+</li>
+<li>
+                  reference
+                  
+<blockquote class="text">
+<p>
+                      値: (オプション) サポートチケット番号やニュースブログへの URL などの参照トークン。
+                      
+                    
+</p>
+</blockquote>
+                
+</li>
+</ul><p>
+              OP は、この応答に追加フィールドを追加してもよい (MAY)。
+              
+            
+</p>
+<a name="indirect_comm"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2"></a><h3>5.2.&nbsp;
+間接通信 (Indirect Communication)</h3>
+
+<p>
+          間接通信では、ユーザエージェントを経由してメッセージの受け渡しを行う。間接通信は、RP、OP のいずれからでも開始することができる。間接通信は、<a class='info' href='#requesting_authentication'>認証要求<span> (</span><span class='info'>認証要求</span><span>)</span></a>および<a class='info' href='#responding_to_authentication'>認証応答<span> (</span><span class='info'>認証要求に対する応答</span><span>)</span></a>のために用いられる。
+          
+        
+</p>
+<p>
+          間接通信には、HTTP リダイレクトと HTML フォーム送信の二つの方法がある。フォーム送信もリダイレクトも、送信側が受信側の URL を知っていること、そして受信側の URL が <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で指定されているような、間接メッセージの受信を想定していることが求められる。通信を開始する側が、機能、メッセージサイズ、その他の外部要因に応じて適切な間接通信の方法を選択する。
+          
+        
+</p>
+<p>
+          全ての間接メッセージは HTTP 要求として受信され、そのため、<a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で示した必須フィールドを含む。
+          
+        
+</p>
+<a name="anchor9"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2.1"></a><h3>5.2.1.&nbsp;
+HTTP リダイレクト</h3>
+
+<p>
+            データは、302、303 または 307 HTTP リダイレクトを発行することによって、エンドユーザのユーザエージェントに転送できる。リダイレクト URL は受信側の URL で、<a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で指定されている通り、クエリ文字列に OpenID 認証メッセージが付加されている。
+            
+          
+</p>
+<a name="anchor10"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2.2"></a><h3>5.2.2.&nbsp;
+HTML フォームリダイレクト</h3>
+
+<p>
+            キーと値とのマッピングを転送するには、HTML フォームエレメントを含む HTML ページをユーザエージェントに戻す。フォーム送信は、JavaScript を用いるなどして自動化してもよい (MAY)。
+            
+          
+</p>
+<p>
+            &lt;form&gt; エレメントの "action" 属性値は、受信側の URL でなければならない (MUST)。それぞれのキー・バリューのペアは、&lt;input&gt; エレメントとしてフォームに含まれていなければならない (MUST)。フォーム送信を行なうとき、<a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で指定されている通りにユーザエージェントがメッセージを生成するように、キーは "name" 属性として、値は "value" 属性としてエンコードしなければならない (MUST)。フォームは送信ボタンを含まなければならない (MUST)。
+            
+          
+</p>
+<a name="indirect_error"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2.3"></a><h3>5.2.3.&nbsp;
+エラー時の間接応答</h3>
+
+<p>
+            不正な要求があった場合や無効な引数が含まれていた場合、OP は、ユーザエージェントを "openid.return_to" URL 値にリダイレクトしなければならない (MUST)。ただし、値が存在し、その値が有効な URL である場合に限る。
+            
+          
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                openid.ns
+                
+<blockquote class="text">
+<p>
+                    
+                    <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で指定した通り。
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.mode
+                
+<blockquote class="text">
+<p>
+                    値: "error"
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.error
+                
+<blockquote class="text">
+<p>
+                    値: 人間が解読可能なメッセージ。エラーの原因を示す。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.contact
+                
+<blockquote class="text">
+<p>
+                    値: (オプション) サーバ管理者の連絡先。連絡先は、人間に対して表示するためのものなので、どのような形で記述してもよい。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.reference
+                
+<blockquote class="text">
+<p>
+                    値: (オプション) サポートチケット番号やニュースブログへの URL などの参照トークン。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+
+            サーバは、この応答に追加の鍵を追加してもよい (MAY)。
+            
+          
+</p>
+<p>
+            RP が不正なメッセージや無効なメッセージを受け取った場合、もしくは、"openid.return_to" が存在しなかったり、その値が有効な URL ではなかったりした場合、サーバはエンドユーザに応答を戻し、エラーが生じ、処理が継続できないことを示すべきである (SHOULD)。
+            
+          
+</p>
+<a name="generating_signatures"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+署名の生成</h3>
+
+<p>
+        アソシエーションは、OpenID 認証メッセージに署名するために使用するメッセージ認証コード (MAC) 鍵として用いるのが最も一般的である。
+        
+      
+</p>
+<p>
+        MAC 鍵を生成するときは、<a class='info' href='#RFC1750'>[RFC1750]<span> (</span><span class='info'>Eastlake, D., Crocker, S., and J. Schiller, &ldquo;Randomness Recommendations for Security,&rdquo; .</span><span>)</span></a> に記されている勧告に従うべきである (SHOULD)。
+        
+      
+</p>
+<a name="anchor11"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.1"></a><h3>6.1.&nbsp;
+署名の生成手順</h3>
+
+<p>
+          署名の生成手順は、以下の通りである。
+          
+
+          </p>
+<ol class="text">
+<li>
+              署名すべきメッセージに応じて、署名すべきキーのリストを決定する (<a class='info' href='#positive_assertions'>Section&nbsp;10.1<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a> 参照)。署名すべきキーのリストは、メッセージの一部でなければならない (MUST)。リストは "openid.signed" キーとともに格納される。値は、"openid." プレフィックスを削除したコンマ区切りのキーのリストである。このアルゴリズムは、"openid." で始まるキーの署名にのみ用いることができる。
+              
+            
+</li>
+<li>
+              "openid.signed" に示された順序で、署名すべきキーのリストそれぞれについて、メッセージ中から "openid." で始まり同じキーを持つ値を探す。
+              
+            
+</li>
+<li>
+              署名すべキーと値のペアのリストを、<a class='info' href='#kvform'>キー・バリュー形式エンコーディング<span> (</span><span class='info'>キー・バリュー形式エンコーディング</span><span>)</span></a>でエンコードしてオクテット文字列に変換する。
+              
+            
+</li>
+<li>
+              <a class='info' href='#associations'>アソシエーション形式<span> (</span><span class='info'>アソシエーションの確立</span><span>)</span></a>から<a class='info' href='#sign_algos'>署名アルゴリズム<span> (</span><span class='info'>署名アルゴリズム</span><span>)</span></a>を決定する。その署名アルゴリズムをオクテット文字列に適用する。
+              
+            
+</li>
+</ol><p>
+        
+</p>
+<a name="sign_algos"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2"></a><h3>6.2.&nbsp;
+署名アルゴリズム</h3>
+
+<p>
+          OpenID 認証は、以下のふたつの署名アルゴリズムをサポートしている。
+          
+
+          </p>
+<ul class="text">
+<li>HMAC-SHA1 - 160 ビット鍵長 (<a class='info' href='#RFC2104'>[RFC2104]<span> (</span><span class='info'>Krawczyk, H., Bellare, M., and R. Canetti, &ldquo;HMAC: Keyed-Hashing for Message Authentication,&rdquo; .</span><span>)</span></a> および <a class='info' href='#RFC3174'>[RFC3174]<span> (</span><span class='info'>Eastlake, D. and P. Jones, &ldquo;US Secure Hash Algorithm 1 (SHA1),&rdquo; .</span><span>)</span></a>)
+</li>
+<li>HMAC-SHA256 - 256 ビット鍵長 (<a class='info' href='#RFC2104'>[RFC2104]<span> (</span><span class='info'>Krawczyk, H., Bellare, M., and R. Canetti, &ldquo;HMAC: Keyed-Hashing for Message Authentication,&rdquo; .</span><span>)</span></a> および <a class='info' href='#FIPS180-2'>[FIPS180&#8209;2]<span> (</span><span class='info'>U.S. Department of Commerce and National Institute of Standards               and Technology, &ldquo;Secure Hash Signature Standard,&rdquo; .</span><span>)</span></a>)
+</li>
+</ul><p>
+
+          サポートされている場合は、HMAC-SHA256 の使用を推奨する (RECOMMENDED)。
+          
+        
+</p>
+<a name="anchor12"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+開始とディスカバリ</h3>
+
+<a name="initiation"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.1"></a><h3>7.1.&nbsp;
+開始</h3>
+
+<p>
+          OpenID 認証を開始するに当り、RP は、ユーザ入力識別子の入力フォームをエンドユーザに提示すべきである (SHOULD)。
+          
+        
+</p>
+<p>
+          フォームが OpenID フォームであることが自動的に判断できるように、フォームフィールドの "name" 属性値は、"openid_identifier" であるべきである (SHOULD)。この属性に適切な値が設定されていないと、ブラウザの拡張機能など OpenID 認証をサポートするソフトウェアが RP のサポートを検出できないこともある。
+          
+        
+</p>
+<a name="normalization"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.2"></a><h3>7.2.&nbsp;
+正規化</h3>
+
+<p>
+          エンドユーザの入力は、識別子へと正規化されなければならない (MUST)。その手順を以下に示す。
+          
+        
+</p>
+<p>
+          </p>
+<ol class="text">
+<li>
+              ユーザの入力がプレフィックス "xri://" で始まる場合は、XRI が正準形式で使用されるように、その部分を削除しなければならない (MUST)。
+              
+            
+</li>
+<li>
+              その結果得られた文字列の最初の文字が、<a class='info' href='#XRI_Syntax_2.0'>[XRI_Syntax_2.0]<span> (</span><span class='info'>Reed, D. and D. McAlpin, &ldquo;Extensible Resource Identifier (XRI) Syntax V2.0,&rdquo; .</span><span>)</span></a> Section 2.2.1 で定義されている XRI グローバルコンテキストシンボル (Global Context Symbol) ("=", "@", "+", "$", "!") または "(" である場合、入力は XRI として扱うべきである (SHOULD)。
+              
+            
+</li>
+<li>
+              そうでない場合、入力は、http URL として扱うべきである (SHOULD)。得られた文字列に "http" または "https" スキームが含まれていない場合は、識別子の先頭に "http://" という文字列を付加しなければならない (MUST)。URL にフラグメント部分が含まれている場合、フラグメントの区切り文字 "#" も合わせて、その部分を削除しなければならない (MUST)。詳しくは、<a class='info' href='#http_s_identifiers'>Section&nbsp;11.5.2<span> (</span><span class='info'>HTTP および HTTPS URL 識別子</span><span>)</span></a> 参照。
+              
+            
+</li>
+<li>
+              その後、コンテンツを取得するときにリダイレクトを辿り、最終的な目的の URL に対して <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., &ldquo;Uniform Resource Identifiers (URI): Generic Syntax,&rdquo; .</span><span>)</span></a> Section 6 に記されている規則を適用することによって、URL 識別子をさらに正規化しなければならない (MUST)。この最終 URL を、RP は主張識別子として記録し、<a class='info' href='#requesting_authentication'>認証要求<span> (</span><span class='info'>認証要求</span><span>)</span></a>時に使用しなければならない (MUST)。
+              
+            
+</li>
+</ol><p>
+
+          <a class='info' href='#normalization_example'>正規化例<span> (</span><span class='info'>正規化</span><span>)</span></a>参照。
+          
+
+        
+</p>
+<a name="discovery"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3"></a><h3>7.3.&nbsp;
+ディスカバリ</h3>
+
+<p>
+          ディスカバリ (discovery) は、RP が識別子を使用して、要求の開始に必要な情報を調べる (“発見する (discover) ”) プロセスである。OpenID 認証には、ディスカバリを実行する3つの経路がある。
+          
+        
+</p>
+<p>
+          </p>
+<ol class="text">
+<li>
+              識別子が XRI の場合、<a class='info' href='#XRI_Resolution_2.0'>[XRI_Resolution_2.0]<span> (</span><span class='info'>Wachob, G., Reed, D., Chasen, L., Tan, W., and S. Churchill, &ldquo;Extensible Resource Identifier (XRI) Resolution V2.0           - Committee Draft 02,&rdquo; .</span><span>)</span></a> によって、必要な情報が記された XRDS 文書が生成される。また、RP は、XDI.org が http://www.xri.net で提供されているような XRI プロキシリゾルバを活用できるという点にも留意すべきである。XRI プロキシリゾルバを活用することによって、RP は XRI レゾリューションをローカルに行なう必要がなくなる。
+              
+            
+</li>
+<li>
+              識別子が URL の場合は、<a class='info' href='#Yadis'>Yadis プロトコル<span> (</span><span class='info'>Miller, J., &ldquo;Yadis Specification 1.0,&rdquo; .</span><span>)</span></a> [Yadis] を最初に試みるものとする (SHALL)。成功すれば、同様に XRDS 文書が結果として生成される。
+              
+            
+</li>
+<li>
+              Yadis プロトコルが失敗し、有効な XRDS 文書が取得できない場合、あるいは、XRDS 文書に<a class='info' href='#service_elements'>サービスエレメント<span> (</span><span class='info'>OpenID サービスエレメント</span><span>)</span></a>が記されていない場合は、URL を取得し、<a class='info' href='#html_disco'>HTML ベースのディスカバリ<span> (</span><span class='info'>HTML ベースのディスカバリ</span><span>)</span></a>を試みるものとする (SHALL)。
+              
+            
+</li>
+</ol><p>
+        
+</p>
+<a name="discovered_info"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.1"></a><h3>7.3.1.&nbsp;
+ディスカバリによって得られる情報</h3>
+
+<p>
+            ディスカバリが正常に完了すると、RP は、以下に示す情報を一組以上取得できる (定義については、<a class='info' href='#terminology'>用語セクション<span> (</span><span class='info'>用語</span><span>)</span></a>を参照)。以下に示す情報が二組以上得られた場合は、<a class='info' href='#XRI_Resolution_2.0'>[XRI_Resolution_2.0]<span> (</span><span class='info'>Wachob, G., Reed, D., Chasen, L., Tan, W., and S. Churchill, &ldquo;Extensible Resource Identifier (XRI) Resolution V2.0           - Committee Draft 02,&rdquo; .</span><span>)</span></a> で定義されている優先順位規則を適用する。
+            
+
+            </p>
+<ul class="text">
+<li>OP エンドポイント URL
+</li>
+<li>プロトコルバージョン
+</li>
+</ul><p>
+
+            エンドユーザが OP 識別子を入力しなかった場合は、以下の情報も得られる。
+            
+
+            </p>
+<ul class="text">
+<li>主張識別子
+</li>
+<li>OP ローカル識別子
+</li>
+</ul><p>
+
+            エンドユーザが OP 識別子を入力すると、主張識別子は得られない。OpenID 認証要求を行なう目的で、OP 識別子を入力するときには、主張識別子、OP ローカル識別子 の値はともに、"http://specs.openid.net/auth/2.0/identifier_select" を用いなければならない (MUST)。
+            
+          
+</p>
+<a name="anchor13"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2"></a><h3>7.3.2.&nbsp;
+XRDS ベースのディスカバリ</h3>
+
+<p>
+            XRI または Yadis ディスカバリを用いた場合、その結果、XRDS 文書が得られる。この XML 文書には、識別子に関連するサービスのエントリが含まれている。その定義は、<a class='info' href='#XRI_Resolution_2.0'>Section 3<span> (</span><span class='info'>Wachob, G., Reed, D., Chasen, L., Tan, W., and S. Churchill, &ldquo;Extensible Resource Identifier (XRI) Resolution V2.0           - Committee Draft 02,&rdquo; .</span><span>)</span></a> [XRI_Resolution_2.0] で行われている。付属資料 A.3 の <a class='info' href='#XRDS_Sample'>Appendix&nbsp;A.3<span> (</span><span class='info'>XRDS</span><span>)</span></a>を参照のこと。
+            
+          
+</p>
+<a name="service_elements"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2.1"></a><h3>7.3.2.1.&nbsp;
+OpenID サービスエレメント</h3>
+
+<a name="anchor14"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2.1.1"></a><h3>7.3.2.1.1.&nbsp;
+OP 識別子エレメント</h3>
+
+<p>
+                OP 識別子エレメントは、以下の情報を有する &lt;xrd:Service&gt; エレメントである。
+                
+
+                </p>
+<blockquote class="text"><dl>
+<dt></dt>
+<dd>
+                    テキスト内容が "http://specs.openid.net/auth/2.0/server" の &lt;xrd:Type&gt; タグ
+                    
+                  
+</dd>
+<dt></dt>
+<dd>
+                    テキスト内容が OP エンドポイント URL の &lt;xrd:URI&gt; タグ
+                    
+                  
+</dd>
+</dl></blockquote><p>
+              
+</p>
+<a name="anchor15"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2.1.2"></a><h3>7.3.2.1.2.&nbsp;
+主張識別子エレメント</h3>
+
+<p>
+                主張識別子エレメントは、以下の情報を有する &lt;xrd:Service&gt; エレメントである。
+                
+
+                </p>
+<blockquote class="text"><dl>
+<dt></dt>
+<dd>
+                    テキスト内容が "http://specs.openid.net/auth/2.0/signon" の &lt;xrd:Type&gt; タグ
+                    
+                  
+</dd>
+<dt></dt>
+<dd>
+                    テキスト内容が OP エンドポイント URL の &lt;xrd:URI&gt; タグ
+                    
+                  
+</dd>
+<dt></dt>
+<dd>
+                    テキスト内容が OP ローカル識別子 の &lt;xrd:LocalID&gt; タグ (オプション)
+                    
+                  
+</dd>
+</dl></blockquote><p>
+              
+</p>
+<a name="extracting_auth"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2.2"></a><h3>7.3.2.2.&nbsp;
+認証データの抽出</h3>
+
+<p>
+              RP が XRDS 文書を取得したら、まず (<a class='info' href='#XRI_Resolution_2.0'>[XRI_Resolution_2.0]<span> (</span><span class='info'>Wachob, G., Reed, D., Chasen, L., Tan, W., and S. Churchill, &ldquo;Extensible Resource Identifier (XRI) Resolution V2.0           - Committee Draft 02,&rdquo; .</span><span>)</span></a> に記されている規則に従って)、その文書の中から OP 識別子エレメントを検索しなければならない (MUST)。見つからない場合は、主張識別子エレメントを検索する。
+              
+            
+</p>
+<a name="canonicalid"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2.3"></a><h3>7.3.2.3.&nbsp;
+XRI および正準化 ID エレメント</h3>
+
+<p>
+              識別子が XRI の場合、OpenID 認証エレメント &lt;xrd:Service&gt; を含む &lt;xrd:XRD&gt; エレメントには、&lt;CanonicalID&gt; エレメントも含まれていなければならない (MUST)。また、このエレメントの内容を主張識別子として使用しなければならない (MUST) (<a class='info' href='#identifying'>Section&nbsp;11.5<span> (</span><span class='info'>エンドユーザの識別</span><span>)</span></a> 参照)。これはセキュリティ上の配慮として不可欠である。その理由は、&lt;CanonicalID&gt; エレメント の主要目的は、再度割り当てられることがない永続的 (persistent) な識別子を検証し、XRI が新たな登録者に ("乗っ取られる") 可能性をなくすことにあるからである。
+              
+            
+</p>
+<p>
+              RPは、&lt;CanonicalID&gt; エレメントを含む XRD の提供者がその正準化 ID に対する権限を有していること、また、当該 XRDS 文書がその OpenID サービスエレメントに対する権限を有していることを確認しなければならない (MUST)。RP は、これを手動で行なうか、リゾルバによる実施を確保すべきである。
+              
+           
+</p>
+<p>
+              XRI レゾリューションを用いる場合、正準化 ID を主張識別子として使用しなければならない (MUST)。XRI が有効な識別子であるためには、&lt;ProviderID&gt; と &lt;CanonicalID&gt; の両方がディスカバリによって得られた XRDS 文書の中に記されていなければならない (MUST)。
+              
+            
+</p>
+<p>
+              URL 識別子を用いる場合、正準化 ID が記されていたとしても、それを無視しなければならない (MUST)。
+              
+            
+</p>
+<a name="anchor16"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.2.4"></a><h3>7.3.2.4.&nbsp;
+追加情報</h3>
+
+<p>
+              OpenID Authentication 2.0 以降、"openid"名前空間は使用されない。"xrd"名前空間は、"xri://$xrd*($v*2.0)" である。
+              
+            
+</p>
+<p>
+              使用されている既存のコードに対する互換性を確保するため、RP は、<a class='info' href='#compat_mode'>OpenID Authentication 1.1 互換モード<span> (</span><span class='info'>OpenID Authentication 1.1 との互換性</span><span>)</span></a>のセクションで記した通り、&lt;xrd:Type&gt; の値として "http://openid.net/signon/1.0" または "http://openid.net/signon/1.1" を受け入れることが推奨される (RECOMMENDED)。OpenID Authentication 2.0 をサポートする RP は、"http://specs.openid.net/auth/2.0/server" および "http://specs.openid.net/auth/2.0/signon" タイプのエンドポイントが利用可能な場合、<a class='info' href='#extracting_auth'>Section&nbsp;7.3.2.2<span> (</span><span class='info'>認証データの抽出</span><span>)</span></a> で指定した順序で、これらのエンドポイントの利用を選択することが推奨される (RECOMMENDED)。
+              
+            
+</p>
+<p>
+              OP が拡張仕様 (<a class='info' href='#extensions'>Section&nbsp;12<span> (</span><span class='info'>拡張仕様</span><span>)</span></a> 参照) をサポートする場合は、その拡張仕様を &lt;xrd:Service&gt; エレメントの追加の &lt;xrd:Type&gt; 子エレメントとして列記すべきである (SHOULD)。
+              
+            
+</p>
+<a name="html_disco"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.3.3"></a><h3>7.3.3.&nbsp;
+HTML ベースのディスカバリ</h3>
+
+<p>
+            RP は、HTML ベースのディスカバリをサポートしなければならない (MUST)。HTML ベースのディスカバリは、主張識別子のディスカバリにのみ用いることができる。OP 識別子は、XRDS ディスカバリをサポートする XRI または URL でなければならない。
+            
+          
+</p>
+<p>
+            HTML ベースのディスカバリを利用するためには、主張識別子の URL に HTML 文書が用意されていなければならない (MUST)。文書の HEAD エレメントは以下の要素を含む。
+            
+
+            </p>
+<blockquote class="text">
+<p>
+                "rel" 属性が "openid2.provider" 、"href" 属性が OP エンドポイント URL に設定された LINK エレメントを含まなければならない (MUST)。
+                
+              
+</p>
+<p>
+                "rel" 属性が "openid2.local_id" 、"href" 属性がエンドユーザの OP ローカル識別子 に設定された LINK エレメントを含んでいてもよい (MAY)。
+                
+              
+</p>
+</blockquote><p>
+          
+</p>
+<p>
+            HTMLディスカバリの際のプロトコルバージョンは "http://specs.openid.net/auth/2.0/signon" である。
+            
+          
+</p>
+<p>
+            HTML 文書の提供ホストは、エンドユーザの OP のホストと異なっていてもよい (MAY)。
+            
+          
+</p>
+<p>
+            "openid2.provider" および "openid2.local_id" URL は、"&amp;amp;" 、"&amp;lt;" 、"&amp;gt;" 、"&amp;quot;" 以外のエンティティを含んでいてはならない (MUST NOT)。HTML 文書において有効でない、あるいは、文書の文字エンコーディングにおいて表現できない、その他の文字の使用は、<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., &ldquo;Uniform Resource Identifiers (URI): Generic Syntax,&rdquo; .</span><span>)</span></a> に示されるパーセントエンコーディング (%xx) の仕組みを用いて、エスケープしなければならない (MUST)。
+            
+          
+</p>
+<p>
+            <a class='info' href='#compat_mode'>OpenID Authentication 1.1 互換モード<span> (</span><span class='info'>OpenID Authentication 1.1 との互換性</span><span>)</span></a>のセクションで述べたように、これらのディスカバリタグは前バージョンのプロトコルとは同じではない。送られるデータに変更はないが、RP が使用するプロトコルのバージョンを決定できるように名称が変更された。RP は、バージョン 1.1 および 2.0 の両方のプロバイダを通知するために HTML ベースのディスカバリを利用する主張識別子に遭遇することもある (MAY)。
+            
+          
+</p>
+<a name="associations"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+アソシエーションの確立</h3>
+
+<p>
+        RP と OP との間でアソシエーションを確立すると、共有秘密鍵が発行される。この共有秘密鍵を、その後両者間で交換されるプロトコルメッセージの検証に用いることで、メッセージのやりとりを減らすことができる。
+        
+      
+</p>
+<p>
+        RP がアソシエーションを形成できる場合は、アソシエーションを形成することが推奨される (RECOMMENDED)。RP がアソシエーションを構築・保持できない場合は、<a class='info' href='#check_auth'>Section&nbsp;11.4.2<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a> に示される代わりの検証の仕組みを用いる。この仕組みは、ステートレスモード (Stateless Mode) と呼ばれる。
+        
+      
+</p>
+<a name="anchor17"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1"></a><h3>8.1.&nbsp;
+アソシエーションセッション要求</h3>
+
+<p>
+          アソシエーションセッション (Association Session) は、RP から OP エンドポイント URL に対して、"openid.mode" が "associate" である<a class='info' href='#direct_comm'>直接要求<span> (</span><span class='info'>直接通信 (Direct Communication)</span><span>)</span></a>を行なうことよって開始される。
+          
+        
+</p>
+<a name="anchor18"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1.1"></a><h3>8.1.1.&nbsp;
+共通の要求パラメータ</h3>
+
+<p>
+            以下のパラメータは、全てのアソシエーション要求において共通して用いられる。
+            
+          
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>openid.ns
+                
+<blockquote class="text">
+<p>
+                    <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> で指定した通り。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>openid.mode
+                
+<blockquote class="text">
+<p>値："associate"
+</p>
+</blockquote>
+              
+</li>
+<li>openid.assoc_type
+                
+<blockquote class="text">
+<p>
+                    推奨されるアソシエーション形式。アソシエーション形式は、以後のメッセージの署名を行なう際に用いられるアルゴリズムを定義するためのものである。
+                  
+</p>
+<p>
+                    値：<a class='info' href='#assoc_types'>Section&nbsp;8.3<span> (</span><span class='info'>アソシエーション形式</span><span>)</span></a> で指定される有効なアソシエーション形式から選択。
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>openid.session_type
+                
+<blockquote class="text">
+<p>
+                    推奨されるアソシエーションセッション形式。データ送信中にアソシエーションの MAC 鍵の暗号化に用いる方法を定義する。
+                    
+                  
+</p>
+<p>
+                    値：<a class='info' href='#assoc_sess_types'>Section&nbsp;8.4<span> (</span><span class='info'>アソシエーションセッション形式</span><span>)</span></a> で指定される有効なアソシエーションセッション形式から選択。
+                    
+                  
+</p>
+<p>
+                    注：トランスポート層の暗号化を使用していない場合は、"no-encryption" を用いてはならない (MUST NOT)。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor19"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1.2"></a><h3>8.1.2.&nbsp;
+Diffie-Hellman 要求パラメータ</h3>
+
+<p>
+            以下のパラメータは、要求するアソシエーションセッション形式が "DH-SHA1" の要求および "DH-SHA256" の要求の両方の場合に共通して用いられる:
+            
+          
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                openid.dh_modulus
+                
+<blockquote class="text">
+<p>
+                    値： base64(btwoc(p))
+                  
+</p>
+<p>
+                    デフォルト値：<a class='info' href='#pvalue'>Appendix&nbsp;B<span> (</span><span class='info'>Diffie-Hellman 鍵交換のデフォルト値</span><span>)</span></a> 参照
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.dh_gen
+                
+<blockquote class="text">
+<p>
+                    値： base64(btwoc(g))
+                  
+</p>
+<p>
+                    デフォルト値：g = 2
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.dh_consumer_public
+                
+<blockquote class="text">
+<p>
+                    値： base64(btwoc(g ^ xa mod p))
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            これらのパラメータに関する詳細は、<a class='info' href='#dh_sessions'>Section&nbsp;8.4.2<span> (</span><span class='info'>Diffie-Hellman アソシエーションセッション</span><span>)</span></a> 参照。
+            
+          
+</p>
+<p>
+            注： 'btwoc' 関数については、<a class='info' href='#btwoc'>Section&nbsp;4.2<span> (</span><span class='info'>整数表現</span><span>)</span></a> で定義した通りである。
+            
+          
+</p>
+<a name="anchor20"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2"></a><h3>8.2.&nbsp;
+アソシエーションセッション応答</h3>
+
+<p>
+          アソシエーションセッション応答は、OP から RP に対して行なう<a class='info' href='#kvform'>キー・バリュー形式<span> (</span><span class='info'>キー・バリュー形式エンコーディング</span><span>)</span></a>での直接応答である。
+          
+        
+</p>
+<a name="anchor21"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2.1"></a><h3>8.2.1.&nbsp;
+共通の応答パラメータ</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                ns
+                
+<blockquote class="text">
+<p>
+                    <a class='info' href='#direct_response'>Section&nbsp;5.1.2<span> (</span><span class='info'>直接応答 (Direct Response)</span><span>)</span></a> で指定した通り。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                assoc_handle
+                
+<blockquote class="text">
+<p>
+                    アソシエーションハンドル (association handle) は、以後のメッセージにおいて、このアソシエーションを参照するキーとして用いられる。
+                    
+                  
+</p>
+<p>
+                    値： 長さが 255 文字以下の文字列。33-126 の範囲に含まれる ASCII 文字 (空白を除く印刷可能な文字) のみで構成しなければならない (MUST)。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                session_type
+                
+<blockquote class="text">
+<p>
+                    要求の中の "openid.session_type" パラメータの値。OP がこのアソシエーション形式をサポートしたくない、あるいはサポートできない場合は、<a class='info' href='#refuse_assoc'>失敗時の応答<span> (</span><span class='info'>失敗時の応答パラメータ</span><span>)</span></a>を戻さなければならない (MUST)。
+                    
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                assoc_type
+                
+<blockquote class="text">
+<p>
+                    要求の中の "openid.assoc_type" パラメータの値。OP がこのアソシエーション形式をサポートしたくない、あるいはサポートできない場合は、<a class='info' href='#refuse_assoc'>失敗時の応答<span> (</span><span class='info'>失敗時の応答パラメータ</span><span>)</span></a>を戻さなければならない (MUST)。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                expires_in
+                
+<blockquote class="text">
+<p>
+                    このアソシエーションの有効期限 (単位：秒)。RP は、当該期限を経過した後に、そのアソシエーションを使用してはならない (MUST NOT)。
+                    
+                  
+</p>
+<p>
+                    値： 整数値、ASCII 文字 10 進数表現。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor22"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2.2"></a><h3>8.2.2.&nbsp;
+暗号化されない応答パラメータ</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                mac_key
+                
+<blockquote class="text">
+<p>
+                    このアソシエーションの MAC 鍵 (共有秘密鍵) で、<a class='info' href='#RFC3548'>Base 64<span> (</span><span class='info'>Josefsson, S., &ldquo;The Base16, Base32, and Base64 Data Encodings,&rdquo; .</span><span>)</span></a> [RFC3548] でエンコードしたもの。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor23"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2.3"></a><h3>8.2.3.&nbsp;
+Diffie-Hellman 応答パラメータ</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                dh_server_public
+                
+<blockquote class="text">
+<p>
+                    値： base64(btwoc(g ^ xb mod p))
+                    
+                  
+</p>
+<p>
+                    説明： OP の Diffie-Hellman 公開鍵。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                enc_mac_key
+                
+<blockquote class="text">
+<p>
+                    値： base64(H(btwoc(g ^ (xa * xb) mod p)) XOR MAC 鍵)
+                    
+                  
+</p>
+<p>
+                    説明： MAC 鍵 (共有秘密鍵) で、秘密の Diffie-Hellman 値を用いて暗号化したもの。セッション形式に応じて、ハッシュ関数 H は "SHA1" 、"SHA256" のいずれかとなる。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            注： 'btwoc' 関数については、<a class='info' href='#btwoc'>Section&nbsp;4.2<span> (</span><span class='info'>整数表現</span><span>)</span></a> で定義した通りである。
+            
+          
+</p>
+<a name="refuse_assoc"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2.4"></a><h3>8.2.4.&nbsp;
+失敗時の応答パラメータ</h3>
+
+<p>
+            OP がセッション形式やアソシエーション形式をサポートしていない場合、アソシエーション要求が失敗したことを示す直接のエラーメッセージを含む応答を返さなければならない (MUST)。他のアソシエーションセッション形式またはアソシエーション形式をサポートしている場合、OP は、応答にその情報を含めるべきである。
+            
+          
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                ns
+                
+<blockquote class="text">
+<p>
+                    <a class='info' href='#direct_response'>Section&nbsp;5.1.2<span> (</span><span class='info'>直接応答 (Direct Response)</span><span>)</span></a> で指定した通り。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                error
+                
+<blockquote class="text">
+<p>
+                    値： 人間が解読可能なメッセージ。アソシエーション要求が失敗した理由を示す。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                error_code
+                
+<blockquote class="text">
+<p>
+                    値： "unsupported-type"
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                session_type
+                
+<blockquote class="text">
+<p>
+                    値： (オプション) <a class='info' href='#assoc_sess_types'>Section&nbsp;8.4<span> (</span><span class='info'>アソシエーションセッション形式</span><span>)</span></a> に示される有効なアソシエーションセッション形式のうち、OP がサポートしているもの。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                assoc_type
+                
+<blockquote class="text">
+<p>
+                    値： (オプション) <a class='info' href='#assoc_types'>Section&nbsp;8.3<span> (</span><span class='info'>アソシエーション形式</span><span>)</span></a> に示されるアソシエーション形式のうち、OP がサポートしているもの。
+                    
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            "unsupported-type" の応答を受け取ったとき、RP は、アソシエーションセッション形式およびアソシエーション形式を指定して、再度、要求を行なってもよい (MAY)。アソシエーションが確立できない場合、RP は、<a class='info' href='#check_auth'>直接検証<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a>の形で認証プロセスを継続してもよい (MAY)。
+            
+          
+</p>
+<a name="assoc_types"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.3"></a><h3>8.3.&nbsp;
+アソシエーション形式</h3>
+
+<a name="anchor24"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.3.1"></a><h3>8.3.1.&nbsp;
+HMAC-SHA1</h3>
+
+<p>
+            "HMAC-SHA1" 形式のアソシエーションでは、<a class='info' href='#sign_algos'>HMAC-SHA1<span> (</span><span class='info'>署名アルゴリズム</span><span>)</span></a> 署名アルゴリズムを用いる。
+            
+          
+</p>
+<a name="anchor25"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.3.2"></a><h3>8.3.2.&nbsp;
+HMAC-SHA256</h3>
+
+<p>
+            "HMAC-SHA256" 形式のアソシエーションでは、<a class='info' href='#sign_algos'>HMAC-SHA256<span> (</span><span class='info'>署名アルゴリズム</span><span>)</span></a> 署名アルゴリズムを用いる。
+            
+          
+</p>
+<a name="assoc_sess_types"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.4"></a><h3>8.4.&nbsp;
+アソシエーションセッション形式</h3>
+
+<p>
+          OpenID 認証では、"no-encryption" 、"DH-SHA1" 、"DH-SHA256" の3 種類の有効なアソシエーションセッション形式が定義されている。
+          
+        
+</p>
+<a name="anchor26"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.4.1"></a><h3>8.4.1.&nbsp;
+暗号化されないアソシエーションセッション</h3>
+
+<p>
+            "no-encryption" 形式のアソシエーションセッションでは、そのアソシエーションの MAC 鍵が OP から RP にプレーンテキストで送られる。そのため、トランスポート層での暗号化を行わない場合、悪意ある第三者がその鍵を傍受し、受信する RP に対してメッセージを改ざんすることが可能となる。従って、メッセージがトランスポート層での暗号化を行わない場合は、"no-encryption" 形式のアソシエーションセッションを用いてはならない (MUST NOT)。詳しくは、<a class='info' href='#preventing_eavesdropping'>Section&nbsp;15.1.1<span> (</span><span class='info'>盗聴攻撃</span><span>)</span></a> を参照。
+            
+          
+</p>
+<p>
+            OP から送られる MAC 鍵 は、<a class='info' href='#sign_algos'>Section&nbsp;6.2<span> (</span><span class='info'>署名アルゴリズム</span><span>)</span></a> で指定した通り、要求されたアソシエーション形式で指定されている長さでなければならない。
+            
+          
+</p>
+<a name="dh_sessions"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.4.2"></a><h3>8.4.2.&nbsp;
+Diffie-Hellman アソシエーションセッション</h3>
+
+<p>
+            "DH-SHA1" および "DH-SHA256" アソシエーション形式では、秘密共有鍵を安全に送信するために、Diffie-Hellman 鍵交換を用いる。
+            
+          
+</p>
+<p>
+            MAC 鍵 の長さは、ハッシュ関数 H の出力および、当該アソシエーションの署名アルゴリズムの出力と同じ長さでなければならない (MUST)。つまり、DH-SHA1 の場合は 160 ビット (20 バイト)、DH-SHA256 の場合は 256 ビット (32 バイト) となる。
+            
+          
+</p>
+<p>
+            RP は、モジュラス (法)  p とジェネレータ (原始元)  g を指定する。また、RP は任意の秘密鍵 xaをランダムに選び、OP は任意の秘密鍵 xb を選ぶ。これらの秘密鍵はともに、[1 .. p-1] の範囲に含まれていなければならない。このとき MAC 鍵の暗号化に用いる秘密共有鍵は、g ^ (xa * xb) mod p = (g ^ xa) ^ xb mod p = (g ^ xb) ^ xa mod p となる。詳しくは、<a class='info' href='#RFC2631'>[RFC2631]<span> (</span><span class='info'>Rescorla, E., &ldquo;Diffie-Hellman Key Agreement Method,&rdquo; .</span><span>)</span></a> を参照のこと。また、ランダム値の選択に関する詳細は、<a class='info' href='#RFC1750'>[RFC1750]<span> (</span><span class='info'>Eastlake, D., Crocker, S., and J. Schiller, &ldquo;Randomness Recommendations for Security,&rdquo; .</span><span>)</span></a> を参照。
+            
+          
+</p>
+<a name="requesting_authentication"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+認証要求</h3>
+
+<p>
+        RP がディスカバリの実行に成功し、ディスカバリによって得られた OP エンドポイント URL とアソシエーションを構築 (オプション) すれば、RP は、アサーションを得るために OP に認証要求を送ることができる。認証要求は、<a class='info' href='#indirect_comm'>間接要求<span> (</span><span class='info'>間接通信 (Indirect Communication)</span><span>)</span></a>である。
+      
+      
+</p>
+<a name="anchor27"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.1"></a><h3>9.1.&nbsp;
+要求パラメータ</h3>
+
+<p>
+          </p>
+<ul class="text">
+<li>
+              openid.ns
+              
+<blockquote class="text">
+<p>
+                  <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a>で指定した通り。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.mode
+              
+<blockquote class="text">
+<p>
+                  値： "checkid_immediate" または "checkid_setup"
+                
+                
+</p>
+<p>
+                  注： RP がエンドユーザと OP との対話を望む場合は、"checkid_setup" を用いるべきである。エンドユーザと OP との対話を望まない状況の例として、JavaScript の中で非同期の認証要求が生じた場合があげられる。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.claimed_id
+              
+<blockquote class="text">
+<p>
+                  値： (オプション)  主張識別子。
+                
+                
+</p>
+<p>
+                  "openid.claimed_id" と "openid.identity" については、両方がともに存在するか、ともに存在しないかのいずれかとする (SHALL)。どちらの値も存在しない場合、そのアサーションは識別子に関するものではなく、<a class='info' href='#extensions'>拡張仕様<span> (</span><span class='info'>拡張仕様</span><span>)</span></a>を用いて、ペイロードにその他の情報が含まれることになる。
+                
+                
+</p>
+<p>
+                  OP は、<a class='info' href='#normalization'>正規化<span> (</span><span class='info'>正規化</span><span>)</span></a>のセクションで示した通り、"xri://" プリフィックスを伴った XRI 識別子または "xri://" プリフィックスを伴わない XRI 識別子を受け入れることが推奨される (RECOMMENDED)。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.identity
+              
+<blockquote class="text">
+<p>
+                  値： (オプション)  OP ローカル識別子。
+                
+                
+</p>
+<p>
+                  openid.identity の値に異なる OP ローカル識別子 が指定されていない場合は、その値として主張識別子を用いなければならない (MUST)。
+                
+                
+</p>
+<p>
+                  注： openid.identity に "http://specs.openid.net/auth/2.0/identifier_select" という特殊値が設定されている場合、OP は、エンドユーザに属する識別子を選択すべきである (SHOULD)。このパラメータは、要求が識別子に関するものでない場合 (例えば、拡張仕様が使用され、当該パラメータがなくても要求が意味をなす場合。上記 openid.claimed_id 参照)、省略してもよい (MAY)。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.assoc_handle
+              
+<blockquote class="text">
+<p>
+                  値： (オプション)  RP と OP の間のアソシエーションハンドル。応答に署名するために用いるべきである (SHOULD)。
+                
+                
+</p>
+<p>
+                  注：アソシエーションハンドルが送られない場合、トランザクションは、<a class='info' href='#check_auth'>ステートレスモードで<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a>行われる。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.return_to
+              
+<blockquote class="text">
+<p>
+                  値： (オプション)  OP が要求のステータスを示す応答とともにユーザエージェントを戻すべき (SHOULD) URL。
+                
+                
+</p>
+<p>
+                  注：送られた要求の中にこの値が記されていない場合、エンドユーザが戻されることを RP は望んでいないということを意味している。
+                
+                
+</p>
+<p>
+                  注：認証要求に関するコンテキストを RP が認証応答に添付する仕組みとして、return_to URL を利用してもよい (MAY)。本文書では、クエリパラメータが外部の第三者によって変更されないことを RP が保証できる仕組みは定義していない。このような仕組みは、RP 自身で定義することができる。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.realm
+              
+<blockquote class="text">
+<p>
+                  値： (オプション)  OP がエンドユーザに信任を求めるべきである (SHOULD) URL のパターン。<a class='info' href='#realms'>Section&nbsp;9.2<span> (</span><span class='info'>レルム</span><span>)</span></a>参照。openid.return_to を省略した場合は、この値を送らなければならない(MUST)。
+                
+                
+</p>
+<p>
+                  デフォルト値： return_to URL
+                
+                
+</p>
+</blockquote>
+            
+</li>
+</ul><p>
+        
+</p>
+<a name="realms"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.2"></a><h3>9.2.&nbsp;
+レルム</h3>
+
+<p>
+          レルム (realm) とは、OpenID 認証要求が有効な URL 空間を表すパターンである。レルムは、認証要求の対象範囲をエンドユーザに知らせるために考案された。エンドユーザに認証要求の承諾を求める際、OP はレルムを提示すべきである (SHOULD)。レルムは、OP が RP を一意に特定するために用いるべきである (SHOULD)。例えば、OP は、エンドユーザが認証要求の承認を自動化できるようにするために、レルムを用いてもよい (MAY)。
+          
+        
+</p>
+<p>
+          レルムパターンは URL であるが、以下の点が異なっている。
+        
+          </p>
+<ul class="text">
+<li>
+              レルムは、URI フラグメントを含んでいてはならない (MUST NOT)
+            
+            
+</li>
+<li>
+              レルムは、URL のオーソリティセクションの先頭にワイルドカードを含んでいてもよい (MAY)。ワイルドカードは、"*." の文字列からなり、URL のオーソリティセクションの DNS 名の前に付加される。
+            
+            
+</li>
+</ul><p>
+        
+</p>
+<p>
+          以下の条件を満たす場合、URL はレルムにマッチする。
+        
+          </p>
+<ul class="text">
+<li>
+              URL スキームおよび URL のポートがレルムの中のスキームおよびポートと同一である。URI マッチングに関する規則については、<a class='info' href='#RFC3986'>RFC 3986<span> (</span><span class='info'>Berners-Lee, T., &ldquo;Uniform Resource Identifiers (URI): Generic Syntax,&rdquo; .</span><span>)</span></a> [RFC3986]、Section 3.1 参照。
+            
+            
+</li>
+<li>
+              URL のパスが、レルムのパスと同一、もしくはそのサブディレクトリである。
+            
+            
+</li>
+<li>
+              以下のいずれかが成り立つ。
+              
+<ol class="text">
+<li>
+                  レルムのドメインがワイルドカード文字 "*." を含み、URL のドメインの末尾部分がワイルドカード "*." に続くレルム部分と同一である。
+                
+                
+</li>
+<li>
+                  URL のドメインがレルムのドメインと同一である。
+                
+                
+</li>
+</ol>
+             
+</li>
+</ul><p>
+          "openid.return_to" URL が存在するとき、"openid.return_to" URL は "openid.realm" とマッチしなければならない (MUST)。マッチしない場合、OP は、<a class='info' href='#indirect_error'>エラー時の間接応答<span> (</span><span class='info'>エラー時の間接応答</span><span>)</span></a>を返さなければならない (MUST)。
+          
+        
+</p>
+<p>
+          OP は、http://*.com/ や http://*.co.uk/ などあまりにも汎用的なレルムを用いてエンドユーザがアサーションを行なわないようにすることが推奨される (RECOMMENDED)。あまりにも汎用的なレルムは、特定の RP の識別に用いるときには、危険である場合がある。レルムが汎用的過ぎるかどうかの判断は、OP に委ねられている。
+        
+        
+</p>
+<a name="return_to_verification"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.2.1"></a><h3>9.2.1.&nbsp;
+レルムを用いた戻りURLの検証</h3>
+
+<p>
+            OP は、要求において指定された return_to URL が OpenID RP のエンドポイントであることを検証すべきである (SHOULD)。return_to URL の検証を行なうには、<a class='info' href='#rp_discovery'>RP に対するディスカバリ<span> (</span><span class='info'>OpenID リライングパーティーのディスカバリ</span><span>)</span></a>を実行し、レルムに対する RP のエンドポイントを取得する。ディスカバリを実行すると、その結果得られる URL は常に、リダイレクトを辿った先の最後の HTTP 応答の URL となる。レルムに対してディスカバリを実行したとき、その後何らかのリダイレクトが生じた場合、検証に失敗したことになる。ディスカバリが正常に完了したときは、return_to URL が RP のエンドポイントのひとつと一致することを確認する。
+          
+          
+</p>
+<p>
+            レルムはワイルドカードを含む場合があり、そのため有効なURLでないことがある。この場合は、レルムの中のワイルドカードを "www" に置き換え、その結果得られる URL に関してディスカバリを実行する。
+          
+          
+</p>
+<p>
+            return_to URL を RP のエンドポイントと照合するためには、RP のエンドポイント URL をレルムとして扱い、return_to URL をレルムと照合するために用いたのと同じ規則を適用する。RP の エンドポイント URL は、ドメインのワイルドカードを含んではならず (MUST NOT)、可能な限り、固有のものであるべきである (SHOULD)。
+          
+          
+</p>
+<p>
+            検証を試みても失敗した場合、プロバイダは、その return_to URL に肯定アサーション (positive assertion) を送るべきではない (SHOULD NOT)。
+          
+          
+</p>
+<p>
+            プロバイダは、検証済みの return_to URL をキャッシュしてもよい (MAY)。
+          
+          
+</p>
+<a name="anchor28"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.3"></a><h3>9.3.&nbsp;
+即時要求</h3>
+
+<p>
+          RP は、認証要求に当り、OP がエンドユーザとの対話を行なわないことを要求してもよい (MAY)。この場合、OP は即時に、認証成功のアサーション、または、ユーザとさらに対話を行なわないと要求が完了できないことを示す応答のいずれかを返さなければならない (MUST)。即時要求は、認証要求の "openid.mode" に "checkid_immediate" という値を設定することによって実現できる。
+        
+        
+</p>
+<a name="responding_to_authentication"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10"></a><h3>10.&nbsp;
+認証要求に対する応答</h3>
+
+<p>
+        <a class='info' href='#indirect_comm'>間接通信<span> (</span><span class='info'>間接通信 (Indirect Communication)</span><span>)</span></a>を通じてユーザエージェントから認証要求を受け取ったときには、OP は、認可済みの正規のエンドユーザが認証完了を望んでいると判断すべきである (SHOULD)。認可済みの正規のエンドユーザが認証完了を望んでいる場合、OP は、RP に<a class='info' href='#positive_assertions'>肯定アサーション<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>を送るべきである (SHOULD)。
+      
+      
+</p>
+<p>
+        認可済みのエンドユーザの識別方法および OpenID 認証アサーションを戻す上で必要な承諾の取得方法については、本仕様の対象範囲外である。OP のセキュリティに関する考慮事項については、<a class='info' href='#rp_mitm_proxy'>Section&nbsp;15.1.2.1<span> (</span><span class='info'>不正なリライングパーティーのプロキシ化</span><span>)</span></a>参照のこと。
+      
+      
+</p>
+<p>
+        "openid.identity" に "http://specs.openid.net/auth/2.0/identifier_select" という値を設定することによって OP 主導での識別子選択を RP が要求し、エンドユーザが認証応答の発行を認可される複数の識別子がある場合、OP は、エンドユーザがどの識別子を使用するのかを選択できるようにすべきである (SHOULD)。
+      
+      
+</p>
+<p>
+        RP が認証要求にアソシエーションハンドルを付与した場合、OP は、そのハンドルをもとにしてアソシエーションを探すべきである (SHOULD)。アソシエーションが見つからないか有効期限切れで失効している場合、OP は、応答の一部として、要求の "openid.assoc_handle" パラメータと同じ値で"openid.invalidate_handle" パラメータを送り返すべきである (SHOULD)。さらに OP は、アソシエーションハンドルが指定されなかった場合と同様に、処理を継続すべきである (SHOULD)。
+      
+      
+</p>
+<p>
+        アソシエーションハンドルの指定がない場合、OP は、応答への署名に専用のアソシエーションを用いるべきである (SHOULD)。OP は、このアソシエーションを記憶しなければならない (MUST)。また、その後の要求に応答し、<a class='info' href='#check_auth'>直接検証<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a>を通じて応答の署名をチェックしなければならない (MUST)。
+      
+      
+</p>
+<p>
+        RP は、認証要求を済ませていない識別子に関するアサーションを受け入れ、検証すべきである (SHOULD)。OP は、一方的な (unsolicited) 肯定アサーションの署名に専用のアソシエーションを用いるべきである (SHOULD)
+      
+      
+</p>
+<p>
+        要求時に "openid.return_to" の値が省略されている場合、RP は認証アサーションを OP から受け取ることを望んでいない。これは、RP から OP へのデータ送信に拡張機能を用いている場合に役立つ。
+      
+      
+</p>
+<a name="positive_assertions"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10.1"></a><h3>10.1.&nbsp;
+肯定アサーション</h3>
+
+<p>
+          肯定アサーションのフィールドは、以下の通り。<a class='info' href='#indirect_comm'>間接通信<span> (</span><span class='info'>間接通信 (Indirect Communication)</span><span>)</span></a>で行う。
+        
+        
+</p>
+<p>
+          </p>
+<ul class="text">
+<li>
+              openid.ns
+              
+<blockquote class="text">
+<p>
+                  <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a> 指定した通り。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.mode
+              
+<blockquote class="text">
+<p>値： "id_res"
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.op_endpoint
+              
+<blockquote class="text">
+<p>
+                  OP エンドポイント (Endpoint) URL。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.claimed_id
+              
+<blockquote class="text">
+<p>
+                  値： (オプション) 主張識別子。"openid.claimed_id" と "openid.identity"については、両方がともに存在するか、ともに存在しないかのいずれかとする (SHALL)。
+                
+                
+</p>
+<p>
+                  注：エンドユーザは、OP ローカル識別子 を主張識別子として 使用することを選択してもよい (MAY)。
+                
+                
+</p>
+<p>
+                  注：アサーションにどちらの識別子も存在しない場合、そのアサーションは識別子に関するものではなく、<a class='info' href='#extensions'>拡張仕様<span> (</span><span class='info'>拡張仕様</span><span>)</span></a>を用いて、ペイロードにその他の情報が含まれることになる。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.identity
+              
+<blockquote class="text">
+<p>
+                  値： (オプション)  OP ローカル識別子
+                 
+                
+</p>
+<p>
+                  注：OpenIDプロバイダは、アサーションを作成する対象である主張識別子および OP ローカル識別子の選択において、エンドユーザを支援してもよい (MAY)。拡張仕様が使用され、当該フィールドがなくても応答が意味をなす場合、openid.identity フィールドを省略してもよい (MAY) (上記 openid.claimed_id 参照)。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.return_to
+              
+<blockquote class="text">
+<p>
+                  値： 要求時に送られた return_to URL パラメータそのままのコピー。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.response_nonce
+              
+<blockquote class="text">
+<p>
+                  値：長さが 255 文字以下の文字列で、この成功した特定の認証応答に固有のものでなければならない (MUST)。ノンスは、サーバの現在時刻で始まらなければならない (MUST)。またノンスには、それぞれの応答を固有のものとする上での必要に応じて、33-126 の範囲に含まれる ASCII 文字 (空白を除く印刷可能な文字) を追加してもよい (MAY)。日付および時刻は [RFC3339] Section 5.6<a class='info' href='#RFC3339'>[RFC3339]<span> (</span><span class='info'>Klyne, G. and C. Newman, &ldquo;Date and Time on the Internet: Timestamps,&rdquo; .</span><span>)</span></a>に指定される形式で記述しなければならない (MUST) が、以下の制限がある。
+                
+                  </p>
+<ul class="text">
+<li>
+                      時刻は全て世界協定時 ( UTC ) 時間帯とし、"Z" で示す。
+                    
+                    
+</li>
+<li>
+                      小数点以下の秒の記述は認められていない。
+                    
+                    
+</li>
+</ul>
+
+                  例： 2005-05-15T17:11:51ZUNIQUE
+                  
+                
+
+</blockquote>
+            
+</li>
+<li>
+              openid.invalidate_handle
+              
+<blockquote class="text">
+<p>
+                  値： (オプション) 要求とともに RP が無効なアソシエーションハンドルを送った場合、その値をここに含めるべきである (SHOULD)。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.assoc_handle
+              
+<blockquote class="text">
+<p>
+                  値： このアサーションに署名するために用いられたアソシエーションのハンドル。
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.signed
+              
+<blockquote class="text">
+<p>
+                  値：署名済みフィールドのコンマ区切りのリスト。
+                
+                
+</p>
+<p>
+                  注：このエントリは、署名がカバーしているフィールドからなるが、"openid." プリフィックスは省略する。このリストは、少なくとも "op_endpoint"、"return_to"、"response_nonce"、"assoc_handle" を含まなければならない (MUST)。また、応答に存在する場合は、"claimed_id" と "identity" を含まなければならない (MUST)。追加のキーをメッセージの一部として署名してもよい (MAY)。<a class='info' href='#generating_signatures'>署名の生成<span> (</span><span class='info'>署名の生成</span><span>)</span></a>を参照のこと。
+                
+                
+</p>
+<p>
+                  例："op_endpoint,identity,claimed_id,return_to,assoc_handle,response_nonce"
+                
+                
+</p>
+</blockquote>
+            
+</li>
+<li>
+              openid.sig
+              
+<blockquote class="text">
+<p>
+                  値: <a class='info' href='#generating_signatures'>Section&nbsp;6<span> (</span><span class='info'>署名の生成</span><span>)</span></a> で指定した方法で計算され、Base 64 エンコードされた署名
+                
+                
+</p>
+</blockquote>
+            
+</li>
+</ul><p>
+
+        
+</p>
+<a name="negative_assertions"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10.2"></a><h3>10.2.&nbsp;
+否定アサーション</h3>
+
+<p>
+          OP がエンドユーザを識別できない場合、あるいは、エンドユーザが認証要求を承諾しない、もしくは承諾できない場合、OP は、RP に対し<a class='info' href='#indirect_comm'>間接応答<span> (</span><span class='info'>間接通信 (Indirect Communication)</span><span>)</span></a>の形で否定アサーション (negative asserton) を送るべきである (SHOULD)。
+        
+        
+</p>
+<p>
+          "checkid_immediate" モードでの要求に対する応答として否定アサーションを受け取ったとき、RP は、"checkid_setup" モードを用いて、新たな認証要求を構築すべきである (SHOULD)。OpenID Authentication 1.1 との相違点に関する詳細は、<a class='info' href='#compat_mode'>Section&nbsp;14<span> (</span><span class='info'>OpenID Authentication 1.1 との互換性</span><span>)</span></a>で述べる。
+        
+        
+</p>
+<a name="anchor29"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10.2.1"></a><h3>10.2.1.&nbsp;
+即時要求への応答の場合</h3>
+
+<p>
+            要求が即時要求であった場合、エンドユーザが OP のページを介して対話し、識別用のクレデンシャルと要求に対するの承諾を送信する機会はない。即時要求への否定アサーションは、以下のフォームとする。
+          
+            </p>
+<ul class="text">
+<li>
+                openid.ns
+                
+<blockquote class="text">
+<p>
+                    <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a>で指定した通り。
+                  
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.mode
+                
+<blockquote class="text">
+<p>値： "setup_needed"
+                  
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor30"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10.2.2"></a><h3>10.2.2.&nbsp;
+即時要求ではない要求への応答の場合</h3>
+
+<p>
+            OP がエンドユーザに対してページを表示し、エンドユーザのクレデンシャルを要求してもよいことから、即時要求ではない要求への否定応答は最終的なものとなる。この場合の否定応答は、以下のフォームとする。
+          
+            </p>
+<ul class="text">
+<li>
+                openid.ns
+                
+<blockquote class="text">
+<p>
+                    <a class='info' href='#http_encoding'>Section&nbsp;4.1.2<span> (</span><span class='info'>HTTP エンコーディング</span><span>)</span></a>で指定した通り。
+                  
+                  
+</p>
+</blockquote>
+              
+</li>
+<li>
+                openid.mode
+                
+<blockquote class="text">
+<p>
+                    値： "cancel"
+                  
+                  
+</p>
+</blockquote>
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            ユーザが認証要求の完了を望まない場合、あるいは認証要求を完了できない場合、OpenID の認証プロセスが異常終了し、キャンセルモードの応答を RP が取得できないことが多い (継続する代わりに、エンドユーザは終了したり、ユーザエージェントの「戻る」ボタンを押したりするかもしれない)。RP が "cancel" 応答を受け取った場合、認証は失敗したことを意味し、RP はそのエンドユーザを認証されなかったものとして扱わなければならない (MUST)。
+          
+          
+</p>
+<a name="verification"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11"></a><h3>11.&nbsp;
+アサーションの検証</h3>
+
+<p>
+        RP が肯定アサーションを受け取ったときには、そのアサーションを受け入れる前に、以下の値について検証しなければならない (MUST)。
+          
+
+        </p>
+<ul class="text">
+<li>
+            "openid.return_to" が現在の要求の URL と一致する (<a class='info' href='#verify_return_to'>Section&nbsp;11.1<span> (</span><span class='info'>戻り URL の検証</span><span>)</span></a>)
+          
+          
+</li>
+<li>
+            ディスカバリによって得られた情報がアサーションの情報と一致する (<a class='info' href='#verify_disco'>Section&nbsp;11.2<span> (</span><span class='info'>ディスカバリによって得られた情報の検証</span><span>)</span></a>)
+          
+          
+</li>
+<li>
+            "openid.response_nonce" について、当該 OP から、これまでに同じ値のアサーションを受け入れたことがない (<a class='info' href='#verify_nonce'>Section&nbsp;11.3<span> (</span><span class='info'>ノンスのチェック</span><span>)</span></a>)
+          
+          
+</li>
+<li>
+            アサーションの署名が有効で、署名が必要な全てのフィールドに署名がされている (<a class='info' href='#verifying_signatures'>Section&nbsp;11.4<span> (</span><span class='info'>署名の検証</span><span>)</span></a>)
+          
+          
+</li>
+</ul><p>
+
+        上記４つの条件が全て満たされていれば、アサーションが検証されたことになる。アサーションに主張識別子が含まれている場合は、その識別子について、ユーザの認証が済んだことになる。
+        
+      
+</p>
+<a name="verify_return_to"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.1"></a><h3>11.1.&nbsp;
+戻り URL の検証</h3>
+
+<p>
+          "openid.return_to" URL がこのアサーションを処理している URL と一致していることを検証するためには、
+        
+          </p>
+<ul class="text">
+<li>
+              URL のスキーム、オーソリティ、パスが、ふたつの URL の間で同じでなければならない (MUST)。
+            
+            
+</li>
+<li>
+              "openid.return_to" URL のクエリ値は、どのパラメータも、RP が受け取った HTTP 要求の URL に同じ値がなければならない。
+            
+            
+</li>
+</ul><p>
+        
+</p>
+<a name="verify_disco"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.2"></a><h3>11.2.&nbsp;
+ディスカバリによって得られた情報の検証</h3>
+
+<p>
+          アサーションの中の主張識別子が URL で、フラグメントを含む場合、ディスカバリによって得られた情報を検証するために、そのフラグメント部分およびフラグメントの区切り文字 "#" を用いてはならない (MUST NOT)。
+        
+        
+</p>
+<p>
+          主張識別子がアサーションに含まれている場合、その主張識別子は RP が事前にディスカバリによって取得したものでなければならない (MUST)。また、アサーションの中の情報はディスカバリによって得られた情報の中に存在していなければならない (MUST)。主張識別子は OP 識別子であってはならない (MUST NOT)。
+        
+        
+</p>
+<p>
+          RP がその時点までに主張識別子をディスカバリによって取得していない場合 (要求中の "openid.identity" が "http://specs.openid.net/auth/2.0/identifier_select"または異なる識別子であった場合、もしくは、OP が一方的な肯定アサーションを送ろうとしている場合)、RP は応答の中の主張識別子に関するディスカバリを実行し、その主張識別子に関するアサーションを行なう権限を OP が有しているかどうかを確認しなければならない (MUST)。
+        
+        
+</p>
+<p>
+          応答の中に主張識別子がない場合、アサーションは識別子に関するものではない。RP は、ユーザを識別するために、現在の OpenID 認証トランザクションに関連するユーザ入力識別子を用いてはならない (MUST NOT)。しかし、アサーションの中の拡張仕様情報は用いてもよい (MAY)。
+        
+        
+</p><br /><hr class="insert" />
+<table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
+<col align="left"><col align="left">
+<tr><th align="left">ディスカバリによって得られた値</th><th align="left">応答フィールド</th></tr>
+<tr>
+<td align="left">主張識別子</td>
+<td align="left">openid.claimed_id</td>
+</tr>
+<tr>
+<td align="left">OPローカル識別子</td>
+<td align="left">openid.identity</td>
+</tr>
+<tr>
+<td align="left">OPエンドポイントURL</td>
+<td align="left">openid.op_endpoint</td>
+</tr>
+<tr>
+<td align="left">プロトコルバージョン</td>
+<td align="left">openid.ns</td>
+</tr>
+</table>
+<br clear="all" />
+
+<p style='text-align: center'>
+            この表は、<a class='info' href='#discovered_info'>ディスカバリによって得られた情報<span> (</span><span class='info'>ディスカバリによって得られる情報</span><span>)</span></a>の <a class='info' href='#positive_assertions'>OpenID Authentication 2.0 "id_res" 応答<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>へのマッピング (対応づけ) を示している。
+          
+          
+</p><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Discovered Information to Authentication Response Mapping&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+          XRDS 文書を生成するディスカバリの仕組みを使用する場合、いずれかの &lt;xrd:Service&gt; エレメントの中に、プロトコルバージョン、OPエンドポイントURL および OP ローカル識別子 (主張識別子と異なる場合) が記されていなければならない (MUST)。その &lt;xrd:Service&gt; エレメントの中に使用されないフィールドがあってもよい (MAY)。
+        
+        
+</p>
+<p>参考例
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;Service xmlns="xri://$xrd*($v*2.0)"&gt;
+  &lt;Type&gt;http://specs.openid.net/auth/2.0/signon&lt;/Type&gt;
+  &lt;URI&gt;http://provider.example.com/openid&lt;/URI&gt;
+  &lt;URI&gt;https://provider.example.com/openid&lt;/URI&gt;
+&lt;/Service&gt;
+</pre></div>
+<p>
+            この XRDS 断片の例では、&lt;xrd:Service&gt; エレメントにふたつの &lt;xrd:URI&gt; エレメントがあり、<a class='info' href='#discovered_info'>Section&nbsp;7.3.1<span> (</span><span class='info'>ディスカバリによって得られる情報</span><span>)</span></a> の通り OP エンドポイント URL へと対応づけられている。アサーションの中の "openid.op_endpoint" の値がふたつのうちのいずれかであれば、そのフィールドとこの &lt;xrd:Service&gt; エレメントとが一致する。もう一方の &lt;xrd:URI&gt; エレメントは使われない。
+          
+          
+</p>
+<a name="verify_nonce"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.3"></a><h3>11.3.&nbsp;
+ノンスのチェック</h3>
+
+<p>
+          リプレイアタックを阻止するため、署名のチェックを行なうエージェントは、肯定アサーションの中に含まれるノンス値の履歴を辿り、同一の OP エンドポイント URL について、同じ値を二度以上決して受け入れてはならない。
+        
+        
+</p>
+<p>
+          </p>
+<ul class="text">
+<li>
+              "check_authentication" を用いるに当たり、OP は、要求への成功時の応答の "openid.response_nonce" に、同一の値を二度以上用いてはならない (MUST NOT)。
+            
+            
+</li>
+<li>
+              RP がアサーションの署名をチェックするに当たり、RP は、同じ OP エンドポイント URL から "openid.response_nonce" の値が同一のアサーションを過去に受け入れていないことを保証すべきである (SHOULD)。
+            
+            
+</li>
+</ul><p>
+        
+</p>
+<p>
+          タイムスタンプを利用して、現在時刻との時間差が大きすぎる応答を拒否してもよい (MAY)。そのとき、攻撃を避ける上でノンスの保存が必要な時間は制限する。有効期間については、本仕様の対象範囲外である。有効期間が長いほど、より多くのノンスを、より長時間保存する必要がある。有効期間を短くすると、クロック・スキューやトランザクション時間が原因で誤って拒否してしまう可能性が高まる。
+        
+        
+</p>
+<a name="verifying_signatures"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.4"></a><h3>11.4.&nbsp;
+署名の検証</h3>
+
+<p>
+          アサーションで指定されるアソシエーションハンドルに紐付くアソシエーションを RP が保存した場合、RP は、アサーション自体の署名をチェックしなければならない (MUST)。アソシエーションを保存していない場合、RP は、OP が<a class='info' href='#check_auth'>直接検証<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a>を通じて署名を検証するように要求しなければならない (MUST)。
+        
+        
+</p>
+<a name="anchor31"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.4.1"></a><h3>11.4.1.&nbsp;
+アソシエーションによる検証</h3>
+
+<p>
+            RP は署名を生成する際に OP が従うのと同じ手順に従い、その後、応答の中の署名を生成された署名と比較する。署名が一致しなければ、アサーションは無効である。
+          
+          
+</p>
+<p>
+            認証要求に OP 、RP 間のアソシエーションのアソシエーションハンドルが含まれているが、OP がそのアソシエーションハンドルをもはや使用したくない場合 (例えば、有効期限が既に切れている、秘密鍵が漏えいしてしまったなどの理由による場合)、<a class='info' href='#check_auth'>Section&nbsp;11.4.2<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a> で指定する通り、OP は、OP との直接検証が必要な応答を送ることになる。この場合、OP は、RP から受け取った元の要求に含まれていたアソシエーションハンドルを "openid.invalidate_handle" の値に設定して、そのフィールドを含める。
+          
+          
+</p>
+<a name="check_auth"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.4.2"></a><h3>11.4.2.&nbsp;
+OpenID プロバイダを通じた直接検証</h3>
+
+<p>
+            RP が OP に署名検証を行なわせたいときは、OP に<a class='info' href='#direct_request'>直接要求<span> (</span><span class='info'>直接要求 (Direct Request)</span><span>)</span></a>を送る。OP は、署名検証のために、<a class='info' href='#positive_assertions'>肯定アサーション<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>発行時に生成された専用のアソシエーションを用いる。
+          
+          
+</p>
+<a name="anchor32"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.4.2.1"></a><h3>11.4.2.1.&nbsp;
+要求パラメータ</h3>
+
+<p>
+              </p>
+<ul class="text">
+<li>
+                  openid.mode
+                  
+<blockquote class="text">
+<p>値： "check_authentication"
+</p>
+</blockquote>
+                
+</li>
+<li>
+                  認証応答の全てのフィールドをそのままコピー、ただし "openid.mode" を除く。
+                
+                
+</li>
+</ul><p>
+            
+</p>
+<p>
+              署名検証のために OP は、専用のアソシエーションを用いなければならない (MUST)。また、共有鍵を有するアソシエーションを用いてはならない (MUST NOT)。共有されているアソシエーションのハンドルが検証要求に含まれている場合は、RP がもはや秘密共有鍵を知らない、あるいは、このアソシエーションが RP 以外のエンティティ (例えば、攻撃者) と OP との間で確立してしまっていることを意味している。
+              
+            
+</p>
+<p>
+              リプレイアタックを阻止するため、OP は、過去に発行した認証応答のそれぞれについて、検証応答を二度以上発行してはならない (MUST NOT)。"openid.response_nonce" の値で、認証応答およびそれに対応する検証要求を識別してもよい。
+            
+            
+</p>
+<a name="anchor33"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.4.2.2"></a><h3>11.4.2.2.&nbsp;
+応答パラメータ</h3>
+
+<p>
+              </p>
+<ul class="text">
+<li>
+                  ns
+                  
+<blockquote class="text">
+<p>
+                      <a class='info' href='#direct_response'>Section&nbsp;5.1.2<span> (</span><span class='info'>直接応答 (Direct Response)</span><span>)</span></a>Section 5.1.2 で指定した通り。
+                    
+                    
+</p>
+</blockquote>
+                
+</li>
+<li>
+                  is_valid
+                  
+<blockquote class="text">
+<p>
+                      値： "true" または "false"。検証要求の署名が有効かどうかを示す。
+                    
+                    
+</p>
+</blockquote>
+                
+</li>
+<li>
+                  invalidate_handle
+                  
+<blockquote class="text">
+<p>
+                      値： (オプション)  OP が無効であることを確認した場合に、検証要求の中で送る "invalidate_handle" の値。
+                    
+                    
+</p>
+<p>
+                      説明： "true" に設定された "is_valid" を含む検証応答の中に、このパラメータが存在する場合、RP は、保存しているアソシエーションの中から対応するものを削除すべきである (SHOULD)。また、これ以降、このハンドルを含む認証要求を送るべきではない (SHOULD NOT)。
+                    
+                    
+</p>
+<p>
+                      注：認証応答に "invalidate_handle" パラメータを追加することによって、攻撃者がアソシエーションを自由自在に無効化してしまうのを防止するためには、こうした二段階のアソシエーション無効化プロセスが必要である。
+                    
+                    
+</p>
+</blockquote>
+                
+</li>
+</ul><p>
+            
+</p>
+<a name="identifying"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.5"></a><h3>11.5.&nbsp;
+エンドユーザの識別</h3>
+
+<p>
+          RP は、成功時の認証応答における主張識別子を、ローカルストレージ内のユーザ情報へのキーとして用いるべきである (SHOULD)。また、主張識別子をユーザが管理している識別子として用いてもよい (MAY)。URL 識別子を表示するときは、フラグメントを省略してもよい (MAY)。
+        
+        
+</p>
+<a name="identifier_recycling"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.5.1"></a><h3>11.5.1.&nbsp;
+識別子のリサイクル</h3>
+
+<p>
+            多数のユーザを抱える OP は、必要に応じ、フラグメントを用いて URL 識別子をリサイクルすることができる。新たなエンドユーザに対して URL 識別子の再割り当てを行なうに当り、OP は、新規かつ固有のフラグメント部分を生成すべきである。
+          
+          
+</p>
+<p>
+            フラグメント部分を含む URL 全体は、肯定アサーションにおいて主張識別子を構成する要素であるため、RP は、フラグメントを除く URL の現在の所有者と以前の所有者を区別することになる。
+          
+          
+</p>
+<p>
+            この仕組みを用いると、(恐らく短く、記憶しやすい) リサイクルされたフラグメントのない URL 識別子を、エンドユーザがログイン時に使用したり、RP が表示するために用いたりすることができるようになる。
+          
+          
+</p>
+<a name="http_s_identifiers"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11.5.2"></a><h3>11.5.2.&nbsp;
+HTTP および HTTPS URL 識別子</h3>
+
+<p>
+            RP は、異なるスキームを持つ URL 識別子同士を区別しなければならない (MUST)。エンドユーザの入力を URL に変換するときは、その URL は HTTP URL となる。同一のエンドユーザがスキーム以外は同一の URL を管理しており、識別子が HTTPS URL であることが望ましい場合、HTTP URL から HTTPS URL へのリダイレクトを発行することが推奨される (RECOMMENDED)。HTTP URL と HTTPS URL とは等価ではなく、使用される識別子は、リダイレクト後のURLであるため、このスキームを用いる場合には、セキュリティの低下は懸念されない。たとえ攻撃者が HTTP URL をコントロールできるようになったとしても、HTTPS URL には何の影響も与えないだろう。HTTP URL は、ディスカバリプロセスを開始させる以外には識別子として用いられないからである。
+          
+          
+</p>
+<a name="extensions"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.12"></a><h3>12.&nbsp;
+拡張仕様</h3>
+
+<p>
+        OpenID 認証の拡張仕様は、認証要求および応答の“上に乗る”プロトコルである。拡張仕様は、認証要求や応答に関するその他の情報を提供したり、認証応答の対象に関するその他の情報を提供したりする際に役立つ。
+        
+      
+</p>
+<p>
+        OpenID の拡張仕様は、サービスタイプ URI で識別される。サービスタイプ URI は、主張識別子と関連する XRDS 文書内で、OpenID &lt;xrd:Service&gt; エレメントの &lt;xrd:Type&gt; エレメントの値として用いてもよい (MAY)。サービスタイプ URI は、拡張仕様を含むメッセージの中で、キーと値のペアを関連づけるためにも用いられる。
+        
+      
+</p>
+<p>
+        メッセージの中で拡張仕様を用いてキーと値とを関連づけるためには、キーを サービスタイプ URI と関連づけなければならない (MUST)。キーとサービスタイプ URI とを関連づけるためには、頭に "openid.ns." を付加したキーを追加するとともに、値がサービスタイプ URI のエイリアステキストを後ろに追加することによって、エイリアスを確定する。エイリアスが確定すると、メッセージの中のペアのうち、"openid." で始まり、その後にエイリアステキストが続き、さらにその後ろにピリオドもしくはキーの末尾が続くようなキーを有するペアは全て、拡張仕様と関連づけられる。この仕組みは、XML名前空間と似ている。
+        
+        
+      
+</p>
+<p>
+        名前空間のエイリアスは、ピリオドを含んでいてはならない (MUST NOT)。また、同じメッセージの中の他の名前空間のエイリアスと同じであってはならない (MUST NOT)。さらに、名前空間のエイリアスは、以下のリストに示す許可されていないエイリアスのひとつであってはならない (MUST NOT)。
+        
+
+        </p>
+<ul class="text">
+<li>assoc_handle
+</li>
+<li>assoc_type
+</li>
+<li>claimed_id
+</li>
+<li>contact
+</li>
+<li>delegate
+</li>
+<li>dh_consumer_public
+</li>
+<li>dh_gen
+</li>
+<li>dh_modulus
+</li>
+<li>error
+</li>
+<li>identity
+</li>
+<li>invalidate_handle
+</li>
+<li>mode
+</li>
+<li>ns
+</li>
+<li>op_endpoint
+</li>
+<li>openid
+</li>
+<li>realm
+</li>
+<li>reference
+</li>
+<li>response_nonce
+</li>
+<li>return_to
+</li>
+<li>server
+</li>
+<li>session_type
+</li>
+<li>sig
+</li>
+<li>signed
+</li>
+<li>trust_root
+</li>
+</ul><p>
+
+        同じメッセージの中で、ある名前空間にひとつ以上のエイリアスを割り当ててはならない (MUST NOT)。メッセージが他のメッセージへの応答の場合、その応答は、同じ名前空間を参照するのに異なるエイリアスを用いてもよい (MAY)。
+        
+      
+</p>
+<p>参考例：
+</p>
+<p>
+        拡張仕様のサービスタイプ URI は、"&lt;http://example.com/ext/1.0&gt;" である。
+        
+
+      </p>
+<blockquote class="text">
+<p>openid.ns.x=http://example.com/ext/1.0
+</p>
+<p>openid.x=example
+</p>
+<p>openid.x.foo=bar
+</p>
+<p>openid.xx=notx
+</p>
+</blockquote><p>
+
+        この例において、"openid.x" と "openid.x.foo" という鍵は拡張仕様と関連づけられている。"openid.xx" という鍵は関連づけられていない。
+        
+      
+</p>
+<p>
+        拡張仕様は、同じ名前を有する複数のパラメータを定義してはならない (MUST NOT)。同じパラメータ名について複数の値を送る必要がある拡張仕様は、そのための独自の規則を定義しなければならない。
+        
+      
+</p>
+<a name="rp_discovery"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.13"></a><h3>13.&nbsp;
+OpenID リライングパーティーのディスカバリ</h3>
+
+<p>
+        RP のディスカバリによって、ソフトウェアエージェントは、OpenID をサポートしているサイトを発見することができる。OpenID 要求の中の return_to URL が、指定されたレルムに対するOpenID RP のエンドポイントであることを、OpenID プロバイダが自動的に検証することも可能である。
+        
+      
+</p>
+<p>
+        RP は、Yadis プロトコルを使用して、有効な return_to URL を公開すべきである (SHOULD)。RP は、この情報をどの URL で公開してもよい (MAY)。また、プロバイダが return_to URL を検証できるように、レルムの範囲内で公開すべきである (SHOULD)。
+        
+      
+</p>
+<p>
+        RP のディスカバリの XRDS 文書は、ひとつ以上の &lt;xrd:Service&gt; エレメントを含まなければならない (MUST)。
+        
+
+        </p>
+<ul class="text">
+<li>
+            少なくともひとつの &lt;xrd:URI&gt; エレメントを含む。
+            
+          
+</li>
+<li>
+            全ての &lt;xrd:URI&gt; タグが OpenID 2.0 認証応答を受け入れる URL を含む。
+            
+          
+</li>
+<li>
+            内容が "http://specs.openid.net/auth/2.0/return_to" である &lt;xrd:Type&gt; タグを含む。
+            
+          
+</li>
+</ul><p>
+      
+</p>
+<p>参考例：
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;Service xmlns="xri://$xrd*($v*2.0)"&gt;
+  &lt;Type&gt;http://specs.openid.net/auth/2.0/return_to&lt;/Type&gt;
+  &lt;URI&gt;http://consumer.example.com/return&lt;/URI&gt;
+&lt;/Service&gt;
+</pre></div>
+<a name="compat_mode"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14"></a><h3>14.&nbsp;
+OpenID Authentication 1.1 との互換性</h3>
+
+<p>
+        このセクションでは、OpenID Authentication 1.1 RP および OP との連携方法について説明する。OpenID Authentication 2.0 の実装においては、セキュリティに関する考慮事項によって好ましくないとされない限り、OpenID Authentication 1.1 互換性をサポートすべきである (SHOULD)。
+        
+      
+</p>
+<a name="anchor34"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.1"></a><h3>14.1.&nbsp;
+OpenID Authentication 1.1 からの変更点</h3>
+
+<p>
+          （参考）
+          
+        
+</p>
+<p>
+          本仕様は、Brad Fitzpatrick が記した OpenID 認証のオリジナルの仕様に基づいている。その仕様にはバージョン番号がなかったが OpenID 1.0 と呼ばれ、その後改訂されて OpenID 1.1 となった。本仕様で概要を示しているプロトコルは、改訂後の OpenID プロトコルと下位互換性を保つように意図されている。仕様の変更点の概要は、このセクションに記す通りである。
+          
+        
+</p>
+<a name="anchor35"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.1.1"></a><h3>14.1.1.&nbsp;
+開始およびディスカバリに関わる更新</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                OP 識別子をサポート。この新たな種類のプロトコルフローは、エンドユーザ自身の識別子の代わりに OP 識別子を入力することによって開始される。このため、OP は、エンドユーザによる識別子の選択を支援できる。
+                
+              
+</li>
+<li>
+                識別子としての XRI の使用をサポート。エンドユーザ用の識別子、OP 用の識別子のどちらにも XRI を使用してよい。また XRI は、ひとつ以上の再割り当て可能な (reassignable) i-names から同義かつ永続的で、再割り当てが決して行われない正準化 ID へと自動的にマッピングする。
+                
+              
+</li>
+<li>
+                URL を識別子として用いた場合、既存のウェブのインフラとの互換性を高めるために、識別子は <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., &ldquo;Uniform Resource Identifiers (URI): Generic Syntax,&rdquo; .</span><span>)</span></a> に示される指針に従って正規化される。
+                
+              
+</li>
+<li>
+                ディスカバリでの Yadis プロトコルの使用。ひとつの識別子のために複数の OP を利用することができ、OP に不具合が生じたときのロードバランシングやフォールバックとして役立つ。さらに、サポートしている拡張仕様や他の関連サービスのディスカバリにも利用できる。
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor36"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.1.2"></a><h3>14.1.2.&nbsp;
+セキュリティ面での改善</h3>
+
+<p>
+            OpenID 2.0 ではノンスがプロトコルの一部として組み込まれ、リプレイアタックへの防御策が内蔵されることになった。こうした防御策はこれまで、それぞれのライブラリまたはアプリケーションが仕様の外で実装していた。
+            
+          
+</p>
+<p>
+            新たなアソシエーション形式である HMAC-SHA256 および新たなアソシエーションセッション形式である DH-SHA256 によって、認証アサーションにおける、より強力な署名が可能となった。
+            
+          
+</p>
+<p>
+            <a class='info' href='#security_considerations'>セキュリティに関する考慮事項のセクション<span> (</span><span class='info'>セキュリティに関する考慮事項</span><span>)</span></a>を設け、プロトコルをエンドツーエンドで保護するために考慮している。
+            
+          
+</p>
+<a name="anchor37"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.1.3"></a><h3>14.1.3.&nbsp;
+拡張仕様</h3>
+
+<p>
+            OpenID 2.0 では、認証に加え、RPとOP間のデータ交換やその他の通信をサポートするための仕組みとして、拡張仕様が正式にサポートされた。拡張仕様は、任意の属性の交換に利用できるほか、RP に関する追加情報を認証要求の中に含めるといったプロトコルの拡張にも利用できる。
+            
+          
+</p>
+<p>
+            拡張機能は任意のデータを転送できるため、OpenID 2.0 では、認証メッセージの中への識別子の記述はオプションとなった。
+            
+          
+</p>
+<a name="anchor38"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.2"></a><h3>14.2.&nbsp;
+OpenID Authentication 1.1 互換性の実装</h3>
+
+<p>
+          OpenID Authentication 1.1 のメッセージは全て "openid.ns" パラメータが省略されているため、OpenID Authentication 1.1 endpoint から送信されたメッセージかどうかを RP が簡単に判断することができる。OpenID Authentication 1.1 がサポートしているのは HMAC-SHA1 のアソシエーションのみである。
+          
+        
+</p>
+<p>
+          OpenID Authentication 1.1 のエラー時の応答では、"contact" や "reference" を定義していなかった。OpenID Authentication 1.1 では、エラー時の応答への追加フィールドの追加が可能であった。デバッグに役立つことがあり、また互換性に影響を与えないことから、OpenID Authentication 1.1 を使用するときも、連絡先や参照先を送ることが推奨される (RECOMMENDED)。
+          
+        
+</p>
+<a name="anchor39"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.2.1"></a><h3>14.2.1.&nbsp;
+リライングパーティー</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                HTML ベースのディスカバリを実行したとき、OP エンドポイント URL のリンク関係は、"openid2.provider" よりも "openid.server" が優先して指し示される。また、エンドユーザの OP ローカル識別子のリンク関係は "openid2.local_id" よりも "openid.delegate" が優先して指し示される。これらに該当する場合、プロトコルバージョンは "http://openid.net/signon/1.1" である。HTML では、ひとつのリンクに対して複数のリンク関係を指定することができる。従って、もし OP が OpenID Authentication 1.1 と OpenID Authentication 2.0 の両方に対応していれば、同一の "rel" 属性に "openid2.provider" と "openid.server" の両方が記述されている可能性がある。
+                
+              
+</li>
+<li>
+                XRDS ベースのディスカバリを実行したとき、エンドユーザの OP ローカル識別子は、OpenID &lt;xrd:Service&gt; エレメントの &lt;xrd:LocalID&gt; タグではなく、&lt;openid:Delegate&gt; タグに記述されている。現在実装されているディスカバリコードをサポートするため、&lt;xrd:Service&gt; エレメントに両方のタグを記述してもよい (MAY)。
+                
+              
+</li>
+<li>
+                RP は、Yadis が URL 識別子で成功した場合、XRDS 文書から OpenID Authentication 1.x サービスエレメントを抽出し、利用すべきである (SHOULD)。該当のサービスエレメントは、&lt;xrd:Type&gt; タグのテキスト内容が "http://openid.net/server/1.0" または "http://openid.net/server/1.1" であることから特定できる。前バージョンのプロトコルでは定められていないが、Yadis を通じて OpenID Authentication 1.x サービスを広く知らせる手法として、一般に受け入れられている。
+                
+              
+</li>
+<li>
+                OpenID Authentication 1.1 では、"openid.claimed_id" を定義していない。RP は、要求を行なうときに値を送ってもよい (MAY) が、認証応答の中に記述されている値に依存してはならない (MUST NOT)。OP ローカル識別子 ("openid.identity") と主張識別子とが異なっている場合、RP は、セッション状態に保持する等の方法で、OP ローカル識別子 のディスカバリ時にどの主張識別子を用いたのかを追跡しなければならない (MUST)。応答に主張識別子が記されることはないが、ユーザの識別子として主張識別子を用いなければならない (MUST)。
+                
+              
+</li>
+<li>
+                <a class='info' href='#responding_to_authentication'>認証要求時<span> (</span><span class='info'>認証要求に対する応答</span><span>)</span></a>には、"openid.identity" を送らなければならない (MUST)。
+                
+              
+</li>
+<li>
+                "no-encryption" アソシエーション要求では、RP は、ブランクの session_type パラメータを送らなければならない (MUST)。
+                
+              
+</li>
+<li>
+                OpenID Authentication 1.1 では、"openid.session_type" パラメータの内容がブランク、または、当該パラメータがない場合、"no-encryption" アソシエーションセッション形式 であることを意味する。RP は、"openid.session_type" の値を "no-encryption" に設定して要求を送ってはならない (MUST NOT)。
+                
+              
+</li>
+<li>
+                <a class='info' href='#requesting_authentication'>認証要求<span> (</span><span class='info'>認証要求</span><span>)</span></a>では、OpenID Authentication 1.1 が OP 識別子の使用をサポートしていないので、"openid.identity"パラメータの値を特殊値 "http://specs.openid.net/auth/2.0/identifier_select" にすべきではない (SHOULD NOT)。
+                
+              
+</li>
+<li>
+                認証要求の中の "openid.realm" パラメータは、以前は "openid.trust_root" と呼ばれていた。構文規則や意味は全く同じである。
+                
+              
+</li>
+<li>
+                "checkid_immediate" モードでの認証要求に対して、否定アサーションで応答するときは、"user_setup_url" パラメータを戻さなければならない (MUST)。このパラメータは、エンドユーザが要求を完了するために訪れるかもしれない URL を示している。OP は、エンドユーザをこの URL にリダイレクトしてもよい (MAY)。また、エンドユーザに、この URL を指し示すリンクを提供してもよい (MAY)。
+                
+              
+</li>
+<li>
+                RP は、"openid.response_nonce" パラメータがない<a class='info' href='#positive_assertions'>認証応答<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>を受け入れなければならない (MUST)。リプレイアタックを防ぐための手段を実装すべきである (SHOULD)。
+                
+              
+</li>
+<li>
+                RP は、"openid.op_endpoint" パラメータがない<a class='info' href='#positive_assertions'>認証応答<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>を受け入れなければならない (MUST)。
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor40"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.14.2.2"></a><h3>14.2.2.&nbsp;
+OpenID プロバイダ</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                <a class='info' href='#positive_assertions'>肯定の認証アサーション<span> (</span><span class='info'>肯定アサーション</span><span>)</span></a>の中に、"openid.identity" を含めて送らなければならない (MUST)。
+                
+              
+</li>
+<li>
+                OpenID Authentication 1.1 では、"openid.session_type" パラメータの内容がブランク、または、当該パラメータがない場合、"no-encryption" アソシエーションセッション形式 であることを意味する。OP は、"openid.session_type" の値を "no-encryption" に設定して応答を送ってはならない (MUST NOT)。
+                
+              
+</li>
+<li>
+                OP は、どのアソシエーション要求に対しても、成功時の "no-encryption" 応答を返すことを選択してもよい (MAY)。前述の通り、"openid.session_type" パラメータは、その内容をブランクとするか、パラメータ自体を省略するかしなければならない (MUST)。
+                
+              
+</li>
+<li>
+                OP は、assoc_type でないパラメータが記されたアソシエーション要求を受け入れなければならない (MUST)。また、それらのアソシエーション要求は、HMAC-SHA1 タイプであると見なさなければならない (MUST)。
+                
+              
+</li>
+<li>
+                アソシエーション構築が失敗したときは、直接のエラーメッセージ、あるいは "noencryption" の肯定アソシエーションで応答してもよい (MAY)。
+                
+              
+</li>
+<li>
+                認証要求の中の "openid.realm" パラメータは、以前は "openid.trust_root" と呼ばれていた。構文規則や意味は全く同じである。
+                
+              
+</li>
+<li>
+                "checkid_immediate" モードでの認証要求に対して、否定アサーションで応答するときは、"user_setup_url" パラメータを戻さなければならない (MUST)。このパラメータは、エンドユーザが要求を完了するために訪れるかもしれない URL を示している。RP は、エンドユーザをこの URL にリダイレクトしてもよい (MAY)。また、エンドユーザに、この URL を指し示すリンクを提供してもよい (MAY)。
+                
+              
+</li>
+<li>
+                OP は、認証応答時に "openid.op_endpoint" パラメータを送ってはならない (MUST NOT)。その理由は、OpenID Authentication 1.1 プロトコルが当該パラメータを実装していないからである。
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="security_considerations"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15"></a><h3>15.&nbsp;
+セキュリティに関する考慮事項</h3>
+
+<a name="anchor41"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.1"></a><h3>15.1.&nbsp;
+アタック（攻撃）からの防御</h3>
+
+<a name="preventing_eavesdropping"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.1.1"></a><h3>15.1.1.&nbsp;
+盗聴攻撃</h3>
+
+<p>
+            このプロトコルには、盗聴攻撃に対して脆弱な部分が一か所存在する。
+            
+            </p>
+<ul class="text">
+<li>
+                ノンスのチェックが行なわれないと、盗聴者が成功時の認証アサーションを転送途中で入手して、再利用できてしまう。
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            こうした攻撃は、トランスポート層での暗号化を用い、これらの接続を盗聴行為から防御することによって防ぐことができる。また TLS を利用しない場合でも、メッセージ検証を実行する途中でノンスをチェックすることによって防ぐことができる。その場合は、肯定の認証アサーションの再利用はできなくなる。
+            
+          
+</p>
+<a name="anchor42"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.1.2"></a><h3>15.1.2.&nbsp;
+中間者攻撃</h3>
+
+<p>
+            アソシエーションは、ディスカバリやアソシエーションセッション、<a class='info' href='#check_auth'>直接検証<span> (</span><span class='info'>OpenID プロバイダを通じた直接検証</span><span>)</span></a>の最中を除き、署名済みフィールドの中間者による改竄を防ぐ。秘密の共有鍵を知らずに署名済みフィールドを変更しようとすれば、MAC を解読する必要がある。現時点では、本プロトコルで用いられている MAC に関し、簡単に対処できる攻撃は判明していない。MAC によって提供される保護の質は 共有 MAC 鍵のランダムさに依存しており、推測できない値を用いることが重要となる。
+            
+          
+</p>
+<p>
+            DNS 名前解決やトランスポート層で漏えいが生じる場合、攻撃者が OP に成りすまし、攻撃者自身がアソシエーションを発行したり、ステートレスモードで自ら署名検証を行なったりできるため、メッセージへの署名では不十分である。攻撃者がディスカバリプロセスを改竄できる場合、攻撃者は任意のOP を指定することができ、OP に成りすます必要がなくなる。さらに、攻撃者が XRDS 文書を変更することによって、情報の完全性を損なうことができる場合、中間者さえ必要がなくなる。この種の攻撃を防ぐ方法のひとつとして、<a class='info' href='#RFC3275'>XMLDSIG<span> (</span><span class='info'>Eastlake 3rd, D., Reagle Jr., J., and D. Solo, &ldquo;(Extensible Markup Language) XML-Signature Syntax and           Processing,&rdquo; .</span><span>)</span></a> [RFC3275] に示されるような XRDS ファイルへのデジタル署名があげられる。これらの署名に用いられている鍵を信頼するかどうかを最終的に判断する必要があるのは RP であるため、鍵となる材料 (keying materials) は指定しない。
+            
+          
+</p>
+<p>
+            SSL と信頼できる機関が署名した証明書を用い、DNS 検索結果と証明書を照らし合わせて検証することによって、こうした攻撃は、避けることができる。証明書の妥当性が立証されれば、改竄は不可能である。SSL サーバに成りすますためには、証明書を偽造したり、盗んだりする必要があるが、これらはネットワークベースの攻撃よりも遥かに困難である。
+            
+          
+</p>
+<p>
+            SSL による保護を受けるには、ユーザエージェントを通じたエンドユーザとの双方向の通信をはじめ、双方向の通信の全ての部分で SSL を用いなければならない。本プロトコルでは必須とはしていないが、SSL の使用が強く推奨される (RECOMMENDED)。エンドポイント URL およびエンドユーザのユーザエージェントとの双方向の通信のセキュリティを確保するために、OP は、SSLと信頼できる機関が署名した証明書を用いるべきである (SHOULD) ことが、現時点のベストプラクティスから明らかになっている。さらに、SSLと信頼できる機関が署名した証明書を用いることにより、RP は、エンドユーザの URL を安全な方法で取り出すことができる。RP は、種々のエンドポイントにおいて SSL が正しく用いられていない場合、RP 自身のセキュリティポリシに基づいて、トランザクションを完了しない、あるいは、トランザクションの開始さえしないことを選択してもよい (MAY)。
+            
+          
+</p>
+<a name="rp_mitm_proxy"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.1.2.1"></a><h3>15.1.2.1.&nbsp;
+不正なリライングパーティーのプロキシ化</h3>
+
+<p>
+              特殊な形態の中間者攻撃のひとつとして、RP が不正な中間者（ MITM ）としての役割を果たす、というのがあげられる。RP は、エンドユーザの主張識別子に関してディスカバリを実行し、ユーザエージェントを OP にリダイレクトするのではなく、代わりに自分自身を通して OP をプロキシする。その結果、エンドユーザが OP に提供するクレデンシャルを、RP は入手することができるのである。この種の攻撃を防ぐにはいくつかの方法があるが、本文書で記述する対象範囲外である。これらの防御方法はいずれも、OP がエンドユーザとの間にセキュリティが確保されたチャネルを確立することが必要である。
+              
+            
+</p>
+<a name="anchor43"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.2"></a><h3>15.2.&nbsp;
+ユーザエージェント</h3>
+
+<p>
+          本プロトコルは対話的に用いられることを意図しているため、ユーザエージェント (User-Agents) は、主として、一般に普及しているウェブブラウザとなるだろう。ウェブブラウザやそのホストは、スパイウェアやマルウェアに感染している可能性がある。その場合、ソフトウェアが信頼できず、認証がエンドユーザの承諾に基づいて行われたかどうかを知ることが不可能であるため、認証アサーションの強度は制限を受ける。従って、現状では、多くのウェブアプリケーションやプロトコルは、ウェブブラウザやそのホストのセキュリティに依存しているのである。
+          
+        
+</p>
+<p>
+          OP に対するクロスサイトスクリプティングアタックが、同様の効果を狙って行われる可能性がある。セキュリティを安全に保つために、OP は、スクリプトに依存すべきではない。こうすれば、スクリプトをサポートしていないユーザエージェントやスクリプトを使用不可に設定したユーザエージェントでもプロトコルを利用することができる。
+          
+        
+</p>
+<a name="anchor44"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.3"></a><h3>15.3.&nbsp;
+ユーザインタフェースに関する考慮事項</h3>
+
+<p>
+          RP は、ブラウザのトップレベルのウインドウにおいて全てのコントロールを表示し、エンドユーザを OP エンドポイント URL にリダイレクトすべきである (SHOULD)。こうすれば、一見 OP のように見えるサイト（フィッシング）に対するエンドユーザの保護が向上する。
+          
+        
+</p>
+<p>
+          OpenIDプロバイダは、OpenID のフィッシングアタックの可能性について、エンドユーザを教育すべきである (SHOULD)。また、こうした攻撃を防ぐため、OP の認証サービスエンドポイント URL を検証するブラウザのプラグインなどのツールをエンドユーザに装備させるべきである (SHOULD)。
+          
+        
+</p>
+<a name="anchor45"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.4"></a><h3>15.4.&nbsp;
+HTTP および HTTPS URL 識別子</h3>
+
+<p>
+          これらのタイプ識別子については、<a class='info' href='#http_s_identifiers'>既に述べた通り<span> (</span><span class='info'>HTTP および HTTPS URL 識別子</span><span>)</span></a>であるが、再度触れておく価値がある。前述の通り、エンドユーザがスキーム以外は同一の URL を管理していることを表明するための方法としては、HTTP URL から HTTPS URL へのリダイレクトを発行することが推奨される (RECOMMENDED)。RP は、ディスカバリと開始フェーズでHTTP URLを決して保存するようなことはなく、リダイレクトを辿って、HTTPS URL を主張識別子として用いる。
+          
+        
+</p>
+<p>
+          本推奨事項に関心を持つエンドユーザは、自身の HTTPS URL をそれぞれの RP で直接入力すべきである。そうすれば、RP が HTTPS URL ヘのリダイレクトを辿る段階が省かれる。現時点で考慮すべき唯一のセキュリティに関する考慮事項は、攻撃者がリダイレクトを実施せず、識別子を不正な OP に向けることで、HTTP URL の完全性を損なう場合である。しかし、こうした攻撃は、ユーザエクスペリエンスを変化させるであろうし、アンチフィッシング技術を用いれば検知可能である。そして、OpenID においては、識別子自体のセキュリティが基本原則なのである。
+          
+        
+</p>
+<a name="anchor46"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.5"></a><h3>15.5.&nbsp;
+サービス妨害攻撃 （DoS 攻撃）</h3>
+
+<p>
+          本プロトコルには、不正な RP が OP に対してサービス妨害攻撃を始めることができる部分がある。本当の要求であるかどうかを OP が迅速にチェックするための手段が OpenID プロトコルメッセージにないためである。サービス妨害攻撃は、RP がアソシエーションや認証、署名検証を繰り返し要求することによって可能となるのである。
+          
+        
+</p>
+<p>
+          こうした攻撃が最も重大な影響を与える可能性があるのは、各メッセージに対しOP が離散指数の演算を行う必要があるアソシエーションフェーズである。RP はメッセージごとにモジュラスやジェネレータを指定することができるので、攻撃者はOP に対し、各メッセージへの応答に優先して累乗計算をリアルタイムに実行するよう強制すらできる。
+          
+        
+</p>
+<p>
+          こうした攻撃は極めて有害であるが、OpenID プロバイダは、汎用の IP ベースの大量アクセス制限、禁止技術を用いて、この種の攻撃に容易に対抗することができる。OP は、"openid.realm" および "openid.return_to" の値をもとに禁止されている要求を調べることもできる。
+          
+        
+</p>
+<a name="anchor47"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.15.6"></a><h3>15.6.&nbsp;
+プロトコルの可変項目</h3>
+
+<p>
+          プロトコルにおいては以下のバリエーションが知られており、これらのバリエーションは、プロトコルの使用に当たってのセキュリティに直接影響をあたえる場合も与えない場合もある。こうした値は、本プロトコルのためのセキュリティプロファイルの作成に用いられる可能性があると推測される。次の表は、OpenID プロバイダ側から見た可変項目のリストである。
+          
+        
+</p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
+<col align="left"><col align="left"><col align="left">
+<tr><th align="left">番号</th><th align="left">可変項目</th><th align="left">値</th></tr>
+<tr>
+<td align="left">1.</td>
+<td align="left">
+            realm でのワイルドカードの使用は認められるか。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+<tr>
+<td align="left">2.</td>
+<td align="left">
+            事前のアソシエーションが必要か。OP は RP に対し、認証要求を行なう前に最初にアソシエーションの構築を求めるか。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+<tr>
+<td align="left">3.</td>
+<td align="left">
+            受け入れられる主張識別子のタイプ
+            
+          </td>
+<td align="left">
+            HTTP/HTTPS/XRI のセット
+            
+          </td>
+</tr>
+<tr>
+<td align="left">4.</td>
+<td align="left">
+            認証において自ら発行した証明書は認められるか。これは全 SSL トラフィックに適用される。本項目が 'no' の場合、OP は“恐らく” 全ての HTTPS 識別子に対し、既知の信頼するルートCA(証明書発行局)までの証明書の連鎖を要求するが、そのことについては意図的に前提としないでおく。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+<tr>
+<td align="left">5.</td>
+<td align="left">
+            XRDS ファイルに署名しなければならないか。XRDS に関する署名は XMLDSIG に従う。これらの署名に用いられている鍵を信頼するかどうかを最終的にRPが自ら判断しなければならないため、鍵となる材料は指定しない。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+<tr>
+<td align="left">6.</td>
+<td align="left">
+            セキュリティが確保されたチャネルを経由して XRDS ファイルを取得しなければならないか。これは SSL を前提としないか。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+<tr>
+<td align="left">7.</td>
+<td align="left">
+            アソシエーションを構築するとき、どのタイプのセッション形式を用いることができるか。
+            
+          </td>
+<td align="left">
+            no-encryption/DH-SHA1/DH-SHA256 のセット
+            
+          </td>
+</tr>
+<tr>
+<td align="left">8.</td>
+<td align="left">
+            RP は、XRDS 文書を持っていなければならないか。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+<tr>
+<td align="left">9.</td>
+<td align="left">
+            OP が署名への使用に合意しているアソシエーション形式は何か。
+            
+          </td>
+<td align="left">
+            HMAC-SHA1/HMAC-SHA256 のセット
+            
+          </td>
+</tr>
+<tr>
+<td align="left">10.</td>
+<td align="left">
+            アソシエーション要求は、セキュリティが確保されたチャネルを経由して行なわなければならないか。
+            
+          </td>
+<td align="left">
+            Yes/No のいずれか
+            
+          </td>
+</tr>
+</table>
+<br clear="all" />
+
+<p style='text-align: center'>
+            特定されたセキュリティの可変項目
+            
+          
+</p>
+<a name="anchor48"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A"></a><h3>Appendix A.&nbsp;
+使用例</h3>
+
+<p>参考
+</p>
+<a name="normalization_example"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.1"></a><h3>Appendix A.1.&nbsp;
+正規化</h3>
+
+<p>
+          テキスト URL の正規化の詳細およびさらなる事例については、<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., &ldquo;Uniform Resource Identifiers (URI): Generic Syntax,&rdquo; .</span><span>)</span></a> Section 6 を参照。
+          
+        
+</p><br /><hr class="insert" />
+<table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
+<col align="left"><col align="left"><col align="left"><col align="left">
+<tr><th align="left">ユーザ入力</th><th align="left">Identifier</th><th align="left">Type</th><th align="left">Discussion</th></tr>
+<tr>
+<td align="left">example.com</td>
+<td align="left">http://example.com/</td>
+<td align="left">URL</td>
+<td align="left">スキームがない URI は http URI に正規化</td>
+</tr>
+<tr>
+<td align="left">http://example.com</td>
+<td align="left">http://example.com/</td>
+<td align="left">URL</td>
+<td align="left">パスコンポーネントがない場合、スラッシュに正規化</td>
+</tr>
+<tr>
+<td align="left">https://example.com/</td>
+<td align="left">https://example.com/</td>
+<td align="left">URL</td>
+<td align="left">https URI は https URI のまま</td>
+</tr>
+<tr>
+<td align="left">http://example.com/user</td>
+<td align="left">http://example.com/user</td>
+<td align="left">URL</td>
+<td align="left">パスコンポーネントがある場合、末尾にスラッシュは追加されない</td>
+</tr>
+<tr>
+<td align="left">http://example.com/user/</td>
+<td align="left">http://example.com/user/</td>
+<td align="left">URL</td>
+<td align="left">パスコンポーネントがある場合、末尾のスラッシュは保持される</td>
+</tr>
+<tr>
+<td align="left">http://example.com/</td>
+<td align="left">http://example.com/</td>
+<td align="left">URL</td>
+<td align="left">パスがない場合、末尾のスラッシュは保持される</td>
+</tr>
+<tr>
+<td align="left">=example</td>
+<td align="left">=example</td>
+<td align="left">XRI</td>
+<td align="left">グローバルコンテキストシンボルで開始するように XRI を正規化</td>
+</tr>
+<tr>
+<td align="left">xri://=example</td>
+<td align="left">=example</td>
+<td align="left">XRI</td>
+<td align="left">グローバルコンテキストシンボルで開始するように XRI を正規化</td>
+</tr>
+</table>
+<br clear="all" />
+
+<p style='text-align: center'>
+            ユーザ入力の識別子への正規化
+            
+          
+</p><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;User's Input to Identifier Normalization&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<a name="anchor49"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.2"></a><h3>Appendix A.2.&nbsp;
+OP ローカル識別子</h3>
+
+<p>
+          エンドユーザが "http://www.example.com/" を主張識別子として使用したい。エンドユーザが OpenID プロバイダとしての機能を有する プロバイダ(example.com)にアカウントを持っている。エンドユーザの OP ローカル識別子 が "https://exampleuser.exampleprovider.com/" である。
+          
+        
+</p>
+<p>
+          このシナリオにおいて、適切な構成で Yadis または HTML ベースのディスカバリ（<a class='info' href='#discovery'>Section&nbsp;7.3<span> (</span><span class='info'>ディスカバリ</span><span>)</span></a> および下記 <a class='info' href='#XRDS_Sample'>Appendix&nbsp;A.3<span> (</span><span class='info'>XRDS</span><span>)</span></a> 参照）を実行すると、RP はエンドユーザに関して以下の情報が得られる。
+          
+
+          </p>
+<blockquote class="text"><dl>
+<dt>主張識別子</dt>
+<dd>
+            
+              http://www.example.com/
+            
+</dd>
+<dt>OP ローカル識別子</dt>
+<dd>
+            
+              https://exampleuser.exampleprovider.com/
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<a name="XRDS_Sample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.3"></a><h3>Appendix A.3.&nbsp;
+XRDS</h3>
+
+<p>
+            エンドユーザは "http://www.example.com/" を識別子として使用するが、RP には実際に OP エンドポイント URL "https://www.exampleprovider.com/endpoint/" で "https://exampleuser.exampleprovider.com/" を検証させるためには、"http://www.example.com/" に関するディスカバリを実行したとき、XRDS ファイルの最後の XRD エレメントに、以下の XML 断片が記されているべきである。
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;Service xmlns="xri://$xrd*($v*2.0)"&gt;
+  &lt;Type&gt;http://specs.openid.net/auth/2.0/signon&lt;/Type&gt;
+  &lt;URI&gt;https://www.exampleprovider.com/endpoint/&lt;/URI&gt;
+  &lt;LocalID&gt;https://exampleuser.exampleprovider.com/&lt;/LocalID&gt;
+&lt;/Service&gt;
+</pre></div>
+<a name="anchor50"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.4"></a><h3>Appendix A.4.&nbsp;
+HTML 識別子のマークアップ</h3>
+
+<p>
+            "http://www.example.com/" を識別子として用いるが、RP には実際に "http://www.livejournal.com/openid/server.bml" で位置が指定される OpenID プロバイダで "http://exampleuser.livejournal.com/" を検証させるためには、識別子 URL によって位置が指定される HTML 文書の &lt;head&gt; 部分に、以下のマークアップが記されているべきである。
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;link rel="openid2.provider openid.server"
+      href="http://www.livejournal.com/openid/server.bml"/&gt;
+&lt;link rel="openid2.local_id openid.delegate"
+      href="http://exampleuser.livejournal.com/"/&gt;
+</pre></div>
+<a name="anchor51"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.5"></a><h3>Appendix A.5.&nbsp;
+XRI 正準化 ID</h3>
+
+<p>
+          例えば、=example と =exmpl という XRI i-name がともに xri://(example)!1234 という正準化 ID を含む XRDS 文書を生成する場合、これらの識別子は同等として扱うべきである。ユーザアカウントを有するアプリケーションでは、永続的な正準化 ID 、xri://(example)!1234 を、そのアカウントの主キーとして用いるべきである。i-names =example および =exmpl を表示名として参照するために保存してもよいが、これらは再割り当て可能な識別子であり、永続的な鍵として用いるべきではない。
+          
+        
+</p>
+<a name="pvalue"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
+Diffie-Hellman 鍵交換のデフォルト値</h3>
+
+<p>
+          これは確認済みの素数で、Diffie-Hellman 鍵交換においてデフォルトのモジュラスとして用いられる。16 進表現では、以下の通りである。
+          
+        
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+DCF93A0B883972EC0E19989AC5A2CE310E1D37717E8D9571BB7623731866E61E
+F75A2E27898B057F9891C2E27A639C3F29B60814581CD3B2CA3986D268370557
+7D45C2E7E52DC81C7A171876E5CEA74B1448BFDFAF18828EFD2519F14E45E382
+6634AF1949E5B535CC829A483B8A76223E5D490A257F05BDFF16F2FB22C583AB
+</pre></div>
+<a name="anchor52"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C"></a><h3>Appendix C.&nbsp;
+謝辞</h3>
+
+<p>
+        OpenID コミュニティは、本仕様の草案作成および編集における、以下の人々の取り組みに謝意を表します。誰がどの部分を実際に書いたのか、その詳細が知りたい場合は、自由に当コミュニティの SVN リポジトリを調べたり、"svn blame" を使用したりして下さい。http://openid.net/svn/specifications/authentication/2.0/
+        
+      
+</p>
+<p>
+      </p>
+<blockquote class="text">
+<p>Barry Ferg (barry@sxip.com)
+</p>
+<p>Brad Fitzpatrick (brad@danga.com) &lt;author&gt;
+</p>
+<p>Carl Howells (chowells@janrain.com)
+</p>
+<p>David Recordon (david@sixapart.com) &lt;author/editor&gt;
+</p>
+<p>Dick Hardt (dick@sxip.com) &lt;author&gt;
+</p>
+<p>Drummond Reed (drummond.reed@cordance.net)
+</p>
+<p>Hans Granqvist (hgranqvist@verisign.com)
+</p>
+<p>Johannes Ernst (jernst@netmesh.us)
+</p>
+<p>Johnny Bufu (johnny@sxip.com) &lt;editor&gt;
+</p>
+<p>Josh Hoyt (josh@janrain.com) &lt;author/editor&gt;
+</p>
+<p>Kevin Turner (kevin@janrain.com)
+</p>
+<p>Marius Scurtescu (marius@sxip.com)
+</p>
+<p>Martin Atkins (mart@degeneration.co.uk)
+</p>
+<p>Mike Glover (mpg4@janrain.com)
+</p>
+</blockquote><p>
+      
+</p>
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>16.&nbsp;参考文献</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="FIPS180-2">[FIPS180-2]</a></td>
+<td class="author-text">U.S. Department of Commerce and National Institute of Standards
+              and Technology, &ldquo;<a href="http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf">Secure Hash Signature Standard</a>,&rdquo; FIPS&nbsp;180-2.<p>
+Defines Secure Hash Algorithm 256 (SHA256)
+</p>
+</td></tr>
+<tr><td class="author-text" valign="top"><a name="HTML401">[HTML401]</a></td>
+<td class="author-text">W3C, &ldquo;<a href="http://www.w3.org/TR/html401">HTML 4.01 Specification</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC1750">[RFC1750]</a></td>
+<td class="author-text">Eastlake, D., Crocker, S., and J. Schiller, &ldquo;<a href="http://tools.ietf.org/html/rfc1750">Randomness Recommendations for Security</a>,&rdquo; RFC&nbsp;1750.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2104">[RFC2104]</a></td>
+<td class="author-text">Krawczyk, H., Bellare, M., and R. Canetti, &ldquo;<a href="http://tools.ietf.org/html/rfc2104">HMAC: Keyed-Hashing for Message Authentication</a>,&rdquo; RFC&nbsp;2104.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text">Bradner, B., &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; RFC&nbsp;2119.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2616">[RFC2616]</a></td>
+<td class="author-text">Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2631">[RFC2631]</a></td>
+<td class="author-text">Rescorla, E., &ldquo;<a href="http://tools.ietf.org/html/rfc2631">Diffie-Hellman Key Agreement Method</a>,&rdquo; RFC&nbsp;2631.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3174">[RFC3174]</a></td>
+<td class="author-text">Eastlake, D. and P. Jones, &ldquo;<a href="http://tools.ietf.org/html/rfc3174">US Secure Hash Algorithm 1 (SHA1)</a>,&rdquo; RFC&nbsp;3174.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3275">[RFC3275]</a></td>
+<td class="author-text">Eastlake 3rd, D., Reagle Jr., J., and D. Solo, &ldquo;<a href="http://tools.ietf.org/html/rfc3275">(Extensible Markup Language) XML-Signature Syntax and
+          Processing</a>,&rdquo; RFC&nbsp;3275.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3339">[RFC3339]</a></td>
+<td class="author-text">Klyne, G. and C. Newman, &ldquo;<a href="http://tools.ietf.org/html/rfc3339">Date and Time on the Internet: Timestamps</a>,&rdquo; RFC&nbsp;3339.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3548">[RFC3548]</a></td>
+<td class="author-text">Josefsson, S., &ldquo;<a href="http://tools.ietf.org/html/rfc3548">The Base16, Base32, and Base64 Data Encodings</a>,&rdquo; RFC&nbsp;3548.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of Unicode and ISO 10646</a>,&rdquo; RFC&nbsp;3629.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
+<td class="author-text">Berners-Lee, T., &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifiers (URI): Generic Syntax</a>,&rdquo; RFC&nbsp;3986.</td></tr>
+<tr><td class="author-text" valign="top"><a name="XRI_Resolution_2.0">[XRI_Resolution_2.0]</a></td>
+<td class="author-text">Wachob, G., Reed, D., Chasen, L., Tan, W., and S. Churchill, &ldquo;<a href="http://www.oasis-open.org/committees/download.php/17293">Extensible Resource Identifier (XRI) Resolution V2.0
+          - Committee Draft 02</a>&rdquo; (<a href="http://docs.oasis-open.org/xri/2.0/specs/cd02/xri-resolution-V2.0-cd-02.html">HTML</a>, <a href="http://docs.oasis-open.org/xri/2.0/specs/cd02/xri-resolution-V2.0-cd-02.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="XRI_Syntax_2.0">[XRI_Syntax_2.0]</a></td>
+<td class="author-text">Reed, D. and D. McAlpin, &ldquo;<a href="http://www.oasis-open.org/committees/download.php/15376">Extensible Resource Identifier (XRI) Syntax V2.0</a>&rdquo; (<a href="http://www.oasis-open.org/committees/download.php/15376">HTML</a>, <a href="http://www.oasis-open.org/committees/download.php/15377">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="Yadis">[Yadis]</a></td>
+<td class="author-text">Miller, J., &ldquo;Yadis Specification 1.0&rdquo; (<a href="http://yadis.org/papers/yadis-v1.0.pdf">PDF</a>, <a href="http://yadis.org/papers/yadis-v1.0.odt">ODT</a>).</td></tr>
+</table>
+
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Author's Address</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">specs@openid.net</td></tr>
+</table>
+</body></html>
+

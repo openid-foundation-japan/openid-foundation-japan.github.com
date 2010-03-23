@@ -1,0 +1,1020 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Final: OpenID Attribute Exchange 1.0 - 最終版</title>
+<meta http-equiv="Expires" content="Mon, 22 Mar 2010 11:26:34 +0000">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="OpenID Attribute Exchange 1.0 - 最終版">
+<meta name="generator" content="xml2rfc v1.34 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">Final</td><td class="header">D. Hardt</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">J. Bufu</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">Sxip Identity</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">J. Hoyt</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">JanRain</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">December 2007</td></tr>
+</table></td></tr></table>
+<h1><br />OpenID Attribute Exchange 1.0 - 最終版</h1>
+
+<h3>Abstract</h3>
+
+<p>
+        OpenID Attribute Exchange は、エンドポイント間で属性情報を交換するための OpenID の拡張仕様である。ユーザーの属性情報を更新または取得するためのメッセージを提供する。
+        
+      
+</p><a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#anchor1">1.</a>&nbsp;
+要求記法および規則<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">1.1.</a>&nbsp;
+用語<br />
+<a href="#anchor3">2.</a>&nbsp;
+Overview<br />
+<a href="#anchor4">3.</a>&nbsp;
+情報モデル<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#identifier-definition">3.1.</a>&nbsp;
+対象識別子<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#attribute-name-definition">3.2.</a>&nbsp;
+属性タイプ識別子<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#attribute-value-definition">3.3.</a>&nbsp;
+属性値<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#attribute-specific-encodings">3.3.1.</a>&nbsp;
+属性固有のエンコーディング<br />
+<a href="#anchor5">4.</a>&nbsp;
+ディスカバリー<br />
+<a href="#fetch">5.</a>&nbsp;
+フェッチメッセージ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#fetch_request">5.1.</a>&nbsp;
+フェッチ要求形式<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#fetch_response">5.2.</a>&nbsp;
+フェッチ応答形式<br />
+<a href="#store">6.</a>&nbsp;
+ストアメッセージ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#store_request">6.1.</a>&nbsp;
+ストア要求形式<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#store_response">6.2.</a>&nbsp;
+ストア応答形式<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">6.2.1.</a>&nbsp;
+保存成功<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">6.2.2.</a>&nbsp;
+保存失敗<br />
+<a href="#anchor8">7.</a>&nbsp;
+セキュリティ事項<br />
+<a href="#anchor9">8.</a>&nbsp;
+謝辞<br />
+<a href="#rfc.references1">9.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">9.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">9.2.</a>&nbsp;
+Non-normative References<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Authors' Addresses<br />
+</p>
+<br clear="all" />
+
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+要求記法および規則</h3>
+
+<p>
+        用いられる各キーワード「MUST (しなければならない) 」、「MUST NOT (してはならない) 」、「REQUIRED (必須である) 」、「SHALL (するものとする) 」、「SHALL NOT (しないものとする) 」、「SHOULD (すべきである) 」、「SHOULD NOT (すべきではない) 」、「RECOMMENDED (推奨される) 」、「MAY (してもよい) 」、「OPTIONAL (任意である) 」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> で述べられている通りに解釈されるべきものである。
+        
+      
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.1"></a><h3>1.1.&nbsp;
+用語</h3>
+
+<p>
+          </p>
+<blockquote class="text"><dl>
+<dt>ユーザー</dt>
+<dd>
+              エンドユーザー、または利用者のこと。Web ブラウザなどのクライアントソフトウェアを利用して、OpenID ベースで属性情報の交換を行うデジタルアイデンティティの所有者を指す。
+                          
+
+</dd>
+<dt>アイデンティティ情報</dt>
+<dd>
+              "name" と "value" のペアで表現される、デジタルアイデンティティが持つ属性項目とその値。
+              
+            
+</dd>
+<dt>属性</dt>
+<dd>
+              アイデンティティ情報を交換することを目的に、アイデンティティ情報自身を表すための情報モデルのベースとなるもの。
+              
+            
+</dd>
+<dt>ペルソナ</dt>
+<dd>
+              ユーザーが持つアイデンティティ情報のサブセット。ユーザーは自身のアイデンティティの一部として、複数のペルソナを持つことができる。例えば、ビジネス用のペルソナとプライベート用のペルソナを持つことができる。
+              
+            
+</dd>
+<dt>OpenID プロバイダ</dt>
+<dd>
+              "OP" または "Server" ともいう。エンドユーザが識別子を管理しているというアサーション (assertion) を得るために RP が依存する OpenID 認証サーバ。
+              
+            
+</dd>
+<dt>リライングパーティ</dt>
+<dd>
+              "RP" または "Consumer" ともいう。エンドユーザが識別子を管理しているという証明を要求するウェブアプリケーション。
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+          すべての OpenID Attribute Exchange のメッセージは、OpenID-Authentication-2.0 の拡張仕様の項目で定義されている名前空間の宣言を含む必要がある (MUST)。
+          
+        
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+openid.ns.&lt;extension_alias&gt;=http://openid.net/srv/ax/1.0
+
+</pre></div>
+<p>
+          複数の拡張仕様のコンフリクトを避けるため、実際にリライングパーティがメッセージを構成する際にはメッセージひとつひとつに対して厳密に拡張名前空間を決めるべきである。このドキュメントでは、Attribute Exchange の拡張名前空間が "ax" となることを前提としている。
+          
+        
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+Overview</h3>
+
+<p>
+        Attribute Exchange サービスの拡張仕様は、"http://openid.net/srv/ax/1.0" の URI によって識別できる。この URI は名前空間宣言の拡張で規定されている必要がある (MUST)。
+        
+      
+</p>
+<p>
+        属性とは、一意の URI で識別される個人のユーザー情報の単位のことであり、あらゆる種類の情報を参照することがある。定義されている属性のタイプについては <a class='info' href='#OpenID.axschema'>[OpenID.axschema]<span> (</span><span class='info'>Hardt, D., &ldquo;Schema for OpenID Attribute Exchange,&rdquo; May&nbsp;2007.</span><span>)</span></a> を参照すること。
+        
+      
+</p>
+<p>
+        この拡張仕様では属性を送るために、fetch (<a class='info' href='#fetch'>Section&nbsp;5<span> (</span><span class='info'>フェッチメッセージ</span><span>)</span></a> を参照) と store (<a class='info' href='#store'>Section&nbsp;6<span> (</span><span class='info'>ストアメッセージ</span><span>)</span></a> を参照) の2つのメッセージタイプを定義している。Fetch は OP から属性情報を取得し、一方で store では OP 上の属性情報を更新する。これら2つのリライングパーティからのメッセージは、OpenID Authentication のプロトコルに従いユーザーエージェントを経由して OP へ送られる。
+        
+      
+</p>
+<p>
+        ここで詳述されているこれらのリクエストパラメータについては <a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> の拡張のしくみを使って送信されなくてはならない (MUST)。
+        
+      
+</p>
+<a name="anchor4"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+情報モデル</h3>
+
+<p>
+				OpenID Attribute Exchange のサービス拡張仕様は、シンプルな情報モデルによりユーザー情報をサイト間で移動するためのしくみを提供する。
+        </p>
+<blockquote class="text">
+<p>属性は対象の識別子に紐付く
+</p>
+<p>属性は識別子のタイプと値を持つ
+</p>
+<p>属性タイプの識別子はURIである
+</p>
+<p>属性の値はどのような種類のデータも扱える
+</p>
+</blockquote><p>
+        
+      
+</p>
+<a name="identifier-definition"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
+対象識別子</h3>
+
+<p>
+          属性のセットのための識別子。URI である必要がある (MUST)。対象識別子は、認証の最後のメッセージに含まれるエンドユーザー識別子に準じてる。言い換えると、Attribute Exchange でのユーザー属性の一部はエンドユーザーの認証の一部に相当するといえる。この対象識別子は Attribute Exchange には含まれない。
+          
+        
+</p>
+<a name="attribute-name-definition"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.2"></a><h3>3.2.&nbsp;
+属性タイプ識別子</h3>
+
+<p>
+          属性タイプ識別子は URI である必要があり (MUST)、プロパティ値を参照する形で利用される。
+          
+        
+</p>
+<p>
+          属性タイプ識別子 URI は、それをプロパティの記述を参照するために取得することによって解決できるべきである。OP は新しいまたは未知の属性タイプのメタデータを取得して参照することで、ユーザーが属性を提供することを動的に支援することができる。
+          
+        
+</p>
+<p>
+          これにより柔軟性と拡張性が提供される。柔軟性という面では URN と URL の両方でプロパティ値を参照できる。拡張性という面では個人のサイトや企業のサイトでも、紐付く属性値の構文と意味付けを規定することで、所有する属性情報のタイプを明確にすることができる。
+          
+        
+</p>
+<p>
+          <a class='info' href='#OpenID.axschema'>[OpenID.axschema]<span> (</span><span class='info'>Hardt, D., &ldquo;Schema for OpenID Attribute Exchange,&rdquo; May&nbsp;2007.</span><span>)</span></a> にそれらの定義方法や新しい属性タイプ URI、また OP が属性タイプに紐付くメタデータのスキーマ、データ形式の概略を掲載しているので参照すること。
+          
+        
+</p>
+<a name="attribute-value-definition"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
+属性値</h3>
+
+<p>
+          属性値は <a class='info' href='#RFC3629'>UTF-8<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a> [RFC3629] の文字列である必要がある (MUST)。データ形式については <a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> プロトコルで定義されている内容に従い、属性値は改行 (UCSコード10, &quot;\n&quot;) を含んではならない (MUST NOT)。
+          
+        
+</p>
+<p>
+          OpenID Attribute Exchange はどんな種類のデータでも送信することができる。もしデータに改行を含んだり、UTF-8 文字列でない、または送信者がそう望む場合は、改行を含まない UTF-8 の文字列にエンコードしなければならない (MUST)。
+          
+        
+</p>
+<a name="attribute-specific-encodings"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.3.1"></a><h3>3.3.1.&nbsp;
+属性固有のエンコーディング</h3>
+
+<p>
+            属性にメタデータを記述することにより属性固有のエンコーディング方法を定義することも可能で、OpenID Attribute Exchange のプロトコルレイヤーに適用させることもある。
+            
+          
+</p>
+<p>
+            オプションではあるが、ローカライズを行う場合は <a class='info' href='#OpenID.value-lang-1.0'>[OpenID.value&#8209;lang&#8209;1.0]<span> (</span><span class='info'>Wahl, M., &ldquo;Language Tags for OpenID Values,&rdquo; April&nbsp;2007.</span><span>)</span></a> の language tags を利用して属性固有のエンコーディングを行うこともできる。
+            
+          
+</p>
+<a name="anchor5"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+ディスカバリー</h3>
+
+<p>
+        Attribute Exchange サービス拡張のディスカバリーは、<a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> に記載されている方法により実現される。Attribute Exchange の名前空間 "http://openid.net/srv/ax/1.0" は、XRDS discovery ドキュメントのなかの &lt;xrd:Type&gt; の子要素である &lt;xrd:Service&gt; 要素でリストされるべきである (SHOULD)。
+        
+      
+</p>
+<a name="fetch"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+フェッチメッセージ</h3>
+
+<p>
+        フェッチメッセージは個人の属性情報を OP から取得するのに使用される。
+        
+      
+</p>
+<a name="fetch_request"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+フェッチ要求形式</h3>
+
+<p>
+          以下のリクエストフィールドのうち "openid.ax.mode" 以外はオプション (OPTIONAL) だが、"openid.ax.required" あるいは "opened.ax.if_available" のどちらかは必ずリクエストに含めなければならない (MUST)。また、"openid.ax.required" あるいは "openid.ax.if_available" のパラメータ内のどの属性エイリアスも紐付いた "openid.ax.type.&lt;alias&gt;" パラメータを保持しなければならない (MUST)。属性エイリアスの長さは少なくとも32文字までサポートされていなければならない (MUST)。
+          
+        
+</p>
+<p>
+          "openid.ax.required" あるいは "openid.ax.if_available" ディレクティブ内の複数の属性エイリアスはカンマ区切りで記述される。
+          
+        
+</p>
+<p>
+          </p>
+<blockquote class="text"><dl>
+<dt>openid.ax.mode</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  必須 (REQUIRED)。値: "fetch_request"
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.type.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  このパラメータの値には送信された属性のタイプ識別 URI が指定される。&lt;alias&gt; は交換される属性を識別するのに再度使用される。
+                  
+                
+</p>
+<p>
+                  属性エイリアスは <a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> のデータフォーマット/プロトコルメッセージの項で指定されているように改行やコロンを含んではならなず (MUST NOT)、またカンマ (",") やピリオド (".") も含んではならない (MUST NOT)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.required</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  値: 属性エイリアス、もしくは "openid.ax.type.&lt;alias&gt;" パラメータで定義された URI と紐付いたエイリアスのリスト。複数の属性のエイリアスはコンマ (",") で区切られる。
+                  
+                
+</p>
+<p>
+                  このフィールドを使用して属性情報のリクエストを送信することで、RP は OP に特定の機能の提供を要求していることを伝えることができる。OP はユーザーがどの属性を公開するか決定する際に、その情報を用いて支援を行うべきである。RP の要求は OP によって強制されるべきではない。
+                  
+                
+</p>
+<p>
+                  Attribute Exchange で属性を取得できない場合、RP はユーザーに対して Attribute Exchange の範疇を超える話であるが、必要な属性を受け取る代替の手法を提示するべきである。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.if_available</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  値: 属性エイリアス、もしくは "openid.ax.type.&lt;alias&gt;" パラメータで定義された URI と関連したエイリアスのリスト。複数の属性のエイリアスはコンマ (",") で区切られる。
+                  
+                
+</p>
+<p>
+                  このフィールドを使用して要求された属性は RP によってオプションとみなされたものである。オプションの属性を OP が提供していなかった場合でも、RP はユーザーとの対話を完了できるようにするべきである。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.count.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  RP が OP から受け取ることを希望している指定された属性エイリアス値の数。もし存在する場合は、値が0より大きい、もしくは OP が持ちうるかぎりの属性の値を RP が要求していることを表す特別な値 "unlimited" でなければならない (MUST)。もし存在しない場合は、厳密に1つの値が要求されているということである。
+                  
+                
+</p>
+<p>
+                  OP はこのフィールドで指定された属性の値の数の通りか、もしくはそれより少ない数を返してもよいが (MAY)、要求された属性の値の数より多く返してはならない (MUST NOT)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.update_url</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  この値がもし存在する場合、OpenID 認証のポジティブアサーションを使用して初回の応答が送信された後に、OP は指定された URL にフェッチ応答メッセージを再送信してもよい。OP がこの機能をサポートしているならば、フェッチ応答メッセージの一部としてパラメータを返さなければならない (MUST)。もしこの機能に対応していない場合は、このパラメータを無視してよい。
+                  
+                
+</p>
+<p>
+                  "openid.ax.update_url" フィールドの値は根底の仕様であるフェッチ応答の更新の OpenID 認証ポジティブアサーションの "openid.return_to" の値として使用されなければならない (MUST)。
+                  
+                
+</p>
+<p>
+                  もし "openid.realm" フィールドが存在する場合、"openid.ax.update_url" の値はベースの OpenID フェッチ要求メッセージで指定されている realm と照合しなければならない (MUST)。照合ルールは OpenID 認証プロトコルの "Realms" の項で定められているものと同じである。
+                  
+                
+</p>
+<p>
+                  この"要求していない"応答メッセージは属性情報更新のための応答の際に生成され、更新されたデータを含んでいるだろう。OpenID ポジティブアサーション送信時と同様に、OP は RP に更新されたデータを再送信するのにユーザーの同意を得るべきである。
+                  
+                
+</p>
+<p>
+                  リライングパーティーは属性情報と対象識別子を比較するために充分な情報を含む、エンコードされたトランザクションデータを URL に含んでも良い。必要に応じてリライングパーティーにより追加情報がエンコードされた URL に含まれる。
+                  
+                
+</p>
+<p>
+                  RP が属性の更新をこれ以上希望しない場合、update_url に紐付いた404の HTTP ステータスコードを返してもよい (MAY)。OP は404のステータスコードを受け取ったら更新情報を送信しないようにしてもよい (MAY)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+            以下の例では、氏名と性別情報を必須、お気に入りの犬と映画の情報をオプションとして要求している。リライングパーティは項目識別子と関連づけられた3つのお気に入り映画を希望している。
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+openid.ns.ax=http://openid.net/srv/ax/1.0
+openid.ax.mode=fetch_request
+openid.ax.type.fname=http://example.com/schema/fullname
+openid.ax.type.gender=http://example.com/schema/gender
+openid.ax.type.fav_dog=http://example.com/schema/favourite_dog
+openid.ax.type.fav_movie=http://example.com/schema/favourite_movie
+openid.ax.count.fav_movie=3
+openid.ax.required=fname,gender
+openid.ax.if_available=fav_dog,fav_movie
+openid.ax.update_url=http://idconsumer.com/update?transaction_id=a6b5c41
+
+</pre></div>
+<a name="fetch_response"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2"></a><h3>5.2.&nbsp;
+フェッチ応答形式</h3>
+
+<p>
+          フェッチ応答メッセージはフェッチ要求された情報を提供する。左辺として各属性は割り当てられた "openid.ax.value." で始まるエイリアス、右辺としてその属性値が提供される。属性タイプもまた "openid.ax.type.&lt;alias&gt;" パラメータで返される。属性エイリアスの長さは少なくとも32文字までサポートされていなければならない (MUST)。
+          
+        
+</p>
+<p>
+          "openid.ax.mode" を除いて、以下の全ての要求フィールドはオプションである (OPTIONAL) が、"openid.ax.value.&lt;alias&gt;" パラメータ内に存在するいかなる属性値も "openid.ax.type.&lt;alias&gt;" パラメータと紐付けられていなければならない (MUST)。
+          
+        
+</p>
+<p>
+          ユーザーから値を提供されていないか利用できない場合、紐付けられた "openid.ax.value.&lt;alias&gt;" フィールドは OP のフェッチ応答に含まれるべきではない (SHOULD NOT)。"openid.ax.count.&lt;alias&gt;" の値が0で紐付けされた "openid.ax.type.&lt;alias&gt;" フィールドと同時に指定されている場合、何の属性値も提供されないことを明示している。
+          
+        
+</p>
+<p>
+          Attribute Exchange の仕様外であるが、受け取ったデータの検証は RP によって行われるべきである。
+          
+        
+</p>
+<p>
+          </p>
+<blockquote class="text"><dl>
+<dt>openid.ax.mode</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                	必須 (REQUIRED)。値: "fetch_response"
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.type.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  このパラメータの値にはフェッチ応答内の属性のタイプ識別 URI が指定される。&lt;alias&gt; は交換される属性を識別するのに再度使用される。
+                  
+                
+</p>
+<p>
+                  属性エイリアスは <a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> のデータフォーマット/プロトコルメッセージの項で規定されているように改行やコロンを含んではならない (MUST NOT) し、カンマ (",") やピリオド (".") も含んではならない (MUST NOT)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.count.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                	&lt;alias&gt; で参照される属性値の個数。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.value.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  &lt;alias&gt; として表された属性の値が割り当てられる。"openid.ax.count.&lt;alias&gt;" が送信されていない時は、このパラメータ形式を使用しなければならない (MUST)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.value.&lt;alias&gt;.&lt;number&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  &lt;alias&gt; として表された属性の値が割り当てられる。"openid.ax.count.&lt;alias&gt;" が送信され、少なくとも1つの値が該当する属性値として提供されている場合には、このパラメータ形式を使用しなければならない (MUST)。
+                  
+                
+</p>
+<p>
+                  &lt;number&gt; は1から "openid.ax.count.&lt;alias&gt;" で指定された値までの範囲のインデックスを一意的に識別する。パラメータ数は "openid.ax.count.&lt;alias&gt;" で指定された値と同一でなければならない (MUST)。OP はフェッチ応答の際に属性値の並び順を保つ必要はない。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.update_url</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  リクエストで指定された "update_url" を返す。OP が "update_url" パラメータを受け取り、属性更新機能をサポートする意思がある場合、OP はフェッチ応答メッセージの一部に update_url パラメータと値を返さなければならない (MUST)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+        	フェッチ応答メッセージは、OP 上での属性値更新に応じて、<a class='info' href='#fetch_request'>Section&nbsp;5.1<span> (</span><span class='info'>フェッチ要求形式</span><span>)</span></a> で指定された "update_url" に送信されることもある。
+          
+        
+</p>
+<p>
+            前項で氏名を必須でお気に入りの犬情報をオプションとしたリクエスト例に対する応答を示す、3つの映画名が要求されたとしても、OP は2つの値しか提供していない。
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+openid.ns.ax=http://openid.net/srv/ax/1.0
+openid.ax.mode=fetch_response
+openid.ax.type.fname=http://example.com/schema/fullname
+openid.ax.type.gender=http://example.com/schema/gender
+openid.ax.type.fav_dog=http://example.com/schema/favourite_dog
+openid.ax.type.fav_movie=http://example.com/schema/favourite_movie
+openid.ax.value.fname=John Smith
+openid.ax.count.gender=0
+openid.ax.value.fav_dog=Spot
+openid.ax.count.fav_movie=2
+openid.ax.value.fav_movie.1=Movie1
+openid.ax.value.fav_movie.2=Movie2
+openid.ax.update_url=http://idconsumer.com/update?transaction_id=a6b5c41
+
+</pre></div>
+<a name="store"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+ストアメッセージ</h3>
+
+<p>
+        ストアメッセージはユーザー情報を OP に保存するために使用される。RP はこのメッセージを送信することで、自身が持つ属性値を OP に移譲することができる。送信された属性値は他の RP にも同様に送信することができ、ユーザーにとって役立つであろう。属性エイリアスは少なくとも32文字までサポートされていなければならない (MUST)。
+        
+      
+</p>
+<p>
+        ストア要求を受けた際に、属性をどのように更新をするかという OP 側のプロセスについては本ドキュメントのスコープ外とする。
+        
+      
+</p>
+<a name="store_request"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.1"></a><h3>6.1.&nbsp;
+ストア要求形式</h3>
+
+<p>
+          以下のリクエストフィールドのうち "openid.ax.mode" 以外はオプションである (OPTIONAL)。 "openid.ax.value.&lt;alias&gt;" または "openid.ax.value.&lt;alias&gt;.&lt;number&gt;" で示されるどのエイリアスも、"openid.ax.type" と紐付かなければならない (MUST)。
+          
+        
+</p>
+<p>
+          </p>
+<blockquote class="text"><dl>
+<dt>openid.ax.mode</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  必須 (REQUIRED)。値: "store_request"
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.type.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  このパラメータの値にはストア要求内の属性のタイプ識別 URI が指定される。&lt;alias&gt; は後に交換される属性を識別するのに使用される。
+                  
+                
+</p>
+<p>
+                  属性エイリアスは <a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> のデータフォーマット/プロトコルメッセージの項で規定されているように改行やコロンを含んではならない (MUST NOT) し、カンマ (",") やピリオド (".") も含んではならない (MUST NOT)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.count.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                	&lt;alias&gt; で参照される属性値の個数。もし存在する場合は0より大きくなければならない (MUST)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.value.&lt;alias&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  &lt;alias&gt; として表された属性の値が割り当てられる。"openid.ax.count.&lt;alias&gt;" が送信されていない時は、このパラメータ形式を使用しなければならない (MUST)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.value.&lt;alias&gt;.&lt;number&gt;</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  &lt;alias&gt; として表された属性の値が割り当てられる。&lt;number&gt; は1から openid.ax.count&lt;alias&gt; で指定された値までの範囲の値のインデックスを一意的に識別する。"openid.ax.count.&lt;alias&gt;"　が送信された時は、このパラメータ形式を使用しなければならない (MUST)。これらのパラメータの数は、"openid.ax.count.&lt;alias&gt;" で指定された値と同じでなければならない (MUST)。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+openid.ns.ax=http://openid.net/srv/ax/1.0
+openid.ax.mode=store_request
+openid.ax.type.fname=http://example.com/schema/fullname
+openid.ax.value.fname=Bob Smith
+openid.ax.type.fav_movie=http://example.com/schema/favourite_movie
+openid.ax.count.fav_movie=2
+openid.ax.value.fav_movie.1=Movie1
+openid.ax.value.fav_movie.2=Movie2
+
+</pre></div>
+<a name="store_response"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2"></a><h3>6.2.&nbsp;
+ストア応答形式</h3>
+
+<a name="anchor6"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2.1"></a><h3>6.2.1.&nbsp;
+保存成功</h3>
+
+<p>
+            正常なストア操作はストア応答内の mode パラメータによって示されている。
+            
+          
+</p>
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt>openid.ax.mode</dt>
+<dd>
+                
+<blockquote class="text">
+<p>
+                  	必須 (REQUIRED)。値: "store_response_success"
+                  
+</p>
+</blockquote>
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+openid.ns.ax=http://openid.net/srv/ax/1.0
+openid.ax.mode=store_response_success
+
+</pre></div>
+<a name="anchor7"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2.2"></a><h3>6.2.2.&nbsp;
+保存失敗</h3>
+
+<p>
+            保存失敗の応答は以下のフォーマットのとおり。
+            
+          
+</p>
+<p>
+          </p>
+<blockquote class="text"><dl>
+<dt>openid.ax.mode</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  必須 (REQUIRED)。値: "store_response_failure"
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+<dt>openid.ax.error</dt>
+<dd>
+              
+<blockquote class="text">
+<p>
+                  オプション (OPTIONAL)。ユーザへの通知を想定した、失敗応答の原因となるエラー条件を表すパラメータ。メッセージのロケールは HTTP メッセージのロケールと一致するべきである。
+                  
+                
+</p>
+</blockquote>
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+openid.ns.ax=http://openid.net/srv/ax/1.0
+openid.ax.mode=store_response_failure
+openid.ax.error=General storage failure
+
+</pre></div>
+<a name="anchor8"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+セキュリティ事項</h3>
+
+<p>
+        OpenID Attribute Exchange は OpenID の拡張であり、それゆえ属性の交換に OpenID 認証要求と応答メッセージを使用している。 
+        
+      
+</p>
+<p>
+        <a class='info' href='#OpenID.authentication-2.0'>[OpenID.authentication&#8209;2.0]<span> (</span><span class='info'>specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007.</span><span>)</span></a> の"セキュリティ事項"を参照すること。
+        
+      
+</p>
+<a name="anchor9"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+謝辞</h3>
+
+<p>
+        John Merrells をはじめとした 'draft-merrells-dix' への寄稿者の方々に感謝する。ドキュメントの一部は本仕様のために利用された。
+        
+      
+</p>
+<p>
+        Mark Wahiに属性のエンコードに関する問題の対処方法のアドバイスをいただいた。
+        
+      
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="OpenID.authentication-2.0">[OpenID.authentication-2.0]</a></td>
+<td class="author-text">specs@openid.net, &ldquo;OpenID Authentication 2.0 - Final,&rdquo; August&nbsp;2007 (<a href="http://www.openid.net/specs/openid-authentication-2_0.txt">TXT</a>, <a href="http://www.openid.net/specs/openid-authentication-2_0.html">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="OpenID.value-lang-1.0">[OpenID.value-lang-1.0]</a></td>
+<td class="author-text"><a href="mailto:mark.wahl@informed-control.com">Wahl, M.</a>, &ldquo;<a href="http://www.ldap.com/1/spec/schema/openid-value-lang-1_0-00.html">Language Tags for OpenID Values</a>,&rdquo; April&nbsp;2007.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="ftp://ftp.isi.edu/in-notes/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, November&nbsp;2003 (<a href="ftp://ftp.isi.edu/in-notes/rfc3629.txt">TXT</a>).</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.2.&nbsp;Non-normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="OpenID.axschema">[OpenID.axschema]</a></td>
+<td class="author-text"><a href="mailto:dick@sxip.com">Hardt, D.</a>, &ldquo;<a href="http://www.axschema.org/">Schema for OpenID Attribute Exchange</a>,&rdquo; May&nbsp;2007.</td></tr>
+</table>
+
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Authors' Addresses</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Dick Hardt</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Sxip Identity</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">798 Beatty Street</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Vancouver, BC  V6B 2M1</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">CA</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:dick@sxip.com">dick@sxip.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://sxip.com/">http://sxip.com/</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Johnny Bufu</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Sxip Identity</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">798 Beatty Street</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Vancouver, BC  V6B 2M1</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">CA</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:johnny@sxip.com">johnny@sxip.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://sxip.com/">http://sxip.com/</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Josh Hoyt</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">JanRain</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">5331 SW Macadam Ave. #375</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Portland, OR  97239</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">US</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:josh@janrain.com">josh@janrain.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://janrain.com/">http://janrain.com/</a></td></tr>
+</table>
+</body></html>
+

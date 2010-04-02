@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>OpenID Simple Registration Extension 1.0</title>
+<meta http-equiv="Expires" content="Mon, 29 Mar 2010 14:10:00 +0000">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="OpenID Simple Registration Extension 1.0">
+<meta name="generator" content="xml2rfc v1.34 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header"> </td><td class="header">J. Hoyt</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">J. Daugherty</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">JanRain</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">D. Recordon</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">VeriSign</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">June 2006</td></tr>
+</table></td></tr></table>
+<h1><br />OpenID Simple Registration Extension 1.0</h1>
+
+<h3>Abstract</h3>
+
+<p>OpenID Simple Registation は、OpenID 認証プロトコル (Authentication protocol) の拡張仕様のひとつであり、非常に軽量なプロファイル交換を実現するものである。ウェブサービスにおいてエンドユーザ (End User) が新たなアカウントを登録しようとする際に、一般に要求されることが多い8種類の情報を受け渡すように設計されている。
+</p><a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#anchor1">1.</a>&nbsp;
+要求記法および規則<br />
+<a href="#anchor2">2.</a>&nbsp;
+用語<br />
+<a href="#anchor3">3.</a>&nbsp;
+要求書式 (Request Format) <br />
+<a href="#response_format">4.</a>&nbsp;
+応答書式 (Response Format) <br />
+<a href="#anchor4">5.</a>&nbsp;
+セキュリティに関する考慮事項<br />
+<a href="#rfc.references1">6.</a>&nbsp;
+参考文献<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Authors' Addresses<br />
+</p>
+<br clear="all" />
+
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+要求記法および規則</h3>
+
+<p>本文書で用いられる各キーワード「MUST (しなければならない)」、「MUST NOT (してはならない)」、「REQUIRED (必須である)」、「SHALL (するものとする)」、「SHALL NOT (しないものとする)」、「SHOULD (すべきである)」、「SHOULD NOT (すべきではない)」、「RECOMMENDED (推奨される)」、「MAY (してもよい)」、「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, B., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; .</span><span>)</span></a> で述べられている通りに解釈されるべきものである。
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+用語</h3>
+
+<p>
+</p>
+<blockquote class="text"><dl>
+<dt>エンドユーザ (End User) :</dt>
+<dd>自らの識別情報 (Identity) をコンシューマ (Consumer) に証明したい実在のユーザ。
+</dd>
+<dt>コンシューマ (Consumer) :</dt>
+<dd>主張識別情報 (Claimed Identity) がエンドユーザのものであるという証明を必要とするウェブサービス。
+</dd>
+<dt>アイデンティティプロバイダ (Identity Provider) :</dt>
+<dd>"IdP" または "Server" とも呼ばれる。主張識別情報がエンドユーザのものであるという暗号理論に基づいた証明を得るために、コンシューマが問い合せる OpenID 認証サーバを指す。
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+要求書式 (Request Format) </h3>
+
+<p>ここに詳述する要求パラメータは、OpenID 認証の checkid_immediate または checkid_setup 要求とともに送るべきである (SHOULD)。
+</p>
+<p>以下の要求フィールドは全て任意である (OPTIONAL) が、要求の中で、"openid.sreg.required" または "openid.sreg.optional" の少なくとも片方を指定しなければならない (MUST)。
+</p>
+<p>
+</p>
+<blockquote class="text"><dl>
+<dt>openid.sreg.required:</dt>
+<dd>フィールド名のコンマ区切りのリスト。応答に存在していない場合、コンシューマは、エンドユーザとの対話を行なわずに登録を完了することができない。フィールド名は、<a class='info' href='#response_format'>応答書式 (Response Format)<span> (</span><span class='info'>応答書式 (Response Format) </span><span>)</span></a> の項において指定するフィールド名から、"openid.sreg." プリフィックスを除いたものとする。
+ 
+</dd>
+<dt>openid.sreg.optional:</dt>
+<dd>フィールド名のコンマ区切りのリスト。コンシューマによって使用され、存在していなくても、登録完了の妨げにはならない。フィールド名は、<a class='info' href='#response_format'>応答書式 (Response Format)<span> (</span><span class='info'>応答書式 (Response Format) </span><span>)</span></a> の項において指定するフィールド名から、"openid.sreg." プリフィックスを除いたものとする。
+ 
+</dd>
+<dt>openid.sreg.policy_url:</dt>
+<dd>プロファイルデータがどのように使用されるのかをエンドユーザが知りたい場合に、どこを見れば良いのかがわかるように、コンシューマからエンドユーザに提示される URL 。アイデンティティプロバイダは、この URL が指定された場合、エンドユーザに対してこのURLを表示すべきである (SHOULD)。
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<a name="response_format"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+応答書式 (Response Format) </h3>
+
+<p>"openid.mode" が "id_res" のとき、アイデンティティプロバイダの応答は、下記に示すフィールドを含むべきである (SHOULD)。
+</p>
+<p>応答の "openid.signed" のフィールド・リストには、送り返された登録フィールド名が含まれていなければならない (MUST)。そのフィールド名は、（例えば、sreg.nickname など） openid. プリフィックスを除いたものとする。"openid.sig" フィールドでは、OpenID Authentication 仕様書に指定される OpenID データに加え、sreg. フィールドを署名対象としなければならない (MUST)。
+</p>
+<p>コンシューマが署名検証に失敗した場合、アイデンティティプロバイダから得られた登録データを、一切使用するべきではない (SHOULD)。
+</p>
+<p>コンシューマは、必須または任意と指定されたフィールドが存在していない応答を処理できるようにしておかなければならない (MUST)。
+</p>
+<p>要求したフィールドが存在していない場合、もしくは、要求していないフィールドが余分に存在している場合の対処方法については、コンシューマが決定するものとする。こうした状況について、コンシューマは、エンドユーザがデータを手入力した場合と同様に処理すべきである (SHOULD)。
+</p>
+<p>応答の中で、同一のフィールドを二度以上記述してはならない (MUST NOT)。また、応答に含まれるフィールドは全て、本仕様書で規定されるフィールドの中から選択しなければならない (MUST)。
+</p>
+<p>アイデンティティプロバイダは、照会に対する応答として、下記フィールドの一部を任意の組み合わせで送り返してもよい (MAY)。具体的には、下記の通りである:
+</p>
+<p>
+</p>
+<blockquote class="text"><dl>
+<dt>openid.sreg.nickname:</dt>
+<dd>エンドユーザがニックネームとして使用したい任意の UTF-8 文字列。
+</dd>
+<dt>openid.sreg.email:</dt>
+<dd>エンドユーザのメールアドレス。<a class='info' href='#RFC2822'>[RFC2822]<span> (</span><span class='info'>Resnick, P., &ldquo;Internet Message Format,&rdquo; .</span><span>)</span></a> の第3.4.1節で指定されている通りとする。
+</dd>
+<dt>openid.sreg.fullname:</dt>
+<dd>エンドユーザのフルネームをフリーテキストで表記した UTF-8 文字列。
+</dd>
+<dt>openid.sreg.dob:</dt>
+<dd>YYYY-MM-DD 形式で表記したエンドユーザの生年月日。指定した桁数より小さい値を表記する場合は、必ずゼロを詰める。この値の長さは、常に 10 でなければならない (MUST)。この値の特定の一部をエンドユーザが公開したくない場合、その部分は全てゼロと設定しなければならない (MUST)。
+ <br />
+
+例えば、エンドユーザが生年月日のうちの年を1980年と指定し、月日を公開したくない場合、送り返す値は、"1980-00-00" とするものとする (SHALL)。
+</dd>
+<dt>openid.sreg.gender:</dt>
+<dd>エンドユーザの性別。男性の場合は "M"、女性の場合は "F" とする。
+</dd>
+<dt>openid.sreg.postcode:</dt>
+<dd>フリーテキストで表記した UTF-8 文字列。エンドユーザの居住国の郵便番号体系と合致しているべきである (SHOULD)。
+</dd>
+<dt>openid.sreg.country:</dt>
+<dd>エンドユーザの居住国。<a href='http://www.iso.org/iso/en/prods-services/iso3166ma/index.html'>ISO3166</a> で指定されている通りとする。
+</dd>
+<dt>openid.sreg.language:</dt>
+<dd>エンドユーザが選択した言語。<a href='http://www.w3.org/WAI/ER/IG/ert/iso639.htm'>ISO639</a> で指定されている通りとする。
+</dd>
+<dt>openid.sreg.timezone:</dt>
+<dd><a href='http://www.twinsun.com/tz/tz-link.htm'>タイムゾーンデータベース</a>から得られる ASCII 文字列。
+ <br />
+
+例えば、"Europe/Paris" あるいは "America/Los_Angeles"。
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<a name="anchor4"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+セキュリティに関する考慮事項</h3>
+
+<p>なし。
+</p>
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>6.&nbsp;参考文献</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text">Bradner, B., &ldquo;Key words for use in RFCs to Indicate Requirement Levels.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2822">[RFC2822]</a></td>
+<td class="author-text">Resnick, P., &ldquo;Internet Message Format.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="openid_authentication">[openid_authentication]</a></td>
+<td class="author-text">Recordon, D. and B. Fitzpatrick, &ldquo;OpenID Authentication 1.1.&rdquo;</td></tr>
+</table>
+
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Authors' Addresses</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Josh Hoyt</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">JanRain, Inc.</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">5331 SW Macadam Avenue</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Suite #375</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Portland, OR  97239</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">USA</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:josh@janrain.com">josh@janrain.com</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Jonathan Daugherty</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">JanRain, Inc.</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">5331 SW Macadam Avenue</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Suite #375</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Portland, OR  97239</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">USA</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:jonathan@janrain.com">jonathan@janrain.com</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">David
+Recordon</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">VeriSign, Inc.</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">487 E Middlefield Road</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Mountain View, CA  94109</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">USA</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:drecordon@verisign.com">drecordon@verisign.com</a></td></tr>
+</table>
+</body></html>
+

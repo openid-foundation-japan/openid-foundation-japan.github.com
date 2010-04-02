@@ -1,22 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<!DOCTYPE html>
+<html lang="ja">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
-    <meta http-equiv="Content-Script-Type" content="text/javascript" />
-    <title>OpenID Foundation Japan ドキュメント翻訳プロジェクト</title>
-    <meta name="keywords" content="OpenID, translation, Japan, Japanese" />
-    <meta name="description" content="OpenID Foundation Japan ドキュメント翻訳プロジェクト" />
-    <meta name="author" content="OpenID Foundation Japan" />
-    <meta name="copyright" content="(C) 2009 OpenID Foundation Japan" />
+    <meta charset="utf-8">
+    <title>OpenID Foundation Japan 翻訳・教育 Working Project</title>
+    <meta name="keywords" content="OpenID, OAuth, ドキュメント, 仕様書, 日本語訳, 翻訳">
+    <meta name="description" content="OpenID Foundation Japan ドキュメント翻訳プロジェクト">
+    <meta name="author" content="OpenID Foundation Japan - http://www.openid.or.jp">
+    <meta name="copyright" content="(C) 2009 OpenID Foundation Japan">
+    <link href="/stylesheets/base.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/ico" href="http://www.openid.or.jp/favicon.ico">
+    <!--[if IE]>
+      <script src="/javascripts/html5shiv.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <ul>
-      <li><a href="/openid-authentication.html">OpenID Authentication 2.0 - 最終版</li>
-      <li><a href="/openid-attribute-exchange.html">OpenID Attribute Exchange 1.0 - 最終</li>
-    </ul>
-
+    <div class="container">
+      <header>
+        <div class="header">
+          <h1>翻訳ドキュメント一覧 - OpenID Foundation Japan 翻訳・教育 Working Project</h1>
+          <form method="get" action="http://www.openid.or.jp/search.php">
+            <input type="text" size="14" name="query"/>
+            <input type="hidden" value="AND" name="andor"/>
+            <input type="hidden" value="results" name="action"/>
+            <input type="submit" value="検索" name="submit"/>
+          </form>
+          <nav>
+            <ul class="navigations">
+              <li><a href="http://www.openid.or.jp/modules/docs/introduce/introduce.html">OIDF-Jのご紹介</a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/greeting/greeting.html">代表理事のご挨拶</a></li>
+              <li><a href="http://www.openid.or.jp/modules/news/">ニュース＆トピックス </a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/organization/organization.html">会員組織について</a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/member/member.html">会員一覧</a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/contents/contents.html">公開資料</a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/inquiry/inquiry.html">お問い合わせ</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <section>
+        <div class="documents">
+          <header>
+            <h2>翻訳ドキュメント一覧</h2>
+          </header>
+          <article>
+            <div class="document">
+              <header>
+                <h3><a href="/openid-authentication.html">OpenID Authentication 2.0 - 最終版</a></h3>
+              </header>
+              <div class="description">
+                <p>
+                  OpenID 認証は、エンドユーザが識別子 (Identifier) を管理していることを証明する方法を提供するものである。
+                  OpenID 認証を利用すれば、リライングパーティー (Relying Party、以下 RP) はエンドユーザのパスワードやメールアドレスなどにアクセスする必要がなくなる。
+                  <span class="more">
+                    <a href="/openid-authentication.html" title="OpenID Authentication 2.0 - 最終版">続きを読む</a>
+                  </span>
+                </p>
+              </div>
+              <footer>
+                <p class="published_at">2010/01/19 公開</p>
+              </footer>
+            </div>
+          </article>
+          <article>
+            <div class="document">
+              <header>
+                <h3><a href="/openid-attribute-exchange.html">OpenID Attribute Exchange 1.0 - 最終</a></h3>
+              </header>
+              <div class="description">
+                <p>
+                  OpenID Attribute Exchange は、エンドポイント間で属性情報を交換するための OpenID の拡張仕様である。
+                  ユーザーの属性情報を更新または取得するためのメッセージを提供する。
+                  <span class="more">
+                    <a href="/openid-attribute-exchange.html" title="OpenID Attribute Exchange 1.0 - 最終">続きを読む</a>
+                  </span>
+                </p>
+              </div>
+              <footer>
+                <p class="published_at">2010/03/25 公開</p>
+              </footer>
+            </div>
+          </article>
+        </div>
+      </section>
+      <footer>
+        <div class="footer">
+          <nav>
+            <ul class="navigations">
+              <li><a href="http://www.openid.or.jp/modules/docs/introduce/introduce.html">会社情報</a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/privacy/privacy.html">個人情報の取り扱いについて</a></li>
+              <li><a href="http://www.openid.or.jp/modules/docs/inquiry/inquiry.html">お問い合わせ</a></li>
+            </ul>
+          </nav>
+          <address class="copyright">Copyright &copy; 2010 <a href="http://www.openid.or.jp/">OpenID Foundation Japan</a>. All Rights Reserved.</address>
+        </div>
+      </footer>
+    </div>
     <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

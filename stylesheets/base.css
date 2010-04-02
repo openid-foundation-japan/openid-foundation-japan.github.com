@@ -1,0 +1,148 @@
+/*-----------------]: base :[---------------------*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Verdana,Helvetica,'ＭＳ Ｐゴシック','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3',osaka,sans-serif;
+  color: #555;
+  background: #00002F;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*-----------------]: container :[---------------------*/
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+
+/*-----------------]: header :[---------------------*/
+
+.header {
+  position: relative;
+}
+
+.header h1 {
+  text-indent: -9999px;
+  margin: 0;
+  height: 110px;
+  border-top: 8px solid #f7931e;
+  background: url(http://www.openid.or.jp/images/oidfj_logo.gif) no-repeat 5px 5px;
+}
+
+.header form {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+
+.header form input {
+  font-size: .9em;
+}
+
+.header .navigations {
+  font-size: .85em;
+  padding: 3px 5px;
+  background: #eee;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+}
+
+.header .navigations a {
+  color: #505050;
+  font-weight: bold;
+}
+
+.header .navigations li {
+  display: inline;
+  margin: 0 5px;
+}
+
+
+/*-----------------]: documents :[---------------------*/
+
+.documents {
+  padding: 25px;
+}
+
+.documents a {
+  color: #f7931e;
+}
+
+.documents h2 {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.documents .document {
+  padding: 10px;
+}
+
+.documents .document h3 {
+  font-size: .95em;
+}
+
+.documents .document .description {
+  font-size: .9em;
+  padding: 5px 20px 0;
+}
+
+.documents .document .more {
+  font-size: .8em;
+}
+
+.documents .document .published_at {
+  color: #999;
+  font-size: .6em;
+  text-align: right;
+}
+
+
+/*-----------------]: footer :[---------------------*/
+
+.footer {
+  font-size: .9em;
+  text-align: center;
+  padding: 15px;
+  background: #eee;
+  border-top: 2px solid #ddd;
+}
+
+.footer a {
+  color: #505050;
+}
+
+.footer .navigations {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.footer .navigations li {
+  display: inline;
+}
+
+.footer .navigations li:before {
+  content: ' - '
+}
+
+.footer .navigations li:first-child:before {
+  content: none;
+}
+
+address.copyright {
+  font-size: .9em;
+  font-style: normal;
+}

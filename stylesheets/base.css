@@ -50,7 +50,7 @@ a:hover {
 
 .header .about_us {
   position: absolute;
-  top: 25px;
+  top: 33px;
   right: 30px;
   font-size: .7em;
   width: 370px;
@@ -77,7 +77,8 @@ a:hover {
   padding: 35px;
 }
 
-.documents a {
+.documents a,
+.comments a {
   color: #f7931e;
 }
 

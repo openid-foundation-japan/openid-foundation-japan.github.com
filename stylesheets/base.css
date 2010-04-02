@@ -33,6 +33,7 @@ a:hover {
 
 .header {
   position: relative;
+  border-top: 8px solid #f7931e;
 }
 
 .header a {
@@ -44,7 +45,6 @@ a:hover {
   text-indent: -9999px;
   margin: 0;
   height: 110px;
-  border-top: 8px solid #f7931e;
   background: url(http://www.openid.or.jp/images/oidfj_logo.gif) no-repeat 5px 5px;
 }
 

@@ -93,6 +93,16 @@ a:hover {
   font-size: .95em;
 }
 
+.documents .document .published_on {
+  color: #999;
+  font-size: .6em;
+}
+
+.documents .document .published_on:after {
+  margin-left: 4px;
+  content: '公開';
+}
+
 .documents .document .description {
   font-size: .9em;
   padding: .5em .8em 0;
@@ -102,10 +112,13 @@ a:hover {
   font-size: .8em;
 }
 
-.documents .document .published_on {
-  color: #999;
+.documents .document .original {
   font-size: .6em;
   text-align: right;
+}
+
+.documents .document .original a {
+  color: #999;
 }
 
 
@@ -133,7 +146,8 @@ a:hover {
 }
 
 .footer .navigations li:not(:first-child):before {
-  content: ' - '
+  margin-right: 4px;
+  content: '-'
 }
 
 address.copyright {

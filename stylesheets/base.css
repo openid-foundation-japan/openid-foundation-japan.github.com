@@ -7,7 +7,7 @@
 
 body {
   font-family: Verdana,Helvetica,'ＭＳ Ｐゴシック','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3',osaka,sans-serif;
-  color: #555;
+  color: #666;
   background: #00002F;
 }
 
@@ -35,6 +35,11 @@ a:hover {
   position: relative;
 }
 
+.header a {
+  color: #505050;
+  font-weight: bold;
+}
+
 .header h1 {
   text-indent: -9999px;
   margin: 0;
@@ -43,27 +48,20 @@ a:hover {
   background: url(http://www.openid.or.jp/images/oidfj_logo.gif) no-repeat 5px 5px;
 }
 
-.header form {
+.header .about_us {
   position: absolute;
-  top: 20px;
-  right: 10px;
-}
-
-.header form input {
-  font-size: .9em;
+  top: 34px;
+  right: 30px;
+  font-size: .7em;
+  width: 370px;
 }
 
 .header .navigations {
   font-size: .8em;
-  padding: 3px 5px;
+  padding: 3px 15px;
   background: #eee;
   border-top: 2px solid #ddd;
   border-bottom: 2px solid #ddd;
-}
-
-.header .navigations a {
-  color: #505050;
-  font-weight: bold;
 }
 
 .header .navigations li {
@@ -104,7 +102,7 @@ a:hover {
   font-size: .8em;
 }
 
-.documents .document .published_at {
+.documents .document .published_on {
   color: #999;
   font-size: .6em;
   text-align: right;

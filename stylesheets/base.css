@@ -70,9 +70,10 @@ a:hover {
 }
 
 
-/*-----------------]: documents :[---------------------*/
+/*-----------------]: documents & comments :[---------------------*/
 
-.documents {
+.documents,
+.comments {
   padding: 35px;
 }
 
@@ -80,7 +81,8 @@ a:hover {
   color: #f7931e;
 }
 
-.documents h2 {
+.documents h2,
+.comments h2 {
   font-size: 1.05em;
   margin-bottom: 10px;
 }

@@ -134,12 +134,8 @@ a:hover {
   display: inline;
 }
 
-.footer .navigations li:before {
+.footer .navigations li:not(:first-child):before {
   content: ' - '
-}
-
-.footer .navigations li:first-child:before {
-  content: none;
 }
 
 address.copyright {

@@ -8,7 +8,7 @@
 body {
   font-family: Verdana,Helvetica,'ＭＳ Ｐゴシック','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3',osaka,sans-serif;
   color: #666;
-  background: #00002F;
+  background: url(/images/black_back.gif);
 }
 
 a {

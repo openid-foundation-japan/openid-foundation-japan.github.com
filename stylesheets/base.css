@@ -82,6 +82,7 @@ body>section h2 {
 }
 
 body>section #disqus_thread {
+  margin: 0;
   padding: 10px 50px 40px;
 }
 

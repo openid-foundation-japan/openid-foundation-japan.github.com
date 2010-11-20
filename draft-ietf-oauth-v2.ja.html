@@ -145,9 +145,9 @@
 <tr><td class="header">Internet-Draft</td><td class="header">Yahoo!</td></tr>
 <tr><td class="header">Obsoletes: <a href='http://tools.ietf.org/html/rfc5849'>5849</a> (if&nbsp;approved)</td><td class="header">D. Recordon</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">Facebook</td></tr>
-<tr><td class="header">Expires: May 19, 2011</td><td class="header">D. Hardt</td></tr>
+<tr><td class="header">Expires: May 24, 2011</td><td class="header">D. Hardt</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">Microsoft</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">November 15, 2010</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">November 20, 2010</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 2.0 Protocol<br />draft-ietf-oauth-v2-10</h1>
 
@@ -173,7 +173,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on May 19, 2011.</p>
+This Internet-Draft will expire on May 24, 2011.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -1083,7 +1083,7 @@ Authors' Addresses<br />
       
 </p>
 <p>
-        エンドユーザーのユーザーエージェントを認可サーバーにリダイレクトさせるにあたり, クライアントはエンドユーザー認可エンドポイントURIのクエリー部に下記のパラメーターを <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> フォーマットで追加して, リクエストURIを構築する.
+        エンドユーザーのユーザーエージェントを認可サーバーにリダイレクトさせるにあたり, クライアントはエンドユーザー認可エンドポイントURIのクエリー部に下記のパラメーターを <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> フォーマットで追加して, リクエストURIを構築する.
         
 
         </p>
@@ -1248,7 +1248,7 @@ Authors' Addresses<br />
         
 </p>
 <p>
-          レスポンスタイプが <tt>code</tt> の場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで, リダイレクトURIのクエリー部にパラメーターを追加する.
+          レスポンスタイプが <tt>code</tt> の場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで, リダイレクトURIのクエリー部にパラメーターを追加する.
           
         
 </p>
@@ -1263,7 +1263,7 @@ Authors' Addresses<br />
 
 </pre></div>
 <p>
-          レスポンスタイプが <tt>token</tt> の場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで, リダイレクトURIのフラグメント部にパラメーターを追加する.
+          レスポンスタイプが <tt>token</tt> の場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで, リダイレクトURIのフラグメント部にパラメーターを追加する.
           
         
 </p>
@@ -1278,7 +1278,7 @@ Authors' Addresses<br />
 
 </pre></div>
 <p>
-          レスポンスタイプが <tt>code_and_token</tt> の場合, 認可サーバーは, <tt>code</tt>, <tt>state</tt> パラメーターをリダイレクトURIのクエリー部に, <tt>access_token</tt>, <tt>scope</tt>, <tt>expires_in</tt> パラメーターをフラグメント部に, <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで追加する.
+          レスポンスタイプが <tt>code_and_token</tt> の場合, 認可サーバーは, <tt>code</tt>, <tt>state</tt> パラメーターをリダイレクトURIのクエリー部に, <tt>access_token</tt>, <tt>scope</tt>, <tt>expires_in</tt> パラメーターをフラグメント部に, <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで追加する.
           
         
 </p>
@@ -1308,7 +1308,7 @@ Authors' Addresses<br />
 エラーレスポンス</h3>
 
 <p>
-          エンドユーザーがアクセス要求を拒否したか要求が不正だった場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットでリダイレクトURIのクエリー部に以下に示すパラメーターを追加して, クライアントにエラーを通知する:
+          エンドユーザーがアクセス要求を拒否したか要求が不正だった場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットでリダイレクトURIのクエリー部に以下に示すパラメーターを追加して, クライアントにエラーを通知する:
 
           
 
@@ -2128,7 +2128,7 @@ URI クエリーパラメーター</h3>
               
 </li>
 <li>
-                エンティティーボディーが <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> コンテントタイプのエンコード要件を満たす
+                エンティティーボディーが <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> コンテントタイプのエンコード要件を満たす
                 
               
 </li>
@@ -2973,7 +2973,7 @@ Document History</h3>
           
 </li>
 <li>
-            Kato Kazuyoshi (mixi)
+            Kazuyoshi Kato (mixi)
           
 </li>
 <li>
@@ -3053,7 +3053,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="RFC5849">[RFC5849]</a></td>
 <td class="author-text">Hammer-Lahav, E., &ldquo;<a href="http://tools.ietf.org/html/rfc5849">The OAuth 1.0 Protocol</a>,&rdquo; RFC&nbsp;5849, April&nbsp;2010 (<a href="http://www.rfc-editor.org/rfc/rfc5849.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html401-19991224">[W3C.REC-html401-19991224]</a></td>
-<td class="author-text">Hors, A., Jacobs, I., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML 4.01 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html401-19991224, December&nbsp;1999 (<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML</a>).</td></tr>
+<td class="author-text">Raggett, D., Hors, A., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML 4.01 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html401-19991224, December&nbsp;1999 (<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML</a>).</td></tr>
 </table>
 
 <a name="rfc.references2"></a><br /><hr />
@@ -3112,16 +3112,5 @@ References</h3>
 <tr><td class="author" align="right">URI:&nbsp;</td>
 <td class="author-text"><a href="http://dickhardt.org/">http://dickhardt.org/</a></td></tr>
 </table>
-<script type="text/javascript">
-  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script> 
-<script type="text/javascript"> 
-  try {
-    var pageTracker = _gat._getTracker("UA-15411889-1");
-    pageTracker._trackPageview();
-  } catch(err) {
-  }
-</script>
 </body></html>
 

@@ -135,14 +135,12 @@ body>aside {
 body>aside fb\:like-box {
   float: left;
   width: 280px;
-  border: 1px solid red;
 }
 
 body>aside #disqus_thread {
   float: right;
   width: 400px;
   margin: 0;
-  border: 1px solid red;
 }
 
 

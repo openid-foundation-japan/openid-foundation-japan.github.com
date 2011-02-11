@@ -128,18 +128,8 @@ article .original a {
 
 /*-----------------]: aside :[---------------------*/
 
-body>aside {
-  overflow: hidden;
-}
-
 body>aside #disqus_thread {
-  float: left;
-  width: 420px;
-}
-
-body>aside fb\:like-box {
-  float: right;
-  width: 250px;
+  margin-top: 20px;
 }
 
 

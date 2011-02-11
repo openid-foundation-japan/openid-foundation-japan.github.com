@@ -12,6 +12,7 @@ body {
 }
 
 a {
+  color: #f7931e;
   text-decoration: none;
 }
 
@@ -19,16 +20,31 @@ a:hover {
   text-decoration: underline;
 }
 
-section, article, header, footer, nav {
+h2 {
+  font-size: 1.05em;
+  padding: 35px 0 10px;
+}
+
+section, article, header, footer, aside, nav {
   display: block;
 }
 
+
+/*-----------------]: layout :[---------------------*/
+
 body>header,
-body>footer,
-body>section {
+body>section,
+body>aside,
+body>footer {
   width: 800px;
   margin: 0 auto;
   background: #fff;
+}
+
+body>section,
+body>aside {
+  width: 700px;
+  padding: 10px 50px;
 }
 
 
@@ -74,28 +90,7 @@ body>header nav li {
 }
 
 
-/*-----------------]: section :[---------------------*/
-
-body>section a {
-  color: #f7931e;
-}
-
-body>section h2 {
-  font-size: 1.05em;
-  padding: 35px 0 10px 35px;
-}
-
-body>section #disqus_thread {
-  margin: 0;
-  padding: 10px 50px 40px;
-}
-
-
 /*-----------------]: article :[---------------------*/
-
-article {
-  padding: 10px 50px;
-}
 
 article h3 {
   font-size: .95em;
@@ -128,6 +123,26 @@ article .original {
 
 article .original a {
   color: #999;
+}
+
+
+/*-----------------]: aside :[---------------------*/
+
+body>aside {
+  overflow: hidden;
+}
+
+body>aside fb\:like-box {
+  float: left;
+  width: 280px;
+  border: 1px solid red;
+}
+
+body>aside #disqus_thread {
+  float: right;
+  width: 400px;
+  margin: 0;
+  border: 1px solid red;
 }
 
 

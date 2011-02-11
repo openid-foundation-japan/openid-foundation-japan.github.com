@@ -128,6 +128,7 @@ article .original a {
 
 /*-----------------]: aside :[---------------------*/
 
+body>aside,
 body>aside #disqus_thread {
   margin-top: 20px;
 }

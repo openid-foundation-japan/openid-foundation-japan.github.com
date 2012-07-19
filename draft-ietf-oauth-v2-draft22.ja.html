@@ -145,9 +145,9 @@
 <tr><td class="header">Internet-Draft</td><td class="header">Yahoo!</td></tr>
 <tr><td class="header">Obsoletes: <a href='http://tools.ietf.org/html/rfc5849'>5849</a> (if&nbsp;approved)</td><td class="header">D. Recordon</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">Facebook</td></tr>
-<tr><td class="header">Expires: June 1, 2012</td><td class="header">D. Hardt</td></tr>
+<tr><td class="header">Expires: March 25, 2012</td><td class="header">D. Hardt</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">Microsoft</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">November 29, 2011</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">September 22, 2011</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 2.0 Authorization Protocol<br />draft-ietf-oauth-v2-22</h1>
 
@@ -173,7 +173,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on June 1, 2012.</p>
+This Internet-Draft will expire on March 25, 2012.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -405,12 +405,12 @@ Authors' Addresses<br />
           
 </li>
 <li>
-            リソースオーナーは各サードパーティーごとにアクセス権を無効化することはできず, アクセス権を無効化する際には全てのサードパーティーが持つアクセス権を無効化しなければならない.
+            リソースオーナーは各サードパーティーごとにアクセス権を無効化することはできず, アクセス権を無効化する際にはすべてのサードパーティーが持つアクセス権を無効化しなければならない.
             つまりそれはパスワード変更を意味する.
           
 </li>
 <li>
-            サードパーティーアプリケーションの情報漏えいはエンドユーザーのパスワードおよびパスワードによって保護されている全ての情報の漏洩につながる.
+            サードパーティーアプリケーションの情報漏えいはエンドユーザーのパスワードおよびパスワードによって保護されているすべての情報の漏洩につながる.
           
 </li>
 </ul><p>
@@ -529,14 +529,14 @@ Authors' Addresses<br />
 <blockquote class="text"><dl>
 <dt>(A)</dt>
 <dd>
-              クライアントはリソースオーナーからの認可を要求する.
-              その際の認可リクエストはリソースオーナーへ直接送ることが出来るか (図のように), または間接的に認可サーバーを経由して送信できることがのぞましい.
+              クライアントはリソースオーナーに対して認可を要求する.
+              その際 (図のように) リソースオーナーに直接認可要求を行うことも出来るが, 認可サーバーを経由して間接的に行うことがのぞましい.
             
 </dd>
 <dt>(B)</dt>
 <dd>
               クライアントは, リソースオーナーの認可を表すクレデンシャルとして認可グラントを受け取る.
-              認可グラントは仕様上定義された4つのグラントタイプの内の1つ, または拡張されたグラントタイプで発行される.
+              認可グラントは本仕様で定義される4つのグラントタイプの内の1つ, または拡張されたグラントタイプで発行される.
               どの認可グラントタイプを用いるかは, クライアントの利用する認可リクエストの方式と認可サーバーがサポートするグラントタイプに依存する.
             
 </dd>
@@ -570,7 +570,7 @@ Authors' Addresses<br />
 
 <p>
           認可グラントは, リソースオーナーの (保護されたリソースへのアクセスを行うことに対する) 認可を示し, クライアントがアクセストークンを取得する際に用いられる.
-          この仕様では認可コード, インプリシット, リソースオーナーパスワードクレデンシャル, クライアントクレデンシャルの4つのグラントタイプを定義しており, 拡張仕様によってタイプを追加することもできる.
+          本仕様では認可コード, インプリシット, リソースオーナーパスワードクレデンシャル, クライアントクレデンシャルの4つのグラントタイプを定義しており, 拡張仕様によってタイプを追加することもできる.
         
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -783,7 +783,7 @@ Authors' Addresses<br />
         
 </p>
 <p>
-          特に記載が無い限り, 全てのプロトコルパラメーター名と値は, 大文字・小文字を区別する.
+          特に記載が無い限り, すべてのプロトコルパラメーター名と値は, 大文字・小文字を区別する.
         
 </p>
 <a name="anchor12"></a><br /><hr />
@@ -793,13 +793,13 @@ Authors' Addresses<br />
 
 <p>
         OAuth プロトコルフローを開始する前に, クライアントは認可サーバーに登録する.
-        クライアントが認可サーバーに登録する方法はこの仕様での範囲外であるが, 通常エンドユーザーとの対話を伴うHTML登録フォームを持つ.
+        クライアントが認可サーバーに登録する方法は本仕様での範囲外であるが, 通常エンドユーザーとの対話を伴うHTML登録フォームを持つ.
       
 </p>
 <p>
         クライアントの登録は, クライアントと認可サーバー間の直接的なやりとりを必須としない.
         認可サーバーでサポートされている場合, 必要なクライアントのプロパティー (例えばリダイレクトURIやクライアントタイプ) を取得し信頼を確立する他の方法を用いて登録を行うことができる.
-        例えば, クライアント自身もしくはサードパーティーが発行したアサーションを使用したり, 認可サーバーが信頼できるチャンネルを使用してクライアントのディスカバリーを行うことで, 登録を行うことができる.
+        例えば, クライアント自身もしくはサードパーティーが発行したアサーションを使用したり, 認可サーバーが信頼できるチャネルを使用してクライアントのディスカバリーを行うことで, 登録を行うことができる.
       
 </p>
 <p>
@@ -858,7 +858,7 @@ Authors' Addresses<br />
         
 </p>
 <p>
-          この仕様は次のクライアントプロファイルに基づいて設計されている,
+          本仕様は次のクライアントプロファイルに基づいて設計されている,
         
 </p>
 <p>
@@ -949,7 +949,7 @@ Authors' Addresses<br />
 
 </pre></div>
 <p>
-            認可サーバーは以下のパラメーターを用いて, リクエストボディにクライアントクレデンシャルを含めてもよい (MAY).
+            認可サーバーは以下のパラメーターを用いて, リクエストボディーにクライアントクレデンシャルを含めてもよい (MAY).
           
 </p>
 <p>
@@ -976,7 +976,7 @@ Authors' Addresses<br />
           
 </p>
 <p>
-            2つのパラメーターを使ってクライアントクレデンシャルをリクエストボディに含めることは推奨されていない (NOT RECOMMENDED).
+            2つのパラメーターを使ってクライアントクレデンシャルをリクエストボディーに含めることは推奨されていない (NOT RECOMMENDED).
             この方法は HTTP Basic 認証スキーム (もしくは他のパスワードベースのHTTP認証スキーム) が直接利用できないクライアントに限定すべきある.
           
 </p>
@@ -999,7 +999,7 @@ Authors' Addresses<br />
           
 </p>
 <p>
-            クライアント認証方式にパスワードが含まれるので, 認可サーバーはクライアント認証を行う全てのエンドポイントでブルートフォースアタック対策を行わなくてはならない (MUST).
+            クライアント認証方式にパスワードが含まれるので, 認可サーバーはクライアント認証を行うすべてのエンドポイントでブルートフォースアタック対策を行わなくてはならない (MUST).
           
 </p>
 <a name="anchor14"></a><br /><hr />
@@ -1018,7 +1018,7 @@ Authors' Addresses<br />
 未登録クライアント</h3>
 
 <p>
-          この仕様は, 未登録のクライアントの利用を排除するものではない.
+          本仕様は, 未登録のクライアントの利用を排除するものではない.
           しなしながら, そのようなクライアントの利用は本仕様のスコープ外であり, さらなるセキュリティー面の分析と相互運用性への影響度評価が必要である.
         
 </p>
@@ -1046,7 +1046,7 @@ Authors' Addresses<br />
       
 </p>
 <p>
-        全てのグラントタイプが両方のエンドポイントを使用するわけではない.
+        すべてのグラントタイプが両方のエンドポイントを使用するわけではない.
         拡張されたグラントタイプは必要に応じて追加のエンドポイントを定義してもよい (MAY).
       
 </p>
@@ -1058,7 +1058,7 @@ Authors' Addresses<br />
 <p>
           認可エンドポイントは, リソースオーナーとのインタラクションを通じて認可を得るために使用される.
           認可サーバーは, まずリソースオーナーのアイデンティティを確認しなければならない (MUST).
-          認可サーバーが用いるリソースオーナーの認証方法 (ユーザー名とパスワードによるログイン, セッション・クッキー) については, 本仕様の定めるところではない.
+          認可サーバーが用いるリソースオーナーの認証方法 (ユーザー名とパスワードによるログイン, セッションクッキー) については, 本仕様の定めるところではない.
         
 </p>
 <p>
@@ -1066,7 +1066,7 @@ Authors' Addresses<br />
         
 </p>
 <p>
-          エンドポイントURIは <tt>application/x-www-form-urlencoded</tt> (<a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>) でフォーマットされたクエリーコンポーネント (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3.4) を含んでもよい (MAY).
+          エンドポイントURIは <tt>application/x-www-form-urlencoded</tt> (<a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>) でフォーマットされたクエリーコンポーネント (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3.4) を含んでもよい (MAY).
           クエリーパラメーターを追加する際, ここで指定されたクエリーコンポーネントは維持すること (MUST).
           エンドポイントURIはフラグメントコンポーネントを含んではいけない (MUST NOT).
         
@@ -1127,7 +1127,7 @@ Authors' Addresses<br />
 </p>
 <p>
             リダイレクトURIは <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション4.3で定義されているように絶対URIでなければいけない (MUST).
-            エンドポイントURIは <tt>application/x-www-form-urlencoded</tt> (<a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>) でフォーマットされたクエリーコンポーネント (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3.4) を含んでもよい (MAY).
+            エンドポイントURIは <tt>application/x-www-form-urlencoded</tt> (<a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>) でフォーマットされたクエリーコンポーネント (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3.4) を含んでもよい (MAY).
             クエリーパラメーターを追加する際, ここで指定されたクエリーコンポーネントは維持すること (MUST).
             エンドポイントURIはフラグメントコンポーネントを含んではいけない (MUST NOT).
           
@@ -1152,7 +1152,7 @@ Authors' Addresses<br />
 登録要件</h3>
 
 <p>
-              認可エンドポイントを使用する前に認可サーバーはリダイレクトURIを登録することをクライアント全てに要求するべきである (SHOULD).
+              認可エンドポイントを使用する前に認可サーバーはリダイレクトURIを登録することをクライアントすべてに要求するべきである (SHOULD).
               以下のクライアントはリダイレクトURIの登録を要求しなければいけない (MUST).
             
 </p>
@@ -1187,7 +1187,7 @@ Authors' Addresses<br />
             
 </p>
 <p>
-              リダイレクトURIが認可リクエストに含まれていた時, いくつかのリダイレクトURIが登録されていた場合<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>セクション6に示すとおり登録されているリダイレクトURI (もしくはURIコンポーネント) のうちの少なくとも一つに対して受け取った値と比較し一致しなければいけない.
+              リダイレクトURIが認可リクエストに含まれていた時, いくつかのリダイレクトURIが登録されていた場合<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>セクション6に示すとおり登録されているリダイレクトURI (もしくはURIコンポーネント) の内の少なくとも一つに対して受け取った値と比較し一致しなければいけない.
               もしクライアントの登録にフルのリダイレクトURIが含まれていた場合, 認可サーバーは <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション6.2.1.で定義されているように単純な文字列比較を使用し二つのURIを比較しなければいけない (MUST).
             
 </p>
@@ -1220,7 +1220,7 @@ Authors' Addresses<br />
             
 </p>
 <p>
-              クライアントはURIからクレデンシャルを抽出し削除するのに使用される独自のスクリプトが最初に実行されることを確認せず, リダイレクトエンドポイントのレスポンスに信頼できないサードパーティーのスクリプトを含んではいけない (MUST NOT) (例えばサードパーティーの分析性, ソーシャルプラグイン, 広告ネットワーク).
+              クライアントはURIからクレデンシャルを抽出し削除するのに使用される独自のスクリプトが最初に実行されることを確認せず, リダイレクトエンドポイントのレスポンスに信頼できないサードパーティーのスクリプトを含んではいけない (MUST NOT) (例えばサードパーティーのアクセス解析, ソーシャルプラグイン, 広告ネットワーク).
             
 </p>
 <p>
@@ -1235,15 +1235,15 @@ Authors' Addresses<br />
 
 <p>
           トークンエンドポイントは認可グラントもしくはリフレッシュトークンを提示することでクライアントがアクセストークンを取得するための利用される
-          トークンエンドポイントはインプリシットグラントタイプを除く全てのグラントタイプで利用される (アクセストークンは直接発行されるため).
+          トークンエンドポイントはインプリシットグラントタイプを除くすべてのグラントタイプで利用される (アクセストークンは直接発行されるため).
         
 </p>
 <p>
-          クライアントがトークンエンドポイントの所在を取得する方法についてはこの仕様の範囲外であるが, 通常はサービス文書中に記載されている.
+          クライアントがトークンエンドポイントの所在を取得する方法については本仕様の範囲外であるが, 通常はサービス文書中に記載されている.
         
 </p>
 <p>
-          エンドポイントURIは <tt>application/x-www-form-urlencoded</tt> (<a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>) でフォーマットされたクエリーコンポーネント (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3.4) を含んでもよい (MAY).
+          エンドポイントURIは <tt>application/x-www-form-urlencoded</tt> (<a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>) でフォーマットされたクエリーコンポーネント (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3.4) を含んでもよい (MAY).
           クエリーパラメーターを追加する際, ここで指定されたクエリーコンポーネントは維持すること (MUST).
           エンドポイントURIはフラグメントコンポーネントを含んではいけない (MUST NOT).
         
@@ -1280,7 +1280,7 @@ Authors' Addresses<br />
 <ul class="text">
 <li>
                 リフレッシュトークンおよび認可コードとその発行先のクライアントとの紐づけを強化する.
-                認可コードがセキュアでないチャンネルを通じてリダイレクトエンドポイントに送信された場合, またはレダイレクトURIが完全に登録されていない場合, クライアント認証は非常に重要である.
+                認可コードがセキュアでないチャネルを通じてリダイレクトエンドポイントに送信された場合, またはリダイレクトURIが完全に登録されていない場合, クライアント認証は非常に重要である.
               
 </li>
 <li>
@@ -1321,7 +1321,7 @@ Authors' Addresses<br />
         
 </p>
 <p>
-          認可サーバーは, 認可サーバーのポリシーまたはリソースオーナーの指示に基づいて, クライアントに要求されたスコープの一部もしくは全てを無視してもよい (MAY).
+          認可サーバーは, 認可サーバーのポリシーまたはリソースオーナーの指示に基づいて, クライアントに要求されたスコープの一部もしくはすべてを無視してもよい (MAY).
           発行されたアクセストークンのスコープがクライアントから要求されたものと異なる場合, 認可サーバーは実際に許可されたスコープをクライアントに通知するため, <tt>scope</tt> レスポンスパラメーターを含めるべきである (SHOULD).
         
 </p>
@@ -1424,7 +1424,7 @@ Authors' Addresses<br />
 認可リクエスト</h3>
 
 <p>
-            クライアントは, <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で規定された <tt>application/x-www-form-urlencoded</tt> フォーマットを用いて認可エンドポイントURIへのクエリーとして, 次のパラメーターを付与する.
+            クライアントは, <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で規定された <tt>application/x-www-form-urlencoded</tt> フォーマットを用いて認可エンドポイントURIへのクエリーとして, 次のパラメーターを付与する.
           
 </p>
 <p>
@@ -2133,7 +2133,7 @@ Authors' Addresses<br />
 リソースオーナーパスワードクレデンシャル</h3>
 
 <p>
-          リソースオーナーパスワードクレデンシャルグラントタイプは, リソースオーナーがクライアントと信頼関係にある場合, たとえばリソースオーナーの所有するデバイスOSや特別許可されたアプリなどに適している.
+          リソースオーナーパスワードクレデンシャルグラントタイプは, リソースオーナーがクライアントと信頼関係にある場合, 例えばリソースオーナーの所有するデバイスOSや特別許可されたアプリケーションなどに適している.
           認可サーバーはこのグラントタイプを有効にする際は特に注意するべきである.
           また他のフローが利用できない場合にのみ許可するべきである.
         
@@ -2199,7 +2199,7 @@ Authors' Addresses<br />
 認可リクエストとレスポンス</h3>
 
 <p>
-            クライアントがリソースオーナーのクレデンシャルを取得する方法は, この仕様の範囲外である.
+            クライアントがリソースオーナーのクレデンシャルを取得する方法は, 本仕様の範囲外である.
             クライアントはアクセストークン取得直後にクレデンシャルを破棄しなければならない (MUST).
           
 </p>
@@ -2905,7 +2905,7 @@ Authors' Addresses<br />
         
 </p>
 <p>
-          上記以外のすべてのトークンタイプは, レジストリへの登録が必須である (MUST).
+          上記以外のすべてのトークンタイプは, レジストリーへの登録が必須である (MUST).
           タイプ名は type-name ABNF に従わなければならない (MUST).
           またトークンタイプが新しい HTTP 認証スキームを定義する場合, そのタイプ名には (<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> に定義されるように) HTTP 認証スキームと同一のものを用いるべきである (SHOULD).
           なおトークンタイプ <tt>example</tt> は, 例示のために予約済である.
@@ -3065,7 +3065,7 @@ Authors' Addresses<br />
 </li>
 <li>
             リソースオーナーはほとんどの外部ユーザーエージェントで見られる視覚的な保護機能にアクセスすることなく未確認のウィンドウ内で認証するため, 埋め込みのユーザーエージェントはセキュリティ問題を引き起こす.
-            埋め込みのユーザーエージェントは (フィッシング攻撃が簡単に実行できる) 未確認の認証要求を信用するようエンドユーザに刷り込んでしまう.
+            埋め込みのユーザーエージェントは (フィッシング攻撃が簡単に実行できる) 未確認の認証要求を信用するようエンドユーザーに刷り込んでしまう.
             
           
 </li>
@@ -3128,9 +3128,9 @@ Security Considerations</h3>
         
 </p>
 <p>
-          クライアント認証が不可能な時には, 認可サーバーはクライアントのアイデンティティー検証のために他の手段を採用すべきである (SHOULD).
-          例えば, クライアントのリダイレクトURIの登録要求やリソース所有者によるアイデンティティー確認が考えられる.
-          有効なリダイレクトURIは, それ単体でエンドユーザーの認可時にクライアントのアイデンティティーを証明するには至らないが, エンドユーザーの認可取得後に偽のクライアントにクレデンシャルを配布するのを回避するのに利用することができる.
+          クライアント認証が不可能な時には, 認可サーバーはクライアントのアイデンティティ検証のために他の手段を採用すべきである (SHOULD).
+          例えば, クライアントのリダイレクトURIの登録要求やリソース所有者によるアイデンティティ確認が考えられる.
+          有効なリダイレクトURIは, それ単体でエンドユーザーの認可時にクライアントのアイデンティティを証明するには至らないが, エンドユーザーの認可取得後に偽のクライアントにクレデンシャルを配布するのを回避するのに利用することができる.
           
         
 </p>
@@ -3191,7 +3191,7 @@ Security Considerations</h3>
 </p>
 <p>
           クライアントは, 必要最小限のスコープおよび有効期間のアクセストークンを要求すべきである (SHOULD).
-          認可サーバーは, 要求されたスコープおよび有効期間をどのように受け入れるかを判断する際, クライアントのアイデンティティーを考慮すべきであり (SHOULD), 場合によっては要求よりも狭い権限しか持たないアクセストークンを発行することもある (MAY).
+          認可サーバーは, 要求されたスコープおよび有効期間をどのように受け入れるかを判断する際, クライアントのアイデンティティを考慮すべきであり (SHOULD), 場合によっては要求よりも狭い権限しか持たないアクセストークンを発行することもある (MAY).
           
         
 </p>
@@ -3206,7 +3206,8 @@ Security Considerations</h3>
         
 </p>
 <p>
-          リフレッシュトークンは通信経路・ストレージ上ともに機密に保たれ, 認可サーバーとリフレッシュトークンの発行先のクライアントの間のみで共有されなければならない (MUST).
+          リフレッシュトークンは通信経路・ストレージ上ともに機密に保たれ, 認可サーバーとリフレッシュトークン発行先クライアントの間のみで共有されなければならない (MUST).
+          認可サーバーは, どのリフレッシュトークンがどのクライアントに発行されたかを記録しておかなくてはならない (MUST).
           
         
 </p>
@@ -3219,7 +3220,7 @@ Security Considerations</h3>
 <p>
           例えば, 認可サーバーはアクセストークンリフレッシュレスポンスの都度新しいリフレッシュトークンを発行するリフレッシュトークンローテーションを採用することができる.
           前回のリフレッシュトークンは無効にされるが, 認可サーバーには残される.
-          もしリフレッシュトークンが漏洩しアタッカーと正当なクライアントの両方によって引き続き利用された場合, それらのうちの一つは無効なリフレッシュトークンを提示し, 認可サーバーへ違反の発生を知らせることとなる.
+          もしリフレッシュトークンが漏洩しアタッカーと正当なクライアントの両方によって引き続き利用された場合, それらの内の一つは無効なリフレッシュトークンを提示し, 認可サーバーへ違反の発生を知らせることとなる.
           
         
 </p>
@@ -3385,7 +3386,7 @@ Security Considerations</h3>
 クロスサイトリクエストフォージェリ<!-- Cross-Site Request Forgery --></h3>
 
 <p>
-          クロスサイトリクエストフォージェリ (CSRF) は, 攻撃者が犠牲となるエンドユーザーのユーザーエージェントに (例えば, ユーザーエージェントに誤解を招きやすいリンクやイメージ, 転送によって) 悪意のあるURIを閲覧させることにより (通常, 有効なセッション・クッキーの存在によって) 信頼が確立されたサーバーへ接続させる手法である.
+          クロスサイトリクエストフォージェリ (CSRF) は, 攻撃者が犠牲となるエンドユーザーのユーザーエージェントに (例えば, ユーザーエージェントに誤解を招きやすいリンクやイメージ, 転送によって) 悪意のあるURIを閲覧させることにより (通常, 有効なセッションクッキーの存在によって) 信頼が確立されたサーバーへ接続させる手法である.
           
         
 </p>
@@ -3435,8 +3436,8 @@ Security Considerations</h3>
 <p>
           iframeにおけるこの攻撃形式を防ぐため, ネイティブアプリケーションはエンドユーザーの認可を要求するとき, 埋め込みのブラウザの代わりに外部ブラウザを使用すべきである (SHOULD).
           ほとんどの最新ブラウザは, 認可サーバーが非標準の <tt>x-frame-options</tt> ヘッダーを利用することにより強制的にiframeを回避することができる.
-          このヘッダーは <tt>deny</tt> と <tt>sameorigin</tt> の2つの値を持つことができ, それぞれ全てのフレーミング, originが異なるサイトからのフレーミングを防ぐ.
-          古いブラウザはJavaScriptのフレームバースティング技術を利用できるが, 全てのブラウザに有効ではないかもしれない.
+          このヘッダーは <tt>deny</tt> と <tt>sameorigin</tt> の2つの値を持つことができ, それぞれすべてのフレーミング, originが異なるサイトからのフレーミングを防ぐ.
+          古いブラウザはJavaScriptのフレームバースティング技術を利用できるが, すべてのブラウザに有効ではないかもしれない.
           
         
 </p>
@@ -3469,7 +3470,7 @@ Security Considerations</h3>
 </p>
 <p>
           オープンリダイレクタは, フィッシング攻撃, もしくはURIのオーソリティ部を見慣れた信頼できる通信先とする事で攻撃者がエンドユーザーを悪意のあるサイトに誘導するのに利用される.
-          加えて認可サーバーがクライアントにリダイレクトURIの一部のみでの登録を許可した場合, 攻撃者は, 認可サーバーの正当性確認を通過し, 認可コード, アクセストークンを攻撃者が管理するエンドポイントに送信するリダイレトURIの作成にクライアントの運営しているオープンリダイレクタを利用できる.
+          加えて認可サーバーがクライアントにリダイレクトURIの一部のみでの登録を許可した場合, 攻撃者は, 認可サーバーの正当性確認を通過し, 認可コード, アクセストークンを攻撃者が管理するエンドポイントに送信するリダイレクトURIの作成にクライアントの運営しているオープンリダイレクタを利用できる.
           
         
 </p>
@@ -4315,7 +4316,7 @@ Editor's Notes</h3>
 翻訳者</h3>
 
 <p>
-        本仕様書の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
+        本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
         質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
       
 </p>
@@ -4405,7 +4406,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
 <td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, August&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5246.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html401-19991224">[W3C.REC-html401-19991224]</a></td>
-<td class="author-text">Raggett, D., Hors, A., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML 4.01 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html401-19991224, December&nbsp;1999 (<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML</a>).</td></tr>
+<td class="author-text">Hors, A., Raggett, D., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML 4.01 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html401-19991224, December&nbsp;1999 (<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML</a>).</td></tr>
 </table>
 
 <a name="rfc.references2"></a><br /><hr />
@@ -4472,13 +4473,4 @@ References</h3>
 <tr><td class="author" align="right">URI:&nbsp;</td>
 <td class="author-text"><a href="http://dickhardt.org/">http://dickhardt.org/</a></td></tr>
 </table>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15411889-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
 </body></html>

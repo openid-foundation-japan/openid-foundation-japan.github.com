@@ -163,7 +163,7 @@
         この仕様書は, OAuth 2.0の保護リソースへアクセスするために, 署名無しトークンをHTTPリクエスト中でどのように利用するか記述したものである.
         署名無しトークンを所有する任意のパーティ (持参人) は, 関連づけられたリソースへアクセスするために署名無しトークンを利用できる (暗号鍵の所有を示す必要はない).
         誤った利用を避けるために, 署名無しトークンは保存場所や流通経路での値の露見から守られる必要がある.
-      
+
 </p>
 <h3>Status of This Memo</h3>
 <p>
@@ -267,13 +267,13 @@ Acknowledgements<br />
         OAuthは, クライアントがアクセストークンを取得することで, 保護リソースへのアクセスを可能にする.
         アクセストークンは "The OAuth 2.0 Authorization Framework" <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> 中で「クライアントに対するアクセス認可の文字列表現」と定義されており,
         リソース所有者のクレデンシャルを直接利用することではない.
-      
+
 </p>
 <p>
         トークンはリソース所有者の承認を伴い, 認可サーバによってクライアントに対して発行される.
         クライアントはアクセストークンを, リソースサーバが持つ保護リソースにアクセスするために利用する.
         この仕様書では, アクセストークンが署名無しトークンである場合に, 保護リソースを要求する方法を記載する.
-      
+
 </p>
 <p>
         この仕様書では Transport Layer Security (TLS) <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a> を利用した HTTP/1.1 <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 上で,
@@ -284,7 +284,7 @@ Acknowledgements<br />
         結果得られるアクセストークンを利用するように設計されていることに加え,
         本仕様は, 署名なしトークンを利用して, 任意のソースから, 署名付きトークンによって保護されている任意のリソースに対してアクセスすることが可能な一般的なHTTP認可方式を定義する.
         なおBearer認証スキームは, WWW-AuthenticateおよびAuthorization HTTPヘッダー中でサーバー認証の為に利用されることを想定しているが, プロキシ認証に用いることも禁止はしない.
-      
+
 </p>
 <a name="anchor2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -297,17 +297,17 @@ Acknowledgements<br />
           「SHOULD (すべきである)」, 「SHOULD NOT (すべきではない)」, 「RECOMMENDED (推奨される)」,
           「MAY (してもよい)」, 「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> で
           述べられている通りに解釈されるべきものである.
-        
+
 </p>
 <p>
           このドキュメントでは<a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a>におけるAugmented Backus-Naur Form (ABNF) 表記法を元にした.
           加えて, 次の規則 (HTTP/1.1 <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>: auth-param および auth-scheme;
           "Uniform Resource Identifier (URI): Generic Syntax" <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>記載: URI-reference) に従う.
-        
+
 </p>
 <p>
           特に記載が無い限り, 全てのプロトコルパラメーター名と値は, 大文字・小文字を区別する.
-        
+
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -319,18 +319,18 @@ Acknowledgements<br />
 <blockquote class="text"><dl>
 <dt>署名なしトークン (Bearer Token)</dt>
 <dd>
-              
+
               セキュリティトークン.
               トークンを所有する任意のパーティ (持参人 = bearer) は, 「トークンを所有している」という条件を満たしさえすればそのトークンを利用することができる.
               署名無しトークンを利用する際, 持参人は, 暗号鍵の所持を証明 (proof-of-posession) するよう要求されない.
-            
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <p>
           他の全ての用語は "The OAuth 2.0 Authorization Framework" <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> で定義されている通りである.
-        
+
 </p>
 <a name="anchor4"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -343,14 +343,14 @@ Acknowledgements<br />
           アクセストークンは, 与えられた権限の範囲, 期間とその他の属性を示している.
           クライアントはリソースサーバにアクセストークンを渡すことにより, 保護リソースにアクセスする.
           いくつかのケースにおいては, クライアントは, 最初にリソースオーナーから認可を得ずに認可サーバからアクセストークンを得るために, 自らのクレデンシャルを認可サーバに直接渡すこともある.
-        
-        
+
+
 </p>
 <p>
           アクセストークンはほかの認証方法 (例: ユーザ名とパスワード, アサーション) をリソースサーバが理解しうる一つのトークンに置き換えるような抽象化を提供する.
           この抽象レイヤーは有効期間の短いアクセストークンを発行することを可能にするとともに, リソースサーバーが様々な認証スキームを理解しなくともよいようにする.
-        
-        
+
+
 </p><br /><hr class="insert" />
 <a name="Figure-1"></a>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -376,8 +376,8 @@ Acknowledgements<br />
 <p>
           <a class='info' href='#Figure-1'>Figure&nbsp;1<span> (</span><span class='info'>プロトコルフロー概要</span><span>)</span></a> で示されたフロー概要は, クライアント, リソースオーナー, 認可サーバー, リソースサーバー (<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a>に記載)の間でのやり取りについて記述したものである。
           以下のステップはこの文書中で定義される:
-          
-        
+
+
 </p>
 <p>
            </p>
@@ -385,22 +385,22 @@ Acknowledgements<br />
 <dt>(E)</dt>
 <dd>
               クライアントはリソースサーバに対して保護リソースの要求を行い, アクセストークンを提示することで認証を実施する.
-              
-            
+
+
 </dd>
 <dt>(F)</dt>
 <dd>
               リソースサーバはアクセストークンの正当性を検証し, 妥当な場合はリクエストに対し応答する.
-              
-            
+
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <p>
           本文書は, ステップ(D)で返却されるアクセストークンの利用方法について定める.
-          
-        
+
+
 </p>
 <a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -410,8 +410,8 @@ Authenticated Requests</h3>
 <p>
         この章では, リソースの要求において署名無しトークンをリソースサーバに送信する3つの方法を定義する.
         クライアントは一度のリクエストにおいて, トークンを送信する方法を複数同時に用いてはならない (MUST NOT).
-        
-      
+
+
 </p>
 <a name="authz-header"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -420,12 +420,12 @@ Authorizationリクエストヘッダフィールド</h3>
 
 <p>
           HTTP/1.1 <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> によって定義される<tt>Authorization</tt>リクエストヘッダフィールド中でアクセストークンを送信する場合, クライアントは<tt>Bearer</tt>認証スキームを用いる.
-          
-        
+
+
 </p>
 <p>
             For example:
-          
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /resource HTTP/1.1
   Host: server.example.com
@@ -436,8 +436,8 @@ Authorizationリクエストヘッダフィールド</h3>
           ここで留意すべきは, Basic同様, <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>の1.2章で定義される汎用的な文法に従わないものの HTTP 1.1 向けに開発された汎用認証フレームワーク<a class='info' href='#HTTP-AUTH'>[HTTP&#8209;AUTH]<span> (</span><span class='info'>Fielding, R., Ed. and J. Reschke, Ed., &ldquo;Hypertext Transfer Protocol (HTTP/1.1): Authentication,&rdquo; October&nbsp;2012.</span><span>)</span></a> とは互換性があるということである.
           とはいえ, 既存の実装を考慮して, Basic仕様中で概説されている推奨される慣例には従っていない.
           持参人クレデンシャルの文法は次のようになる:
-          
-        
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   b64token    = 1*( ALPHA / DIGIT /
                     "-" / "." / "_" / "‾" / "+" / "/" ) *"="
@@ -446,8 +446,8 @@ Authorizationリクエストヘッダフィールド</h3>
 <p>
           クライアントが署名無しトークンを伴う認証されたリクエストを送信する際には, <tt>Bearer</tt> HTTP認可スキームを用いた<tt>Authorization</tt>リクエストヘッダフィールドを使用すべきである (SHOULD).
           リソースサーバはこの方法をサポートしなければならない (MUST).
-          
-        
+
+
 </p>
 <a name="body-param"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -457,48 +457,48 @@ Formエンコードされたボディパラメータ</h3>
 <p>
           HTTPリクエストのエンティティボディ中でアクセストークンを送信する際, クライアントは<tt>access_token</tt>パラメータを用いてアクセストークンをリクエストボディに付加する.
           クライアントは以下の条件のすべてを満たさない限りこの方法を用いてはならない (MUST NOT):
-          
+
           </p>
 <ul class="text">
 <li>
               HTTPリクエストのエンティティヘッダに<tt>Content-Type</tt>ヘッダフィールドが含まれており, <tt>application/x-www-form-urlencoded</tt>にセットされている.
-              
-            
+
+
 </li>
 <li>
               エンティティボディが HTML 4.01 <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Le Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a>によって定義される<tt>application/x-www-form-urlencoded</tt>コンテントタイプのエンコード要求に従う.
-              
-            
+
+
 </li>
 <li>
               HTTPリクエストのエンティティボディがシングルパートである.
-              
-            
+
+
 </li>
 <li>
               エンティティボディ中にエンコードされたコンテンツは全て ASCII<a class='info' href='#USASCII'>[USASCII]<span> (</span><span class='info'>American National Standards Institute, &ldquo;Coded Character Set -- 7-bit American Standard Code for Information Interchange,&rdquo; 1986.</span><span>)</span></a> 文字列だけで構成されなければならない (MUST).
-              
-            
+
+
 </li>
 <li>
               リクエストボディが利用できるHTTPリクエストメソッドである.
               すなわち, <tt>GET</tt> メソッドを利用してはならない (MUST NOT).
-              
-            
+
+
 </li>
 </ul><p>
-        
+
 </p>
 <p>
           エンティティボディにはリクエストに固有なパラメータを含んでもよい (MAY).
           この場合, <tt>access_token</tt>パラメータは文字 <tt>&amp;</tt> (ASCIIコード38) を用いてリクエスト固有なパラメーから適切に分離されなければならない (MUST).
-          
-        
+
+
 </p>
 <p>
             例えば, クライアントは以下のHTTPリクエストをトランスポートレイヤセキュリティを利用して送信する:
-            
-          
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   POST /resource HTTP/1.1
   Host: server.example.com
@@ -508,8 +508,8 @@ Formエンコードされたボディパラメータ</h3>
 </pre></div>
 <p>
           この<tt>application/x-www-form-urlencoded</tt>を用いる方法は, 関与しているブラウザが<tt>Authorization</tt>リクエストヘッダにアクセスできない場合を除いて使用すべきではない (SHOULD NOT). リソースサーバはこの方法をサポートしてもよい (MAY).
-          
-        
+
+
 </p>
 <a name="query-param"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -518,13 +518,13 @@ URIクエリパラメータ</h3>
 
 <p>
           HTTPリクエストURIの中でアクセストークンを送信する際, クライアントは<tt>access_token</tt>パラメータを用いてアクセストークンを"Uniform Resource Identifier (URI): Generic Syntax"<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>で定義されているURIクエリコンポーネントに追加する.
-          
-        
+
+
 </p>
 <p>
             たとえば, クライアントは次のようなHTTPリクエストをトランスポートレイヤセキュリティを利用して送信する:
-            
-          
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /resource?access_token=mF_9.B5f-4.1JqM HTTP/1.1
   Host: server.example.com
@@ -532,36 +532,36 @@ URIクエリパラメータ</h3>
 <p>
           HTTPリクエストURIはリクエストに固有なパラメータを含むことができる.
           その場合, <tt>access_token</tt>パラメータは <tt>&amp;</tt> 文字 (ASCII コード 38) を使い, 他のリクエストに特化したパラメータと適切に分離されていなければならない (MUST).
-          
-        
+
+
 </p>
 <p>
             例:
-            
-          
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
  https://server.example.com/resource?access_token=mF_9.B5f-4.1JqM&amp;p=q
 </pre></div>
 <p>
           クライアントはURIクエリパラメータ方式を利用して, "no-store" オプションを含んだCache-Controlヘッダを送信すべきである (SHOULD).
           これらのリクエストに対するサーバ正常 (2XXステータス) 応答は, "private" オプションを伴うCache-Controlヘッダを含んでいるべきである (SHOULD).
-          
-        
+
+
 </p>
 <p>
           URL中のアクセストークン値がログに記録される可能性が高いことなど,
           URIを利用した場合はセキュリティレベルが低下 (<a class='info' href='#sec-con'>Section&nbsp;5<span> (</span><span class='info'>Security Considerations</span><span>)</span></a>参照) するため,
           アクセストークンを<tt>Authorization</tt>リクエストヘッダかHTTPリクエストエンティティボディ中で送信することが不可能でない限りは, この方式を利用すべきではない (SHOULD NOT).
           リソースサーバはこの方式をサポートしても良い (MAY).
-          
-        
+
+
 </p>
 <p>
           この方式は現在利用されていることからドキュメントに含まれている.
           セキュリティ上の重大な不備 (<a class='info' href='#sec-con'>Section&nbsp;5<span> (</span><span class='info'>Security Considerations</span><span>)</span></a>参照) のため, 利用は非推奨である.
           また, 予約されたクエリパラメータ名を利用するため, URI名前空間のベストプラクティス ("Architecture of the World Wide Web, Volume One" <a class='info' href='#W3C.REC-webarch-20041215'>[W3C.REC&#8209;webarch&#8209;20041215]<span> (</span><span class='info'>Jacobs, I. and N. Walsh, &ldquo;Architecture of the World Wide Web, Volume One,&rdquo; December&nbsp;2004.</span><span>)</span></a>) に逆らっていることも理由に挙げられる.
-          
-        
+
+
 </p>
 <a name="authn-header"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -574,22 +574,22 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
         リソースサーバはHTTP <tt>WWW-Authenticate</tt> レスポンスヘッダフィールドを含めなければならない (MUST).
         同様に, その他の条件下でもリソースサーバはそれをレスポンスに含めてよい (MAY).
         <tt>WWW-Authenticate</tt> ヘッダフィールドはHTTP/1.1 <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されているフレームワークを使用する.
-        
-      
+
+
 </p>
 <p>
         この仕様により定義される全ての challange は auth-scheme の値に <tt>Bearer</tt> を用いなければならない (MUST).
         また, auth-scheme の後ろには1つ以上の auth-param 値を置かなければならない (MUST).
         この仕様により定義される auth-param 属性は後述する.
         同様に, 他の auth-param 属性を用いてよい (MAY).
-        
-      
+
+
 </p>
 <p>
         保護の範囲を表すため, HTTP/1.1 <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で記述されている方法で <tt>realm</tt> 属性が含まれてもよい (MAY).
         <tt>realm</tt> 属性は2回以上現れてはならない (MUST NOT).
-        
-      
+
+
 </p>
 <p>
         <tt>scope</tt> 属性は <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> の3.3章で定義されている.
@@ -603,14 +603,14 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
         <tt>scope</tt> 属性は2回以上現れてはならない (MUST NOT).
         <tt>scope</tt> の値はプログラム中で用いられることを目的とし,
         エンドユーザへ表示することは意図されていない.
-        
-      
+
+
 </p>
 <p>
           scope の値の例を以下に2つ例示する.
           これらの例は OpenID Connect <a class='info' href='#OpenID.Messages'>[OpenID.Messages]<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., Mortimore, C., and E. Jay, &ldquo;OpenID Connect Messages 1.0,&rdquo; June&nbsp;2012.</span><span>)</span></a> および Open Authentication Technology Committee (OATC) の Online Multimedia Authorization Protocol <a class='info' href='#OMAP'>[OMAP]<span> (</span><span class='info'>Huff, J., Schlacht, D., Nadalin, A., Simmons, J., Rosenberg, P., Madsen, P., Ace, T., Rickelton-Abdi, C., and B. Boyer, &ldquo;Online Multimedia Authorization Protocol:             An Industry Standard for Authorized Access to Internet Multimedia Resources,&rdquo; April&nbsp;2012.</span><span>)</span></a> OAuth 2.0 ユースケースからそれぞれ引用している:
-          
-        
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   scope="openid profile email"
   scope="urn:example:channel=HBO&amp;urn:example:rating=G,PG-13"
@@ -627,8 +627,8 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
         絶対URIで記載された <tt>error_uri</tt> 属性を含んでもよい (MAY).
         <tt>error</tt>, <tt>error_description</tt>,
         そして <tt>error_uri</tt> 属性は, 2回以上現れてはならない (MUST NOT).
-        
-      
+
+
 </p>
 <p>
         <tt>scope</tt> 属性の値 (<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> の Appendix A.4 で定義されている) は,
@@ -638,21 +638,21 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
         <tt>error_uri</tt> 属性の値 (<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> の Appendix A.9 で定義されている) は,
         URI-reference の構文に従わなければならず (MUST),
         したがって %x21 / %x23-5B / %x5D-7E の集合以外の文字を含んではならない (MUST NOT).
-        
-      
+
+
 </p>
 <p>
           例えば, 認証されていない場合の保護リソースへのリクエストに対するレスポンスは以下のようになる:
-          
-        
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   HTTP/1.1 401 Unauthorized
   WWW-Authenticate: Bearer realm="example"
 </pre></div>
 <p>
             また, 有効期限の切れたアクセストークンを用いて認証を試みた場合の保護リソースへのリクエストに対するレスポンスは以下のようになる:
-            
-          
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   HTTP/1.1 401 Unauthorized
   WWW-Authenticate: Bearer realm="example",
@@ -668,55 +668,55 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
           リクエストが失敗した場合, リソースサーバは適切なHTTPステータスコード
           (典型的には 400, 401, もしくは 403) を用いて応答し,
           下記のうち1つのエラーコードをレスポンスに含める:
-          
+
 
           </p>
 <blockquote class="text"><dl>
 <dt>invalid_request</dt>
 <dd>
-              
+
               リクエストに必要なパラメータが不足している,
               対応していないパラメータもしくはパラメータの値が含まれている,
               同じパラメータが複数回現れている,
               1つのアクセストークンを含むために複数の方法を用いている,
               もしくはリクエストがその他不正な形式になっている.
               リソースサーバはHTTPステータスコード400 (Bad Request) の応答を返すべきである (SHOULD).
-              
-            
+
+
 </dd>
 <dt>invalid_token</dt>
 <dd>
-              
+
               提供されたアクセストークンが期限切れである, 取り消されている,
               不正な値である, もしくはその他の理由により無効である.
               リソースサーバはHTTPステータスコード401 (Unauthorized) の応答を返すべきである (SHOULD).
               クライアントは新しいアクセストークンを要求して保護されたリソースへのアクセスを再試行してもよい (MAY).
-              
-            
+
+
 </dd>
 <dt>insufficient_scope</dt>
 <dd>
-              
+
               リクエストにはアクセストークンにより提供されるよりも高い権限が必要である.
               リソースサーバはHTTPステータスコード403 (Forbidden) の応答を返すべき (SHOULD) であり,
               保護されたリソースへのアクセスに必要となるスコープを示した scope 属性を含めてもよい (MAY).
-              
-            
+
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <p>
           リクエストが一切の認証情報を含まない場合
           (つまり, 認証が必要であることをクライアントが認識していなかった場合か,
           対応していない認証方法をクライアントが試行した場合),
           リソースサーバはエラーコードやその他のエラー情報を応答に含めるべきではない (SHOULD NOT).
-          
-        
+
+
 </p>
 <p>
             例:
-          
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   HTTP/1.1 401 Unauthorized
   WWW-Authenticate: Bearer realm="example"
@@ -729,8 +729,8 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
 <p>
         典型的には, 署名無しトークンは OAuth 2.0 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> のアクセストークンレスポンスの一部としてクライアントに返される.
         そのようなレスポンスは以下のようになる:
-        
-      
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   HTTP/1.1 200 OK
   Content-Type: application/json;charset=UTF-8
@@ -750,10 +750,10 @@ WWW-Authenticate レスポンスヘッダフィールド</h3>
 Security Considerations</h3>
 
 <p>
-        
+
         本章では, 署名無しトークン利用時におけるトークンの取り扱い方法に関するセキュリティ上の脅威,
         およびこれらの脅威をどのように軽減するかを記述する.
-      
+
 </p>
 <a name="threats"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -761,12 +761,12 @@ Security Considerations</h3>
 セキュリティ上の脅威</h3>
 
 <p>
-        
+
           次のリストは何らかのトークン形式を取り扱うプロトコルにおける共通の脅威を表したものである.
           この脅威リストはNIST Special Publication 800-63 <a class='info' href='#NIST800-63'>[NIST800&#8209;63]<span> (</span><span class='info'>Burr, W., Dodson, D., Newton, E., Perlner, R., Polk, T., Gupta, S., and E. Nabbus, &ldquo;NIST Special Publication 800-63-1, INFORMATION SECURITY,&rdquo; December&nbsp;2011.</span><span>)</span></a>をベースにしたものである.
           この文書はOAuth 2.0仕様<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a>を前提として作成されたものであるため,
           その仕様や関連文書中に記載されている脅威に関する議論は行わないものとする.
-        
+
 </p>
 <p>
           </p>
@@ -775,25 +775,25 @@ Security Considerations</h3>
 <dd>
               攻撃者が偽装トークンを生成したり, 既存のトークンの (認証や属性の記述内容といった) コンテンツを改ざんすることで, リソースサーバはクライアントに対して不適切なアクセス権限を許してしまう可能性がある.
               例えば, 攻撃者はトークンが妥当である期間を拡張するようにトークンを改ざんするかもしれない. 悪意のあるクライアントは本来見ることができるべきではない情報へのアクセスを得るためにアサーションを改ざんするかもしれない.
-            
+
 </dd>
 <dt>トークン露見:</dt>
 <dd>
               トークンは認証や属性の記述など機微情報を含む可能性がある.
-            
+
 </dd>
 <dt>トークンリダイレクト:</dt>
 <dd>
               攻撃者は, あるリソースサーバで利用することを目的として生成されたトークンを, 別のリソースサーバに対して利用し, 後者が持つリソースにアクセスを試みる.
-            
+
 </dd>
 <dt>トークンリプレイ:</dt>
 <dd>
               攻撃者は過去にリソースサーバで利用済みのトークンの再利用を試みる.
-            
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <a name="mitigation"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -805,18 +805,18 @@ Security Considerations</h3>
           あるいは, 署名無しトークンはエンコードされた認可情報を直接含むのではなく, 認可情報に対する参照を含むことができる.
           その参照は, 攻撃者が推測不可能でなければならない (MUST). 参照を用いた場合, 認可情報への参照を解決するために, 認証サーバとトークン発行者の間における追加の通信が必要になることがある.
           そのような通信の方法は, この仕様では定義されない.
-        
+
 </p>
 <p>
           このドキュメントでは, エンコード方法やトークンの内容に関しては定義しない.
           そのため, トークンの整合性を保護するための詳細な手段についての提言は, この文章の範囲外である.
           トークン整合性保護は, トークンの改変を防ぐのに十分でなければならない(MUST).
-        
+
 </p>
 <p>
           トークンリダイレクトへの対策として, トークン内に認可サーバの意図する, 一般的に一つのリソースサーバまたはリソースサーバのリストからなる, トークンの受領者 (観衆 = audience) のアイデンティティを含むことが重要である.
           トークンの利用できる範囲を特定の範囲に制限することも推奨される (RECOMMENDED).
-        
+
 </p>
 <p>
           認可サーバは, TLSを実装しなければならない (MUST).
@@ -827,7 +827,7 @@ Security Considerations</h3>
           まだ非常に狭い範囲でしか使用されておらず, 実装ツールキットが容易に入手できない可能性がある.
           TLS version 1.0 <a class='info' href='#RFC2246'>[RFC2246]<span> (</span><span class='info'>Dierks, T. and C. Allen, &ldquo;The TLS Protocol Version 1.0,&rdquo; January&nbsp;1999.</span><span>)</span></a> は, 最も広く使用されているバージョンであり,
           広い範囲での相互接続性を提供する.
-        
+
 </p>
 <p>
           トークンの露見を防ぐために, 機密性および完全性の保護を提供する暗号スイートと共に TLS <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a> を利用し, 機密性保護を行わなければならない(MUST).
@@ -837,19 +837,19 @@ Security Considerations</h3>
           クライアントがトークンの内容を覗き見るようなケースを防ぐためには, TLSによる保護に加えて, トークンの暗号化を行う必要がある (MUST).
           トークン露呈に対するさらなる防衛として, クライアントは, 保護リソースにリクエストを送信する際,
           証明書失効リスト (CRL) <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> の確認を含めて, TLSの証明書チェーンを検証しなければならない(MUST).
-        
+
 </p>
 <p>
           クッキーは一般的に平文で送信される.したがって, クッキーに含まれる情報は露呈する危険性をもつ.
           そのため, クッキーを平文で送信できる場合, 署名無しトークンをクッキー内に格納してはならない (MUST NOT).
           クッキーにおけるセキュリティ上の脅威については, "HTTP State Management Mechanism" <a class='info' href='#RFC6265'>[RFC6265]<span> (</span><span class='info'>Barth, A., &ldquo;HTTP State Management Mechanism,&rdquo; April&nbsp;2011.</span><span>)</span></a> を参照のこと.
-        
+
 </p>
 <p>
           ロードバランサを用いる場合を含むいくつかの場合において, リソースサーバへのTLS接続は, リソースを提供する実際のサーバに到達する以前に, 終端されることがある.
           これは, TLSコネクションを終端するフロントエンドサーバと実際にリソースを提供するバックエンドサーバ間において, トークンを未保護のままにする.
           このような場合, フロントエンドサーバとバックエンドサーバ間におけるトークンの機密性を保証するために, 充分な対策を行う必要がある(MUST). トークンの暗号化は, 対策の一つである.
-        
+
 </p>
 <p>
           トークンの覗き見と再利用 (トークンリプレイ) への対策として, 以下の手段が推奨される:
@@ -861,7 +861,7 @@ Security Considerations</h3>
           さらに, クライアントはトークンをリソースサーバに送信する際  "HTTP Over TLS" <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> の3.1項に従い, リソースサーバのアイデンティティを確認しなければならない (MUST).
           保護リソースにリクエストを行う際, クライアントはTLSの証明書チェーンを検証しなければならない (MUST) ことに注意すべきである.
           未認証かつ未認可なリソースサーバにトークンを送信すること, あるいは証明書チェインの確認に失敗することは, 攻撃者に対して, トークンを盗み, 保護リソースへの認可されていないアクセスを許すことになる.
-        
+
 </p>
 <a name="anchor6"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -875,45 +875,45 @@ Security Considerations</h3>
 <dd>
               クライアントの実装は, 保護されたリソースへのアクセスを可能とするために署名無しトークンを使う際には, それが意図されていない相手に漏洩していないことを確実にしなければならない (MUST).
               これは署名無しトークンを用いる際に最も重要なセキュリティに関する考慮事項であり, 後述の詳細な推奨事項すべての基礎となる.
-            
+
 </dd>
 <dt>TLS証明書チェインを検証する:</dt>
 <dd>
               クライアントが保護リソースのリクエストを送信する際には, TLS証明書のチェインを検証しなければならない (MUST).
               これに失敗した場合, さまざまな攻撃に対してトークンが晒されることとなり, 攻撃者に対して意図しないアクセスを許すことになる.
-            
+
 </dd>
 <dt>Always use TLS (https):</dt>
 <dd>
               クライアントが署名無しトークンを用いたリクエストを送信する際には, 常に <a class='info' href='#RFC5246'>TLS<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a> [RFC5246] (https) もしくは同等なトランスポートセキュリティを用いなければならない (MUST).
               これに失敗した場合, 攻撃者に意図しないアクセスを可能とするさまざまな攻撃にトークンが晒されてしまう.
-            
+
 </dd>
 <dt>クッキーに署名無しトークンを保存しない:</dt>
 <dd>
               平文で送信されうるクッキーに署名無しトークンを保存する実装を行ってはならない (MUST NOT). (平文での送信はクッキーのデフォルト送信モードである)
               署名無しトークンをクッキーに保存する実装では, クロスサイトリクエストフォージェリへの対処をしなければならない (MUST).
-            
+
 </dd>
 <dt>有効期間の短い署名無しトークンを発行する:</dt>
 <dd>
               トークンサーバは, 特にブラウザやその他の情報漏洩の起こりやすい環境の中で実行されるクライアントに対してトークンを発行する際には, 有効期間の短い (1時間ないしそれ以下) 署名無しトークンを発行すべきである (SHOULD).
               有効期間の短い署名無しトークンを用いることにより, 漏洩した際の影響を減らすことができる.
-            
+
 </dd>
 <dt>スコープの設定された署名無しトークンを発行する:</dt>
 <dd>
               トークンサーバは, 1つまたは複数の意図されたリライングパーティによる使用に限定されるよう, オーディエンスの制限を含んだ署名無しトークンを発行すべきである (SHOULD).
-            
+
 </dd>
 <dt>署名無しトークンをページURL中で渡さない:</dt>
 <dd>
               署名無しトークンはページURL中で渡されるべきではない (SHOULD NOT). (たとえばクエリ文字列のパラメータとして) 代わりに, 機密性対策の講じられたHTTPメッセージヘッダもしくはメッセージボディ中で渡されるべきである (SHOULD).
               ブラウザやウェブサーバその他のソフトウェアは, ブラウザの履歴やウェブサーバのログその他のデータ構造において, 適切にURLを保護していないかもしれない. 署名無しトークンがページURLとして渡された場合, 攻撃者は履歴情報やログ, その他の保護されていない場所から盗み取ることができるかもしれない.
-            
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <a name="anchor7"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -927,7 +927,7 @@ OAuth アクセストークンタイプ登録</h3>
 
 <p>
           本仕様は, <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> で定義される OAuth アクセストークンタイプレジストリーに, 以下のアクセストークンの種類を登録する.
-        
+
 </p>
 <a name="anchor9"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -939,36 +939,36 @@ OAuth アクセストークンタイプ登録</h3>
 <blockquote class="text"><dl>
 <dt>Type name:</dt>
 <dd>
-                
+
                 Bearer
-              
+
 </dd>
 <dt>Additional Token Endpoint Response Parameters:</dt>
 <dd>
-                
+
                 (none)
-              
+
 </dd>
 <dt>HTTP Authentication Scheme(s):</dt>
 <dd>
-                
+
                 Bearer
-              
+
 </dd>
 <dt>Change controller:</dt>
 <dd>
-                
+
                 IETF
-              
+
 </dd>
 <dt>Specification document(s):</dt>
 <dd>
-                
+
                 RFC 6750
-              
+
 </dd>
 </dl></blockquote><p>
-          
+
 </p>
 <a name="anchor10"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -977,7 +977,7 @@ OAuth 拡張エラー登録</h3>
 
 <p>
           本仕様は, <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> で定義される OAuth 拡張エラーレジストリーに, 以下のエラーの種類を登録する.
-        
+
 </p>
 <a name="anchor11"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -989,36 +989,36 @@ OAuth 拡張エラー登録</h3>
 <blockquote class="text"><dl>
 <dt>Error name:</dt>
 <dd>
-                
+
                 invalid_request
-              
+
 </dd>
 <dt>Error usage location:</dt>
 <dd>
-                
+
                 Resource access error response
-              
+
 </dd>
 <dt>Related protocol extension:</dt>
 <dd>
-                
+
                 Bearer access token type
-              
+
 </dd>
 <dt>Change controller:</dt>
 <dd>
-                
+
                 IETF
-              
+
 </dd>
 <dt>Specification document(s):</dt>
 <dd>
-                
+
                 RFC 6750
-              
+
 </dd>
 </dl></blockquote><p>
-          
+
 </p>
 <a name="anchor12"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1030,36 +1030,36 @@ OAuth 拡張エラー登録</h3>
 <blockquote class="text"><dl>
 <dt>Error name:</dt>
 <dd>
-                
+
                 invalid_token
-              
+
 </dd>
 <dt>Error usage location:</dt>
 <dd>
-                
+
                 Resource access error response
-              
+
 </dd>
 <dt>Related protocol extension:</dt>
 <dd>
-                
+
                 Bearer access token type
-              
+
 </dd>
 <dt>Change controller:</dt>
 <dd>
-                
+
                 IETF
-              
+
 </dd>
 <dt>Specification document(s):</dt>
 <dd>
-                
+
                 RFC 6750
-              
+
 </dd>
 </dl></blockquote><p>
-          
+
 </p>
 <a name="anchor13"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1071,36 +1071,36 @@ OAuth 拡張エラー登録</h3>
 <blockquote class="text"><dl>
 <dt>Error name:</dt>
 <dd>
-                
+
                 insufficient_scope
-              
+
 </dd>
 <dt>Error usage location:</dt>
 <dd>
-                
+
                 Resource access error response
-              
+
 </dd>
 <dt>Related protocol extension:</dt>
 <dd>
-                
+
                 Bearer access token type
-              
+
 </dd>
 <dt>Change controller:</dt>
 <dd>
-                
+
                 IETF
-              
+
 </dd>
 <dt>Specification document(s):</dt>
 <dd>
-                
+
                 RFC 6750
-              
+
 </dd>
 </dl></blockquote><p>
-          
+
 </p>
 <a name="rfc.references"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1186,7 +1186,7 @@ Authorization Profiles (WRAP) community, and the OAuth Working
         Michael B. Jones in turn created the first version (00) of this
         specification using portions of
         David's preliminary document and edited all subsequent versions.
-      
+
 </p>
 <p>
         The OAuth Working Group has dozens of very active contributors who proposed ideas and
@@ -1206,7 +1206,7 @@ Authorization Profiles (WRAP) community, and the OAuth Working
         Christian Stuebner, Jeremy Suriel, Doug Tangren, Paul Tarjan,
         Hannes Tschofenig, Franklin Tse, Sean Turner, Paul Walker,
         Shane Weeden, Skylar Woodward, and Zachary Zeltsan.
-      
+
 </p>
 <a name="anchor18"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1216,49 +1216,49 @@ Authorization Profiles (WRAP) community, and the OAuth Working
 <p>
         本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
         質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
-      
+
 </p>
 <p>
         </p>
 <ul class="text">
 <li>
             Boku Kihara (Lepidum)
-          
+
 </li>
 <li>
             Kazuki Shimizu (Lepidum)
-          
+
 </li>
 <li>
             Masaru Kurahayashi (Yahoo! Japan)
-          
+
 </li>
 <li>
             Naohiro Fujie (Itochu Techno Solutions)
-          
+
 </li>
 <li>
             Noboru Kurumai (Fujitsu)
-          
+
 </li>
 <li>
             Nov Matake
-          
+
 </li>
 <li>
             Ryo Ito (mixi, Inc.)
-          
+
 </li>
 <li>
             Tatsuya Katsuhara (NRI)
-          
+
 </li>
 <li>
             Yusuke Kondo (Yahoo! Japan)
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="rfc.authors"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1282,4 +1282,13 @@ Authorization Profiles (WRAP) community, and the OAuth Working
 <tr><td class="author" align="right">URI:&nbsp;</td>
 <td class="author-text"><a href="http://dickhardt.org/">http://dickhardt.org/</a></td></tr>
 </table>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15411889-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 </body></html>

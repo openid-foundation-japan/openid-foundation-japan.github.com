@@ -165,7 +165,7 @@
 <p>
         本ドキュメントでは, OAuth 2.0仕様が定めるSecurity Considerationsの範囲を超え,
         OAuth 2.0プロトコルに関する包括的脅威モデルを基に, さらなるセキュリティ上の検討項目を示す.
-      
+
 </p>
 <h3>Status of This Memo</h3>
 <p>
@@ -499,21 +499,21 @@ Introduction</h3>
 <ul class="text">
 <li>
             脅威モデル策定の前提となる仮説およびその影響範囲を定める.
-          
+
 </li>
 <li>
             OAuthプロトコルのセキュリティ上の特徴について述べ, それらが攻撃阻止のためにどのような役割を持つかをまとめる.
-          
+
 </li>
 <li>
             OAuthの包括的脅威モデル, およびそれらへの対抗策についてまとめる.
-          
+
 </li>
 </ul><p>
         ここで述べる脅威には, OAuthトークンやそれによって保護されるリソースに対する意図的な攻撃の他, 適切なセキュリティ対策が施されていない場合に起こりうるセキュリティリスクも含む.
         各脅威はプロトコル仕様の構造に基づいて整理され, デベロッパーが実装時に参照しやすく考慮されている.
         例えば, アクセスを許可する際の脅威や各grant typeそれぞれに固有の脅威, リソースサーバーに関わる脅威などが, 該当する章・節にまとめて紹介されている.
-      
+
 </p>
 <p>
         注)
@@ -522,7 +522,7 @@ Introduction</h3>
         本ドキュメントは抽象的なレベルでの議論を行うが, ここで述べられる情報は実装固有の脅威モデルを考慮する際の基礎となるであろう.
         実装者には, 抽象的な脅威モデルを実際の実装にあてはめ, リスク分析を行うことが求められる.
         なお本ドキュメントはOAuth 2.0仕様本体を対象としており, 本ドキュメント執筆現在仕様策定が進んでいるクライアント登録やディスカバリーなどの拡張仕様については考慮しない.
-      
+
 </p>
 <a name="anchor2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -539,7 +539,7 @@ Scope</h3>
 <p>
           本ドキュメントで述べられるSecurity Considerationsは, <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> がサポートする, 特定のOAuthサーバーと紐づくクライアントのみを考慮する.
           こういった実装は以下のような特徴を持つ.
-        
+
 </p>
 <p>
           </p>
@@ -547,49 +547,49 @@ Scope</h3>
 <li>
               リソースサーバーURLは固定で実装時に既に周知されている.
               認可サーバーURLは固定もしくは事前に知ることができる.
-            
+
 </li>
 <li>
               トークンのscopeに指定される値 (アプリケーションURLやmethodなど) は, 実装時に周知されている.
-            
+
 </li>
 <li>
               クライアント登録は現在のCore仕様の範囲外である.
               従って本ドキュメントはstatic/dynamicに関わらず幅広いクライアント登録方法を想定する.
-            
+
 </li>
 </ul><p>
           また以下の項目は対象外とする.
-        
+
 </p>
 <p>
           </p>
 <ul class="text">
 <li>
               認可サーバー・リソースサーバー間のコミュニケーション.
-            
+
 </li>
 <li>
               トークンフォーマット.
-            
+
 </li>
 <li>
               認可サーバーがユーザーを認証する方式.
               ただしリソースオーナーパスワードクレデンシャルグラント (<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Section 4.3 参照) については対象とする.
-            
+
 </li>
 <li>
               アサーション取得メカニズムおよび不正なアサーションによってもたらされる攻撃.
-            
+
 </li>
 <li>
               特定のOAuthサーバーと紐づけられていないクライアント.
               例えばPortable Contacts API <a class='info' href='#Portable-Contacts'>[Portable&#8209;Contacts]<span> (</span><span class='info'>Smarr, J., &ldquo;Portable Contacts 1.0 Draft C,&rdquo; August&nbsp;2008.</span><span>)</span></a> 経由でコンタクトリストにアクセスすることができるメールクライアントなど.
               このようなクライアントは事前に特定のOAuthサーバーと紐づけておくことはできず, dynamicにOAuthプロトコルの各URLを検知 (discover) する必要がある.
-            
+
 </li>
 </ul><p>
-        
+
 </p>
 <a name="anchor4"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -598,7 +598,7 @@ Attack Assumptions</h3>
 
 <p>
           攻撃者とリソースに関して, 以下の想定を置く.
-        
+
 </p>
 <p>
           </p>
@@ -606,19 +606,19 @@ Attack Assumptions</h3>
 <li>
               攻撃者はクライアントと認可サーバー, およびクライアントとリソースサーバーの間のネットワークに直接アクセス可能であり, そこでのいかなる通信も盗聴できる状態にある.
               ただし認可サーバー・リソースサーバー間の通信へはアクセスできないものとする.
-            
+
 </li>
 <li>
               攻撃者が攻撃に利用するリソースに制限は無い物とする.
-            
+
 </li>
 <li>
               OAuthプロトコルに関与する3者のうちの2者が, 共謀して残る1者に対する攻撃を行う可能性があるものとする.
               例えば, クライアントと認可サーバーが攻撃者の管理下にあり, リソースアクセスを得るためユーザーを騙すため共謀するケースなどが考えられる.
-            
+
 </li>
 </ul><p>
-        
+
 </p>
 <a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -628,14 +628,14 @@ Architectural Assumptions</h3>
 <p>
           本セクションではセキュリティ上重要なデータに関して, OAuthの各エンティティが持ちうる機能, 制限および設計上のオプションについて仮定する.
           これらは脅威解析における基礎となる.
-        
+
 </p>
 <p>
           OAuthプロトコルはある程度実装に自由度を残している.
           Core仕様は認可サーバーとリソースサーバーの基本的なコンセプトを定めている.
           これら両サーバーは単一のエンティティとして実装されることもあれば, 分散した複数のエンティティとして実装される場合もある.
           後者の典型例としては, 複数のサービスを提供している事業者が, 単一の認証・認可サービスを, 特にミドルウェアレベルで共通に用いるケースなどがある.
-        
+
 </p>
 <a name="anchor6"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -644,40 +644,40 @@ Authorization Servers</h3>
 
 <p>
             認可サーバーでは, 以下のデータが保存されているかアクセス可能な状態にある.
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 ユーザーネームとパスワード
-              
+
 </li>
 <li>
                 クライアントIDとクライアントシークレット
-              
+
 </li>
 <li>
                 特定のクライアントと紐づけられたリフレッシュトークン
-              
+
 </li>
 <li>
                 特定のクライアントと紐づけられたアクセストークン
                 (Handleベースデザイン <a class='info' href='#section_tokens'>Section&nbsp;3.1<span> (</span><span class='info'>Tokens</span><span>)</span></a> を用いる場合)
-              
+
 </li>
 <li>
                 HTTPS 証明書/鍵
-              
+
 </li>
 <li>
                 認可プロセスごとの "redirect_uri", "client_id" および認可コード "code"
                 (Handleベースデザイン <a class='info' href='#section_tokens'>Section&nbsp;3.1<span> (</span><span class='info'>Tokens</span><span>)</span></a> を用いる場合)
-              
+
 </li>
 </ul><p>
             (訳注: Assertionタイプのトークンを用いる場合, redirect_uri や client_id などがトークン自体に含まれており, それらが認可サーバー上には保存されていない場合もある)
-          
+
 </p>
 <a name="anchor7"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -686,31 +686,31 @@ Resource Server</h3>
 
 <p>
             リソースサーバーでは, 以下のデータが保存されているかアクセス可能な状態にある.
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 ユーザーデータ (詳細はプロトコルの範囲外)
-              
+
 </li>
 <li>
                 HTTPS 証明書/鍵
-              
+
 </li>
 <li>
                 認可サーバークレデンシャルもしくは認可サーバー共有鍵/公開鍵
                 (前者はHandleベースデザイン <a class='info' href='#section_tokens'>Section&nbsp;3.1<span> (</span><span class='info'>Tokens</span><span>)</span></a> を用いる場合, 後者はAssertionベースデザイン <a class='info' href='#section_tokens'>Section&nbsp;3.1<span> (</span><span class='info'>Tokens</span><span>)</span></a> を用いる場合)
-              
+
 </li>
 <li>
                 (リクエストごとの) アクセストークン
-              
+
 </li>
 </ul><p>
             リソースサーバーはリフレッシュトークン, ユーザーパスワードおよびクライアントシークレットは知らないものとする.
-          
+
 </p>
 <a name="anchor8"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -721,33 +721,33 @@ Client</h3>
             OAuthでは, クライアントとはリソースオーナーの代理として, リソースオーナーの認可のもとで保護リソースへのアクセスを行うアプリケーションである.
             Webアプリケーション, ユーザーエージェントベースアプリケーション, ネイティブアプリケーションといったクライアントタイプごとに, 実装上およびセキュリティ上の特徴は異なる.
             クライアントタイプとそのプロフィールについては <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Section 2.1 に定義されている.
-          
+
 </p>
 <p>
             クライアントでは, 以下のデータが保存されているかアクセス可能な状態にある.
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 クライアントID (およびクライアントシークレットもしくはそれに相当する何らかのクライアントクレデンシャル)
-              
+
 </li>
 <li>
                 エンドユーザーごと, もしくはその他のセキュリティコンテキストや委譲コンテキストごとの, 1つ以上のリフレッシュトークン (長期間) およびアクセストークン (短期間)
-              
+
 </li>
 <li>
                 信頼された証明機関の証明書 (Trusted CA certificates, HTTPS)
-              
+
 </li>
 <li>
                 認可プロセスごとの "redirect_uri", 認可コード "code"
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="sec_features"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -756,7 +756,7 @@ Security Features</h3>
 
 <p>
         OAuth 2.0には, ある程度プロトコルレベルで攻撃やセキュリティリスクに対する対策が施されている.
-      
+
 </p>
 <a name="section_tokens"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -766,7 +766,7 @@ Tokens</h3>
 <p>
           OAuthは広範囲に渡っていろいろな種類のトークン (アクセストークン, リフレッシュトークン, 認可コード) を用いる.
           トークンの表現方法としては以下の2通りがある.
-        
+
 </p>
 <p>
           </p>
@@ -780,7 +780,7 @@ Tokens</h3>
               これはトークンの発行者と利用者 (認可サーバーとリソースサーバーなど) が異なるエンティティである場合, パフォーマンスやスケーラビリティの点で不利である.
               したがってhandleは主に発行者と消費者 (認可サーバーとリソースサーバーなど) が同一エンティティである場合に用いられることになるであろう.
               handleトークンはしばしば "opaque" トークンと呼ばれるが, これはリソースサーバーがそのトークン自体を解読する必要がなく, 単なるトークン文字列として利用するのみだからである.
-            
+
 </dd>
 <dt>Assertion (aka self-contained token)</dt>
 <dd>
@@ -791,11 +791,11 @@ Tokens</h3>
               このときリソースサーバーと認可サーバーの間で通信を行う必要はない.
               これはトークンの発行者と利用者 (認可サーバーとリソースサーバーなど) が異なるエンティティである場合, パフォーマンスやスケーラビリティの点で有利である.
               ただしassertionを用いた場合, トークン無効化の実装はhandleを用いた場合より困難である.
-            
+
 </dd>
 </dl></blockquote><p>
           リソースサーバーへのリクエストにトークンを利用する場合, 以下の2つの方法を取りうる.
-        
+
 </p>
 <p>
           </p>
@@ -806,17 +806,17 @@ Tokens</h3>
               トークンを所有していることのみがその利用条件であるため, エンドポイント間での通信がセキュアに保たれ, 許可されたエンドポイントのみがそのトークンにアクセスできる状態を担保することが重要である.
               bearer tokenは, クライアントアプリケーションにとっては (proof tokenのように) 利用に際して特別な処理を行う必要がないため便利である.
               bearer tokenはWeb上で single-sign-on (SSO) を行う際ブラウザで用いられるcookieと類似の特徴を持つ.
-            
+
 </dd>
 <dt>proof token</dt>
 <dd>
               proof tokenは特定のクライアントにのみ利用可能なトークンである.
               クライアントは, トークン利用に際して毎回自身がトークン利用可能な主体であることを証明するために何らかの処理を行う必要がある.
               クライアントにリクエスト内容に対して特定のトークンと紐づいた秘密鍵を用いて電子署名を要求する, MACタイプのアクセストークン (<a class='info' href='#OAuth-HTTP-MAC'>[OAuth&#8209;HTTP&#8209;MAC]<span> (</span><span class='info'>Richer, J., Ed., Mills, W., Ed., and H. Tschofenig, Ed., &ldquo;OAuth 2.0 Message Authentication Code (MAC) Tokens,&rdquo; November&nbsp;2012.</span><span>)</span></a>) などがその例である.
-            
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <a name="anchor9"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -830,7 +830,7 @@ Scope</h3>
             クライアントは必要に応じてトークンの権限を狭めるためだけにscopeを用いることができる.
             (例: セキュアでないチャネルを通じてトークンが送信される際, 潜在的リスクを軽減するためなど)
             典型的には, scopeはトークンの有効期間 (lifetime) 制限と併用され, 補完関係にある.
-          
+
 </p>
 <a name="anchor10"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -841,7 +841,7 @@ Limited Access Token Lifetime</h3>
             "expires_in" というプロトコルパラメーターによって, 認可サーバーはアクセストークンの有効期間 (lifetime) を制限し, そのlifetimeに関する情報をクライアントに通知することができる.
             (lifetimeは, ユーザーの意思によって行われたり, 認可サーバーのポリシーによって決定される)
             このメカニズムにより, 認可サーバーが比較的セキュアでないと見なすOAuthクライアントに対して有効期間の短いトークンを発行したり, セキュアでないチャネルを利用する際に同様に有効期間を短くしたりすることができる.
-          
+
 </p>
 <a name="anchor11"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -853,7 +853,7 @@ Access Token</h3>
           アクセストークンには, 典型的には (数分〜数時間程度の) セッションのlifetimeをカバーする程度の短い有効期間が設定される.
           アクセストークンはリフレッシュトークンを用いることでリフレッシュ可能である.
           有効期間の短いアクセストークンとリフレッシュトークンを併用することで, 明示的な無効化処理無しにアクセストークンの無効化が行われる可能性を高めることができる.
-        
+
 </p>
 <a name="anchor12"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -864,7 +864,7 @@ Refresh Token</h3>
           リフレッシュトークンは, 特定のクライアントに対する長期間有効な認可情報を示す.
           このトークンはクライアント・認可サーバー間でのみ送信される.
           クライアントはこのトークンを使って新しい ("refresh" された) アクセストークンを取得することができる.
-        
+
 </p>
 <p>
           リフレッシュトークンによって, アクセストークンの有効期間を短く保ちつつ, ユーザーの関与無しに長期間有効なアクセス権限を維持することができる.
@@ -872,32 +872,32 @@ Refresh Token</h3>
           認可サーバーがリフレッシュトークンを無効化するだけで, 発行済アクセストークンが期限切れになった時点ですべてのアクセス権限を無効化することができるのである.
           この際, アクセストークンの有効期間を短く保つことは, タイムリーなアクセス権限無効化の為に重要なポイントとなる.
           (訳注: アクセストークンが複数のリソースサーバーに分散してしまっている状況で, それを確実に無効化するのは面倒な処理である)
-        
+
 </p>
 <p>
           リフレッシュトークンは, クライアント識別子および認可リクエストを行った特定のクライアントインスタンスに紐づいたsecretでもあり, リソースオーナー認可そのものを示すものでもある.
           このことは以下の認可プロセスによって保証される.
-        
+
 </p>
 <p>
           </p>
 <ol class="text">
 <li>
               リソースオーナーとユーザーエージェントがセキュアに認可コードをクライアントインスタンスに送付する.
-            
+
 </li>
 <li>
               クライアントは即座にセキュアチャネルを通じてそれを認可サーバーに送り, 受け取ったリフレッシュトークンをセキュアに保存する.
-            
+
 </li>
 <li>
               クライアントは常にリフレッシュトークンをセキュアチャネルを通じて送信し, アクセストークンを取得する.
               (この際オプションで新たなリフレッシュトークンを得る)
-            
+
 </li>
 </ol><p>
           以上により, クライアントが特定のトークンの秘匿性を維持する限り, リフレッシュトークンはクライアント自身を認証するためにも用いることができる.
-        
+
 </p>
 <a name="anchor13"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -907,7 +907,7 @@ Authorization &quot;code&quot;</h3>
 <p>
           認可コード ("code") はエンドユーザー認可の取得に成功した結果として発行され, クライアントがアクセストークンおよびリフレッシュトークンを取得する際の中間物として動作する.
           認可コードは以下の2つの目的で, トークンの代わりにクライアントのリダイレクトURIに送信される.
-        
+
 </p>
 <p>
           </p>
@@ -917,15 +917,15 @@ Authorization &quot;code&quot;</h3>
               ブラウザキャッシュやログファイルなどがその経路となりうる.
               また攻撃者によって異なる値に置き換えられる可能性もある.
               これらのリスクを軽減するため, トークンの代わりに有効期間の短い認可コードを送信し, それをよりセキュアなクライアント・認可サーバー間のダイレクト通信を通じてトークンと交換するのである.
-            
+
 </li>
 <li>
               クライアント認証は, ダイレクト通信ではない認可リクエストより, ダイレクト通信によって行う方が遥かに簡単である.
               認可リクエスト時にクライアント認証を行うには, 電子署名が必要となる.
-            
+
 </li>
 </ol><p>
-        
+
 </p>
 <a name="anchor14"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -937,7 +937,7 @@ Redirect URI</h3>
           実際に認可リクエスト時に用いられたリダイレクトURIは, 認可コードをトークンと交換する際に提示され検証される.
           これにより認可コードがリダイレクタを通じて偽のクライアントに漏洩した際にも, 攻撃を防ぐことができる.
           認可サーバーはパブリッククライアントおよびimplicitグラントタイプを利用するコンフィデンシャルクライアントに対しては, リダイレクトURIの事前登録を必須とし, 認可リクエスト時に指定されるリダイレクトURIを事前登録済みのそれと比較検証するべきである.
-        
+
 </p>
 <a name="anchor15"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -949,7 +949,7 @@ Redirect URI</h3>
           CSRF攻撃においては, 攻撃者は自身のリソースへのアクセスを許可し, 攻撃者に対して発行されたトークンを含むリダイレクトリクエストをユーザーに実行させる.
           stateパラメーターはユーザーエージェントと紐付けられ, ユーザーエージェントはそれをクライアントおよびユーザーエージェントのみにアクセス可能な場所に保存する.
           (例: same-originポリシーによって保護された場所)
-        
+
 </p>
 <a name="anchor16"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -960,48 +960,48 @@ Client Identifier</h3>
           認証プロトコルは一般的にエンドユーザーの代理として動作するソフトウェアコンポーネントの素性に関しては考慮しない.
           しかしながらOAuthはそれを考慮し, 認可委譲におけるセキュリティレベルを向上している.
           OAuthクライアントがユーザーが不在な状況でも動作しうるとうことも, その理由である.
-        
+
 </p>
 <p>
           OAuthでは以下のように, 一連のリクエストが同一クライアントによって実行されているかを照合するため, クライアント識別子を用いる.
-        
+
 </p>
 <p>
           </p>
 <ul class="text">
 <li>
               特定エンドユーザーの認可プロセスと, それに続くトークンエンドポイントにおける認可コードとトークンの交換リクエスト
-            
+
 </li>
 <li>
               エンドユーザーによる特定クライアントへの認可およびその際に発行された初期のトークンと, 該当クライアントがその後ユーザーの同意無しに取得したトークン
               (初回以降の認可自動承認プロセスを意味する)
-            
+
 </li>
 </ul><p>
           クライアント識別子は, 認可サーバーがユーザーに同意を求める際に, そのクライアントに関する情報を表示するためにも用いられる.
           さらに特定のクライアントからのリクエスト数を制限したり, リクエストに対して課金を行う際に用いられることもある.
           サーバーログファイルなどで異なるクライアントからのアクセスを区別する際に用いることもできるであろう.
-        
+
 </p>
 <p>
           OAuthは, クライアントが認可サーバーに対して自身を認証する能力に基づいて, コンフィデンシャルとパブリックという2つのクライアントタイプを定義している.
           (例: クライアントクレデンシャルの秘匿性を保持できるかどうかなど)
           コンフィデンシャルクライアントはクライアントクレデンシャル (クライアント識別子と紐づいたクライアントシークレットなど) を秘匿に保つことができる, もしくはクライアントアサーション (SAML参照) や鍵暗号法などの手段によりセキュアにクライアント認証を行うことができる.
           なお後者のクライアントアサーション (SAML参照) や鍵暗号法を用いた手段の方が, よりセキュアであると考えられる.
-        
+
 </p>
 <p>
           認可サーバーはクライアントがシークレットを秘匿に保てるかどうか, セキュアな認証方式を利用可能かどうかなどを特定すべきである.
           ただしその代わりにエンドユーザーがクライアントの素性を検証することも可能である.
           (信頼できるアプリケーションのみをインストールするなど)
           リダイレクトURIは, クレデンシャルを偽のクライアントに送信することを防止するために用いられる場合もあるが, クライアントの素性を検証するために用いることはできない.
-        
+
 </p>
 <p>
           クライアントはクライアントタイプ, プロフィールおよびデプロイモデルによって以下のように分類できる.
           (native, webアプリケーションなど, <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Section 9参照)
-        
+
 </p>
 <p>
           </p>
@@ -1012,7 +1012,7 @@ Client Identifier</h3>
               このようなクライアント識別子はエンドユーザーの関与無しには検証できない.
               ネイティブアプリケーションにおいては, ユーザーにクライアントのメタ情報を提示し, ログファイル中でクライアントを区別するには十分である.
               このクライアント識別子に紐づくアクセス権限の無効化は, 同一ソフトウェアの全インスタンスに影響する.
-            
+
 </dd>
 <dt>Deployment-independent &quot;client_id&quot; with pre-registered &quot;redirect_uri&quot; and with &quot;client_secret&quot;</dt>
 <dd>
@@ -1020,7 +1020,7 @@ Client Identifier</h3>
               この分類は, クライアントシークレットが適切に保護されないため推奨されない. (<a class='info' href='#ObtainClientSecrets'>Section&nbsp;4.1.1<span> (</span><span class='info'>Threat: Obtaining Client Secrets</span><span>)</span></a> 参照)
               セキュリティ上の弱点のため, このようなクライアント識別子は上記のシークレットを持たないクライアントと同レベルの信頼度となる.
               アクセス権減の無効化は, 同一ソフトウェアの全インスタンスに影響する.
-            
+
 </dd>
 <dt>Deployment-specific &quot;client_id&quot; with pre-registered &quot;redirect_uri&quot; and with &quot;client_secret&quot;</dt>
 <dd>
@@ -1030,7 +1030,7 @@ Client Identifier</h3>
               ネイティブアプリケーションでこのレベルを実現するのは非常に困難である.
               ただし, アプリケーションのインストールが管理者によって行われ, 管理者によってクライアントの真正性が検証されているか, (アプリケーションマーケットプロバイダなどにより) end-to-endで単一エンティティによってデバイスインストールごとにクライアントクレデンシャルの生成が行われている場合には, ネイティブアプリケーションでもこのレベルを実現することは可能である.
               アクセス権限の無効化は, 単一のインスタンスにのみ影響する.
-            
+
 </dd>
 <dt>Deployment-specific &quot;client_id&quot; with &quot;client_secret&quot; without validated properties</dt>
 <dd>
@@ -1040,10 +1040,10 @@ Client Identifier</h3>
               このようなクライアントクレデンシャルはクライアント属性の検証無しに自動的に生成可能である.
               これは特にネイティブアプリケーションには新たな選択肢となりうるであろう.
               アクセス権限の無効化は, 単一のインスタンスにのみ影響する.
-            
+
 </dd>
 </dl></blockquote><p>
-        
+
 </p>
 <a name="threat_model"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1055,7 +1055,7 @@ Threat Model</h3>
         まず各脅威を, クライアント, 認可サーバーおよびリソースサーバーという, 攻撃対象となる各OAuthコンポーネントごとに分類する.
         続いてトークン取得と保護リソースへのアクセスという, フロー単位での分類を行う.
         それぞれに対する対抗策は <a class='info' href='#security_considerations'>Section&nbsp;5<span> (</span><span class='info'>Security Considerations</span><span>)</span></a> にまとめる.
-      
+
 </p>
 <a name="anchor17"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1064,7 +1064,7 @@ Clients</h3>
 
 <p>
           このセクションではOAuthクライアントに対する脅威について述べる.
-        
+
 </p>
 <a name="ObtainClientSecrets"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1074,52 +1074,52 @@ Threat: Obtaining Client Secrets</h3>
 <p>
             攻撃者は以下のようにして, 特定のクライアントのシークレットにアクセスする可能性がある.
             (訳注: ここでの "access" は, secretが持つ権限に対するアクセスを意味し, あたかもそれを知っているかのようにして振る舞える, というニュアンス)
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 リフレッシュトークンおよび認可コードに対するリプレイ攻撃を行なう.
-              
+
 </li>
 <li>
                 攻撃対象となるクライアントのclient_idを用いて該当クライアントになりすまし, トークンを取得する.
-              
+
 </li>
 </ul><p>
             このような攻撃により, 以下のような影響が発生しうる.
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 認可サーバーアクセス時のクライアント認証をバイパスされる.
-              
+
 </li>
 <li>
                 漏洩したリフレッシュトークンまたは認可コードを利用される.
-              
+
 </li>
 </ul><p>
             クライアントの種類によっては, 以下のような攻撃も考えられる.
-          
+
 </p>
 <p>
             攻撃例: ソースコードまたはバイナリーからシークレットを取得
-          
+
 </p>
 <p>
             これはどのようなクライアントに対しても起こりうる攻撃である.
             オープンソースプロジェクトでは, 公開レポジトリにあるソースコードから直接シークレットが漏洩する可能性がある.
             攻撃者にソースコードが渡らない状況でも, バイナリーからシークレットを取得することもできる.
             アプリケーション配布時にいかにシークレットの難読化を行っても, リバースエンジニアリングによってシークレットが漏洩する可能性は考慮すべきである.
-          
+
 </p>
 <p>
             対抗策
-          
+
 </p>
 <p>
             </p>
@@ -1127,40 +1127,40 @@ Threat: Obtaining Client Secrets</h3>
 <li>
                 パブリッククライアントやセキュリティポリシーを満たさないクライアントに対してシークレットを発行しない.
                 (<a class='info' href='#dont_issue'>Section&nbsp;5.2.3.1<span> (</span><span class='info'>Don't Issue Secrets to Clients with Inappropriate Security Policy</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 パブリッククライアントに対しては明示的なユーザーの同意を必須とする.
                 (<a class='info' href='#forced_user_consent'>Section&nbsp;5.2.3.2<span> (</span><span class='info'>Require User Consent for Public Clients without Secret</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアントインスタンス単位でシークレットを発行する.
                 (<a class='info' href='#depl_specific_secretes'>Section&nbsp;5.2.3.4<span> (</span><span class='info'>Issue Installation-Specific Client Secrets</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアントシークレットの無効化を行う.
                 (<a class='info' href='#client_secret_revocation'>Section&nbsp;5.2.3.6<span> (</span><span class='info'>Revoke Client Secrets</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <p>
             <br />
 <br />
 
             攻撃例: クライアントインスタンス単位で異なるシークレットを取得
-          
+
 </p>
 <p>
             攻撃者はクライアントインスタンス単位で異なるシークレットを, Webサイト (Webサーバー) や特定デバイス (ネイティブアプリケーション) から取得する可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1168,20 +1168,20 @@ Threat: Obtaining Client Secrets</h3>
 <li>
                 Webサーバーの場合: (設定ファイルやデータベースなどに) 標準的な保護策を行う.
                 (<a class='info' href='#std_web'>Section&nbsp;5.3.2<span> (</span><span class='info'>Use Standard Web Server Protection Measures (for Config Files and Databases)</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 ネイティブアプリケーションの場合: シークレットをローカルのセキュアストレージに保存する.
                 (<a class='info' href='#secure_storage'>Section&nbsp;5.3.3<span> (</span><span class='info'>Store Secrets in Secure Storage</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアントシークレットを無効化する.
                 (<a class='info' href='#client_secret_revocation'>Section&nbsp;5.2.3.6<span> (</span><span class='info'>Revoke Client Secrets</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor18"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1191,7 +1191,7 @@ Threat: Obtaining Refresh Tokens</h3>
 <p>
             クライアントタイプによっては, 攻撃者にリフレッシュトークンが漏洩する経路としていくつかのパターンがある.
             各サブセクションではクライアントタイプごとにそれぞれの漏洩パターンおよび対抗策をまとめるが, まずは一般的な適用可能な対抗策について述べる.
-          
+
 </p>
 <p>
             </p>
@@ -1199,49 +1199,49 @@ Threat: Obtaining Refresh Tokens</h3>
 <li>
                 認可サーバーはリフレッシュリクエスト毎にリフレッシュトークンとクライアントIDの紐付けを検証する.
                 (<a class='info' href='#binding_refresh_client_id'>Section&nbsp;5.2.2.2<span> (</span><span class='info'>Binding of Refresh Token to &quot;client_id&quot;</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 トークンのscopeを制限する.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 リフレッシュトークンを無効化する.
                 (<a class='info' href='#refresh_revocation'>Section&nbsp;5.2.2.4<span> (</span><span class='info'>Revocation of Refresh Tokens</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアントシークレットを無効化する.
                 (<a class='info' href='#client_secret_revocation'>Section&nbsp;5.2.3.6<span> (</span><span class='info'>Revoke Client Secrets</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アクセストークンの不正利用が発覚した際に, リフレッシュトークンを置き換える.
                 (<a class='info' href='#refresh_replace'>Section&nbsp;5.2.2.3<span> (</span><span class='info'>Refresh Token Rotation</span><span>)</span></a> の "Refresh Token Rotation" 参照)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <p>
             <br />
 <br />
 
             攻撃例: Webアプリケーションからリフレッシュトークンを取得
-          
+
 </p>
 <p>
             攻撃者はWebアプリケーションの脆弱性を突いてリフレッシュトークンを取得する可能性がある.
-          
+
 </p>
 <p>
             影響: Webアプリケーションでは複数ユーザーのアカウントが一括管理されているため, こういった攻撃によってそのサイト上のすべてのリフレッシュトークンが漏洩する可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1249,36 +1249,36 @@ Threat: Obtaining Refresh Tokens</h3>
 <li>
                 標準的なWebサーバーのセキュリティ対策を行う.
                 (<a class='info' href='#std_web'>Section&nbsp;5.3.2<span> (</span><span class='info'>Use Standard Web Server Protection Measures (for Config Files and Databases)</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 (クライアントアサーションやクライアントトークンなど) 強固なクライアント認証を行い, 攻撃者がトークンリフレッシュを行うために必要なクライアントシークレットの漏洩を防ぐ.
                 (<a class='info' href='#strong_client_authn'>Section&nbsp;5.2.3.7<span> (</span><span class='info'>Use Strong Client Authentication (e.g., client_assertion/client_token)</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <p>
             <br />
 <br />
 
             攻撃例: ネイティブアプリケーションからリフレッシュトークンを取得
-          
+
 </p>
 <p>
             ネイティブアプリケーションでは, リフレッシュトークンの漏洩は1ユーザーのみへの影響にとどまるケースがほとんどである.
-          
+
 </p>
 <p>
             ローカルファイルシステムからの漏洩:
             攻撃者はデバイスのファイルシステムにアクセスし, リフレッシュトークンを取得する可能性がある.
             この攻撃のため, 攻撃者は不正なアプリケーションを経由することがある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1286,31 +1286,31 @@ Threat: Obtaining Refresh Tokens</h3>
 <li>
                 シークレットをセキュアストレージに保存する.
                 (<a class='info' href='#secure_storage'>Section&nbsp;5.3.3<span> (</span><span class='info'>Store Secrets in Secure Storage</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 デバイスへの不正アクセスを防止するため, デバイスロック機能を利用する.
                 (<a class='info' href='#device_lock'>Section&nbsp;5.3.4<span> (</span><span class='info'>Utilize Device Lock to Prevent Unauthorized Device Access</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <p>
             <br />
 <br />
 
             攻撃例: デバイス盗難
-          
+
 </p>
 <p>
             ホストとなるデバイス (携帯電話など) が盗難される可能性もある.
             このケースでは, 攻撃者は被害ユーザーのすべてのアプリケーションにアクセスできる可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1318,31 +1318,31 @@ Threat: Obtaining Refresh Tokens</h3>
 <li>
                 デバイスへの不正アクセスを防止するため, デバイスロック機能を利用する.
                 (<a class='info' href='#device_lock'>Section&nbsp;5.3.4<span> (</span><span class='info'>Utilize Device Lock to Prevent Unauthorized Device Access</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 ユーザーがデバイス盗難に気づいた時点で, 影響のあるトークンを無効化できるようにする.
                 (<a class='info' href='#refresh_revocation'>Section&nbsp;5.2.2.4<span> (</span><span class='info'>Revocation of Refresh Tokens</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <p>
             <br />
 <br />
 
             攻撃例: デバイスコピー
-          
+
 </p>
 <p>
             デバイス上の全データをその他のデバイスにコピーされる可能瀬がある.
             この場合, 後者のデバイスはあたかも前者のように振る舞う.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1350,25 +1350,25 @@ Threat: Obtaining Refresh Tokens</h3>
 <li>
                 デバイスへの不正アクセスを防止するため, デバイスロック機能を利用する.
                 (<a class='info' href='#device_lock'>Section&nbsp;5.3.4<span> (</span><span class='info'>Utilize Device Lock to Prevent Unauthorized Device Access</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 トークンリフレッシュ時にデバイス自体の検証を行う.
                 (<a class='info' href='#device_id'>Section&nbsp;5.2.2.5<span> (</span><span class='info'>Device Identification</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 Refresh Token Rotateを用いる.
                 (<a class='info' href='#refresh_replace'>Section&nbsp;5.2.2.3<span> (</span><span class='info'>Refresh Token Rotation</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 ユーザーがデバイスコピーに気づいた時点で, 影響のあるトークンを無効化できるようにする.
                 (<a class='info' href='#refresh_revocation'>Section&nbsp;5.2.2.4<span> (</span><span class='info'>Revocation of Refresh Tokens</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor19"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1378,15 +1378,15 @@ Threat: Obtaining Access Tokens</h3>
 <p>
             クライアントタイプによっては, アクセストークンが攻撃者に漏洩するいくつかのパターンがある.
             アクセストークンが他のアプリケーションからアクセス可能ななんらかのストレージデバイスに保存されている場合には, アクセストークンが盗まれる可能性もある.
-          
+
 </p>
 <p>
             影響: トークンがbearer tokenであり, クライアント識別に付加的なメカニズムが用いられていない場合, 攻撃者はそのトークンのscopeの範囲内でアクセスできるすべてのリソースにアクセス可能となる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1394,25 +1394,25 @@ Threat: Obtaining Access Tokens</h3>
 <li>
                 アクセストークンを一時的なメモリー空間に保存し, アクセス制限を行う.
                 (<a class='info' href='#access_tokens'>Section&nbsp;5.1.6<span> (</span><span class='info'>Access Tokens</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 トークンのscopeを制限する.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アクセストークンをプライベートメモリー内にとどめるか, リフレッシュトークンと同様の保護策を取る.
                 (<a class='info' href='#refresh_tokens'>Section&nbsp;5.2.2<span> (</span><span class='info'>Refresh Tokens</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アクセストークンの有効期間を短くする.
                 (<a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor20"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1424,17 +1424,17 @@ Threat: End-User Credentials Phished Using Compromised or Embedded Browser</h3>
             またエンベッドブラウザの代わりに独自のユーザーインタフェースを用いる可能性も考えられる.
             このような方法では, TLSなどの視覚的な信頼メカニズムをバイパスすることができるのである.
             エンベッドもしくは内蔵クライアントインタフェースを用いる場合, クライアントアプリケーションが本来アクセス不可能であるはずの情報 (UID/password) へアクセスできる可能性がある.
-          
+
 </p>
 <p>
             影響:
             クライアントアプリケーションもしくは通信自体が汚染されていると, ユーザーはそれに気がつかないであろう.
             またユーザーネームやパスワードなど, 認可処理の際にやりとりされるすべての情報を盗まれることとなる.
-          
+
 </p>
 <p>
             対応策:
-          
+
 </p>
 <p>
             </p>
@@ -1443,10 +1443,10 @@ Threat: End-User Credentials Phished Using Compromised or Embedded Browser</h3>
                 OAuthフローはクライアントアプリケーションにパスワードが知られることなしに利用できるよう設計されている.
                 クライアントはユーザーに直接クレデンシャルを尋ねるべきではない.
                 加えて, OAuthは不正アプリケーションによる攻撃に対して保護策を施すものではなく, エンドユーザーのみがインストールするネイティブアプリケーションの信頼性についての責任を持っていることから, エンドユーザーにフィッシング攻撃や各種ベストプラクティスについて教育を施すことも重要であろう.
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="open_redirector_client"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1456,15 +1456,15 @@ Threat: Open Redirectors on Client</h3>
 <p>
             オープンリダイレクタとは, 何の検証もなしにパラメーターとして指定された場所に対してユーザーエージェントをリダイレクトさせるエンドポイントのことである.
             認可サーバーがクライアントに部分的なリダイレクトURIの登録 (訳注: Hostのみ, Pathの一部のみなど) を許す場合, 攻撃者はクライアントが持つオープンリダイレクタを悪用し, 認可サーバーの検証をすり抜けて認可コードまたはアクセストークンを自身のコントロール下にあるエンドポイントに送信することが可能となる.
-          
+
 </p>
 <p>
             影響: 攻撃者は認可コードやアクセストークンにアクセスすることが可能になる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1472,10 +1472,10 @@ Threat: Open Redirectors on Client</h3>
 <li>
                 クライアントにリダイレクトURI全体を事前登録させる.
                 (<a class='info' href='#val_redirect'>Section&nbsp;5.2.3.5<span> (</span><span class='info'>Validate Pre-Registered &quot;redirect_uri&quot;</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor21"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1495,11 +1495,11 @@ Threat: Password Phishing by Counterfeit Authorization Server</h3>
             この攻撃はDNSやAddress Resolution Protocol (ARP) のなりすまし (spoofing) によって実現できる.
             OAuthや類似プロトコルは, ユーザーに対してリダイレクトされた先でパスワードを入力するという行為に慣らすという側面も持つ.
             そのためユーザーが注意を怠ると, Webサイトの真正性を確認せずにクレデンシャルを入力してしまうことになり, 攻撃者にユーザーのパスワードを盗む機会を与えることとなる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1507,14 +1507,14 @@ Threat: Password Phishing by Counterfeit Authorization Server</h3>
 <li>
                 認可サーバーはOAuth実装時にこのようなアタックを考慮し, 認可サーバーやレスポンスの真正性が問題となるすべてのリクエストにおいてTLSを必須とすべきである.
                 (<a class='info' href='#server_authn'>Section&nbsp;5.1.2<span> (</span><span class='info'>Utilize Server Authentication</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 認可サーバーはユーザーに対してフィッシング攻撃のリスクを教育し, ユーザーに認可サーバーの真正性を簡単に確認する手段を提供すべきである.
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor23"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1524,11 +1524,11 @@ Threat: User Unintentionally Grants Too Much Access Scope</h3>
 <p>
             エンドユーザーの認可を受ける際, エンドユーザーは要求されたscopeおよび認可相手を理解していない場合もありうる.
             本来許可されるべきでないリソースへのアクセスを, 許可してしまうこともあるであろう.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1536,7 +1536,7 @@ Threat: User Unintentionally Grants Too Much Access Scope</h3>
 <li>
                 ユーザーに対して要求されたscope (リソースおよびパーミッション) についての分かりやすい説明を行う.
                 (<a class='info' href='#informed_decisions'>Section&nbsp;5.2.4.2<span> (</span><span class='info'>Informed Decisions Based on Transparency</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアントごとに要求できるscopeを制限する.
@@ -1544,10 +1544,10 @@ Threat: User Unintentionally Grants Too Much Access Scope</h3>
                 なお, このような意思決定はクライアントと認可サーバーの間で行われるものであり, OAuthの定めるところではない.
                 認可サーバーは, パブリッククライアントのscopeを狭めるなど, クライアントタイプごとに要求できるscopeを制限しても良い.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="mal_client3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1557,15 +1557,15 @@ Threat: Malicious Client Obtains Existing Authorization by Fraud</h3>
 <p>
             認可サーバーは既に同意済みのクライアントからの認可リクエストを自動承認することも考えられる.
             ユーザーが認可サーバーの認可エンドポイントにリダイレクトされた際, 認可サーバーはそのユーザーが既にそのクライアントに対してアクセスを許可していることを検知し, その場合はユーザーに同意画面を表示することなく自動的にクライアントに戻すことができる.
-          
+
 </p>
 <p>
             不正なクライアントはこの機能を悪用し, 正規クライアントの代わりにここで得られる認可コードなどを取得する可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1573,15 +1573,15 @@ Threat: Malicious Client Obtains Existing Authorization by Fraud</h3>
 <li>
                 認可サーバーは, クライアントが事前登録したリダイレクトURIが検証可能でない限り, パブリッククライアントに対して自動認可処理を行うべきではない.
                 (<a class='info' href='#val_redirect'>Section&nbsp;5.2.3.5<span> (</span><span class='info'>Validate Pre-Registered &quot;redirect_uri&quot;</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 認可サーバーは自動承認時に取得できるscopeを狭めることで, リスクを軽減できる.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="open_redirector"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1591,15 +1591,15 @@ Threat: Open Redirector</h3>
 <p>
             攻撃者は認可エンドポイントとリダイレクトURIパラメーターを使って, 認可サーバーをオープンリダイレクタとして利用することができる.
             オープンリダイレクタとは, 何の検証もなしにパラメーターとして指定された場所に対してユーザーエージェントをリダイレクトさせるエンドポイントのことである.
-          
+
 </p>
 <p>
             影響: 攻撃者はユーザーの認可サーバーに対する信頼を逆手に取り, フィッシング攻撃を仕掛けることができる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1607,15 +1607,15 @@ Threat: Open Redirector</h3>
 <li>
                 クライアントにリダイレクトURI全体を事前登録させる.
                 (<a class='info' href='#val_redirect'>Section&nbsp;5.2.3.5<span> (</span><span class='info'>Validate Pre-Registered &quot;redirect_uri&quot;</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアント識別子やリダイレクトURIが検証されない限り, リダイレクトURIへのリダイレクトを行わない.
                 (<a class='info' href='#val_redirect'>Section&nbsp;5.2.3.5<span> (</span><span class='info'>Validate Pre-Registered &quot;redirect_uri&quot;</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor24"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1631,15 +1631,15 @@ Threat: Eavesdropping Access Tokens</h3>
 
 <p>
             攻撃者は認可サーバーとクライアントの通信を盗聴し, アクセストークンを取得する可能性がある.
-          
+
 </p>
 <p>
             影響: 攻撃者は該当アクセストークンの持つscopeの範囲内でアクセスできるすべてのリソースにアクセス可能になる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1647,15 +1647,15 @@ Threat: Eavesdropping Access Tokens</h3>
 <li>
                 OAuth仕様に従って, 認可サーバーは通信がTLSで保護されていることを保証する必要がある.
                 (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 end-to-endの秘匿性が保たれない場合, アクセストークンのscopeを狭めたり有効期限を短くしたりすることで, 漏洩時のリスクを軽減できる.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>, <a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor26"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1665,15 +1665,15 @@ Threat: Obtaining Access Tokens from Authorization Server Database</h3>
 <p>
             認可サーバーがhandleベースのアクセストークンを用いてそれをデータベースに保存している場合, この攻撃が可能になる.
             攻撃者はSQLインジェクションによって認可サーバーのデータベースアクセスを取得する可能性がある.
-          
+
 </p>
 <p>
             影響: 全アクセストークンの漏洩
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1681,20 +1681,20 @@ Threat: Obtaining Access Tokens from Authorization Server Database</h3>
 <li>
                 システムレベルのセキュリティ対策を行う.
                 (<a class='info' href='#std_sys'>Section&nbsp;5.1.4.1.1<span> (</span><span class='info'>Enforce Standard System Security Means</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アクセストークンのhash値のみを保存する.
                 (<a class='info' href='#noclear'>Section&nbsp;5.1.4.1.3<span> (</span><span class='info'>No Cleartext Storage of Credentials</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 標準的SQLインジェクション対策を行う.
                 (<a class='info' href='#std_sql'>Section&nbsp;5.1.4.1.2<span> (</span><span class='info'>Enforce Standard SQL Injection Countermeasures</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor27"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1703,15 +1703,15 @@ Threat: Disclosure of Client Credentials during Transmission</h3>
 
 <p>
             攻撃者は, クライアント認証時やOAuthトークンリクエスト時に, クライアント・サーバー間を送信されるクライアントクレデンシャルを盗聴することができる.
-          
+
 </p>
 <p>
             影響: クライアントクレデンシャルの漏洩は, クライアントサービスのフィッシングやなりすまし (impersonation) を容易にする.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1719,15 +1719,15 @@ Threat: Disclosure of Client Credentials during Transmission</h3>
 <li>
                 クライアントクレデンシャル送信時はTLSを用いる.
                 (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クレデンシャルを平文で送信する必要の無い認証方式を採用する.
                 (HMACなど)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor28"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1736,15 +1736,15 @@ Threat: Obtaining Client Secret from Authorization Server Database</h3>
 
 <p>
             攻撃者は, SQLインジェクション攻撃によって, 正規のclient_id/secretペアを認可サーバーのデータベースから盗み出すことができる.
-          
+
 </p>
 <p>
             影響: 全client_id/secretペアの漏洩. これは攻撃者にいかなる正規クライアントとしても動作することを許可する.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1752,20 +1752,20 @@ Threat: Obtaining Client Secret from Authorization Server Database</h3>
 <li>
                 システムレベルのセキュリティ対策を行う.
                 (<a class='info' href='#std_sys'>Section&nbsp;5.1.4.1.1<span> (</span><span class='info'>Enforce Standard System Security Means</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 標準的SQLインジェクション対策を行う.
                 (<a class='info' href='#std_sql'>Section&nbsp;5.1.4.1.2<span> (</span><span class='info'>Enforce Standard SQL Injection Countermeasures</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 "Enforce Credential Storage Protection Best Practices" に従って適切にクレデンシャルを扱う.
                 (<a class='info' href='#cred_storage_prot'>Section&nbsp;5.1.4.1<span> (</span><span class='info'>Enforce Credential Storage Protection Best Practices</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor29"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1774,15 +1774,15 @@ Threat: Obtaining Client Secret by Online Guessing</h3>
 
 <p>
             攻撃者は正規のclient_id/secretペアを推測できる.
-          
+
 </p>
 <p>
             影響: 単一client_id/secretペアの漏洩.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -1790,20 +1790,20 @@ Threat: Obtaining Client Secret by Online Guessing</h3>
 <li>
                 高エントロピーなシークレットを利用する.
                 (<a class='info' href='#high_entropy'>Section&nbsp;5.1.4.2.2<span> (</span><span class='info'>Use High Entropy for Secrets</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アカウントをロックする.
                 (<a class='info' href='#lock_accounts'>Section&nbsp;5.1.4.2.3<span> (</span><span class='info'>Lock Accounts</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 強固なクライアント認証を行う.
                 (<a class='info' href='#strong_client_authn'>Section&nbsp;5.2.3.7<span> (</span><span class='info'>Use Strong Client Authentication (e.g., client_assertion/client_token)</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor30"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1813,7 +1813,7 @@ Obtaining Authorization</h3>
 <p>
           本セクションでは, アクセストークン取得時の各フローにおいて発生する脅威について述べる.
           それぞれのフローは, 認可エンドポイントおよびトークンエンドポイントにおけるレスポンスタイプとグラントタイプによって分類される.
-        
+
 </p>
 <a name="code_flow"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1828,7 +1828,7 @@ Threat: Eavesdropping or Leaking Authorization &quot;codes&quot;</h3>
 <p>
               攻撃者により, 認可サーバーとクライアントの間の通信を盗聴され, 認可コードが漏洩する可能性がある.
               加えて認可コードはブラウザ経由で送信されるので, その他の方法で意図せず信頼できないサイトや攻撃者に漏洩する可能性がある.
-            
+
 </p>
 <p>
               </p>
@@ -1837,29 +1837,29 @@ Threat: Eavesdropping or Leaking Authorization &quot;codes&quot;</h3>
                   リファラヘッダー: ブラウザにより, Webページ内にembedされたコンテンツのロード時やページ遷移時に, "referer" ヘッダーが付与される.
                   これはヘッダー送信の対象サイトが元のサイトと信頼関係にない場合でも送信されうる.
                   リファラーヘッダーはトラフィック解析のためログに残されることが多い.
-                
+
 </li>
 <li>
                   リクエストログ: Webサーバー上のリクエストログには, 一般的にリクエスト中のクエリーパラメータが含まれる.
-                
+
 </li>
 <li>
                   オープンリダイレクタ: Webサイトはしばしばリダイレクタを通じてユーザーを別のサイトに遷移させる.
                   オープンリダイレクタは検証コード (訳注: 認可コードのことを指すと思われる) の漏洩の原因となりうる.
-                
+
 </li>
 <li>
                   ブラウザ履歴: Webブラウザは一般的に訪問履歴を記録する.
                   同じブラウザを利用する場合, 過去に他のユーザーが訪問したURLが他者に漏洩する可能性がある.
-                
+
 </li>
 </ul><p>
               注: SAMLプロトコル仕様 <a class='info' href='#OASIS.sstc-saml-bindings-1.1'>[OASIS.sstc&#8209;saml&#8209;bindings&#8209;1.1]<span> (</span><span class='info'>Maler, E., Ed., Mishra, P., Ed., and R. Philpott, Ed., &ldquo;Bindings and Profiles for the OASIS Security Assertion Markup           Language (SAML) V1.1,&rdquo; September&nbsp;2003.</span><span>)</span></a> Section 4.1.1.9.1 および <a class='info' href='#OASIS.sstc-sec-analysis-response-01'>[OASIS.sstc&#8209;sec&#8209;analysis&#8209;response&#8209;01]<span> (</span><span class='info'>Linn, J., Ed. and P. Mishra, Ed., &ldquo;SSTC Response to &ldquo;Security Analysis of the SAML Single           Sign-on Browser/Artifact Profile&rdquo;,&rdquo; January&nbsp;2005.</span><span>)</span></a> にこれらと同様の攻撃に関する記述がある.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -1867,37 +1867,37 @@ Threat: Eavesdropping or Leaking Authorization &quot;codes&quot;</h3>
 <li>
                   OAuth Core仕様にあるように, 認可サーバーおよびクライアントは, 通信がTLSなどのトランスポートレイヤーメカニズムによって保護されていることを保証しなければならない.
                   (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーがクライアントに可能な限りクライアント認証を要求することで, 認可コードと対象クライアントとの紐付けを検証することができる.
                   (<a class='info' href='#bind_code_client_id'>Section&nbsp;5.2.4.4<span> (</span><span class='info'>Binding of Authorization &quot;code&quot; to &quot;client_id&quot;</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可コードの有効期間を短くする. (<a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーは認可コードをOne-timeトークンとして扱う. (<a class='info' href='#one_time_usage'>Section&nbsp;5.1.5.4<span> (</span><span class='info'>Limit Number of Usages or One-Time Usage</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーが認可コードが複数回使われたことを検知した場合, その認可コードを用いて発行されたすべてのトークンを無効化することも検討できる.
                   (<a class='info' href='#automatic_code_revocation'>Section&nbsp;5.2.1.1<span> (</span><span class='info'>Automatic Revocation of Derived Tokens If Abuse Is Detected</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   以上のような対抗策が実施できない場合は, アクセストークンのscopeを狭め, 有効期間を短くすることで, リスクを軽減できる.
                   (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>, <a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   クライアントサイトはリダイレクトURIに対するブラウザキャッシュをクリアするため, ページをリロードすることを検討してもよい.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor31"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1907,15 +1907,15 @@ Threat: Obtaining Authorization &quot;codes&quot; from Authorization Server Data
 <p>
               認可サーバーがhandleとして認可コードをデータベースに保存した場合, この脅威が発生しうる.
               攻撃者は, データベースへのアクセス権限を不正取得したり, SQLインジェクション攻撃を通じて, 認可サーバーのデータベース中から認可コードを取得できる可能性がある.
-            
+
 </p>
 <p>
               影響: 全認可コードが漏洩し, おそらくさらにそれに紐づくredirect_uriとclient_idも漏洩する.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -1923,25 +1923,25 @@ Threat: Obtaining Authorization &quot;codes&quot; from Authorization Server Data
 <li>
                   クレデンシャルストレージを保護するためのベストプラクティスに従う.
                   (<a class='info' href='#cred_storage_prot'>Section&nbsp;5.1.4.1<span> (</span><span class='info'>Enforce Credential Storage Protection Best Practices</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   システムレベルのセキュリティ対策を行う.
                   (<a class='info' href='#std_sys'>Section&nbsp;5.1.4.1.1<span> (</span><span class='info'>Enforce Standard System Security Means</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   アクセストークンのハッシュ値のみを保存する.
                   (<a class='info' href='#noclear'>Section&nbsp;5.1.4.1.3<span> (</span><span class='info'>No Cleartext Storage of Credentials</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   標準的SQLインジェクション対策を行う.
                   (<a class='info' href='#std_sql'>Section&nbsp;5.1.4.1.2<span> (</span><span class='info'>Enforce Standard SQL Injection Countermeasures</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor32"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1950,15 +1950,15 @@ Threat: Online Guessing of Authorization &quot;code&quot;s</h3>
 
 <p>
               攻撃者が正規の認可コード値を推測し, 推測値を "code" グラントとして用いてアクセストークンを取得する可能性がある.
-            
+
 </p>
 <p>
               影響: 単一のアクセストークン, およびおそらくはそれと紐づいたリフレッシュトークンの漏洩・不正取得.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -1966,32 +1966,32 @@ Threat: Online Guessing of Authorization &quot;code&quot;s</h3>
 <li>
                   handleベーストークンは高エントロピーでなければならない.
                   (<a class='info' href='#high_entropy'>Section&nbsp;5.1.4.2.2<span> (</span><span class='info'>Use High Entropy for Secrets</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   assertionベーストークンは署名されるべきである.
                   (<a class='info' href='#signed_tokens'>Section&nbsp;5.1.5.9<span> (</span><span class='info'>Sign Self-Contained Tokens</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   クライアント認証を行う.
                   これにより攻撃者が推測しなければならない値が増える.
                   (<a class='info' href='#depl_specific_secretes'>Section&nbsp;5.2.3.4<span> (</span><span class='info'>Issue Installation-Specific Client Secrets</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可コードをリダイレクトURIと紐づける.
                   これにより攻撃者が推測しなければならない値が増える.
                   (<a class='info' href='#bind_code_redirect'>Section&nbsp;5.2.4.5<span> (</span><span class='info'>Binding of Authorization &quot;code&quot; to &quot;redirect_uri&quot;</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   トークンの有効期間を短くする.
                   (<a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="mal_client"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2001,18 +2001,18 @@ Threat: Malicious Client Obtains Authorization</h3>
 <p>
               不正クライアントが正規クライアントになりすましてアクセス認可を取得する可能性がある.
               不正クライアントによってはスクレイピングなどによりユーザーの同意フローをシミュレートすることも考えられる.
-            
+
 </p>
 <p>
               推測: ユーザーのデバイスを不正なソフトウェアから保護する責務は認可サーバーにはない.
               これは該当デバイス上で動作するプラットフォームの責務であり, プラットフォームはおそらく協調動作する (アプリケーションマネージメントインフラなどの) エコシステムと共同で, その任にあたるであろう.
               認可サーバーが単体として責任を持つのは, リソースサーバー上のエンドユーザーのリソースに対するアクセス制御, およびOAuthプロトコルを通じたそれらへの不正アクセスの防止である.
               この前提に基づき, ここで扱う脅威に対する対抗策として, 以下が考えられる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2020,7 +2020,7 @@ Threat: Malicious Client Obtains Authorization</h3>
 <li>
                   認可サーバーは可能な限りクライアント認証を行うべきである. (<a class='info' href='#depl_specific_secretes'>Section&nbsp;5.2.3.4<span> (</span><span class='info'>Issue Installation-Specific Client Secrets</span><span>)</span></a>)
                   注: クライアント認証はエンドユーザーの認可プロセスの後に実施される.
-                
+
 </li>
 <li>
                   認可サーバーは, 事前登録されたリダイレクトURIがあれば, それを用いてクライアントが指定したリダイレクトURIを検証するべきである.
@@ -2030,7 +2030,7 @@ Threat: Malicious Client Obtains Authorization</h3>
                   Webアプリケーションの場合, そのリダイレクトURIはグローバルにユニークかつFQDNがHTTPSサーバー認証を通じて検証されるため高い信頼を置ける.
                   一方ネイティブクライアントでは, リダイレクトURIは多くの場合デバイスローカルなリソース (カスタムスキーマなど) を指す.
                   よって, あるデバイス上では不正クライアントが正規クライアントのリダイレクトURIを利用可能であるような状況も考えられる.
-                
+
 </li>
 <li>
                   エンドユーザーを認証した後, 認可サーバーは該当ユーザーに同意を求めるべきである.
@@ -2038,25 +2038,25 @@ Threat: Malicious Client Obtains Authorization</h3>
                   さらに, 認可サーバーはユーザーにクライアントの身元を示すいかなる情報をも提示すべきである.
                   ここで示される情報を使った特定アプリケーションの検証, および認可リクエストの許可/拒否の決定については, ユーザーに委ねられる.
                   (<a class='info' href='#validation_end_user'>Section&nbsp;5.2.4.3<span> (</span><span class='info'>Validation of Client Properties by End User</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーは, 信頼できる方法によって認証もしくは検証されたクライアント以外に対しては, 自動再承認処理を行うべきではない.
                   (<a class='info' href='#automatic_processing'>Section&nbsp;5.2.4.1<span> (</span><span class='info'>Automatic Processing of Repeated Authorizations Requires Client Validation</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーがエンドユーザーの自動認証を行う場合, スクレイピングを防ぐ手段がなくなる可能性がある.
                   こういった手段としては, CAPTCHAsや各種マルチファクター認証技術などが挙げられる.
-                
+
 </li>
 <li>
                   認可サーバーは, 信頼できる方法によって認証できないクライアントに対しては, 発行するトークンのスコープを制限することもありうる.
                   (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor33"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2068,19 +2068,19 @@ Threat: Authorization &quot;code&quot; Phishing</h3>
               DNSやARPのなりすましがその要因となる.
               このような脅威は, Webアプリケーション型のクライアントにあてはまる.
               そのようなクライアントのリダイレクトURIは, ユーザのブラウザが動作するローカルホストではない別の場所を指すためである.
-            
+
 </p>
 <p>
               影響: この脅威はWebアプリケーションにあてはまり, 認可コード, そして潜在的にはそれに紐づくアクセストークンおよびリフレッシュトークンの漏洩につながる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               このような攻撃を防ぐため, 以下のいずれかの対策を講じることを強く推奨する.
-            
+
 </p>
 <p>
               </p>
@@ -2089,16 +2089,16 @@ Threat: Authorization &quot;code&quot; Phishing</h3>
                   クライアントのリダイレクトURIは, HTTPSで保護されたエンドポイントを指すべきである.
                   またブラウザのサーバー認証機能を用いて, 確実にそのリダイレクトURIを認証すべきである.
                   (<a class='info' href='#server_authn'>Section&nbsp;5.1.2<span> (</span><span class='info'>Utilize Server Authentication</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーはクライアント認証を要求するべきである.
                   それにより認可コードと特定のクライアントとの紐付けが, 信頼できる方法で検証可能となる.
                   (<a class='info' href='#bind_code_client_id'>Section&nbsp;5.2.4.4<span> (</span><span class='info'>Binding of Authorization &quot;code&quot; to &quot;client_id&quot;</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor34"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2110,7 +2110,7 @@ Threat: User Session Impersonation</h3>
               DNSやARPのなりすましがその要因となる.
               このような脅威は, Webアプリケーション型のクライアントにあてはまる.
               そのようなクライアントのリダイレクトURIは, ユーザのブラウザが動作するローカルホストではない別の場所を指すためである.
-            
+
 </p>
 <p>
               影響: ブラウザ経由でコールバックエンドポイントに送信される認可コードが攻撃者に漏洩する.
@@ -2118,16 +2118,16 @@ Threat: User Session Impersonation</h3>
               クライアントは渡された認可コードをそのままアクセストークンと交換し, 得られたアクセストークンを使って保護リソースアクセスを行う.
               これによって攻撃者は被害者の管理下にある保護リソースを取得したり, それを書き換えたりすることで, なんらかの利益を得る.
               (サードパーティーSNS上のログインボタンなどのように) OAuthが認証処理の委譲の為に用いられている場合, 攻撃者は得られた認可コードを使って被害者としてクライアントにログインできる.
-            
+
 </p>
 <p>
               注: 認可コードをアクセストークンと交換する際のクライアント認証は, この攻撃を防ぐためには利用できない.
               このケースでは, トークンを取得するのはあくまで正規のクライアントである.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2136,10 +2136,10 @@ Threat: User Session Impersonation</h3>
                   エンドユーザーセッションの偽装を防ぐには, クライアントのリダイレクトURIは, HTTPSで保護されたエンドポイントを指すべきである.
                   またブラウザのサーバー認証機能を用いて, 確実にそのリダイレクトURIを認証すべきである.
                   (<a class='info' href='#server_authn'>Section&nbsp;5.1.2<span> (</span><span class='info'>Utilize Server Authentication</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="authz_code_leakage"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2149,18 +2149,18 @@ Threat: Authorization &quot;code&quot; Leakage through Counterfeit Client</h3>
 <p>
               この攻撃では, 攻撃者は認可コードグラントタイプを悪用し, 別のユーザー (被害者) に認可サーバーへのログインおよび被害者自身のリソースへのアクセス許可を行わせ, 得られた認可コードを攻撃者のアカウントを使ってクライアントに渡す.
               被害者によるリソースへのアクセス認可を, クライアントサイト上の攻撃者アカウントと紐づけることが, その目的である.
-            
+
 </p>
 <p>
               攻撃者は既存クライアントを悪用し, それを自身の悪意あるサイトと組み合わせて利用する.
               これは被害者の「クライアントアプリケーションは特定のリソースサーバーへのアクセスを要求しているのだろう」という思い込みを利用した攻撃である.
               被害者は正規クライアントから発行された正常なリクエストを目にするため, そのリクエストを受理するであろう.
               そして攻撃者は被害者が知らず知らずのうちに認可してしまった情報へのアクセス権限を得るのである.
-            
+
 </p>
 <p>
               この攻撃は以下のフローで行われる.
-            
+
 </p>
 <p>
               </p>
@@ -2169,49 +2169,49 @@ Threat: Authorization &quot;code&quot; Leakage through Counterfeit Client</h3>
                   攻撃者はクライアントサイト (もしくはクライアントアプリケーション) にアクセスし, 特定のリソースサーバーへのデータアクセスを行う.
                   クライアントWebサイトはそれを受けて, リソースサーバーに対応する認可サーバーへ, 認可リクエストを行う.
                   ここで攻撃者はこの認可プロセスを途中で止め, 認可サーバーの認可エンドポイントに自身のコントロール下にあるWebサイト上のリダイレクトURIを付与する.
-                
+
 </li>
 <li>
                   攻撃者は改竄された認可エンドポイントURLを (emailやブログ記事中のリンクなどを経由して) 被害者に開かせる.
                   被害者に該当URLを開かせる手段については, ここでは特に限定しない.
-                
+
 </li>
 <li>
                   リンクをクリックすることで, 被害者は認証を要求され, その後クライアントによるリソースアクセスへの同意を求められる.
-                
+
 </li>
 <li>
                   認可プロセスが完了すると, 認可サーバーはユーザーエージェントを元のクライアントではなく攻撃者のWebサイトにリダイレクトさせる.
-                
+
 </li>
 <li>
                   それにより攻撃者はなんらかの方法で該当認可コードを得る.
                   その具体的な手段についてはここでは触れない.
-                
+
 </li>
 <li>
                   その後攻撃者は対象Webサイト (もしくはアプリケーション) の本来のリダイレクトURIに得られた認可コードを付与し, 自身のユーザーエージェントでそのURLをロードする.
                   これにより認可コードは元のクライアントサイト (もしくはアプリケーション) に渡される.
-                
+
 </li>
 <li>
                   クライアントサイトは得られた認可コードをアクセストークンと交換し, それを自身のサイト上の攻撃者のアカウントと紐づける.
-                
+
 </li>
 <li>
                   以上により, 攻撃者は該当クライアントサイトを通じて被害者のリソースへのアクセス権限を得る.
-                
+
 </li>
 </ol><p>
-            
+
 </p>
 <p>
               影響: 攻撃者はクライアントサイト上の自身のアカウントを通じて被害者のリソースへのアクセス権限を得る.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2220,27 +2220,27 @@ Threat: Authorization &quot;code&quot; Leakage through Counterfeit Client</h3>
                   攻撃者は認可フローを途中でインターセプトするため, 外部サイトのリダイレクトURIを利用する必要がある.
                   よって認可サーバーが, 認可コードをその認可リクエスト時に指定されたリダイレクトURIと紐づけ, そのリダイレクトURIを用いてトークンエンドポイントで再び送られてくるリダイレクトURIを検証することで, この攻撃を検知することができる.
                   (<a class='info' href='#bind_code_redirect'>Section&nbsp;5.2.4.5<span> (</span><span class='info'>Binding of Authorization &quot;code&quot; to &quot;redirect_uri&quot;</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   さらに, 認可サーバーはリダイレクトURIの事前登録およびその検証を必須とすることもできる. (<a class='info' href='#val_redirect'>Section&nbsp;5.2.3.5<span> (</span><span class='info'>Validate Pre-Registered &quot;redirect_uri&quot;</span><span>)</span></a>)
                   これによりさらに早い段階で不正クライアントへの認可コード漏洩を検知することができる.
-                
+
 </li>
 <li>
                   ネイティブアプリケーションの場合, 認可コードとクライアントIDの紐付けに加え, 各インスタンスごとに固有のクライアントID & シークレットを用いることもできる.
                   (<a class='info' href='#bind_code_client_id'>Section&nbsp;5.2.4.4<span> (</span><span class='info'>Binding of Authorization &quot;code&quot; to &quot;client_id&quot;</span><span>)</span></a>, <a class='info' href='#depl_specific_secretes'>Section&nbsp;5.2.3.4<span> (</span><span class='info'>Issue Installation-Specific Client Secrets</span><span>)</span></a>)
                   攻撃者はインスタンス固有のシークレットへアクセスできないため, 攻撃者が認可コードをトークンと交換することは不可能になる.
-                
+
 </li>
 <li>
                   クライアントは, この攻撃に対して脆弱なフローの代わりに, implicitグラントタイプやリソースオーナーパスワードグラントタイプなどの別フローを用いることもできる.
                   (<a class='info' href='#implicit_flow'>Section&nbsp;4.4.2<span> (</span><span class='info'>Implicit Grant</span><span>)</span></a>, <a class='info' href='#pwd_flow'>Section&nbsp;4.4.3<span> (</span><span class='info'>Resource Owner Password Credentials</span><span>)</span></a>)
                   (訳注: implicitグラントタイプやリソースオーナーパスワードグラントタイプは, 別の攻撃に対して脆弱な一面があることに注意すること)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="section_csrf"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2251,24 +2251,24 @@ Threat: CSRF Attack against redirect-uri</h3>
               Cross-site request forgery (CSRF) は, Webサイトに信頼もしくは認証されたユーザーを通じてHTTPリクエストを実行させる, Webベースの攻撃である.
               攻撃にはHTTPリダイレクトやHTMLフォームなどが用いられる.
               OAuth認可フローに対するCSRF攻撃は, 攻撃者がOAuthの保護リソースへのアクセス権限を取得する際に, ユーザー同意ステップをスキップすることを可能にする.
-            
+
 </p>
 <p>
               この攻撃は認可コードフロー中でリダイレクトURIに対して行われる.
               攻撃者は, 自身の保護リソースに対する認可を行い, 認可コードを取得する.
               その後攻撃者は自身のデバイス上でクライアントへのリダイレクトを途中で止め, 被害者にそのリダイレクトリクエストを実行させる.
               リダイレクトを受けたクライアントは, 認可サーバーからトークンを取得し, クライアント上の被害者セッションとそのトークンでアクセスできるリソースを紐づける.
-            
+
 </p>
 <p>
               影響: 被害者は攻撃者の代理としてリソースアクセスを行う.
               その栄養はアクセスされるリソースに依存するが, 例えば被害者が攻撃者のリソースとしてプライベートなデータをアップロードするケースなどが考えられる.
               OAuthを3rd partyログインの為に用いている場合, クライアント上の被害者アカウントが外部Identity Provider上の攻撃者アカウントと紐づけられてしまい, 攻撃者が別デバイス上で被害者としてクライアントにログインできるようになってしまう, といったケースも考えられる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2276,14 +2276,14 @@ Threat: CSRF Attack against redirect-uri</h3>
 <li>
                   認可リクエストとそのリダイレクトレスポンスを紐づけるため, stateパラメーターを利用すべきである.
                   (<a class='info' href='#link_state_uasession'>Section&nbsp;5.3.5<span> (</span><span class='info'>Link the &quot;state&quot; Parameter to User Agent Session</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   クライアント開発者とエンドユーザーに, 信頼できないURLにアクセスすべきでないと教育するといったことも考えられる.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor35"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2293,15 +2293,15 @@ Threat: Clickjacking Attack against Authorization</h3>
 <p>
               Clickjackingとは, 不正なサイトが不可視iframe (<a class='info' href='#iFrame'>[iFrame]<span> (</span><span class='info'>World Wide Web Consortium, &ldquo;Frames in HTML documents,&rdquo; December&nbsp;1999.</span><span>)</span></a>) に対象サイトをロードし, 対象サイト上の重要なボタンに会うようにその下のレイヤーに偽ボタンを配置し, 被害者のクリックを誘導する攻撃である.
               ユーザーが可視ボタンをクリックすると, 実際には不可視ページ上のボタンがクリックされる. (「認可」ボタンなど)
-            
+
 </p>
 <p>
               影響: 攻撃者はユーザーの認証クレデンシャル (訳注: ID & Passwordなど) やリソースアクセスを得る.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2309,15 +2309,15 @@ Threat: Clickjacking Attack against Authorization</h3>
 <li>
                   モダンブラウザでは, X-FRAME-OPTIONSヘッダーを利用して認可フロー中でiframeの利用を禁止することができる.
                   (<a class='info' href='#clickjacking_xframe'>Section&nbsp;5.2.2.6<span> (</span><span class='info'>X-FRAME-OPTIONS Header</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   レガシーブラウザでは, JavaScript frame-busting (<a class='info' href='#Framebusting'>[Framebusting]<span> (</span><span class='info'>Rydstedt, G., Bursztein, Boneh, D., and C. Jackson, &ldquo;Busting Frame Busting: a Study of Clickjacking           Vulnerabilities on Popular Sites,&rdquo; May&nbsp;2010.</span><span>)</span></a>) が利用できる.
                   ただしこれはすべてのブラウザで動作するとは限らない.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor36"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2329,71 +2329,71 @@ Threat: Resource Owner Impersonation</h3>
               しかしながら, 不正クライアントが認可フローの詳細を把握し, プログラムによって認可フローに必要なリクエストを実行することも考えられる.
               こうすることにより, クライアントはユーザー同意なしに被害者のリソースへのアクセス権限を得ることができる.
               認可サーバーがユーザーインタラクションを必要としない認証手法を取ったり, 複数ページにまたがる認可フローを分割可能にしていると, このような攻撃に対して脆弱になる.
-            
+
 </p>
 <p>
               不正クライアントは不可視HTMLユーザーエージェントを利用して認可サーバーが送信するHTMLフォームを中断し, 自動的に同様のHTTP POSTリクエストを実行する.
               なお, このとき攻撃者は認可サーバー上でリソースオーナーの認証済セッションを利用できる必要がある.
               これは以下のような手段で実現可能となる.
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   不正クライアントは, 該当デバイス上の外部ブラウザやクロスブラウザクッキーに残っている既存セッションを悪用することができる.
-                
+
 </li>
 <li>
                   不正クライアントは, まずユーザーに承認できる程度のscopeの認可を要求し, その後ブラウザに残されたセッションをこっそり悪用して他のscopeへのアクセスを得ることができる.
-                
+
 </li>
 <li>
                   その他に, 攻撃者は認可サーバーのユーザーインタラクションを必要としないリソースオーナー認証メカニズムを悪用することもできる. (例: クライアント証明書など)
-                
+
 </li>
 </ul><p>
               いずれのケースでも, 攻撃は被害者のデバイス上のユーザーエージェント, もしくはネイティブアプリケーションで実行される必要がある.
-            
+
 </p>
 <p>
               注: この攻撃はCSRF対策では防止できない.
               攻撃者は認可サーバー自身で構築されたnonceなどを含むURLを「実行」しているに過ぎない.
               (訳注: Cookieなどもすべて取られているという仮定であろう)
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               認可サーバーは自身のリスク分析に基づき, この脅威を検知および防止すべきかどうか決定すべきである.
-            
+
 </p>
 <p>
               この攻撃を防ぐため, 認可サーバーは以下のように推測不可能な入力値を伴うユーザーインタラクションを強制することも考えられる.
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   パスワード認証とユーザー同意を単一のフォームにする.
-                
+
 </li>
 <li>
                   CAPTCHAを用いる.
-                
+
 </li>
 <li>
                   なんらかの手段でリソースオーナーにOne-timeシークレットを送信し, それを利用させる.
                   (テキストメッセージ, インスタントメッセージなどを利用)
-                
+
 </li>
 </ul><p>
               その他に, リソースオーナーに不正アクセスを検知させるため, 認可サーバーがアクセス認可が行われた際にリソースオーナーに適切な手段で通知するという方法も考えられる.
               (テキストメッセージ, インスタントメッセージ, emailなどを利用)
-            
+
 </p>
 <a name="anchor37"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2402,25 +2402,25 @@ Threat: DoS Attacks That Exhaust Resources</h3>
 
 <p>
               認可コードやアクセストークンが十分なエントロピーを持っておらず, ユーザーの関与やユーザーごとの認可コード/トークン数の制限無しに自動的にアクセス許可を行う場合, 攻撃者は認可リクエストを繰り返して認可サーバーの認可コード/アクセストークンプールを枯渇させることができる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   認可サーバーはユーザーごとに発行可能なアクセストークンに上限を設けるべきである.
-                
+
 </li>
 <li>
                   認可サーバーは認可コードに十分なエントロピーを持たせるべきである.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="semi"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2431,18 +2431,18 @@ Threat: DoS Using Manufactured Authorization &quot;codes&quot;</h3>
               ボットネットを持つ攻撃者であれば, "http://" で始まるリダイレクトURIを収集し, それらにランダムな認可コードを付与してアクセスすることで, 認可サーバーに大量のHTTPSコネクションを集中させることができる.
               (訳注: クライアントのリダイレクトURIは "http://" であり, 認可サーバーの認可エンドポイントは "https://" である点がポイント)
               これは認可サーバーに対するDoSアタックになりうる.
-            
+
 </p>
 <p>
               この攻撃は, クライアントがCSRF対策を行ったりstateパラメーターを利用していたとしても可能である. (<a class='info' href='#section_csrf'>Section&nbsp;4.4.1.8<span> (</span><span class='info'>Threat: CSRF Attack against redirect-uri</span><span>)</span></a>)
               CSRF対策が行われている場合, 攻撃者は正規のCSRFコードやstateパラメーターを取得するため, 追加のHTTPリクエストを行えばよい.
               追加のHTTPリクエストが必要になることで, 攻撃者は2倍のコストを必要とするが, HTTPSとHTTPのコスト比が2倍以上であれば, 攻撃者は認可サーバーに対してDoSアタックを成立させることができる.
               (<a class='info' href='#SSL-Latency'>[SSL&#8209;Latency]<span> (</span><span class='info'>Sissel, J., Ed., &ldquo;SSL handshake latency and HTTPS optimizations,&rdquo; June&nbsp;2010.</span><span>)</span></a> によってHTTPS/HTTPのコスト比は約3.5倍となる)
-            
+
 </p>
 <p>
               影響: 認可コードフローのこの特徴により攻撃者が得るメリットには以下のようなものがある.
-            
+
 </p>
 <p>
               </p>
@@ -2453,17 +2453,17 @@ Threat: DoS Using Manufactured Authorization &quot;codes&quot;</h3>
                   もちろん攻撃者はTorなどの匿名化システムを利用してConnection Launderingを行うこともできるが, その効果は匿名化に用いるシステムによって異なる.
                   一方で, 潜在的に多くのOAuthクライアントがこの攻撃に利用される可能性がある.
                   (訳注: "Connection Laundering" に対する適切な訳語が見つからないが, 「身元を隠して攻撃すること」というニュアンス)
-                
+
 </li>
 <li>
                   非対称なリソース利用: 攻撃者はHTTPコネクションに必要なコストを負担し, HTTPSコネクションに必要なコストを認可サーバーに与えることができる.
                   複数クライアントにまたがったHTTPSコネクションの発生タイミングも, 比較的簡単にコントロールすることができる.
                   もちろんHTTPのWebページに認可サーバーのHTTPS URLをロードすriframeを仕込み, ユーザーをそのWebページに誘導するなどして同様の攻撃を行うこともできるが, その場合攻撃タイミングのコントロールは困難であろう.
-                
+
 </li>
 </ol><p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2471,18 +2471,18 @@ Threat: DoS Using Manufactured Authorization &quot;codes&quot;</h3>
 <li>
                   これは完全な対抗策ではないが, クライアントはCSRF対策を行った上で暗号論的擬似乱数生成器により生成されたstateパラメーターを利用すべきである.
                   そしてクライアントはCSRFトークンおよびstateパラメーターの検証が終わってから認可サーバーにアクセスすべきである.
-                
+
 </li>
 <li>
                   クライアントがシングルサインオンプロトコルやパスワード認証などでユーザーを認証しているのであれば, 不正な認可コードを一定以上入力してきたユーザーのアカウントを一時的に停止すべきである.
-                
+
 </li>
 <li>
                   認可サーバーは不正な認可コードが送信されたことを示すエラーレスポンスを返し, 一定以上そのようなリクエストを行うクライアントに対してはrate limitやコネクション拒否などの対応を行うべきである.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor38"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2493,13 +2493,13 @@ Threat: Code Substitution (OAuth Login)</h3>
               攻撃者は被害者のアイデンティティを用いてアプリケーションやWebサイトにログインすることも考えられる.
               アイデンティティ情報をOAuthにより保護されたサービスのAPIに頼っていると, それが脆弱性につながることがあるのである.
               これは「ソーシャルログイン」と呼ばれるシナリオで散見されるパターンである.
-            
+
 </p>
 <p>
               前提条件として, リソースサーバーがユーザーのアイデンティティを提供するAPIを持っている必要がある.
               クライアントは, OAuthのアクセストークンを使ってこの「アイデンティティAPI」にアクセスし, そのレスポンスに含まれる識別子を使ってユーザーを識別する.
               クライアントはこの一連の操作を持ってユーザーが認証されたものとして扱う.
-            
+
 </p>
 <p>
               クライアントが認可コードグラントタイプを利用している場合, 攻撃者はクライアントが利用しているのと同じIdentity Provider (IdP) から, ターゲットとなる被害者の認可コードを取得する必要がある.
@@ -2509,15 +2509,15 @@ Threat: Code Substitution (OAuth Login)</h3>
               悪意あるアプリケーションはその認可コードを攻撃者に送り, 攻撃者はそれを受けてターゲットとなるクライアントへのログインフローを開始し, 認可レスポンスに含まれる認可コードを被害者のものに置き換える.
               リソースサーバーに関して言えばaudienceは正常であるため, クライアントは受け取った認可コードをアクセストークンと交換し, アイデンティティAPIにアクセスする.
               しかしながらアイデンティティAPIのレスポンスには被害者の識別子が含まれるため, 攻撃者はターゲットクライアント上の被害者のアカウントにログインできる.
-            
+
 </p>
 <p>
               影響: 攻撃者は特定のアプリケーションおよびそのアプリケーション内のユーザーデータにアセクセスできる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2526,15 +2526,15 @@ Threat: Code Substitution (OAuth Login)</h3>
                   すべてのクライアントは, 認可コードをアクセストークンと交換する際, 必ずクライアントIDを提示しなければならない.
                   認可サーバーはその認可コードがそのクライアントに対して発行されたものかどうかを検証しなければならない.
                   可能であればクライアント認証も行うことが望ましい.
-                
+
 </li>
 <li>
                   クライアントは認証の為にはOpenID (<a class='info' href='#OPENID'>[OPENID]<span> (</span><span class='info'>, &ldquo;OpenID Foundation Home Page,&rdquo; .</span><span>)</span></a>) やSAML (<a class='info' href='#OASIS.sstc-saml-bindings-1.1'>[OASIS.sstc&#8209;saml&#8209;bindings&#8209;1.1]<span> (</span><span class='info'>Maler, E., Ed., Mishra, P., Ed., and R. Philpott, Ed., &ldquo;Bindings and Profiles for the OASIS Security Assertion Markup           Language (SAML) V1.1,&rdquo; September&nbsp;2003.</span><span>)</span></a>) といったそれに適したプロトコルを利用すべきである.
                   両プロトコルとも, クライアントに関するaudience制約をサポートしている.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="implicit_flow"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2545,7 +2545,7 @@ Implicit Grant</h3>
             implicitグラントタイプフローでは, アクセストークンがリダイレクトURIのフラグメントを通じて直接クライアントに渡される.
             HTTPユーザーエージェントはHTTPサーバーにフラグメント部分を送らないので, トークンはリダイレクトURIが指し示す対象には送られないと想定される.
             よってクライアント・ユーザーエージェント間の通信経路上でアクセストークンを盗聴したりHTTPリファラーヘッダー経由でトークンが漏洩することはない.
-          
+
 </p>
 <a name="anchor39"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2556,21 +2556,21 @@ Threat: Access Token Leak in Transport/Endpoints</h3>
               トークンが攻撃者に盗聴される可能性がある.
               トークンはリダイレクトURIのフラグメントを通じてサーバーからクライアントに渡される.
               この通信がセキュアで無い場合, トークンが漏洩する.
-            
+
 </p>
 <p>
               影響: 攻撃者がトークンの持つ権限を得る.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
 <ul class="text"><a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>
 </ul><p>
-            
+
 </p>
 <a name="anchor40"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2580,11 +2580,11 @@ Threat: Access Token Leak in Browser History</h3>
 <p>
               攻撃者はブラウザ履歴からトークンを取得できる.
               これには攻撃者が特定のデバイスにアクセスできる必要がある.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2592,14 +2592,14 @@ Threat: Access Token Leak in Browser History</h3>
 <li>
                   トークンの有効期間を短くする. (<a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
                   トークンのscopeを狭めることも, この攻撃の影響を軽減する可能性がある. (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   レスポンスをキャッシュさせない.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="mal_client2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2608,11 +2608,11 @@ Threat: Malicious Client Obtains Authorization</h3>
 
 <p>
               不正クライアントが詐欺によりトークンを受け取る.
-            
+
 </p>
 <p>
               クライアント認証の実施を除いては, <a class='info' href='#mal_client'>Section&nbsp;4.4.1.4<span> (</span><span class='info'>Threat: Malicious Client Obtains Authorization</span><span>)</span></a> と同様の対策が可能である.
-            
+
 </p>
 <a name="anchor41"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2623,15 +2623,15 @@ Threat: Manipulation of Scripts</h3>
               攻撃者がクライアントWebサーバーになりすまし, クライアント (のスクリプト) を改竄もしくは置き換える可能性がある.
               これはDNS/ARP Spoofingにより可能になる.
               Webブラウザ上にスクリプト言語で実装されたクライアントが対象となる.
-            
+
 </p>
 <p>
               影響: 攻撃者はユーザーのクレデンシャルを取得し, ユーザーのアイデンティティをも乗っ取り可能であろう.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2639,20 +2639,20 @@ Threat: Manipulation of Scripts</h3>
 <li>
                   認可サーバーはスクリプトを配信するサーバーを認証すべきである.
                   (<a class='info' href='#server_authn'>Section&nbsp;5.1.2<span> (</span><span class='info'>Utilize Server Authentication</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   クライアントは通信系路上でスクリプトが改竄されていないことを保証すべきである.
                   (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   ユーザーごとのone-timeシークレット (client_secretなど) を導入し, スクリプトがサーバーからロードされてから短期間だけ, そのスクリプトだけがそのシークレットを利用できるようにすることも考えられる.
                   これにより, 攻撃者がクライアントサイドのスクリプトをコピーして改竄時に使い回す場合の効率を下げることができる.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor42"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2664,17 +2664,17 @@ Threat: CSRF Attack against redirect-uri</h3>
               攻撃者は, 事前に自身のリソースに対するアクセストークンを取得しておき, そのトークンを含むリダイレクトURIを構築することができる.
               その後ユーザーを騙してそのリダイレクトURIにアクセスさせることに成功した場合, クライアントにはそれを防ぐ手だてはない.
               被害者は, そのクライアントに対して発行された攻撃者のアクセストークンと, 紐づけられることになるであろう.
-            
+
 </p>
 <p>
               影響: ユーザーは攻撃者のリソースへのアクセスを行う.
               その影響はリソースの種類によって異なるが, 例えばユーザーがプライベートなデータを攻撃者の管理下のリソースにアップロードしてしまうことなどが考えられる.
               OAuthが3rd-partyログインに使われている場合であれば, IdP上の攻撃者のアカウントとクライアント上の被害者アカウントが紐づけられてしまい, 攻撃者が他デバイスからでも簡単にクライアント上の被害者アカウントにログインできてしまうことになる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2683,14 +2683,14 @@ Threat: CSRF Attack against redirect-uri</h3>
                   一連の認可リクエストとアクセストークンを含むリダイレクトレスポンスを紐づけるため, stateパラメーターを用いるべきである.
                   クライアント自身が開始した認可リクエストに対応するリダイレクトレスポンス以外は受け付けないようにする.
                   なおstateパラメーターは推測不可能であり, クライアントはその値を秘匿に保つべきである.
-                
+
 </li>
 <li>
                   クライアント開発者およびエンドユーザーに, 信頼できないURLを踏まないように教育する.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor43"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2701,14 +2701,14 @@ Threat: Token Substitution (OAuth Login)</h3>
               攻撃者は被害者のアイデンティティを利用してアプリケーションやWebサイトにログインを試みることがある.
               OAuthで保護されたAPIから取得したアイデンティティデータを使ってユーザー認証を行うアプリケーションが, この脅威の対象となる.
               この攻撃パターンは "social login" と呼ばれるシナリオで見受けられる.
-            
+
 </p>
 <p>
               前提条件として, リソースサーバーがユーザーの個人情報を取得するためのAPIを提供しており, かつその情報を持ってユーザーのアイデンティティが得られたと見なすことができる必要がある.
               これはつまり, クライアントがリソースサーバーのAPIを "Identity" APIとして扱っているということである.
               クライアントは, OAuthのアクセストークンを使ってアイデンティティAPIにアクセスし, ユーザーのアイデンティティを取得した後, 自身が内部で持つユーザーアカウントデータ (ログイン情報) から該当ユーザーを特定する.
               このフローでユーザーの情報を取得できることを根拠として, クライアントは該当ユーザーが認証されたものとして扱う.
-            
+
 </p>
 <p>
               この攻撃では, 攻撃者は同じIdentity Providerがターゲットのクライアントに向けて発行した, 被害者の正規のアクセストークンを取得する必要がある.
@@ -2719,15 +2719,15 @@ Threat: Token Substitution (OAuth Login)</h3>
               ここで攻撃者は認可レスポンスを改竄し, 自身のアクセストークンの代わりに被害者のアクセストークンをレスポンスに含める.
               このトークンは, リソースサーバーに関しては正規のaudienceを持つため, アイデンティティAPIで受け入れられる.
               しかしアイデンティティAPIから返されるユーザー識別子は被害者のものであるため, 攻撃者はターゲットアプリに被害者としてログインできてしまう.
-            
+
 </p>
 <p>
               影響: 攻撃者は, そのアプリケーション自体へのアクセス, および被害者がアプリケーション内で持つユーザーデータへのアクセスを取得することになる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2735,10 +2735,10 @@ Threat: Token Substitution (OAuth Login)</h3>
 <li>
                   クライアントは, OpenID (<a class='info' href='#OPENID'>[OPENID]<span> (</span><span class='info'>, &ldquo;OpenID Foundation Home Page,&rdquo; .</span><span>)</span></a>) や SAML (<a class='info' href='#OASIS.sstc-saml-bindings-1.1'>[OASIS.sstc&#8209;saml&#8209;bindings&#8209;1.1]<span> (</span><span class='info'>Maler, E., Ed., Mishra, P., Ed., and R. Philpott, Ed., &ldquo;Bindings and Profiles for the OASIS Security Assertion Markup           Language (SAML) V1.1,&rdquo; September&nbsp;2003.</span><span>)</span></a>) など, ユーザー認証に適切なプロトコルを利用するべきである.
                   ここであげた2つのプロトコルは, どちらもクライアント上でのaudience制約をサポートする.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="pwd_flow"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2752,50 +2752,50 @@ Resource Owner Password Credentials</h3>
             さらに, 認可プロセスはユーザーのコントロール下にないため, このグラントタイプを利用するクライアントはscopeによる制約を受けず, 潜在的にはユーザー自身と同じ権限を持ちうる.
             (訳注: ID & パスワードを教えた時点でおしまいということ)
             認可ステップが存在しないため, トークンの無効化機能もバイパスされうる.
-          
+
 </p>
 <p>
             往々にして2つ以上のサービスで同じパスワードを使うというケースが存在するため, このアンチパターンは提供されたクレデンシャルにアクセス可能ないかなるサービスをもリスクにさらす可能性がある.
             さらに, 容易に同じ主体であると推測できる情報 (joe@example.com と joe@example.net のペアなど) から, 同じパスワードが違う場所で利用されていることを容易に推測可能なケースもありうる.
-          
+
 </p>
 <p>
             影響: リソースサーバーは, 特定のクライアントに紐づけられたアクセストークンベースでしかscopeの区別を付けることができない.
             クライアントは長期間有効なトークンを取得し攻撃者にそれを送信することもできる.
             クライアントおよびエンドポイントにいる主体は, ユーザーIDとパスワードを盗聴可能である.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 移行のため以外の目的でこのグラントタイプを利用するのはなるべく避ける.
-              
+
 </li>
 <li>
                 認可サーバーはトークンリフレッシュ時に毎回リフレッシュトークンに紐づくクライアントIDを検証すべきである.
                 (<a class='info' href='#binding_refresh_client_id'>Section&nbsp;5.2.2.2<span> (</span><span class='info'>Binding of Refresh Token to &quot;client_id&quot;</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 OAuth Core仕様にあるように, 認可サーバーはTLSのようなトランスポートレイヤーのメカニズムによって通信が保護されていることを保証しなければならない.
                 (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 各サービスは, ユーザーに複数のサービスで同じパスワードを使うことの危険性を教えるべきである.
-              
+
 </li>
 <li>
                 リソースオーナーパスワードクレデンシャルグラントの利用を, 同じ組織が運営するクライアントアプリケーションに限定する.
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor44"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2804,29 +2804,29 @@ Threat: Accidental Exposure of Passwords at Client Site</h3>
 
 <p>
               クライアントのセキュリティが不十分な場合, 攻撃者や内部犯行者がユーザーのパスワードを取得する可能性がある.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   クライアントがリソースオーナークレデンシャルにアクセスすることのない, 他のフローを利用する.
-                
+
 </li>
 <li>
                   平文でクレデンシャルを扱うのではなく, ダイジェスト認証を利用する.
-                
+
 </li>
 <li>
                   ログに含まれるアクセストークンを解読困難にする.
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor45"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2836,33 +2836,33 @@ Threat: Client Obtains Scopes without End-User Authorization</h3>
 <p>
               すべてのリソースオーナーとのインタラクションは, クライアントによって行われるため, 意図の有無にかかわらず, リソースオーナーが認識しないもしくは意図していなかったscopeを持つトークンが発行される可能性がある.
               例えば, リソースオーナーが, クライアントはメディアストレージへのread-onlyアクセスのみを必要としていると思ったにも関わらず, クライアントは実際にはフルアクセス権限をリクエストしていた, というようなこともありうる.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   クライアントがリソースオーナークレデンシャルにアクセスすることのない, 他のフローを利用する.
-                
+
 </li>
 <li>
                   認可サーバーはこのフローで発行されたアクセストークンのscopeを制限することができる.
                   (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>)
                   もし特定のクライアントが信頼でき, かつセキュアに認証可能な場合は, そのような制約を設けないこともある.
                   リソースオーナーが事前に (設定画面などで) このフローで取得できるscopeの上限を設定することも検討可能である.
-                
+
 </li>
 <li>
                   認可サーバーは適切な経路 (emailなど) でリソースオーナーにグラント発行通知を送ることもできる.
                   (<a class='info' href='#informed'>Section&nbsp;5.1.3<span> (</span><span class='info'>Always Keep the Resource Owner Informed</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor46"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2871,33 +2871,33 @@ Threat: Client Obtains Refresh Token through Automatic Authorization</h3>
 
 <p>
               すべてのリソースオーナーとのインタラクションは, クライアントによって行われるため, 意図の有無にかかわらず, リソースオーナーの意思に反してクライアントが長期間有効なリフレッシュトークンを取得する可能性がある.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   クライアントがリソースオーナークレデンシャルにアクセスすることのない, 他のフローを利用する.
-                
+
 </li>
 <li>
                   認可サーバーはこのフローではリフレッシュトークンの発行を禁止することもできる.
                   (<a class='info' href='#restricted_refresh'>Section&nbsp;5.2.2.1<span> (</span><span class='info'>Restricted Issuance of Refresh Tokens</span><span>)</span></a>)
                   もし特定のクライアントが信頼でき, かつセキュアに認証可能な場合は, そのような制約を設けないこともある.
                   リソースオーナーに (設定画面などで) このフローでのリフレッシュトークンの発行を禁止させることも検討可能である.
-                
+
 </li>
 <li>
                   認可サーバーは適切な経路 (emailなど) でリソースオーナーにグラント発行通知を送ることもできる.
                   (<a class='info' href='#informed'>Section&nbsp;5.1.3<span> (</span><span class='info'>Always Keep the Resource Owner Informed</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor47"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2906,15 +2906,15 @@ Threat: Obtaining User Passwords on Transport</h3>
 
 <p>
               攻撃者が通信を盗聴してユーザーのパスワードを盗むことも考えられる.
-            
+
 </p>
 <p>
               影響: 1人のエンドユーザーのパスワード漏洩
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2922,15 +2922,15 @@ Threat: Obtaining User Passwords on Transport</h3>
 <li>
                   リクエストの秘匿性を保証する.
                   (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   平文でクレデンシャルを送信することのない認証手段を用いる.
                   (HMACなど)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor48"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2939,16 +2939,16 @@ Threat: Obtaining User Passwords from Authorization Server Database</h3>
 
 <p>
               データベースへの不正アクセスやSQLインジェクション攻撃などにより, 攻撃者が認可サーバーのデータベースから有効なユーザー名とパスワードのペアを盗み出すことも考えられる.
-            
+
 </p>
 <p>
               影響: 全ユーザーのユーザー名 & パスワードペアの漏洩.
               これは, 同じクレデンシャルを他サービスで利用しているケースなどでは, 認可サーバーのドメインを超えて影響を与える.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2956,10 +2956,10 @@ Threat: Obtaining User Passwords from Authorization Server Database</h3>
 <li>
                   クレデンシャルストレージ保護のためのベストプラクティスに従う.
                   (<a class='info' href='#cred_storage_prot'>Section&nbsp;5.1.4.1<span> (</span><span class='info'>Enforce Credential Storage Protection Best Practices</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor49"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2968,15 +2968,15 @@ Threat: Online Guessing</h3>
 
 <p>
               攻撃者が正規のユーザー名 & パスワードペアを推測し, passwordグラントとして利用することも考えられる.
-            
+
 </p>
 <p>
               影響: 1人のユーザー名 & パスワードペアの漏洩.
-            
+
 </p>
 <p>
               対抗策:
-            
+
 </p>
 <p>
               </p>
@@ -2984,31 +2984,31 @@ Threat: Online Guessing</h3>
 <li>
                   セキュアパスワードポリシーに従う.
                   (<a class='info' href='#pwd_policy'>Section&nbsp;5.1.4.2.1<span> (</span><span class='info'>Utilize Secure Password Policy</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   アカウントロック. (<a class='info' href='#lock_accounts'>Section&nbsp;5.1.4.2.3<span> (</span><span class='info'>Lock Accounts</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   tar pitを利用する. (<a class='info' href='#tar_pit'>Section&nbsp;5.1.4.2.4<span> (</span><span class='info'>Use Tar Pit</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   CAPTCHAを利用する. (<a class='info' href='#captchas'>Section&nbsp;5.1.4.2.5<span> (</span><span class='info'>Use CAPTCHAs</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   passwordグラントを利用しない.
-                
+
 </li>
 <li>
                   クライアント認証という他の認証要素によって, 攻撃を邪魔することもある.
                   (<a class='info' href='#client_aa'>Section&nbsp;5.2.3<span> (</span><span class='info'>Client Authentication and Authorization</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="anchor50"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3018,7 +3018,7 @@ Client Credentials</h3>
 <p>
             クライアントクレデンシャル (<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Section 3) は, クライアント認証のための手段 (client secretのマッチングなど) と紐づいた識別子 (secretではない) により構成される.
             このグラントタイプに対する脅威は, <a class='info' href='#pwd_flow'>Section&nbsp;4.4.3<span> (</span><span class='info'>Resource Owner Password Credentials</span><span>)</span></a> で述べられたものと類似している.
-          
+
 </p>
 <a name="anchor51"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3032,11 +3032,11 @@ Threat: Eavesdropping Refresh Tokens from Authorization Server</h3>
 
 <p>
             攻撃者が認可サーバー・クライアント間の通信を盗聴しリフレッシュトークンを盗み出す可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3044,15 +3044,15 @@ Threat: Eavesdropping Refresh Tokens from Authorization Server</h3>
 <li>
                 OAuth Core仕様にあるように, 認可サーバーは通信がTLSのようなトランスポートレイヤーメカニズムによって保護されていることを保証しなければならない.
                 (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 もしend-to-endの機密性が確保できない場合は, 発行するアクセストークンのscopeを狭め有効期限を短くすることで, 漏洩時のリスクを軽減できる.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>, <a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor53"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3062,15 +3062,15 @@ Threat: Obtaining Refresh Token from Authorization Server Database</h3>
 <p>
             この脅威は, 認可サーバーがリフレッシュトークンをhandleとしてデータベースに保存している場合に起こりうる.
             攻撃者はデータベースへのアクセス権を不正取得したり, SQLインジェクション攻撃によって, 認可サーバーのデータベースからリフレッシュトークンを取得する可能性がある.
-          
+
 </p>
 <p>
             影響: 全リフレッシュトークンの漏洩.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3078,15 +3078,15 @@ Threat: Obtaining Refresh Token from Authorization Server Database</h3>
 <li>
                 クレデンシャルストレージのベストプラクティスに従う.
                 (<a class='info' href='#cred_storage_prot'>Section&nbsp;5.1.4.1<span> (</span><span class='info'>Enforce Credential Storage Protection Best Practices</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 攻撃者がクライアントIDとシークレットを盗めないことが想定できる場合は, トークンをクライアントIDと紐付ける.
                 (<a class='info' href='#bind_token_client_id'>Section&nbsp;5.1.5.8<span> (</span><span class='info'>Bind Token to Client id</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor54"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3095,41 +3095,41 @@ Threat: Obtaining Refresh Token by Online Guessing</h3>
 
 <p>
             攻撃者が有効なリフレッシュトークンの値を推測し, それをrefresh_tokenグラントとして用いてアクセストークンを取得する可能性がある.
-          
+
 </p>
 <p>
             影響: 単一のリフレッシュトークンおよびそれを使って取得できるアクセストークンの漏洩.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 handleベースデザインの場合はこちら. (<a class='info' href='#high_entropy'>Section&nbsp;5.1.4.2.2<span> (</span><span class='info'>Use High Entropy for Secrets</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 assertionベースデザインの場合はこちら. (<a class='info' href='#signed_tokens'>Section&nbsp;5.1.5.9<span> (</span><span class='info'>Sign Self-Contained Tokens</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 トークンをクライアントIDと紐づける.
                 これにより攻撃者はトークンと紐づいたクライアントIDをも推測しなければならなくなる.
                 (<a class='info' href='#bind_token_client_id'>Section&nbsp;5.1.5.8<span> (</span><span class='info'>Bind Token to Client id</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアント認証を行う.
                 これによりさらに攻撃者の推測項目が増える.
                 (<a class='info' href='#depl_specific_secretes'>Section&nbsp;5.2.3.4<span> (</span><span class='info'>Issue Installation-Specific Client Secrets</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor55"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3139,21 +3139,21 @@ Threat: Refresh Token Phishing by Counterfeit Authorization Server</h3>
 <p>
             攻撃者が認可サーバーへのリクエストをプロキシし, 有効なリフレッシュトークンを取得しようとする可能性がある.
             認可サーバーURLはクライアント開発時で既知であるか, 少なくとも既知のリソースサーバーから取得できる状態にあることが想定されるため, 攻撃者は攻撃のためある程度のスプーフィングを必要とする.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 サーバー認証. (<a class='info' href='#server_authn'>Section&nbsp;5.1.2<span> (</span><span class='info'>Utilize Server Authentication</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor56"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3168,11 +3168,11 @@ Threat: Eavesdropping Access Tokens on Transport</h3>
 <p>
             攻撃者がクライアント・リソースサーバー間の通信系路上で有効なアクセストークンを取得する可能性がある.
             アクセストークンは認可サーバーとリソースサーバーの間で共有されるシークレット情報であるため, 他のクレデンシャル (エンドユーザーパスワードなど) と同じような保護が必要である.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3181,20 +3181,20 @@ Threat: Eavesdropping Access Tokens on Transport</h3>
                 Bearerトークンとして送信されるアクセストークンは, セキュアでないチャネルで平文で送るべきではない.
                 OAuth Core仕様にあるように, アクセストークン送信時はTLSなどのトランスポートメカニズムによって通信を保護しなければならない.
                 (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 トークンの有効期限を短くすることで, 漏洩時のリスクを軽減できる.
                 (<a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アクセストークンをクライアント識別子と紐付け, クライアントにリソースサーバーに対してその所有権を証明させる.
                 (<a class='info' href='#authn_requests'>Section&nbsp;5.4.2<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor58"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3203,11 +3203,11 @@ Threat: Replay of Authorized Resource Server Requests</h3>
 
 <p>
             攻撃者がユーザーデータを取得/改変/破壊するため, 有効なリクエストをリプレイする可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3216,15 +3216,15 @@ Threat: Replay of Authorized Resource Server Requests</h3>
                 リソースサーバーはTLSのようなトランスポートレイヤーメカニズムを用いて, この攻撃を防ぐべきである.
                 (<a class='info' href='#conf_requests'>Section&nbsp;5.1.1<span> (</span><span class='info'>Ensure Confidentiality of Requests</span><span>)</span></a>)
                 これにより攻撃者は正規のリクエストをキャプチャできなくなる.
-              
+
 </li>
 <li>
                 代替策として, リソースサーバーは署名付きリクエスト (<a class='info' href='#signed_requests'>Section&nbsp;5.4.3<span> (</span><span class='info'>Signed Requests</span><span>)</span></a>) をnonceとtimestampと共に利用し, 各リクエストをユニークに識別することができる.
                 リソースサーバーはこの情報によりリプレイを検知し, リクエストを拒否すべきである.
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor59"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3233,15 +3233,15 @@ Threat: Guessing Access Tokens</h3>
 
 <p>
             トークンがhandleの場合, 攻撃者は他のアクセストークンから得られる情報を頼りにアクセストークンの値を推測する可能性がある.
-          
+
 </p>
 <p>
             影響: 単一ユーザーのデータにアクセスされる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3249,20 +3249,20 @@ Threat: Guessing Access Tokens</h3>
 <li>
                 handleトークンには十分なエントロピーを持たせ, 有効な値の推測を不可能にするべきである.
                 (<a class='info' href='#high_entropy'>Section&nbsp;5.1.4.2.2<span> (</span><span class='info'>Use High Entropy for Secrets</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 assertion (もしくはself-contained) トークンの内容は, 電子署名により保護すべきである.
                 (<a class='info' href='#signed_tokens'>Section&nbsp;5.1.5.9<span> (</span><span class='info'>Sign Self-Contained Tokens</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 アクセストークン有効期限の短縮は, さらにいっそうセキュリティを強化する.
                 (<a class='info' href='#exp_time'>5.1.5.2<span> (</span><span class='info'>Determine Expiration Time</span><span>)</span></a> & <a class='info' href='#short_exp_time'>5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor60"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3272,11 +3272,11 @@ Threat: Access Token Phishing by Counterfeit Resource Server</h3>
 <p>
             攻撃者が特定のリソースサーバーを装って, 特定の認可サーバーから発行されたアクセストークンを受け取る可能性がある.
             クライアントが有効なアクセストークンをこの偽リソースサーバーに送ると, サーバーはリソースオーナーの認可のもと他のサービスにアクセスできるようになる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3285,29 +3285,29 @@ Threat: Access Token Phishing by Counterfeit Resource Server</h3>
                 クライアントは, セキュアチャネルの有無に関わらず, 未知のリソースサーバーに対して認証済リクエストを送るべきでない.
                 リソースサーバーURLがクライアントに対して既知な場合は, セキュアチャネルを利用することでリソースサーバーの認証が可能である.
                 (<a class='info' href='#server_authn'>Section&nbsp;5.1.2<span> (</span><span class='info'>Utilize Server Authentication</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 クライアントがアクセスするリソースサーバーのエンドポイントURLを, アクセストークンと関連づけ, 正規のリソースサーバーではその関連を検証する.
                 (audienceフィールドなどを利用)
                 エンドポイントURLのバリデーションポリシーは, 厳密な完全一致でもよいし, ホストのみの一致などのラフな方法でもよい.
                 この手法では, 認可サーバーがリソースサーバーエンドポイントURLを認可プロセス中に知る必要がある.
-              
+
 </li>
 <li>
                 アクセストークンをクライアントと関連づけ, リソースサーバーへのリクエスト時にクライアントを認証する.
                 (典型的には, 潜在的攻撃者にシークレットを漏らさないため, 署名を利用する)
                 これにより, 偽サーバーはリソースサーバーに対して正しく認証を行うことができなくなると想定できるので, 攻撃を防ぐことができる.
                 (<a class='info' href='#authn_requests'>Section&nbsp;5.4.2<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 トークンのscopeを狭めたり, トークンの有効範囲を特定のリソースサーバーに限定するなど.
                 ( <a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>, <a class='info' href='#bind_token_rs'>Section&nbsp;5.1.5.5<span> (</span><span class='info'>Bind Tokens to a Particular Resource Server (Audience)</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor61"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3317,11 +3317,11 @@ Threat: Abuse of Token by Legitimate Resource Server or Client</h3>
 <p>
             正規のリソースサーバーが別のリソースサーバーにアクセスしようとする可能性がある.
             同じように, クライアントもまた取得したトークンを別のリソースサーバーに対して使うこともありうる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3329,10 +3329,10 @@ Threat: Abuse of Token by Legitimate Resource Server or Client</h3>
 <li>
                 トークン有効範囲を特定のリソースサーバーに限定するべきである.
                 (<a class='info' href='#bind_token_rs'>Section&nbsp;5.1.5.5<span> (</span><span class='info'>Bind Tokens to a Particular Resource Server (Audience)</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor62"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3344,11 +3344,11 @@ Threat: Leak of Confidential Data in HTTP Proxies</h3>
             しかしながら, <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> は認証コンテキストの識別のため Authorization および WWW&#8209;Authenticate ヘッダーに依存し, それによってセキュリティを担保している.
             特にプロキシやキャッシュなどにより, これらのヘッダーを利用しないリクエストが適切に保護されないケースがありうる.
             例えば, プライベートな認証コンテキストがパブリックにアクセス可能な状態でキャッシュされるといったことが考えられる.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3357,15 +3357,15 @@ Threat: Leak of Confidential Data in HTTP Proxies</h3>
                 OAuth HTTP認証スキーム (<a class='info' href='#authz_header'>Section&nbsp;5.4.1<span> (</span><span class='info'>Authorization Headers</span><span>)</span></a>) を利用しないクライアントやリソースサーバーは, Cache-Controlヘッダーを使って上記のリスクを最小化すべきである.
                 上記のようなクライアントは, Cache&#8209;Control ヘッダーに "no-store" <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> をセットすべきである.
                 また上記のようなリソースサーバーは, サクセスレスポンス (2xxステータス) の Cache-Control ヘッダーに "private" <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a>をセットすべきである.
-              
+
 </li>
 <li>
                 アクセストークンのscopeと有効期限を制限し, 漏洩時のリスクを軽減する.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>, <a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor63"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3374,11 +3374,11 @@ Threat: Token Leakage via Log Files and HTTP Referrers</h3>
 
 <p>
             アクセストークンがURIクエリーパラメータとして送られる場合, トークンがログファイルやHTTPリファラーなどを通じて漏洩する可能性がある.
-          
+
 </p>
 <p>
             対抗策:
-          
+
 </p>
 <p>
             </p>
@@ -3386,30 +3386,30 @@ Threat: Token Leakage via Log Files and HTTP Referrers</h3>
 <li>
                 URI リクエストパラメーターの代わりに Authorization ヘッダーや POST パラメーターを使う.
                 (<a class='info' href='#authz_header'>Section&nbsp;5.4.1<span> (</span><span class='info'>Authorization Headers</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 ログ設定を適切に行う.
-              
+
 </li>
 <li>
                 ログファイルへのアクセスを適切にコントロールする.
                 (<a class='info' href='#std_sys'>Section&nbsp;5.1.4.1.1<span> (</span><span class='info'>Enforce Standard System Security Means</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 漏洩したトークンの利用を防止するため, 認証済リクエストを強制することも可能である.
                 (<a class='info' href='#authn_requests'>Section&nbsp;5.4.2<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>)
-              
+
 </li>
 <li>
                 scopeや有効期間を制限することで, 漏洩リスクを軽減する.
                 one-timeトークンを利用するのもよい.
                 (<a class='info' href='#limit_scope'>Section&nbsp;5.1.5.1<span> (</span><span class='info'>Limit Token Scope</span><span>)</span></a>, <a class='info' href='#short_exp_time'>Section&nbsp;5.1.5.3<span> (</span><span class='info'>Use Short Expiration Time</span><span>)</span></a>, <a class='info' href='#one_time_usage'>Section&nbsp;5.1.5.4<span> (</span><span class='info'>Limit Number of Usages or One-Time Usage</span><span>)</span></a>)
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="security_considerations"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3418,7 +3418,7 @@ Security Considerations</h3>
 
 <p>
         本セクションでは <a class='info' href='#threat_model'>Section&nbsp;4<span> (</span><span class='info'>Threat Model</span><span>)</span></a> で述べた脅威を軽減するために推奨する対抗策について述べる.
-      
+
 </p>
 <a name="anchor64"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3427,7 +3427,7 @@ General</h3>
 
 <p>
           本セクションでは, すべてのOAuthコンポーネント (クライアント, リソースサーバー, トークンサーバーおよびユーザーエージェント) に対し, 一般に適用可能な対策について考慮する.
-        
+
 </p>
 <a name="conf_requests"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3438,46 +3438,46 @@ Ensure Confidentiality of Requests</h3>
             これはクライアントから認可サーバーまたはリソースサーバーへ送信されるすべてのリクエスト対し適用可能である.
             OAuthはリクエストの完全性検証のための方式を提供するが, リクエストの秘匿性を保つための方式は提供しない.
             さらなる予防措置を行わない限り, 盗聴者はリクエストの中身にフルアクセスし, シークレットやトークンなどのリクエストの中身を用いて遮断やリプレイアタックを開始することが可能となる.
-          
+
 </p>
 <p>
             TLS <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a> のようなトランスポート層でのセキュリティ機構を用いることによって攻撃を軽減することが可能である.
             IPsec VPN <a class='info' href='#RFC4301'>[RFC4301]<span> (</span><span class='info'>Kent, S. and K. Seo, &ldquo;Security Architecture for the Internet Protocol,&rdquo; December&nbsp;2005.</span><span>)</span></a> のような仮想プライベートネットワーク (VPN) も同様に考慮に値する.
             (訳注: 「transport-layer mechanisms such as TLS」は, 文脈から「transport-layer "security" mechanisms such as TLS」と見なした. )
-          
+
 </p>
 <p>
             注: 当文書では各々のプロトコルエンティティ間のコネクションがend-to-endのTLSで保護されていることを想定している.
             データセンターの境界などのようにTLSをオフロードすることによってこの想定から外れているデプロイは, これによって引き起こされる新たな (主に内部者による) 脅威に対処するために, この脅威モデルを改良しなければならない.
-          
+
 </p>
 <p>
             これは以下の脅威に対する対抗策である:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 トークンエンドポイントやリソースサーバーのエンドポイントとの通信路上で得られたアクセストークンのリプレイ
-              
+
 </li>
 <li>
                 トークンエンドポイントとの通信路上で得られたリフレッシュトークンのリプレイ
-              
+
 </li>
 <li>
                 トークンエンドポイントとの通信路上 (もしくはリダイレクト経路上) で得られた認可コードのリプレイ
                 (訳注: 原文末尾の「(redirect?)」はクライアントのリダイレクトエンドポイント (redirection endpoint) との通信路上を示していると解釈)
-              
+
 </li>
 <li>
                 ユーザーパスワードとクライアントシークレットのリプレイ
-              
+
 </li>
 </ul><p>
             (訳注: アクセストークンと認可コードは, 認可エンドポイントとの通信路上も流れるが, 上記で触れらていないのは記述の漏れの可能性あり)
-          
+
 </p>
 <a name="server_authn"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3488,14 +3488,14 @@ Utilize Server Authentication</h3>
             HTTPSサーバー認証や類似の手段によってサーバーのアイデンティティを認証することが可能である.
             その目的は, 接続の確立の際にサーバーの完全修飾ドメイン名とサーバーから提示された公開鍵とを確実に結びつけることである.
             (<a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> 参照)
-          
+
 </p>
 <p>
             クライアントはサーバーとそのドメイン名の結びつきを検証すべきである.
             その結びつきの証明に失敗した場合, その通信はman-in-the-middle攻撃を受けていると考えられる.
             このセキュリティ手法は, この目的においてクライアントが信頼している認証局 (CA) に依存している.
             クライアントはこれらの信頼するCAを慎重に選択すべきであり, 信頼するCAの証明書を格納するストレージを変更されないように保護すべきである.
-          
+
 </p>
 <p>これは以下の脅威に対する対抗策である:
 </p>
@@ -3509,7 +3509,7 @@ Utilize Server Authentication</h3>
 <li>偽のサーバーによるフィッシング
 </li>
 </ul><p>
-          
+
 </p>
 <a name="informed"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3522,31 +3522,31 @@ Always Keep the Resource Owner Informed</h3>
             さらにいえばユーザーの関与はよりよいセキュリティ対抗策である.
             ユーザーは恐らくある種の攻撃に対して, 認可サーバーよりも正しく認識することができる.
             認可プロセス時, 認可プロセス後, そしてユーザーが情報を得たいと思った時のいずれも, 下記のような手法を用いて情報の提示と交換を行うことができる:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 ユーザ同意のフォーム.
-              
+
 </li>
 <li>
                 通知メッセージ (例えば, Eメール, SMS, &hellip;).
                 通知はフィッシング攻撃の経路にもなりうることに注意.
                 通知メッセージは, 攻撃者によく似たフィッシングメッセージを送信されないよう, 考慮すべきである.
-              
+
 </li>
 <li>
                 アクティビティ/イベントログ.
-              
+
 </li>
 <li>
                 ユーザーが自身でセキュリティ対策を行えるようなアプリケーションあるいはポータル.
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="anchor65"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3556,7 +3556,7 @@ Credentials</h3>
 <p>
             当セクションでは未認可のアクセスや悪用からあらゆる種類のクレデンシャルを保護するための対抗策について述べる.
             クレデンシャルは, あらゆる種類のトークン (リフレッシュトークンやアクセストークン) や認可コード, あるいはクライアントシークレットやユーザーパスワードのような, 長寿命のシークレットである.
-          
+
 </p>
 <a name="cred_storage_prot"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3567,7 +3567,7 @@ Enforce Credential Storage Protection Best Practices</h3>
               管理者はクレデンシャルのストレージ保護に関する業界のベストプラクティスを採用すべきである
               (例えば, <a class='info' href='#OWASP'>[OWASP]<span> (</span><span class='info'>, &ldquo;Open Web Application Security Project Home Page,&rdquo; .</span><span>)</span></a> 参照).
               このようなプラクティスは以下のサブセクションの事項に限定されるものではない.
-            
+
 </p>
 <a name="std_sys"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3576,7 +3576,7 @@ Enforce Standard System Security Means</h3>
 
 <p>
                 攻撃者がセンシティブな設定ファイルやデータベースにアクセスできないように, サーバーシステムはロックダウン (権限によりアクセス制限) されていることがある.
-              
+
 </p>
 <a name="std_sql"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3585,27 +3585,27 @@ Enforce Standard SQL Injection Countermeasures</h3>
 
 <p>
                 クライアント識別子やその他の認証コンポーネントをSQLデータベースに対し問い合わせたり比較する場合, 受け取ったパラメータを送信する前に検証しなければインジェクション攻撃を受ける可能性がある.
-              
+
 </p>
 <p></p>
 <ul class="text">
 <li>
                     攻撃経路を減らすため, サーバーコードで利用するデータベース特権が最小限になっていることを確認すること.
-                  
+
 </li>
 <li>
                     入力文字を結合した動的なSQLを避けること.
                     可能であれば静的なSQLを使うこと.
-                  
+
 </li>
 <li>
                     動的SQLを使う際は, バインド引数によりクエリをパラメータ化すること.
-                  
+
 </li>
 <li>
                     入力はフィルタリングとサニタイジングを行うこと.
                     例えば, 識別子が既知の書式の時, 提供された値が識別子の構文にマッチしているかを確認すること.
-                  
+
 </li>
 </ul>
 
@@ -3618,13 +3618,13 @@ No Cleartext Storage of Credentials</h3>
                 認可サーバーはクリアテキストでクレデンシャルを格納すべきではない.
                 典型的なアプローチは代わりにハッシュを格納するか, クレデンシャルを暗号化することである.
                 (ユーザーパスワードであるため) クレデンシャルが十分なエントロピーレベルを持っていない場合, オフライン辞書攻撃を困難にするためのソルトを追加することによってストレージが強固になる.
-              
+
 </p>
 <p>
                 注: いくつかの認証プロトコルは, 認可サーバがクリアテキストのシークレットにアクセスできる必要がある.
                 サーバがハッシュにしかアクセスできない場合, これらのプロトコルを実装することができない.
                 このようなケースの場合, クレデンシャルを強固に暗号化するべきである.
-              
+
 </p>
 <a name="anchor66"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3636,7 +3636,7 @@ Encryption of Credentials</h3>
                 キーストアやデータベースのような暗号化永続機構を用いてクライアントクレデンシャルを格納すること.
                 クライアントクレデンシャルを直接クライアントコードに記述するとスキャニングに対し脆弱になる.
                 またクライアントクレデンシャルの変更の管理が困難にもなる.
-              
+
 </p>
 <a name="anchor67"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3645,7 +3645,7 @@ Use of Asymmetric Cryptography</h3>
 
 <p>
                 非対称暗号を用いれば, 認可サーバでクレデンシャル管理を行う必要はなくなる.
-              
+
 </p>
 <a name="online_secrets"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3660,7 +3660,7 @@ Utilize Secure Password Policy</h3>
 <p>
                 オンラインパスワード攻撃を困難にすることに繋がるユーザーパスワードのエントロピー増加のため, 認可サーバーは複雑なユーザーパスワードポリシーを強制することもある.
                 複雑にしすぎた場合, ユーザーはパスワードを再利用したり, 紙にメモしたり, 安全でない方法で格納したりする可能性があることに注意すること.
-              
+
 </p>
 <a name="high_entropy"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3671,7 +3671,7 @@ Use High Entropy for Secrets</h3>
                 人間によって利用されるのではないシークレット (例: クライアントシークレットやトークンハンドル) を生成するとき, 推測攻撃のリスクを軽減するために, 認可サーバーは合理的なレベルのエントロピーを含むように生成すべきである.
                 認可サーバーは, 128ビット以上の暗号論的に強固な乱数または擬似乱数シーケンスからトークンの値を生成するべきである.
                 (本ドキュメント執筆時点のベストプラクティスとして <a class='info' href='#RFC4086'>[RFC4086]<span> (</span><span class='info'>Eastlake, D., Schiller, J., and S. Crocker, &ldquo;Randomness Requirements for Security,&rdquo; June&nbsp;2005.</span><span>)</span></a> を参照)
-              
+
 </p>
 <a name="lock_accounts"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3680,11 +3680,11 @@ Lock Accounts</h3>
 
 <p>
                 ある一定の回数試行に失敗した場合, そのアカウントをロックすることにより, パスワードに対するオンライン攻撃を軽減することができる.
-              
+
 </p>
 <p>
                 注: この手法は正規のサービスユーザーのロックダウンに悪用される可能がある.
-              
+
 </p>
 <a name="tar_pit"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3695,11 +3695,11 @@ Use Tar Pit</h3>
                 ユーザー名/パスワードによる認証の試行失敗に対して, 認可サーバーはそのアカウントをロックしたり, ある一定の時間, レスポンスを遅延させることがある.
                 この時間は, 試行失敗の回数に応じて, 増加することもある.
                 この目的は, あるユーザー名に対する攻撃者の試行をスローダウンさせることにある.
-              
+
 </p>
 <p>
                 注: これは認可サーバーのより複雑でステートフルな設計が必要となるかもしれない.
-              
+
 </p>
 <a name="captchas"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3708,11 +3708,11 @@ Use CAPTCHAs</h3>
 
 <p>
                 人間の対話が必要になることにより, このアイデアはプログラムが大規模な数のパスワードの自動チェックを行うことを防ぐ.
-              
+
 </p>
 <p>
                 注: これは, ユーザーエクスペリエンスにネガティブなインパクトを与える.
-              
+
 </p>
 <a name="anchor68"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3728,7 +3728,7 @@ Limit Token Scope</h3>
               認可サーバーはトークンに関連付けられたスコープの縮小または制限を決定することもある.
               この決定の基準は当文書のスコープ外である.
               以下は例である:
-            
+
 </p>
 <p>
               </p>
@@ -3736,43 +3736,43 @@ Limit Token Scope</h3>
 <li>
                   クライアント固有のポリシー.
                   例えば, パブリッククライアントにはより小さな権限のトークンのみ発行するなど.
-                
+
 </li>
 <li>
                   サーバー固有のポリシー.
                   例えば, とてもセンシティブなサービスなど.
-                
+
 </li>
 <li>
                   リソースオーナー固有の設定.
-                
+
 </li>
 <li>
                   または, これらのポリシーや設定の組み合わせ.
-                
+
 </li>
 </ul><p>
               認可サーバーはグラントタイプに応じて, 異なるスコープを許可することもある.
               例えば, エンドユーザーと認可サーバーが直接対話することで得た認可 (つまり認可コードグラントタイプ) は, クライアントが「ユーザー名」/「パスワード」を認可サーバーに直接送信することで得た認可 (つまりリソースオーナーパスワードクレンデンシャルグラントタイプ) よりも信頼できるとみなすこともある.
               この手法は以下の脅威の影響を減らすことができる:
-            
+
 </p>
 <p></p>
 <ul class="text">
 <li>
                   トークン漏洩
-                
+
 </li>
 <li>
                   悪意のあるソフトウェアへのトークン発行
-                
+
 </li>
 <li>
                   リソースオーナークレデンシャルフローで意図していない強い権限のトークンの発行
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="exp_time"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3783,34 +3783,34 @@ Determine Expiration Time</h3>
               トークンは一般に適切な期間の経過後, 有効期限切れとなるべきである.
               これにより, (署名のような) 他のセキュリティ手法の補完や強化を行うことができ, あらゆる種類のトークン漏洩の影響を減らすことができる.
               トークン漏洩のリスクに応じて, (例えば決済トランザクションに対しては) 数分で有効期限切れとなり, (例えば連絡先情報への読み取りアクセスに対しては) 何時間も有効のままとなる.
-            
+
 </p>
 <p>
               有効期間は下記のような様々な要因により決定される:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   トークン漏洩のリスクの大きさ
-                
+
 </li>
 <li>
                   基本的なアクセスを許可する期間
-                
+
 </li>
 <li>
                   アクセス許可の変更が有効になるまでの期間
                   (訳注: assertionベースのトークンを用いた場合など, ユーザーが認可サーバー上でアクセス無効化を行ってもクライアントの持つアクセストークンが即座に無効化されない場合がある)
-                
+
 </li>
 <li>
                   攻撃者が有効なトークンを推測または生成するまでの所要時間
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="short_exp_time"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3819,27 +3819,27 @@ Use Short Expiration Time</h3>
 
 <p>
               短い有効期間のトークンは以下の脅威に対する対策となる:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   リプレイ
-                
+
 </li>
 <li>
                   トークン漏洩 (短い有効期間は影響を減らす)
-                
+
 </li>
 <li>
                   オンライン推測 (短い有効期間は成功の可能性を減らす)
-                
+
 </li>
 </ul><p>
               注: トークンの有効期間を短くする場合, 認可サーバーとリソースサーバー間のより正確な時刻同期が要求される.
               さらにいえば, 短い有効期間はより多くの (アクセストークンの) トークンリフレッシュを必要とするかもしれないし, エンドユーザによる (認可コードとリフレッシュトークンの) 認可処理の繰り返しに繋がるかもしれない.
-            
+
 </p>
 <a name="one_time_usage"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3849,27 +3849,27 @@ Limit Number of Usages or One-Time Usage</h3>
 <p>
               認可サーバーはトークンの利用回数を制限してもよい.
               これにより以下の脅威を軽減することができる:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   トークンのリプレイ
-                
+
 </li>
 <li>
                   推測
-                
+
 </li>
 </ul><p>
               例えば, 認可サーバーがある認可コードの交換の試行を複数回観測した場合, 現在のリクエストだけでなく, その認可コードに関連づいた全てのアクセストークンを無効化することもありうる.
-            
+
 </p>
 <p>
               認可コードと同様に, アクセストークンも操作回数に制限があってもよい.
               これは, クライアントアプリケーションを再認証し, 新たなアクセストークンを取得するためにリフレッシュトークンを使用することを強制するか, ユーザーも関与させてアクセストークンの再認可をクライアントに強制することになる.
-            
+
 </p>
 <a name="bind_token_rs"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3880,24 +3880,24 @@ Bind Tokens to a Particular Resource Server (Audience)</h3>
               マルチサービス環境にある認可サーバーは, 送信先として意図しているサーバーを明示的にトークン内に指定するなど, 異なるリソースサーバーに対して異なる内容のトークンを発行してもよい.
               SAMLアサーション (<a class='info' href='#OASIS.saml-core-2.0-os'>[OASIS.saml&#8209;core&#8209;2.0&#8209;os]<span> (</span><span class='info'>Cantor, S., Ed., Kemp, J., Ed., Philpott, R., Ed., and E. Maler, Ed., &ldquo;Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a> 参照) は, この目的のために Audience 要素を用いている.
               この対抗策は以下の状況に対して使用される:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   このトークンは一つのリソースサーバーにのみ適用できるため, リプレイ試行の成功の影響を減らす.
-                
+
 </li>
 <li>
                   このトークンは指定されたリソースサーバーやクライアントでのみ利用できるため, 悪意のあるリソースサーバーやクライアントが自身宛のトークンを他のサーバーに対して悪用することを防ぐ.
                   それを行っても他のサーバによって拒絶される.
                   (訳注: 具体的な被害例はこちらを http://oauth.jp/oauth-20-implicit-flow)
-                
+
 </li>
 <li>
                   偽のリソースサーバーに対する有効なトークンの漏洩の影響を減らす.
-                
+
 </li>
 </ul>
 
@@ -3910,7 +3910,7 @@ Use Endpoint Address as Token Audience</h3>
               トークン取得時にaudienceとしてエンドポイントURLを指定することで, リソースサーバーを指定することもできる.
               このトークンはリソースサーバー自身のエンドポイントURLを含むため, リソースサーバーは他のリソースサーバーからの不正アクセスを検知することができる.
               (訳注: 複数のリソースサーバーが1つの認可サーバーに認可を委ねており, かつリソースサーバー同士の間に信頼関係が構築できないケースに有効)
-            
+
 </p>
 <a name="audience_token_scope"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3921,7 +3921,7 @@ Use Explicitly Defined Scopes for Audience and Tokens</h3>
               実装者は, 各scopeに特定のリソースサーバーに対するアクセス権限を表現させ, 各トークンが明示的にそれらのscopeを持つように設計することもできる.
               (訳注: 暗黙的なdefault scopeを許可しないということ)
               このアプローチは, リソースサーバーやクライアントが想定外の目的でトークンを利用するという攻撃を軽減することができる.
-            
+
 </p>
 <a name="bind_token_client_id"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3932,24 +3932,24 @@ Bind Token to Client id</h3>
               認可サーバーはトークンを特定のクライアント識別子に結びつけることもできる.
               この識別子はトークン付きの全てのリクエストに対し検証されるべきである.
               この手法は以下の目的で利用できる:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   トークン漏洩の検出
-                
+
 </li>
 <li>
                   トークン悪用の防止
-                
+
 </li>
 </ul><p>
               注: クライアント識別子の検証は, ターゲットサーバーにクライアントの識別子を認証することを要求することもある.
               この認証は, (例えば, 認可サーバー上に事前登録されたクライアント識別子とシークレットのような) トークンとは独立して管理されたシークレットを利用するか,
               あるいは (例えば, 暗号化されたトークンの中身の一部として) トークン自身と共に送ることで可能となる.
-            
+
 </p>
 <a name="signed_tokens"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3958,7 +3958,7 @@ Sign Self-Contained Tokens</h3>
 
 <p>
               改竄や偽のトークンの生成を検出するために, self-containedトークンは (例えば, ハッシュベースメッセージ認証コードやデジタル署名を用いて) 署名されるべきである.
-            
+
 </p>
 <a name="enc_token"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3969,7 +3969,7 @@ Encrypt Token Content</h3>
               self-containedトークンは, 秘匿性やシステムの内部データを保護するために暗号化されるかもしれない.
               トークンの書式に従い, (例えば共通鍵のような) 鍵がサーバノード間で流通されなければならないかもしれない.
               トークンや暗号化の方法といった流通の方法を定義すべきである.
-            
+
 </p>
 <a name="assertion_format"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3978,7 +3978,7 @@ Adopt a Standard Assertion Format</h3>
 
 <p>
               アサーションベースのトークンデザインを実装しようするサービス提供者は, 標準のアサーションフォーマットを採用することを強く推奨する (例えば, SAML <a class='info' href='#OASIS.saml-core-2.0-os'>[OASIS.saml&#8209;core&#8209;2.0&#8209;os]<span> (</span><span class='info'>Cantor, S., Ed., Kemp, J., Ed., Philpott, R., Ed., and E. Maler, Ed., &ldquo;Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a>や, JavaScript Object Notation Web Token (JWT) <a class='info' href='#OAuth-JWT'>[OAuth&#8209;JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; December&nbsp;2012.</span><span>)</span></a>のような).
-            
+
 </p>
 <a name="access_tokens"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3987,22 +3987,22 @@ Access Tokens</h3>
 
 <p>
             アクセストークンを保護するために以下の手法が使われるべきである:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 (クライアントアプリケーションからのみアクセス可能な) 一時的なメモリに保持すること.
-              
+
 </li>
 <li>
                 安全なトランスポート (TLS) を用いて安全にトークンを受け渡すこと.
-              
+
 </li>
 <li>
                 クライアントアプリケーションはサードパーティーとトークンを共有しないことを確認すること.
-              
+
 </li>
 </ul>
 
@@ -4013,7 +4013,7 @@ Authorization Server</h3>
 
 <p>
           当セクションではOAuth認可サーバのエンドポイントに関する注意点について述べる.
-        
+
 </p>
 <a name="anchor70"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4027,7 +4027,7 @@ Automatic Revocation of Derived Tokens If Abuse Is Detected</h3>
 
 <p>
               認可サーバーが (例えば, 認可コードのような) 認可グラント交換リクエストを複数回検知した場合, その認可グラントに関連づいた全てのトークンを無効化することもありうる.
-            
+
 </p>
 <a name="refresh_tokens"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4043,7 +4043,7 @@ Restricted Issuance of Refresh Tokens</h3>
               認可サーバーは, 適切なポリシーに基づいて, リフレッシュトークンを発行しないと決断することもありうる.
               リフレッシュトークンは長期間有効なクレデンシャルのため, 窃取される可能性が高いかもしれない.
               例えば, 認可サーバはこのようなトークンを安全に格納できないと考えられるクライアントに対し, リフレッシュトークンの発行を拒否することもありうる.
-            
+
 </p>
 <a name="binding_refresh_client_id"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4054,15 +4054,15 @@ Binding of Refresh Token to &quot;client_id&quot;</h3>
               認可サーバーは全てのリフレッシュトークンについて, 意図している発行先のクライアントの識別子とマッチしているかの確認処理をすべきである.
               認可サーバーは同じ "client_id" がアクセストークンのリフレッシュ要求の全てに存在することをチェックすべきである.
               (例えばコンフィデンシャルクライアントのように) 可能な場合, 認可サーバーは各リクエストにおいてクライアントを認証すべきである.
-            
+
 </p>
 <p>
               これはリフレッシュトークンの窃取や漏洩に対する対抗策である.
-            
+
 </p>
 <p>
               注: このリフレッシュトークンと "client_id" の対応は認可なしに変更されないように保護されるべきである.
-            
+
 </p>
 <a name="refresh_replace"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4074,16 +4074,16 @@ Refresh Token Rotation</h3>
               この事態はクライアントからトークンが盗まれ, それを攻撃者と正当なクライアントの両方が用いた場合に発生する.
               基本的な考えは, 古いリフレッシュトークンを用いたアクセストークン取得の試行を検出するために, 全てのリフレッシュリクエストの度にリフレッシュトークンの値を変更することである.
               認可サーバーは攻撃者と正当なクライアントのどちらがアクセスしようとしているのか判断できないため, 古いリフレッシュトークンを用いたアクセス試行があった場合, 有効なリフレッシュトークンとこれに関連したアクセス認可の両方を無効化する.
-            
+
 </p>
 <p>
               OAuth仕様は, グラントタイプが "refresh_token" のときでも, 認可サーバーが新たなリフレッシュトークンをトークンレスポンスとして返すのを可能とすることでこの方法をサポートしている.
-            
+
 </p>
 <p>
               注: この方法は, 現在有効なリフレッシュトークンの使用状況を確認しなければならないため, クラスター環境では問題を引き起こす可能性がある.
               このような環境では, 他の方法の方がより適切であるかもしれない.
-            
+
 </p>
 <a name="refresh_revocation"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4093,25 +4093,25 @@ Revocation of Refresh Tokens</h3>
 <p>
               認可サーバーは, クライアントまたはエンドユーザーによるリフレッシュトークン無効化の明示的なリクエストを許可してもよい.
               トークンの無効化方法は <a class='info' href='#OAuth-REVOCATION'>[OAuth&#8209;REVOCATION]<span> (</span><span class='info'>Lodderstedt, T., Ed., Dronia, S., and M. Scurtescu, &ldquo;Token Revocation,&rdquo; November&nbsp;2012.</span><span>)</span></a> で仕様化されている.
-            
+
 </p>
 <p>
               これは以下に対する対抗策となる:
-            
+
 </p>
 <p></p>
 <ul class="text">
 <li>
                   デバイスの盗難
-                
+
 </li>
 <li>
                   リソースオーナーのなりすまし
-                
+
 </li>
 <li>
                   信用できなくなったクライアントアプリケーション
-                
+
 </li>
 </ul>
 
@@ -4124,11 +4124,11 @@ Device Identification</h3>
               認可サーバーは認証クレデンシャルとデバイス識別子の紐付けを要求してもよい.
               International Mobile Station Equipment Identity <a class='info' href='#IMEI'>[IMEI]<span> (</span><span class='info'>3GPP, &ldquo;International Mobile station Equipment Identities           (IMEI),&rdquo; September&nbsp;2012.</span><span>)</span></a> はこのような識別子の一例である. またOS固有の識別子も存在する.
               特定のデバイスからトークンが窃取されたことを検出するために, 認可サーバーはユーザークレデンシャルの認証時にこのような識別子を含めることができる.
-            
+
 </p>
 <p>
               注: いかなる実装においてもデバイス識別子を用いることのプライバシーへの影響の可能性を考慮すべきである.
-            
+
 </p>
 <a name="clickjacking_xframe"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4139,11 +4139,11 @@ X-FRAME-OPTIONS Header</h3>
               X-FRAME-OPTIONS ヘッダー (<a class='info' href='#X-Frame-Options'>[X&#8209;Frame&#8209;Options]<span> (</span><span class='info'>Ross, D. and T. Gondrom, &ldquo;HTTP Header X-Frame-Options,&rdquo; October&nbsp;2012.</span><span>)</span></a> 参照) をサーバーサイドから指定することによって, iframeでの表示を回避することを最近のブラウザに対しては強制することができる.
               このヘッダーは "DENY" と "SAMEORIGIN" という2種類の値を持つことができ, フレーム表示を一切禁止することと, 異なるオリジンのサイトでは禁止することをそれぞれ意味する.
               "ALLOW-FROM" という値を指定することができるブラウザも存在し, この場合は, iframeでの表示を許可する信頼できるオリジンのリストも併せて指定する.
-            
+
 </p>
 <p>
               これは以下の脅威に対する対抗策である:
-            
+
 </p>
 <p>
               </p>
@@ -4151,7 +4151,7 @@ X-FRAME-OPTIONS Header</h3>
 <li>クリックジャッキング攻撃
 </li>
 </ul><p>
-            
+
 </p>
 <a name="client_aa"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4160,26 +4160,26 @@ Client Authentication and Authorization</h3>
 
 <p>
             <a class='info' href='#sec_features'>Section&nbsp;3<span> (</span><span class='info'>Security Features</span><span>)</span></a> (Security Features) で述べたように, クライアントは以下のような様々な目的で識別, 認証, 認可される.
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 一連のリクエストが同じクライアントで実行されているか照合する.
-              
+
 </li>
 <li>
                 認可サーバーによってクライアントが認識されていることをユーザーに示す.
-              
+
 </li>
 <li>
                 認可サーバーやリソースサーバー上の機能へのクライアントのアクセスを認可する.
-              
+
 </li>
 <li>
                 分析や統計のためにクライアント識別子をログファイルに記録する.
-              
+
 </li>
 </ul><p>
             クライアントタイプ毎に機能や特性が異なるため, 上記の目的を達成する方法も複数ある.
@@ -4188,7 +4188,7 @@ Client Authentication and Authorization</h3>
             例えば一つの例として, 全てのクライアントは信頼できず安全ではないとみなして取り扱うといったようなことが挙げられるだろう.
             その対極として, サービス提供者は全てのクライアントのインストールを管理者が個々に有効化することによって, ソフトウェアパッケージのアイデンティティに対する信頼性と, このクライアントがインストールされた環境のセキュリティを確保するといった例が挙げられる.
             これら2つの例の間の中間的なアプローチもいくつも考えられる.
-          
+
 </p>
 <a name="dont_issue"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4198,7 +4198,7 @@ Don't Issue Secrets to Clients with Inappropriate Security Policy</h3>
 <p>
               認可サーバーはシークレットを保護できないクライアント (パブリッククライアント) に対してシークレットを発行すべきではない.
               これはクライアントが強固に認証されたと認可サーバーが取り扱ってしまう可能性を減らす.
-            
+
 </p>
 <p>
               例えば, あるネイティブアプリケーションの全てのインストールで共有される単一のクライアント識別子とシークレットを生成することは, あまりよくない.
@@ -4206,11 +4206,11 @@ Don't Issue Secrets to Clients with Inappropriate Security Policy</h3>
               アプリケーションのソースコードや関連のリソースバンドルに埋め込まれたシークレットは, リバースエンジニアリングに対しては無力である.
               次に, このようなシークレットを無効化すると, そのアプリケーションの全てのインストールが即座に動作しなくなってしまうため, 無効化することができない.
               さらに, 認可サーバーはクライアント識別子を実際には信用できないため, そのクライアントの信頼性をエンドユーザに示すことは危険だろう.
-            
+
 </p>
 <p>
               以下のセクションで述べるように, 妥当なセキュリティレベルを達成する他の方法がある:
-            
+
 </p>
 <a name="forced_user_consent"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4221,14 +4221,14 @@ Require User Consent for Public Clients without Secret</h3>
               認可サーバーはパブリッククライアントに対し自動認可を許すべきではない.
               認可サーバーは個々のクライアント識別子を発行するかもしれないが, 全ての認可処理はエンドユーザーによる承認を必要とすべきである.
               シークレットなしのクライアントは, 以下の脅威に対する対抗策である:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   パブリッククライアントアプリケーションのなりすまし.
-                
+
 </li>
 </ul>
 
@@ -4242,18 +4242,18 @@ Issue a &quot;client_id&quot; Only in Combination with &quot;redirect_uri&quot;<
               そして, 異なるリダイレクトURIを持つ認可リクエストを受けた場合は自動的に拒否する.
               もしくは, 認可サーバーは認可リクエストにどのようなリダイレクトURIが設定されていたとしてもそれを無視し, 代わりに既知の事前設定されたリダイレクトURIに対して常にリダイレクトすべきである.
               これはシークレットを持たないクライアントにおける以下の脅威に対する対抗策である:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   クロスサイトスクリプティング攻撃
-                
+
 </li>
 <li>
                   パブリッククライアントアプリケーションのなりすまし
-                
+
 </li>
 </ul>
 
@@ -4265,40 +4265,40 @@ Issue Installation-Specific Client Secrets</h3>
 <p>
               認可サーバーは, ある一つのクライアント (つまりソフトウェアパッケージ) について, インストール毎に異なるクライアント識別子とシークレットを発行するかもしれない.
               このようなアプローチは, "public" クライアントを "confidential" クライアントに変える効果があるだろう.
-            
+
 </p>
 <p>
               ウェブアプリケーションにとっては, これは一つの "client_id" とソフトウェアパッケージがインストールされているウェブサイト毎に異なる一つの "client_id" と "client_secret" のペアを作ることを意味するだろう.
               そして, その個々のサイトの提供者はウェブサイトのセットアップの際に, 認可サーバーにクライアント識別子とシークレットを要求することになるだろう.
               これは, そのウェブサイトのリダイレクトURIやウェブサイトURL, その他の有用な属性の検証を可能とするだろう.
               このウェブサイトの提供者はそのサイト上でのクライアントシークレットのセキュリティを確保しなければならない.
-            
+
 </p>
 <p>
               ネイティブアプリケーションにとっては, あるアプリケーションの様々なデバイス上における全てのコピーは異なるインストールであるため, より複雑である.
               このシナリオではインストール固有のシークレットとして, 以下のどちらかのパターンで "client_id" と "client_secret" を取得する必要が出てくる:
-            
+
 </p>
 <p>
               </p>
 <ol class="text">
 <li>
                   アプリケーションマーケットからのダウンロードプロセス中
-                
+
 </li>
 <li>
                   デバイスへのインストール中
-                
+
 </li>
 </ol><p>
               いずれのアプローチもクライアント識別子とシークレットを発行するための自動機構が必要となるであろうが, OAuthでは現状その機構を定義していない.
-            
+
 </p>
 <p>
               一つ目のアプローチはアプリケーションの真正性に対するある程度の信頼が確保できるが, 二つ目のオプションはクライアントの属性の検証ではなくインストールの真正性のみが確保される.
               しかしこれは少なくとも, 様々なリプレイ攻撃を防止する助けになるだろう.
               さらに, インストール固有のクライアント識別子とシークレットは, 特定のインストールに対する全てのリフレッシュトークンの選択的な無効化を一度で行うことを可能とする.
-            
+
 </p>
 <a name="val_redirect"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4312,7 +4312,7 @@ Validate Pre-Registered &quot;redirect_uri&quot;</h3>
               それが合致していなかった場合, 認可サーバーはその受信したGETリクエストは攻撃者によって送信されたものとみなし, 拒絶するべきである.
               注: 認可サーバーはこのような認可リクエストのリダイレクトURIにユーザーエージェントをリダイレクトすべきではない.
               事前登録された "redirect_uri" を検証することは, 以下の脅威に対する対抗策となる:
-            
+
 </p>
 <p>
               </p>
@@ -4321,29 +4321,29 @@ Validate Pre-Registered &quot;redirect_uri&quot;</h3>
                   偽のウェブサイトへの認可コードの漏洩:
                   これは, エンドユーザーが最初に認可エンドポイントにリダイレクトされてきた際に認可サーバーによって攻撃の試行の検出を可能とする.
                   (<a class='info' href='#authz_code_leakage'>Section&nbsp;4.4.1.7<span> (</span><span class='info'>Threat: Authorization &quot;code&quot; Leakage through Counterfeit Client</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   クライアントのリダイレクトエンドポイントを通じたオープンリダイレクタ攻撃.
                   (<a class='info' href='#open_redirector_client'>Section&nbsp;4.1.5<span> (</span><span class='info'>Threat: Open Redirectors on Client</span><span>)</span></a>)
-                
+
 </li>
 <li>
                   認可サーバーのリダイレクトエンドポイントを通じたオープンリダイレクタフィッシング攻撃.
                   (<a class='info' href='#open_redirector'>Section&nbsp;4.2.4<span> (</span><span class='info'>Threat: Open Redirector</span><span>)</span></a>)
-                
+
 </li>
 </ul><p>
               この手法の根底にある想定は, 認可コードを取得するには攻撃者がその他のリダイレクトURIを使用する必要が出てくることである.
               実装者は, 攻撃者がこのセキュリティ手法を回避するために被害者のデバイスに対してなりすまし攻撃を行う可能性を検討するかもしれない.
-            
+
 </p>
 <p>
               注: クライアントの事前登録は (手動で処理する) デプロイではスケールしないかもしれない.
               または (まだ仕様化されていない) 動的クライアント登録を必要とするかもしれない.
               動的クライアント登録がない場合, 事前登録された "redirect_uri" は開発・設定時のデプロイに紐づけられたクライアントでのみ有効に動作する.
               即時の動的なリソースサーバーのディスカバリーが必要な場合は, この事前登録 "redirect_uri" ではもはや実現可能ではないかもしれない.
-            
+
 </p>
 <a name="client_secret_revocation"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4352,26 +4352,26 @@ Revoke Client Secrets</h3>
 
 <p>
               認可サーバーは漏洩したシークレットの悪用を防止するため, クライアントのシークレットを無効化するかもしれない.
-            
+
 </p>
 <p>
               注: この手段では, 対象のクライアントに発行された認可コードやリフレッシュトークンも即時にすべて無効化するだろう.
               これは対象のネイティブアプリケーションやウェブアプリケーションの複数のデプロイで使用されているクライアント識別子やシークレットに意図しない影響を与えるかもしれない.
-            
+
 </p>
 <p>
               これは以下に対する対抗策である
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   プライベートクライアントの漏洩したクライアントシークレットの悪用
-                
+
 </li>
 </ul><p>
-            
+
 </p>
 <a name="strong_client_authn"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4381,7 +4381,7 @@ Use Strong Client Authentication (e.g., client_assertion/client_token)</h3>
 <p>
               クライアントアサーション <a class='info' href='#OAuth-ASSERTIONS'>[OAuth&#8209;ASSERTIONS]<span> (</span><span class='info'>Campbell, B., Mortimore, C., Jones, M., and Y. Goland, &ldquo;Assertion Framework for OAuth 2.0,&rdquo; December&nbsp;2012.</span><span>)</span></a> のような代替の認証方式を使用することによって, "client_secret" の流通が不要となる.
               これは, 安全な秘密鍵ストアや認証プロセス中にクライアントアサーションの発行者によって指定されたその他の追加の認証システムの使用が必要となるかもしれない.
-            
+
 </p>
 <a name="anchor71"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4390,7 +4390,7 @@ End-User Authorization</h3>
 
 <p>
             当セクションではエンドユーザーの関与する認可フローに関する注意点について述べる.
-          
+
 </p>
 <a name="automatic_processing"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4399,7 +4399,7 @@ Automatic Processing of Repeated Authorizations Requires Client Validation</h3>
 
 <p>
               クライアントがクライアントシークレットによる認証や, または署名された認証アサーション証明書 (<a class='info' href='#strong_client_authn'>Section&nbsp;5.2.3.7<span> (</span><span class='info'>Use Strong Client Authentication (e.g., client_assertion/client_token)</span><span>)</span></a>) や事前登録されたリダイレクトURIの検証 (<a class='info' href='#val_redirect'>Section&nbsp;5.2.3.5<span> (</span><span class='info'>Validate Pre-Registered &quot;redirect_uri&quot;</span><span>)</span></a>) のようなその他の認証メカニズムによる認証を受けていないとき, 認可サーバーは繰り返しの認可を自動処理すべきではない.
-            
+
 </p>
 <a name="informed_decisions"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4410,7 +4410,7 @@ Informed Decisions Based on Transparency</h3>
               認可サーバーはエンドユーザーに認可プロセスで何が起き, 結果がどうなるかを明確に説明すべきである.
               例えば, ユーザーはどのようなアクセス権をどのくらいの期間クライアントに与えようとしているかを理解すべきである.
               またサーバーがそのクライアントの属性 (ウェブサイトURLやセキュリティポリシー) について確実に証明できるかどうかをユーザーに明らかにすべきである.
-            
+
 </p>
 <a name="validation_end_user"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4422,18 +4422,18 @@ Validation of Client Properties by End User</h3>
               認可サーバーによって認識されているクライアントの名前とユーザーが利用しているウェブサイトやアプリケーションの名前が適合しているかどうかなど, クライアントの属性の検証にエンドユーザーが関与できるため, これは重要なセキュリティメカニズムである.
               この手法は特に認可サーバーがクライアントを認証できない状況のときに有用である.
               これは以下に対する対抗策である:
-            
+
 </p>
 <p>
               </p>
 <ul class="text">
 <li>
                   悪意のあるアプリケーション
-                
+
 </li>
 <li>
                   他のクライアントに成り済ますクライアントアプリケーション
-                
+
 </li>
 </ul>
 
@@ -4445,23 +4445,23 @@ Binding of Authorization &quot;code&quot; to &quot;client_id&quot;</h3>
 <p>
               認可サーバーは全ての認可コードをエンドユーザー認可プロセスを開始したクライアントの識別子と紐づけるべきである.
               この手法は以下に対する対抗策である.
-            
+
 </p>
 <p></p>
 <ul class="text">
 <li>
                   異なるクライアントクレデンシャルを用いた認可コードのリプレイ.
                   なぜなら攻撃者は認可コードをトークンに交換するために他の "client_id" を使用することができないため.
-                
+
 </li>
 <li>
                   認可コードのオンライン推測
-                
+
 </li>
 </ul><p>
               注: この紐づけは認可なしに変更されないように保護されるべきである
               (例えば, 保護メモリ および／または セキュアデータベースを使用する).
-            
+
 </p>
 <a name="bind_code_redirect"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4472,7 +4472,7 @@ Binding of Authorization &quot;code&quot; to &quot;redirect_uri&quot;</h3>
               認可サーバーは全ての認可コードをエンドユーザー認可プロセスでクライアントへのリダイレクトの宛先として使用される実際のリダイレクトURIと紐づけできるようにすべきである.
               この紐づけは, クライアントが認可コードをアクセストークンに交換しようとした際に, 検証されるべきである.
              攻撃者が認可コードをアクセストークンに交換する際に別のリダイレクトURIを使用することができないため, この方法は偽のウェブサイトへの認可コードの漏洩に対する対抗策となる.
-            
+
 </p>
 <a name="anchor72"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4481,7 +4481,7 @@ Client App Security</h3>
 
 <p>
           当セクションはクライアントアプリケーションに対するSecurity Considerationsを扱う.
-        
+
 </p>
 <a name="cred_software"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4494,7 +4494,7 @@ Don't Store Credentials in Code or Resources Bundled with Software Packages</h3>
             アプリケーションのソースコードや関連のリソースバンドルに埋め込まれたシークレットは, リバースエンジニアリングに対しては無力である.
             次に, このようなシークレットを無効化すると, そのアプリケーションの全てのインストールが即座に動作しなくなってしまうため, 無効化することができない.
             さらに, 認可サーバーはクライアント識別子を実際には信用できないため, そのクライアントの信頼性をエンドユーザに示すことは危険だろう.
-          
+
 </p>
 <a name="std_web"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4503,7 +4503,7 @@ Use Standard Web Server Protection Measures (for Config Files and Databases)</h3
 
 <p>
             サーバーやデータベース, 設定ファイル, その他のサーバーの運用に関わるコンポーネントの完全性を保護するために, 標準的なウェブサーバーの保護と設定方法を使うこと.
-          
+
 </p>
 <a name="secure_storage"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4512,20 +4512,20 @@ Store Secrets in Secure Storage</h3>
 
 <p>
             あらゆる種類のシークレット (トークン, クライアントシークレット) を安全にデバイスやサーバーに格納する方法は複数存在する.
-          
+
 </p>
 <p>
             ほとんどのマルチユーザーオペレーティングシステムは個々のシステムユーザーの個人ストレージをそれぞれ分離して管理している.
             さらに, 最近のスマートフォンのオペレーティングシステムのほとんどはファイルシステムの分離された領域にアプリケーション固有のストレージまでも用意され, 他のアプリケーションからアクセスできないようになっている.
             加えて, アプリケーションはPINやパスワードといったユーザーが提供するシークレットを用いてデータの秘匿性を実現することもできる.
-          
+
 </p>
 <p>
             別の方法としてリフレッシュトークンを信頼できるバックエンドサーバーに保管する方法が挙げられる.
             この方法ではクライアントとバックエンドサーバー間の強固な認証機構が必要となる.
             注: アプリケーションは, 秘匿データがセキュアストレージから読み出された後でも秘匿性を保持したままであることを保証すべきである.
             これは典型的にはこのデータをアプリケーションのローカルメモリ内で保持することを意味する.
-          
+
 </p>
 <a name="device_lock"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4536,7 +4536,7 @@ Utilize Device Lock to Prevent Unauthorized Device Access</h3>
             典型的な最近の電話機では, デバイスを盗難された場合や置き忘れた場合に有用な追加の保護機構を持っている.
             これらはPINやパスワード, 顔認識のようなその他の生体情報を利用する.
             これらが提供するセキュリティレベルはそれぞれ同等ではない.
-          
+
 </p>
 <a name="link_state_uasession"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4546,16 +4546,16 @@ Link the &quot;state&quot; Parameter to User Agent Session</h3>
 <p>
             "state" パラメーターはクライアントに対する複数のリクエスト間を紐づけたり, リダイレクトURIなどに対するCSRF攻撃を防止するために使用される.
             攻撃者は彼ら自身の認可コードやアクセストークンをインジェクションすることが考えられ, その結果, 被害者のではなく攻撃者の保護リソースに関連づけられたアクセストークンをクライアントに使わせることになる (例えば, 被害者の銀行口座情報を攻撃者の制御下にある保護リソースに保存).
-          
+
 </p>
 <p>
             クライアントは認可リクエストを作成する際, ユーザーエージェントの認証状態をリクエストに紐づけた値  (例えばユーザーエージェントの認証に用いたセッションクッキーのハッシュ) を認可サーバーに送るために "state" リクエストパラメーターを利用すべきである.
             エンドユーザーの認可が得られた後, 認可サーバーはリクエストに含まれているものと同じ値を持つ "state" パラメーターを付与し, エンドユーザーのユーザーエージェントをクライアントにリダイレクトバックさせる.
-          
+
 </p>
 <p>
             この紐づけられた値とユーザーエージェントの認証状態のマッチングを行うことにより, クライアントはリクエストの妥当性を検証することができる.
-          
+
 </p>
 <a name="anchor73"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4564,7 +4564,7 @@ Resource Servers</h3>
 
 <p>
           以下はリソースサーバーのsecurity considerationsについて詳述する.
-        
+
 </p>
 <a name="authz_header"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4574,7 +4574,7 @@ Authorization Headers</h3>
 <p>
             AuthorizationヘッダーはHTTPプロクシとサーバーによって認識され, 特別に取り扱われる.
             アクセストークンをリソースサーバーに送るためにそのようなヘッダー, 特にAuthorizationヘッダーを用いることは, 一般に認証済リクエストが意図せず保存されたり漏洩する可能性を減らす.
-          
+
 </p>
 <a name="authn_requests"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4585,7 +4585,7 @@ Authenticated Requests</h3>
             認可サーバーは, トークンに特定のクライアント識別子を紐づけし, リソースアクセスの際にリソースサーバーがその紐づけを検証可能とすることもできる.
             その際リソースサーバーは, リクエスト送信者がトークンの正規のオーナーであることを確認するため, リクエスト送信者の認証が必要になる.
             この対抗策を実装する方法はいくつかある:
-          
+
 </p>
 <p>
             </p>
@@ -4594,21 +4594,21 @@ Authenticated Requests</h3>
                 認可サーバーはクライアント識別子を (内部的に, またはself-containedトークンのペイロード内で) トークンに関連づけるかもしれない.
                 そしてクライアントは自身のアイデンティティを認証するためにリソースサーバーのエンドポイントに対し, クライアント証明書を用いたHTTP認証を行う.
                 そしてリソースサーバーはトークンによって参照されている名前と, 証明書の名前の照合を行う.
-              
+
 </li>
 <li>
                 クライアントはリソースサーバーへのリクエストの署名に秘密鍵を用いる (公開鍵はトークン内に格納するか, リクエストとともに送信する).
-              
+
 </li>
 <li>
                 認可サーバーはトークンに紐づけられた鍵を発行し, クライアントはトークン使用に対する認証のためのHolder-of-Key証明にその鍵を使用する方法もありうる.
                 リソースサーバーは認可サーバーから直接シークレットを取得するか, シークレットはトークンの暗号化領域に格納されている.
                 この方法ではリソースサーバーはクライアントが誰であるかを知らないが, 認可サーバーがトークンをそのクライアントに対して発行したかどうかを検証することができる.
-              
+
 </li>
 </ul><p>
             認証済リクエストは偽のリソースサーバーによるトークンの悪用に対する対抗策となる.
-          
+
 </p>
 <a name="signed_requests"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4619,21 +4619,21 @@ Signed Requests</h3>
             トランスポートレベルのセキュリティ手法の置き換えや, そのような手法の補完のために, リソースサーバーは署名されたリクエストのみを受け付けるよう決定するかもしれない.
             全ての署名されたリクエストはユニークに識別できるべきであり, リソースサーバーによって二度処理されることがないようにすべきである.
             この対抗策は以下についての軽減を助ける:
-          
+
 </p>
 <p>
             </p>
 <ul class="text">
 <li>
                 メッセージの改竄
-              
+
 </li>
 <li>
                 リプレイの試行
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="installed_apps"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4644,7 +4644,7 @@ A Word on User Interaction and User-Installed Apps</h3>
           セキュリティプロトコルとしてOAuthは, エンドユーザーをセキュリティモデルの一部とし, 重要なユーザー対話をフロー中に通常含んでいるという点が独特である.
           これが上記で説明された脅威のいくつかに対する防御の困難さを生み出している.
           これらの点のうちいくつかは既に説明してきたが, ここでふたたび繰り返して焦点をあてる価値はある.
-        
+
 </p>
 <p>
           </p>
@@ -4654,33 +4654,33 @@ A Word on User Interaction and User-Installed Apps</h3>
               (<a class='info' href='#informed_decisions'>Section&nbsp;5.2.4.2<span> (</span><span class='info'>Informed Decisions Based on Transparency</span><span>)</span></a> 参照).
               ユーザーは認可リクエストに対し "yes" と答えることによる悪影響を理解するだけの専門知識を持っていないことも多く, リクエストの言い回しの微妙な違いを理解することができないこともありそうである.
               悪意のあるソフトウェアはユーザーをだましてほとんどどんなものでも承認させて, ユーザーを混乱させることができる.
-            
+
 </li>
 <li>
               エンドユーザーのデバイスはソフトウェアが脆弱な状態になりがちである.
               これは, ウェブブラウザやユーザーシステムのその他の部分に対する頻繁な攻撃とともに, 以前からある長期に渡る問題である.
               ユーザーによってインストールされるアプリの人気が増加するにつれ, 脆弱性や悪意のあるエンドユーザーソフトウェアによりもたらされる脅威は非常に強くなり, 軽減することがとても困難である.
-            
+
 </li>
 <li>
               ユーザーがこのようなアプリのインストールと実行を望むであろうこと, および, 信頼できないアプリや悪意のあるアプリがデータフロー中の様々な箇所でクレデンシャルを窃取することができる, ということを認識すること.
               それらのアプリは, OAuthが設計上保護することになっているユーザーのログインクレデンシャルを傍受し, ユーザが理解し承認した範囲をはるかに超えた認可をリクエストし, ユーザーの代わりにレスポンスをひっそりと自動的に処理することができる.
               これらに対する知られた解決方法は存在しないため, ここでは示さない.
               これはよりよいセキュリティとよりよいユーザビリティの狭間に存在している.
-            
+
 </li>
 <li>
               ユーザーがインストールするソフトウェアの使用を制限することによってこれらの問題を解決することは限られた環境では実用的で, これらのケースに対する対抗策として利用できるかもしれない.
               しかしこのような制約は一般的なケースでは実用的ではなく, 事後のリカバリ方法が用意されるべきである.
-            
+
 </li>
 <li>
               エンドユーザーは自身のデバイスにロードしたアプリケーションに関して適切な審査を行う能力に欠けるかもしれないが, 認可サーバーの提供者が悪意あるクライアントによる被害を軽減するためになにかしらのツールを利用することもできる.
               例えば, よい認可サーバーは, 各クライアント属性について有効に検証できたものとできなかったものを明確に示し, そのクライアントのアクセスを許可することのリスクを提示するに違いない.
-            
+
 </li>
 </ul><p>
-        
+
 </p>
 <a name="Acknowledgements"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4783,21 +4783,21 @@ Language (SAML) V2.0</a>,&rdquo; OASIS Standard&nbsp;saml-core-2.0-os, March&nbs
 <p>
         本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
         質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
-      
+
 </p>
 <p>
         </p>
 <ul class="text">
 <li>
             Nov Matake
-          
+
 </li>
 <li>
             Sat Toke
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="rfc.authors"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -4824,4 +4824,13 @@ Language (SAML) V2.0</a>,&rdquo; OASIS Standard&nbsp;saml-core-2.0-os, March&nbs
 <tr><td class="author" align="right">EMail:&nbsp;</td>
 <td class="author-text"><a href="mailto:phil.hunt@yahoo.com">phil.hunt@yahoo.com</a></td></tr>
 </table>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15411889-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 </body></html>

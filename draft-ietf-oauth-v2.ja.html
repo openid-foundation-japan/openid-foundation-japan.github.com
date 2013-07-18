@@ -1,0 +1,3127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>The OAuth 2.0 Protocol</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="The OAuth 2.0 Protocol">
+<meta name="generator" content="xml2rfc v1.35 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">Yahoo!</td></tr>
+<tr><td class="header">Obsoletes: <a href='http://tools.ietf.org/html/rfc5849'>5849</a> (if&nbsp;approved)</td><td class="header">D. Recordon</td></tr>
+<tr><td class="header">Intended status: Standards Track</td><td class="header">Facebook</td></tr>
+<tr><td class="header">Expires: May 24, 2011</td><td class="header">D. Hardt</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">Microsoft</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">November 20, 2010</td></tr>
+</table></td></tr></table>
+<h1><br />The OAuth 2.0 Protocol<br />draft-ietf-oauth-v2-10</h1>
+
+<h3>Abstract</h3>
+
+<p>
+        これはOAuth 2.0プロトコルの仕様書である.
+        
+      
+</p>
+<h3>Status of this Memo</h3>
+<p>
+This Internet-Draft is submitted  in full
+conformance with the provisions of BCP&nbsp;78 and BCP&nbsp;79.</p>
+<p>
+Internet-Drafts are working documents of the Internet Engineering
+Task Force (IETF).  Note that other groups may also distribute
+working documents as Internet-Drafts.  The list of current
+Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>
+Internet-Drafts are draft documents valid for a maximum of six months
+and may be updated, replaced, or obsoleted by other documents at any time.
+It is inappropriate to use Internet-Drafts as reference material or to cite
+them other than as &ldquo;work in progress.&rdquo;</p>
+<p>
+This Internet-Draft will expire on May 24, 2011.</p>
+
+<h3>Copyright Notice</h3>
+<p>
+Copyright (c) 2010 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#anchor1">1.</a>&nbsp;
+はじめに<!--Introduction--><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">1.1.</a>&nbsp;
+要求記法および規則<!--Notational Conventions--><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">1.2.</a>&nbsp;
+用語定義<!--Terminology--><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">1.3.</a>&nbsp;
+概要<!--Overview--><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">1.4.</a>&nbsp;
+クライアントプロファイル<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">1.4.1.</a>&nbsp;
+ウェブサーバー<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#user-agent">1.4.2.</a>&nbsp;
+ユーザーエージェント<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">1.4.3.</a>&nbsp;
+ネイティブアプリケーション<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">1.4.4.</a>&nbsp;
+自律クライアント<br />
+<a href="#client-authentication">2.</a>&nbsp;
+クライアントクレデンシャル<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor9">2.1.</a>&nbsp;
+クライアントパスワードクレデンシャル<br />
+<a href="#user-authorization">3.</a>&nbsp;
+エンドユーザー認可の取得<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor10">3.1.</a>&nbsp;
+認可レスポンス<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth-error">3.2.</a>&nbsp;
+エラーレスポンス<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth-error-codes">3.2.1.</a>&nbsp;
+エラーコード<br />
+<a href="#obtaining-token">4.</a>&nbsp;
+アクセストークンの取得<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#access-grant-types">4.1.</a>&nbsp;
+アクセス許可タイプ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor11">4.1.1.</a>&nbsp;
+認可コード<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor12">4.1.2.</a>&nbsp;
+リソースオーナーパスワードクレデンシャル<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor13">4.1.3.</a>&nbsp;
+アサーション<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#token-refresh">4.1.4.</a>&nbsp;
+リフレッシュトークン<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#access-token-response">4.2.</a>&nbsp;
+アクセストークンレスポンス<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#token-error">4.3.</a>&nbsp;
+エラーレスポンス<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#token-error-codes">4.3.1.</a>&nbsp;
+エラーコード<br />
+<a href="#access-resource">5.</a>&nbsp;
+保護リソースへのアクセス<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor14">5.1.</a>&nbsp;
+認証済リクエスト<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#authz-header">5.1.1.</a>&nbsp;
+認証リクエストヘッダー<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#query-param">5.1.2.</a>&nbsp;
+URI クエリーパラメーター<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#body-param">5.1.3.</a>&nbsp;
+フォームエンコードボディーパラメーター<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#authn-header">5.2.</a>&nbsp;
+WWW-Authenticate レスポンスヘッダーフィールド<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#resource-error-codes">5.2.1.</a>&nbsp;
+エラーコード<br />
+<a href="#anchor15">6.</a>&nbsp;
+拡張性<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor16">6.1.</a>&nbsp;
+クライアントクレデンシャルタイプの拡張<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor17">6.2.</a>&nbsp;
+エンドポイントパラメーターの拡張<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor18">6.3.</a>&nbsp;
+ヘッダーパラメーターの拡張<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor19">6.4.</a>&nbsp;
+アクセス許可タイプの拡張<br />
+<a href="#anchor20">7.</a>&nbsp;
+Security Considerations<br />
+<a href="#anchor21">8.</a>&nbsp;
+IANAに関する考察<!-- IANA Considerations --><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#parameters-registry">8.1.</a>&nbsp;
+OAuthパラメーターの登録<!-- The OAuth Parameters Registry --><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor22">8.1.1.</a>&nbsp;
+登録用テンプレート<!-- Registration Template --><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor23">8.1.2.</a>&nbsp;
+<!-- Example -->例<br />
+<a href="#anchor24">Appendix&nbsp;A.</a>&nbsp;
+Examples<br />
+<a href="#anchor25">Appendix&nbsp;B.</a>&nbsp;
+Contributors<br />
+<a href="#anchor26">Appendix&nbsp;C.</a>&nbsp;
+Acknowledgements<br />
+<a href="#anchor27">Appendix&nbsp;D.</a>&nbsp;
+Document History<br />
+<a href="#anchor28">Appendix&nbsp;E.</a>&nbsp;
+翻訳者<br />
+<a href="#rfc.references1">9.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">9.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">9.2.</a>&nbsp;
+Informative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references3">9.3.</a>&nbsp;
+翻訳プロジェクト<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Authors' Addresses<br />
+</p>
+<br clear="all" />
+
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+はじめに<!--Introduction--></h3>
+
+<p>
+        分散Webサービスやクラウドコンピューティングの利用が進み, サードパーティーアプリケーションがサーバー上にあるリソースにアクセスする機会が増している.
+        これらのリソースは通常保護されており, リソースオーナーのクレデンシャル (典型例としてはユーザー名とパスワード) による認証を必要とする.
+        
+      
+</p>
+<p>
+        従来のクライアントサーバー型の認証モデルでは, クライアントはリソースオーナーのクレデンシャルを使ってサーバーに対して認証を行いサーバー上の保護リソースにアクセスする.
+        つまり, サードパーティーアプリケーションに保護リソースへのアクセス権を与えるには, リソースオーナーは自身のクレデンシャルをサードパーティーと共有する必要がある.
+        これはいくつかの問題と制限をもたらす.
+        
+       
+        </p>
+<ul class="text">
+<li>
+            サードパーティーアプリケーションは, 後の利用のためにリソースオーナーのクレデンシャルを保存しておかなければならない.
+            通常はパスワードが平文で保存されることになる.
+            
+          
+</li>
+<li>
+            サーバーはパスワードベースの認証方式をサポートしなければならない.
+            パスワードを利用することによりセキュリティが低下する.
+            
+          
+</li>
+<li>
+            サードパーティーアプリケーションは過度に多くのリソースオーナーの保護リソースに対してアクセス権を得ることになる.
+            リソースオーナーは, アクセスをリソースのサブセットに限定したり, アクセス可能な期間を限ったり, リソースに対して一部の操作のみを許可するといったことができない.
+            
+          
+</li>
+<li>
+            リソースオーナーは各サードパーティーごとにアクセス権を無効化することはできず, アクセス権を無効化する際には全てのサードパーティーが持つアクセス権を無効化しなければならない.
+            つまりそれはパスワード変更を意味する.
+            
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        OAuthは, クライアントとリソースオーナーの役割を分けることで, これらの問題の解決に取り組む.
+        OAuthでは, クライアントは, リソースオーナーのコントロール下にありリソースサーバーにホストされているリソースへのアクセス権を要求する.
+        (クライアントは通常はリソースオーナーではなく, リソースオーナーの代理として処理を行う)
+        そしてリソースオーナーのクレデンシャルそのものとは別のクレデンシャルを取得する.
+        
+      
+</p>
+<p>
+        クライアントは, 保護リソースにアクセスする為にリソースオーナーのクレデンシャルを使う代わりに, アクセストークンを取得する.
+        (アクセストークンとは, ある特定のスコープ, 期間およびその他の属性と紐付けられた文字列である)
+        アクセストークンのフォーマットは, 本仕様の定めるところではない.
+        
+      
+</p>
+<p>
+        トークンは, 認証サーバーがリソースオーナーの同意のもとサードパーティーに対して発行するものである.
+        クライアントは, リソースサーバーにホストされている保護リソースにアクセスする為に, アクセストークンを利用する.
+        認証サーバーとリソースサーバーの連携方法は, 本仕様の定めるところではない.
+        
+      
+</p>
+<p>
+        例えば, あるユーザー (リソースオーナー) が, 印刷サービス (クライアント) に対して, 写真共有サービス上 (リソースサーバー) に保管されている彼女の保護された写真へのアクセス権を与えることを考える.
+        OAuthでは, その際彼女のユーザー名とパスワードを印刷サービスに与える必要はない.
+        そのかわり, 彼女は写真共有サービスの信任を得た認証サービス (認証サーバー) に対して認証を行い, 認証サービスが印刷サービスにデリゲーション専用のクレデンシャル (token) を発行する.
+        
+      
+</p>
+<p>
+        この仕様書ではOAuthを <a class='info' href='#RFC2616'>HTTP<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> [RFC2616] (もしくは <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> で定義されたHTTP over TLS) の元で利用する方法を定める.
+        他の仕様書がその他の転送プロトコルの元での利用について本仕様を拡張する可能性もある.
+        
+      
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.1"></a><h3>1.1.&nbsp;
+要求記法および規則<!--Notational Conventions--></h3>
+
+<p>
+          本文書で用いられる各キーワード「MUST (しなければならない)」, 「MUST NOT (してはならない)」, 「REQUIRED (必須である)」, 「SHALL (するものとする)」, 「SHALL NOT (しないものとする)」, 「SHOULD (すべきである)」, 「SHOULD NOT (すべきではない)」, 「RECOMMENDED (推奨される)」, 「MAY (してもよい)」, 「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> で述べられている通りに解釈されるべきものである.
+          
+        
+</p>
+<p>
+          このドキュメントでは <a class='info' href='#I-D.ietf-httpbis-p1-messaging'>[I&#8209;D.ietf&#8209;httpbis&#8209;p1&#8209;messaging]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Nielsen, H., Masinter, L., Leach, P., Berners-Lee, T., and J. Reschke, &ldquo;HTTP/1.1, part 1: URIs, Connections, and Message Parsing,&rdquo; March&nbsp;2010.</span><span>)</span></a> におけるAugmented Backus-Naur Form(ABNF)表記法を利用している.
+          加えて, 次の規則(<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> 記載: realm, auth-param; <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 記載: URI-Reference; <a class='info' href='#I-D.ietf-httpbis-p1-messaging'>[I&#8209;D.ietf&#8209;httpbis&#8209;p1&#8209;messaging]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Nielsen, H., Masinter, L., Leach, P., Berners-Lee, T., and J. Reschke, &ldquo;HTTP/1.1, part 1: URIs, Connections, and Message Parsing,&rdquo; March&nbsp;2010.</span><span>)</span></a> 記載: OWS, RWS, and quoted-string)に従う.
+          
+        
+</p>
+<p>
+          特に記載が無い限り, 全てのプロトコルパラメーター名と値は, 大文字・小文字を区別する.
+          
+        
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.2"></a><h3>1.2.&nbsp;
+用語定義<!--Terminology--></h3>
+
+<p>
+          </p>
+<blockquote class="text"><dl>
+<dt>保護リソース<!--protected resource--></dt>
+<dd>
+              
+              アクセスが制限されたリソース.
+              OAuth認証済みリクエストを利用して取得が可能である.
+              
+            
+</dd>
+<dt>リソースサーバー<!--resource server--></dt>
+<dd>
+              
+              保護リソースに対するリクエストを受付け, レスポンスを返すサーバー.
+              
+            
+</dd>
+<dt>クライアント<!--client--></dt>
+<dd>
+              
+              認可を取得して, 保護リソースに対するリクエストを行うアプリケーション.
+              
+            
+</dd>
+<dt>リソースオーナー<!--resource owner--></dt>
+<dd>
+              
+              保護リソースへのアクセスを許可するエンティティー.
+              
+            
+</dd>
+<dt>エンドユーザー<!--end-user--></dt>
+<dd>
+              
+              人間のリソースオーナー.
+              
+            
+</dd>
+<dt>トークン<!--token--></dt>
+<dd>
+              
+              クライアントに対して発行されたアクセス認可を表す文字列である.
+              文字列は通常はクライアントにとって不透明な値である.
+              トークンは特定の範囲とアクセス期間を表し, それらはリソースオーナーによって許可され, リソースサーバーと認可サーバーによって強制される.
+              トークンは認可情報を取り出すための識別子を意味してもよい, またはそれ自身に検証可能な方法で認可情報を含んでいてもよい(データと署名を含むトークン文字列など).
+              トークンはpure capabilitiesでもよい.
+              クライアントがトークンを利用するために特別に追加の認証クレデンシャルを要求してもよい.
+              
+            
+</dd>
+<dt>アクセストークン<!--access token--></dt>
+<dd>
+              
+              クライアントがリソースオーナーに変わって認証済みリクエストを行うために使われるトークン.
+              
+            
+</dd>
+<dt>リフレシュトークン<!--refresh token--></dt>
+<dd>
+              
+              クライアントがリソースオーナーの関与無く新しいアクセストークンを得るために使われるトークン.
+              
+            
+</dd>
+<dt>認可コード<!--authorization code--></dt>
+<dd>
+              生存期間の短いトークンで, エンドユーザーによって提供されたアクセス許可を表す.
+              認可コードはアクセストークンとリフレッシュトークンを得るために使われる.
+              
+            
+</dd>
+<dt>認可サーバー<!--authorization server--></dt>
+<dd>
+              
+              リソースオーナーの認証とリソースオーナーからの認可取得が成功した後, トークンを発行するサーバー.
+              認可サーバーとリソースサーバーは同じサーバーでも, 分かれていてもよい.
+              
+            
+</dd>
+<dt>エンドユーザー認可エンドポイント<!--end-user authorization endpoint--></dt>
+<dd>
+              
+              認可サーバーのHTTPエンドポイントで, エンドユーザーの認証と認可の取得を行う.
+              エンドユーザー認可エンドポイントについては <a class='info' href='#user-authorization'>Section&nbsp;3<span> (</span><span class='info'>エンドユーザー認可の取得</span><span>)</span></a> に記載する.
+              
+            
+</dd>
+<dt>トークンエンドポイント<!--token endpoint--></dt>
+<dd>
+              
+              認可サーバーのHTTPエンドポイントで, トークンの発行と期限切れトークンのリフレッシュを行う.
+              トークンエンドポイントについては <a class='info' href='#obtaining-token'>Section&nbsp;4<span> (</span><span class='info'>アクセストークンの取得</span><span>)</span></a> に記載する.
+              
+            
+</dd>
+<dt>クライアント識別子<!--client identifier--></dt>
+<dd>
+              
+              認可サーバーがクライアント自身を識別するために発行される一意な識別子.
+              クライアント識別子に対応するシークレットがあってもよい.
+              クライアント識別子については <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> に記載する.
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<a name="anchor4"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.3"></a><h3>1.3.&nbsp;
+概要<!--Overview--></h3>
+
+<p>
+          OAuthはリソースオーナーの代わりに保護リソースにアクセスする方法をクライアントに提供する.
+          クライアントが保護リソースにアクセスする前に, クライアントは初めにリソースオーナーの認可を取得し, アクセス許可とアクセストークン(権限の範囲, 期間と他の属性を示している)を交換しなけばならない.
+          クライアントはリソースサーバーにアクセストークンを渡すことにより, 保護リソースにアクセスする.
+          
+        
+</p><br /><hr class="insert" />
+<a name="Figure 1"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  +--------+                                  +---------------+
+  |        |--(A)-- Authorization Request ---&gt;|   Resource    |
+  |        |                                  |     Owner     |
+  |        |&lt;-(B)------ Access Grant ---------|               |
+  |        |                                  +---------------+
+  |        |
+  |        |         Client Credentials &amp;     +---------------+
+  |        |--(C)------ Access Grant --------&gt;| Authorization |
+  | Client |                                  |     Server    |
+  |        |&lt;-(D)------ Access Token ---------|               |
+  |        |      (w/ Optional Refresh Token) +---------------+
+  |        |
+  |        |                                  +---------------+
+  |        |--(E)------ Access Token --------&gt;|    Resource   |
+  |        |                                  |     Server    |
+  |        |&lt;-(F)---- Protected Resource -----|               |
+  +--------+                                  +---------------+
+
+</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1: プロトコルフロー概要&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+          <a class='info' href='#Figure 1'>Figure&nbsp;1<span> (</span><span class='info'>プロトコルフロー概要</span><span>)</span></a> で示されたフロー概要は以下のステップを含む.
+          
+
+          </p>
+<blockquote class="text"><dl>
+<dt>(A)</dt>
+<dd>
+              クライアントはリソースオーナーに認可を要求する.
+              クライアントは直接リソースオーナーのクレデンシャルを要求すべきではない.
+              その代わり, クライアントは認可サーバーもしくは他のものを経由して認可を要求すべきである.
+              例えば, クライアントはアクセス許可を発行する認可サーバーにリソースオーナーをリダイレクトさせる.
+              やむを得ない場合, クライアントはエンドユーザーと直接やりとりを行い, エンドユーザーのユーザー名とパスワードを要求する.
+              もしクライアントが自律的に動作しているとき, 認可要求は本仕様の定めるところではない.
+              
+            
+</dd>
+<dt>(B)</dt>
+<dd>
+              クライアントはリソースオーナーの認可を表すアクセス許可を取得する.
+              アクセス許可は以下のように表される :
+              
+
+              
+<ul class="text">
+<li>
+                  認可コード - 認可サーバー経由で取得したアクセス許可.
+                  <a class='info' href='#user-authorization'>Section&nbsp;3<span> (</span><span class='info'>エンドユーザー認可の取得</span><span>)</span></a> はエンドユーザーが存在してユーザーエージェントを使うときの認可コード取得方法を記載する.
+                  
+                
+</li>
+<li>
+                  アサーション - 異なるトラストフレームワークを利用して取得したアクセス許可.
+                  アサーションはクライアントがアクセストークンを取得するために既存のトラストリレーションシップを利用することを可能にする.
+                  それらはOAuthと他のトラストフレームワークのブリッジを提供する.
+                  アサーションにより示されるアクセス許可はアサーションの種類やコンテント, 発行方法に依存し, それは本仕様の定めるところではない.
+                  
+                
+</li>
+<li>
+                  リソースオーナー パスワードクレデンシャル - 直接リソースオーナーとやりとりするときに取得される.
+                  リソースオーナーパスワードクレデンシャル (すなわちユーザー名とパスワード) は,
+                  リソースオーナーとクライアントの間に高度な信用があるときのみ利用されるべきである.
+                  (例えばコンピューターOSや特別に許可されたアプリケーションを利用するときなど)
+                  しかしながら, <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されるHTTP Basic認証とは異なり,
+                  リソースオーナーのクレデンシャルは1つのリクエストのために利用され, アクセストークンおよびリフレッシュトークンと交換される.
+                  よってクライアントはリソースオーナーのクレデンシャルを将来の利用のため保存する必要はない.
+                  
+                
+</li>
+</ul>
+            
+</dd>
+<dt>(C)</dt>
+<dd>
+              クライアントは, 認可サーバーに対して自身を認証し, アクセス許可を提示することで, アクセストークンを要求する.
+              トークンリクエストについては <a class='info' href='#obtaining-token'>Section&nbsp;4<span> (</span><span class='info'>アクセストークンの取得</span><span>)</span></a> に記載する.
+              
+            
+</dd>
+<dt>(D)</dt>
+<dd>
+              認可サーバーはクライアントクレデンシャルとアクセス許可の正当性を確認し, アクセストークンを発行する.
+              オプションでアクセストークンに付随するリフレッシュトークンを発行する場合もある.
+              アクセストークンは通常, アクセス許可よりも短い生存期間を持つ.
+              リフレッシュトークンは通常, アクセス許可の期間と等しい生存期間を持つ.
+              アクセストークンの有効期限が切れた場合でも, リフレッシュトークンを利用すると, リソースオーナーに再度アクセス許可を要求することなく新しいアクセストークンが取得できる.
+              
+            
+</dd>
+<dt>(E)</dt>
+<dd>
+              クライアントは保護リソースへのリクエストを実行し, アクセスを得るためにアクセストークンを提供する.
+              保護リソースへのアクセスについては <a class='info' href='#access-resource'>Section&nbsp;5<span> (</span><span class='info'>保護リソースへのアクセス</span><span>)</span></a> に記載する.
+              
+            
+</dd>
+<dt>(F)</dt>
+<dd>
+              リソースサーバーはアクセストークンの正当性を確認し, 有効な場合はリクエストを処理する.
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+          クライアントが自身の代理として振る舞う (クライアントがリソースオーナーでもある) とき, クライアントはアクセス権を取得しない.
+          簡略化されたプロトコルフローは <a class='info' href='#Figure 2'>Figure&nbsp;2<span> (</span><span class='info'>自身の代理として振る舞うクライアントのためのプロトコルフロー</span><span>)</span></a> に示される.
+          
+        
+</p><br /><hr class="insert" />
+<a name="Figure 2"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  +--------+                                  +---------------+
+  |        |--(C)--- Client Credentials -----&gt;| Authorization |
+  |        |                                  |     Server    |
+  |        |&lt;-(D)------ Access Token ---------|               |
+  |        |                                  +---------------+
+  | Client |
+  |        |                                  +---------------+
+  |        |--(E)------ Access Token --------&gt;|    Resource   |
+  |        |                                  |     Server    |
+  |        |&lt;-(F)---- Protected Resource -----|               |
+  +--------+                                  +---------------+
+
+</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;2: 自身の代理として振る舞うクライアントのためのプロトコルフロー&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+          クライアントがユーザーエージェントプロファイル(<a class='info' href='#user-agent'>Section&nbsp;1.4.2<span> (</span><span class='info'>ユーザーエージェント</span><span>)</span></a> に記載する)を利用するとき, クライアントは <a class='info' href='#Figure 3'>Figure&nbsp;3<span> (</span><span class='info'>間接的なアクセス許可プロトコルフロー</span><span>)</span></a> にあるように, 認可リクエストの結果としてアクセストークンを取得する.
+          
+        
+</p><br /><hr class="insert" />
+<a name="Figure 3"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  +--------+                        +----------+   +---------------+
+  |        |--(A)-- Authorization --+-        -+--&gt;|               |
+  |        |           Request      | Resource |   | Authorization |
+  |        |                        |   Owner  |   |     Server    |
+  |        |&lt;-(D)-- Access Token ---+-        -+---|               |
+  |        |                        +----------+   +---------------+
+  | Client |
+  |        |                                       +---------------+
+  |        |--(E)-------- Access Token -----------&gt;|    Resource   |
+  |        |                                       |     Server    |
+  |        |&lt;-(F)------ Protected Resource --------|               |
+  +--------+                                       +---------------+
+
+</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;3: 間接的なアクセス許可プロトコルフロー&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<a name="anchor5"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.4"></a><h3>1.4.&nbsp;
+クライアントプロファイル</h3>
+
+<p>
+          OAuthは, 認可を確立しアクセストークンと交換するための, リッチで拡張可能なフレームワークを提供することで, 広範囲のクライアントタイプをサポートする.
+          この仕様書で詳述されている方式は, ウェブサーバー, ユーザーエージェント, ネイティブアプリケーション, 自律アプリケーションの４つのクライアントタイプに対応するために作成されている.
+          追加のシナリオやクライアントタイプを対象に含めるため, 他の仕様書によって追加の認可フローやクライアントプロファイルが定義されることもある.
+          
+        
+</p>
+<a name="anchor6"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.4.1"></a><h3>1.4.1.&nbsp;
+ウェブサーバー</h3>
+
+<p>
+            ウェブサーバープロファイルは, エンドユーザーのユーザーエージェント (通常はウェブブラウザー) と交信可能で, かつ認可サーバーからのリクエストを受信可能な (HTTPサーバーとして動作できる) クライアントに適している.
+            
+          
+</p><br /><hr class="insert" />
+<a name="Figure 4"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  +----------+          Client Identifier      +---------------+
+  |         -+----(A)--- &amp; Redirect URI ------&gt;|               |
+  | End-user |                                 | Authorization |
+  |    at    |&lt;---(B)-- User authenticates ---&gt;|     Server    |
+  | Browser  |                                 |               |
+  |         -+----(C)-- Authorization Code ---&lt;|               |
+  +-|----|---+                                 +---------------+
+    |    |                                         ^      v
+   (A)  (C)                                        |      |
+    |    |                                         |      |
+    ^    v                                         |      |
+  +---------+                                      |      |
+  |         |&gt;---(D)-- Client Credentials, --------'      |
+  |   Web   |          Authorization Code,                |
+  |  Client |            &amp; Redirect URI                   |
+  |         |                                             |
+  |         |&lt;---(E)----- Access Token -------------------'
+  +---------+       (w/ Optional Refresh Token)
+
+</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;4: ウェブサーバーフロー&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+            <a class='info' href='#Figure 4'>Figure&nbsp;4<span> (</span><span class='info'>ウェブサーバーフロー</span><span>)</span></a> に示すウェブサーバーフローの手順を以下に述べる.
+            
+
+            </p>
+<blockquote class="text"><dl>
+<dt>(A)</dt>
+<dd>
+                ウェブクライアントは, まず初めにエンドユーザーのユーザーエージェントを <a class='info' href='#user-authorization'>Section&nbsp;3<span> (</span><span class='info'>エンドユーザー認可の取得</span><span>)</span></a> に記載されているエンドユーザー認可エンドポイントへリダイレクトする.
+                その際クライアントは, クライアント識別子, 要求するスコープ, ローカルステート, アクセスが認可 (もしくは否認) された時点でエンドユーザーがリダイレクトされるリダイレクトURIをリクエストに含める.
+                
+              
+</dd>
+<dt>(B)</dt>
+<dd>
+                認証サーバーは, ユーザーエージェント経由でエンドユーザーを認証し, クライアントのアクセス要求を許可するかどうかを確認する.
+                
+              
+</dd>
+<dt>(C)</dt>
+<dd>
+                エンドユーザーがアクセスを許可すると, 認可サーバーはクライアントが事前に提供したリダイレクトURIにユーザーエージェントをリダイレクトさせる.
+                そのとき渡される認可情報には, クライアントがアクセストークン取得のために使用する認可コードが含まれる.
+                
+              
+</dd>
+<dt>(D)</dt>
+<dd>
+                クライアントは <a class='info' href='#obtaining-token'>Section&nbsp;4<span> (</span><span class='info'>アクセストークンの取得</span><span>)</span></a> に記載の通り, 認可サーバーに対して認証を行い直前の手順で受け取った認可コードを提示することで, 認可サーバーにアクセストークンを要求する.
+                
+              
+</dd>
+<dt>(E)</dt>
+<dd>
+                認可サーバーはクライアントクレデンシャルと認可コードを検証し, アクセストークンを返す.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<a name="user-agent"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.4.2"></a><h3>1.4.2.&nbsp;
+ユーザーエージェント</h3>
+
+<p>
+            ユーザーエージェントプロファイルは, ユーザーエージェント上で動作するクライアントアプリケーションに適している.
+            典型例としては, JavaScriptなどのスクリプト言語を用いて実装された, ブラウザー上で動作するアプリケーションなどが挙げられる.
+            これらのクライアントは, クライアントシークレットを機密に保つことができない.
+            そして, クライアントの認証はユーザーエージェントのsame origin policyに基づいている.
+            
+          
+</p>
+<p>
+            その他のプロファイルとは違い, このプロファイルではクライアントがエンドユーザー認可とアクセストークンを単一のリクエストで要求する.
+            アクセストークンは, エンドユーザー認可リクエストに対するHTTPリダイレクトレスポンス内に含まれる.
+            クライアントは, ユーザーエージェントを他のウェブサーバー, もしくはユーザーエージェントにアクセスしてレスポンスからアクセストークンを抽出しクライアントに渡すことができるローカルリソースにリダイレクトするよう, 認可サーバーに要求する.
+            
+          
+</p>
+<p>
+            このプロファイルでは, クライアントはエンドユーザーのコンピューターやデバイス上で実行される.
+            これらの環境ではクライアントシークレットにアクセスされ, 悪用される可能性がある.
+            このためユーザーエージェントプロファイルではクライアントシークレットを利用しない.
+            アクセストークンはリダイレクトURI中に含まれているため, エンドユーザーやコンピューター, またはデバイス上のその他のアプリケーションにアクセスされる可能性がある.
+
+          
+</p><br /><hr class="insert" />
+<a name="Figure 5"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+         +----------+          Client Identifier     +----------------+
+         |          |&gt;---(A)-- &amp; Redirection URI ---&gt;|                |
+         |          |                                |                |
+  End &lt;--+  -  -  - +----(B)-- User authenticates --&gt;|  Authorization |
+  User   |          |                                |     Server     |
+         |          |&lt;---(C)--- Redirect URI -------&lt;|                |
+         |  Client  |         with Access Token      |                |
+         |    in    |            in Fragment         +----------------+
+         |  Browser |
+         |          |                                +----------------+
+         |          |&gt;---(D)--- Redirect URI -------&gt;|                |
+         |          |         without Fragment       |   Web Server   |
+         |          |                                |   with Client  |
+         |    (F)   |&lt;---(E)--- Web Page with ------&lt;|    Resource    |
+         |  Access  |              Script            |                |
+         |   Token  |                                +----------------+
+         +----------+
+
+</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;5: ユーザーエージェントフロー&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+            <a class='info' href='#Figure 5'>Figure&nbsp;5<span> (</span><span class='info'>ユーザーエージェントフロー</span><span>)</span></a> に示すユーザーエージェントフローの手順を以下に述べる.
+            
+            </p>
+<blockquote class="text"><dl>
+<dt>(A)</dt>
+<dd>
+                クライアントはユーザーエージェントを <a class='info' href='#user-authorization'>Section&nbsp;3<span> (</span><span class='info'>エンドユーザー認可の取得</span><span>)</span></a> に記載されたエンドユーザー認可エンドポイントに送る.
+                その際クライアントは, クライアント識別子, 要求するスコープ, ローカルステート, アクセスが認可 (もしくは否認) された時点でエンドユーザーがリダイレクトされるリダイレクトURIをリクエストに含める.
+                
+              
+</dd>
+<dt>(B)</dt>
+<dd>
+                認証サーバーは, ユーザーエージェント経由でエンドユーザーを認証し, クライアントのアクセス要求を許可するかどうかを確認する.
+                
+              
+</dd>
+<dt>(C)</dt>
+<dd>
+                エンドユーザーがアクセスを許可すると, 認可サーバーはクライアントが事前に提供したリダイレクトURIにユーザーエージェントをリダイレクトさせる.
+                そのリダイレクトURIのURIフラグメントには, アクセストークンが含まれる.
+                
+              
+</dd>
+<dt>(D)</dt>
+<dd>
+                ユーザーエージェントはリダイレクト命令に従い, ウェブサーバーに対してリクエストを行う.
+                このリクエストにはフラグメント情報は含まれない.
+                ユーザーエージェントはフラグメント情報をローカルに保持する.
+                
+              
+</dd>
+<dt>(E)</dt>
+<dd>
+                ウェブサーバーは, ウェブページ (一般的にはスクリプトが組み込まれたHTMLページ) を返す.
+                そのウェブページでは, ユーザーエージェントはフラグメントを含む完全なリダイレクトURIにアクセスし, フラグメントに含まれるアクセストークン (およびその他のパラメーター) を抽出することができる.
+                
+              
+</dd>
+<dt>(F)</dt>
+<dd>
+                ユーザーエージェントはウェブサーバーによって提供されたスクリプトをローカルで実行し, アクセストークンを抽出しクライアントに渡す.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<a name="anchor7"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.4.3"></a><h3>1.4.3.&nbsp;
+ネイティブアプリケーション</h3>
+
+<p>
+            ネイティブアプリケーションは, エンドユーザーのコンピューターやデバイス上でネイティブコードとして動作するクライアントである.
+            (例えば, ユーザーエージェントの外部で実行されるアプリケーションや, デスクトッププログラムなど)
+            これらのクライアントは, 一般的にエンドユーザーのユーザーエージェントとやりとりする (またはユーザーエージェント自体を組み込む) ことが可能である.
+            しかし, エンドユーザーとのインタラクションはある程度制限される.
+            多くの場合, ネイティブアプリケーションは (ファイアウォールやOSからの制限などにより) サーバーからのダイレクトコールバックリクエストを受けることができない.
+            
+          
+</p>
+<p>
+            ネイティブアプリケーションクライアントは, クライアントの要件や期待されるエンドユーザー体験に応じて異なる方法で実装されている.
+            ネイティブアプリケーションクライアントは下記のいずれかの方法で動作する.
+            
+            </p>
+<ul class="text">
+<li>
+                外部のユーザーエージェント経由で, <a class='info' href='#user-authorization'>Section&nbsp;3<span> (</span><span class='info'>エンドユーザー認可の取得</span><span>)</span></a> に記載されたエンドユーザー認可エンドポイントを利用する.
+                この場合クライアントは, カスタムURIスキーマではじまるURIや, 自身のサーバー上にあるリソースのURIをリダイレクトURIとして提供することで, レスポンスを取得する.
+                前者の場合, そのスキーマはこのクライアントアプリケーションを呼び出すようにOSに登録されている.
+                後者の場合, そのリソースはウィンドウタイトルやユーザーエージェント外からアクセス可能なその他のロケーションを利用して, クライアントにレスポンスを渡す.
+                
+              
+</li>
+<li>
+                組み込みユーザーエージェント経由で, <a class='info' href='#user-authorization'>Section&nbsp;3<span> (</span><span class='info'>エンドユーザー認可の取得</span><span>)</span></a> に記載されたエンドユーザー認可エンドポイントを利用する.
+                クライアントは組み込みユーザーエージェントと直接やりとりすることでレスポンスを取得する.
+                
+              
+</li>
+<li>
+                エンドユーザーにパスワードを入力させ, それを直接利用してアクセストークンを取得する.
+                エンドユーザーのパスワードが直接サードパーティークライアントに渡り, クライアントはパスワードを平文で保持する必要があるため, 一般的にこの方法は推奨されない.
+                またこの場合, サーバーはパスワードベースの認証をサポートする必要がある.
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            外部ブラウザと組み込みユーザーエージェントのどちらを利用するか検討するにあたって, 開発者は下記のことを考慮すべきである.
+            
+            </p>
+<ul class="text">
+<li>
+                外部のユーザーエージェントを利用すると, エンドユーザーがすでにログイン済な場合に再認証を必要としないことがあるため, 認可フローの成功率があがる可能性がある.
+                
+              
+</li>
+<li>
+                組み込みユーザーエージェントを利用すると, コンテキストを変更したり新規ウィンドウを開く必要がないため, 一般によりよいエンドユーザーフローを提供することができる.
+                
+              
+</li>
+<li>
+                組み込みユーザーエージェントを利用すると, 多くのユーザーエージェントと異なり認証を行うウィンドウに関して視覚的に得られる情報が限られるため, セキュリティー面で課題が残る.
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="anchor8"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.4.4"></a><h3>1.4.4.&nbsp;
+自律クライアント</h3>
+
+<p>
+            自律クライアントは, 既存の信頼関係または認可フレームワークを利用する.
+            自律クライアントは, クライアントの要件またはクライアントが依存する既存のトラストフレームワークに基づいて異なる方法で実装される.
+            自律クライアントは下記のいずれかの方法で動作する.
+            
+            </p>
+<ul class="text">
+<li>
+                クライアントクレデンシャルを利用し, 認可サーバーから認証されたアクセストークンを取得する.
+                アクセストークンのスコープは, クライアントの制御下の保護リソース, または事前にリソースオーナーが認可サーバとの間で取り決めた範囲に制限される.
+                
+              
+</li>
+<li>
+                認可サーバーがサポートするアサーションフォーマットで示される, 既存のアクセス許可を利用する.
+                この場合クライアントは, アサーション発行者から (<a class='info' href='#OASIS.saml-core-2.0-os'>SAML<span> (</span><span class='info'>Cantor, S., Kemp, J., Philpott, R., and E. Maler, &ldquo;Assertions and Protocol for the OASIS Security Assertion Markup Language             (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a> [OASIS.saml&#8209;core&#8209;2.0&#8209;os] などの) アサーションを獲得したり, アサーションを自己発行する必要がある.
+                アサーションフォーマット, アサーション獲得プロセス, アサーション検証方法は, アサーション発行者と認可サーバーによって定義されており, 本仕様の定めるところではない.
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="client-authentication"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+クライアントクレデンシャル</h3>
+
+<p>
+        認可サーバーとやりとりする際, クライアントはクライアント識別子を使って自身を特定し, クライアントクレデンシャルを使って認証を行う.
+        この仕様書では, パスワードクレデンシャルによるクライアント認証メカニズムを提供する.
+        
+      
+</p>
+<p>
+        クライアントクレデンシャルの取得方法はこの仕様の範囲外であるが, これは通常認可サーバーへの登録時に行われる.
+        [[ OAuth Discovery はクライアントパスワードを取得する方法を提供する. ]]
+        
+      
+</p>
+<p>
+        一部のクライアントの性質上, 認可サーバーは, クライアントオペレーターとの信頼確立なしにクライアントシークレットの機密性を仮定すべきではない (SHOULD NOT).
+        認可サーバーは, クライアントシークレットの機密性を確保できないクライアントに対してクライアントシークレットを発行すべきでははない (SHOULD NOT).
+        
+      
+</p>
+<p>
+        認可サーバーは, 任意の適切なクレデンシャルと認証スキーマの組み合わせによってクライアントを認証することができる (MAY).
+        クライアントは, 単一リクエスト中で複数のクレデンシャルまたは認証メカニズムを利用してはならない (MUST NOT).
+        
+      
+</p>
+<a name="anchor9"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.1"></a><h3>2.1.&nbsp;
+クライアントパスワードクレデンシャル</h3>
+
+<p>
+         クライアントパスワードクレデンシャルは, クライアント認証時に秘密共有鍵として利用される.
+         クライアント識別子とパスワードは, クライアント識別子をユーザー名, クライアントパスワードをパスワードとし, <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されたHTTPベーシック認証スキーマを利用してリクエスト中に含められる.
+         
+        
+</p>
+<p>
+            例 (改行は掲載上の都合による)
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=authorization_code&amp;client_id=s6BhdRkqt3&amp;code=i1WsRn1uB1&amp;
+  redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+
+</pre></div>
+<p>
+          代替方法として, 以下に示すパラメーターを利用してリクエストボディーにパスワードを含めることもできる (MAY).
+          
+          </p>
+<blockquote class="text"><dl>
+<dt>client_secret</dt>
+<dd>
+              必須 (REQUIRED).
+              クライアントパスワード.
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+            例 (改行は掲載上の都合による)
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=authorization_code&amp;client_id=s6BhdRkqt3&amp;
+  client_secret=gX1fBat3bV&amp;code=i1WsRn1uB1&amp;
+  redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+
+</pre></div>
+<p>
+          認可サーバーは, クライアントクレデンシャル送信方法として, リクエストパラメーターとHTTPベーシック認証スキーマの両方をサポートしなければならない (MUST).
+          認可サーバーはパスワード送信にふさわしい認証スキーマを追加でサポートしてもよい (MAY).
+          
+        
+</p>
+<a name="user-authorization"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+エンドユーザー認可の取得</h3>
+
+<p>
+        クライアントがエンドユーザーの保護リソースにアクセスするには, まず最初にエンドユーザーから保護リソースにアクセスするための認可を得なければならない (MUST).
+        エンドユーザーの認可を得ると, クライアントはアクセストークンと交換するための認可コードを取得する.
+        この認可を得るために, クライアントはエンドユーザーをエンドユーザー認可エンドポイントにリダイレクトする.
+        
+      
+</p>
+<p>
+        エンドユーザー認可エンドポイントにリダイレクトされたエンドユーザーは, まず認可サーバーに対して認証を行い, クライアントからのアクセス要求を承認または否認する.
+        認可サーバーによる認証方法 (例. ユーザー名とパスワードによるログイン, OpenID, セッション・クッキー), およびエンドユーザーから認可の承認・否認を得る方法は, TLSのようなセキュアな通信を使うかどうかを含めて, 本仕様の定めるところではない.
+        しかしながら, 認可サーバーは最初にエンドユーザーのアイデンティティを確認しなければならない (MUST).
+        
+      
+</p>
+<p>
+        エンドユーザー認可エンドポイントのURLは, 対象サービスのドキュメントあるいは [[ OAuth Discovery ]] から見つけることができる.
+        エンドユーザー認可エンドポイントのURIは <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> のSection 3で定義されているクエリー部を含んでいる可能性がある (MAY).
+        これらのクエリーパラメーターは, 他のクエリーパラメーターを追加する場合もそのままにしなければならない.
+        
+      
+</p>
+<p>
+        エンドユーザー認可エンドポイントへのリクエストは, ユーザー認証および重要な情報の伝送をともなうため, 認可サーバーはエンドポイントへのリクエストにTLSのようなトランスポート層でのセキュリティ機構を必須とすべきである (SHOULD).
+        
+      
+</p>
+<p>
+        エンドユーザーのユーザーエージェントを認可サーバーにリダイレクトさせるにあたり, クライアントはエンドユーザー認可エンドポイントURIのクエリー部に下記のパラメーターを <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> フォーマットで追加して, リクエストURIを構築する.
+        
+
+        </p>
+<blockquote class="text"><dl>
+<dt>response_type</dt>
+<dd>
+            
+            必須 (REQUIRED).
+            レスポンスとして要求するもの (アクセストークン, 認可コード, またはその両方).
+            レスポンスとしてアクセストークンを要求する場合は <tt>token</tt> を, 認可コードを要求する場合は <tt>code</tt>, またはその両方を要求する場合は <tt>code_and_token</tt> を指定しなければならない (MUST).
+            認可サーバーはこれらのうちひとつかそれ以上のパラメーターをサポートしなくてもよい (MAY).
+            [[<tt>code_and_token</tt> は検討中であり, 仕様から取り除かれるかもしれない ]]
+            
+          
+</dd>
+<dt>client_id</dt>
+<dd>
+            
+            必須 (REQUIRED).
+            <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> で記載するクライアント識別子.
+            
+          
+</dd>
+<dt>redirect_uri</dt>
+<dd>
+            
+            クライアントと認可サーバー間で事前にリダイレクト先のURIが決められていない場合は必須 (REQUIRED).
+            エンドユーザーによる認可ステップ完了時に, 認可サーバーがユーザーエージェントをリダイレクトする先の絶対URI.
+            認可サーバーはクライアントにリダイレクト先のURIを事前登録させるべきである (SHOULD).
+            
+          
+</dd>
+<dt>scope</dt>
+<dd>
+            
+            任意 (OPTIONAL).
+            このリクエストで要求するアクセス権のスコープを空白区切りの文字列で指定する.
+            <tt>scope</tt> の値に何を指定するかは認可サーバーによって定義される.
+            空白区切りで複数の値を含む場合は, その順序に意味はなく, それぞれの値を合わせた範囲が要求するアクセス権になる.
+            
+          
+</dd>
+<dt>state</dt>
+<dd>
+            
+            任意 (OPTIONAL).
+            このリクエストから完了時のコールバックまでのあいだ, クライアントが状態管理に利用できる値.
+            認可サーバーはここで指定された値をそのままリダイレクトURIに含めて, ユーザーエージェントをリダイレクトする.
+            
+          
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<p>
+        クライアントはHTTPリダイレクトレスポンスや, 他にエンドユーザーのユーザーエージェントで利用可能な手段を使って, ここで構築したURIにリダイレクトする.
+        認可サーバーはエンドユーザー認可エンドポイントでHTTPの <tt>GET</tt> メソッドをサポートしなければならず (MUST), <tt>POST</tt> メソッドも同様にサポートしてよい (MAY).
+        
+      
+</p>
+<p>
+          たとえば, クライアントはエンドユーザーのユーザーエージェントをリダイレクトし, 以下のHTTPリクエストをセキュリティ保護されたトランスポート層から送信させる (改行は掲載上の都合による)
+          
+        
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;
+      redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1
+  Host: server.example.com
+
+</pre></div>
+<p>
+        クライアントがリダイレクトURIを認可サーバーに事前登録していた場合, 認可サーバーは受け取ったリダイレクトURIが登録されているものとマッチするか検証しなければならない (MUST). [[ マッチングの方法について追記する ]]
+        
+      
+</p>
+<p>
+        パラメーターの値が空の場合は, パラメーター自体が指定されていないものとして扱われなければならない (MUST).
+        認可サーバーは処理できないパラメーターを無視すべきである (SHOULD).
+        
+      
+</p>
+<p>
+        認可サーバーはすべての必須パラメーターが正しく指定されていることを検証し, リクエストが不正だった場合はただちにユーザーエージェントをリダイレクトURIにリダイレクトする.
+        そのときのリダイレクトURIには, <a class='info' href='#auth-error'>Section&nbsp;3.2<span> (</span><span class='info'>エラーレスポンス</span><span>)</span></a> で記載する適切なエラーコードが指定されている.
+        
+      
+</p>
+<p>
+        認可サーバーはエンドユーザーを認証し, (エンドユーザーに選択させるか, 他の方法で確認することで) 認可の可否を得る.
+        その後, 認可サーバーはHTTPリダイレクトレスポンスや, 他にエンドユーザーのユーザーエージェントで利用可能な手段を使って, 指定されたリダイレクトURIにリダイレクトする.
+        
+      
+</p>
+<a name="anchor10"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
+認可レスポンス</h3>
+
+<p>
+          エンドユーザーがアクセス要求を許可した場合, 認可サーバーはアクセストークン, 認可コード, またはその両方を発行し, 以下のパラメーターを付加した上でリダイレクトURIへリダイレクトさせる.
+          
+
+          </p>
+<blockquote class="text"><dl>
+<dt>code</dt>
+<dd>
+              
+              レスポンスタイプが <tt>code</tt> または <tt>code_and_token</tt> の場合は必須 (REQUIRED).
+              その他の場合は含まれてはならない (MUST NOT).
+              認可サーバーによって発行された認可コード.
+              認可コードは発行された後, 短時間で失効すべきである (SHOULD).
+              認可サーバーは一度使われた認可コードを無効にしなけらばならない (MUST).
+              認可コードはクライアント識別子とリダイレクトURIに紐付いている.
+              
+            
+</dd>
+<dt>access_token</dt>
+<dd>
+              
+              レスポンスタイプが <tt>token</tt> または <tt>code_and_token</tt> の場合に必須 (REQUIRED).
+              その他の場合は含まれてはならない (MUST NOT).
+              認可サーバーによって発行されたアクセストークン.
+              アクセストークン文字列は, <a class='info' href='#authz-header'>Section&nbsp;5.1.1<span> (</span><span class='info'>認証リクエストヘッダー</span><span>)</span></a> で定義されるアクセスークンのルールに従わなければならない (MUST).
+              
+            
+</dd>
+<dt>expires_in</dt>
+<dd>
+              
+              任意 (OPTIONAL).
+              アクセストークンが含まれていた場合に, アクセストークンの生存期間を秒数で表したもの.
+              例えば, <tt>3600</tt> という値は, 認可サーバーによってレスポンスが生成された1時間後にアクセストークンが失効することを表す.
+              
+            
+</dd>
+<dt>scope</dt>
+<dd>
+              
+              任意 (OPTIONAL).
+              アクセストークンが含まれていた場合に, アクセストークンのスコープを空白区切りの文字列で表したもの.
+              <tt>scope</tt> の値に何を指定するかは認可サーバーによって定義される.
+              空白区切りで複数の値を含む場合は, その順序に意味はなく, それぞれの値を合わせたアクセス範囲が要求するアクセス権になる.
+              認可サーバーはクライアントによってリクエストされたスコープと異なるスコープを与えた場合, このパラメーターを含むべきである (SHOULD).
+              
+            
+</dd>
+<dt>state</dt>
+<dd>
+              
+              クライアントの認可リクエストに <tt>state</tt> パラメーターが含まれていた場合に必須 (REQUIRED).
+              クライアントから受けとった値をそのままセットする.
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+          認可サーバーがリダイレクトURIにパラメーターを追加する方法は, クライアントからの認可リクエストで <tt>response_type</tt> パラメーターによって指定されるレスポンスタイプで決まる.
+          
+        
+</p>
+<p>
+          レスポンスタイプが <tt>code</tt> の場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで, リダイレクトURIのクエリー部にパラメーターを追加する.
+          
+        
+</p>
+<p>
+            例えば, 認可サーバーはエンドユーザーのユーザーエージェントを以下のHTTPレスポンスによってリダイレクトさせる.
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 302 Found
+  Location: https://client.example.com/cb?code=i1WsRn1uB1
+
+</pre></div>
+<p>
+          レスポンスタイプが <tt>token</tt> の場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで, リダイレクトURIのフラグメント部にパラメーターを追加する.
+          
+        
+</p>
+<p>
+            例えば, 認可サーバーはエンドユーザーのユーザーエージェントを以下のHTTPレスポンスによってリダイレクトさせる.
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 302 Found
+  Location: http://example.com/rd#access_token=FJQbwq9&amp;expires_in=3600
+
+</pre></div>
+<p>
+          レスポンスタイプが <tt>code_and_token</tt> の場合, 認可サーバーは, <tt>code</tt>, <tt>state</tt> パラメーターをリダイレクトURIのクエリー部に, <tt>access_token</tt>, <tt>scope</tt>, <tt>expires_in</tt> パラメーターをフラグメント部に, <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットで追加する.
+          
+        
+</p>
+<p>
+            例えば, 認可サーバーはエンドユーザーのユーザーエージェントを以下のHTTPレスポンスによってリダイレクトさせる.
+            (改行は掲載上の都合による)
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 302 Found
+  Location: http://example.com/rd?code=i1WsRn1uB1
+            #access_token=FJQbwq9&amp;expires_in=3600
+
+</pre></div>
+<p>
+          クライアントは処理できないレスポンスパラメーターを無視すべきである (SHOULD).
+          トークンや認可サーバーから受けとるその他の値のサイズは, 本仕様では定義しない.
+          クライアントは値のサイズについてなんらかの仮定をすべきではない.
+          サーバーは自身が発行するあらゆる値のサイズについてドキュメントに明記すべきである.
+          
+        
+</p>
+<a name="auth-error"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.2"></a><h3>3.2.&nbsp;
+エラーレスポンス</h3>
+
+<p>
+          エンドユーザーがアクセス要求を拒否したか要求が不正だった場合, 認可サーバーは <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> フォーマットでリダイレクトURIのクエリー部に以下に示すパラメーターを追加して, クライアントにエラーを通知する:
+
+          
+
+          </p>
+<blockquote class="text"><dl>
+<dt>error</dt>
+<dd>
+              
+              必須 (REQUIRED).
+              <a class='info' href='#auth-error-codes'>Section&nbsp;3.2.1<span> (</span><span class='info'>エラーコード</span><span>)</span></a> に記載するいずれか1つのエラーコード.
+              
+            
+</dd>
+<dt>error_description</dt>
+<dd>
+              任意 (OPTIONAL).
+              エラーについての詳しい情報を人間に読めるかたちで記したもので, 起こっているエラーを理解・解決するために使用される.
+              
+            
+</dd>
+<dt>error_uri</dt>
+<dd>
+              任意 (OPTIONAL).
+              エラーについての情報を記したウェブページを指すURIで, エンドユーザーにエラーについての詳しい情報を提供するために使用される.
+              
+            
+</dd>
+<dt>state</dt>
+<dd>
+              
+              クライアントの認可リクエストに <tt>state</tt> パラメーターが含まれていた場合に必須 (REQUIRED).
+              クライアントから受け取った値をそのままセットする.
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+            例えば, 認可サーバーは以下のようなHTTPレスポンスを送出することで, エンドユーザーのユーザーエージェントをリダイレクトする:
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 302 Found
+  Location: https://client.example.com/cb?error=access-denied
+
+</pre></div>
+<a name="auth-error-codes"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.2.1"></a><h3>3.2.1.&nbsp;
+エラーコード</h3>
+
+<p>
+            認可サーバーは以下のいずれかのエラーコードをエラーレスポンスに含める.
+            
+
+            </p>
+<blockquote class="text"><dl>
+<dt>invalid_request</dt>
+<dd>
+                
+                リクエストが必須のパラメーターを含んでいない, サポートしていないパラメーターないしパラメーター値を含む, あるいは形式に問題がある.
+                
+              
+</dd>
+<dt>invalid_client</dt>
+<dd>
+                
+                指定されたクライアント識別子が不正である.
+                
+              
+</dd>
+<dt>unauthorized_client</dt>
+<dd>
+                
+                クライアントは指定されたレスポンスタイプを使用する権限を持たない.
+                
+              
+</dd>
+<dt>redirect_uri_mismatch</dt>
+<dd>
+                
+                指定されたリダイレクトURIが事前登録されたものとマッチしない.
+                
+              
+</dd>
+<dt>access_denied</dt>
+<dd>
+                
+                エンドユーザーか認可サーバーが要求を拒否した.
+                
+              
+</dd>
+<dt>unsupported_response_type</dt>
+<dd>
+                
+                要求されたレスポンスタイプを認可サーバーがサポートしていない.
+                
+              
+</dd>
+<dt>invalid_scope</dt>
+<dd>
+                
+                要求されたスコープが不正か, 未知のものか, 形式に問題がある.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+            [[ エラーコードの拡張方法について追記すること ]]
+            
+          
+</p>
+<a name="obtaining-token"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+アクセストークンの取得</h3>
+
+<p>
+        クライアントは, 認可サーバーに (認可コードやリソースオーナーのクレデンシャル, アサーションもしくはリフレッシュトークンの形で) アクセス許可を提示し, アクセストークンを取得する.
+        
+      
+</p>
+<p>
+        トークンエンドポイントに対するリクエストでは, HTTPリクエストおよびレスポンス内にクレデンシャルが平文で含まれるため, 認可サーバーはトークンエンドポイントへのリクエストに対してトランスポート層でのセキュリティ機構の利用を必須としなければならない (MUST).
+        サーバーは <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a> で定義されるTLS 1.2をサポートしなければならず (MUST), それに加えて他のトランスポート層でのセキュリティ機構をサポートすることもできる (MAY).
+        
+      
+</p>
+<p>
+        クライアントはトークンエンドポイントにHTTP <tt>POST</tt> リクエストを送信し, アクセストークンを要求する.
+        トークンエンドポイントのURIは対象サービスのドキュメント, あるいは [[ OAuth Discovery ]] を利用して得ることができる.
+        トークンエンドポイントURIはクエリー部を含んでいる可能性がある (MAY).
+        
+      
+</p>
+<p>
+        クライアントは, 自身のクレデンシャルを <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> に記載された方法でリクエストに追加することで, 認可サーバーに対して認証を行う.
+        認可サーバーは, クライアントのアイデンティティを問わない場合 (匿名クライアントなど) やクライアントのアイデンティティが他の方法で確立されている場合 (アサーション形式のアクセス許可など), 認証無しのアクセストークンリクエストを受け入れてもよい (MAY).
+        
+      
+</p>
+<p>
+        クライアントは, 下記のパラメーターを <tt>application/x-www-form-urlencoded</tt> フォーマットでHTTPリクエストボディーに含め, リクエストを構築する.
+        
+
+        </p>
+<blockquote class="text"><dl>
+<dt>grant_type</dt>
+<dd>
+            
+            必須 (REQUIRED).
+            リクエストに含まれるアクセス許可タイプ.
+            値は以下のいずれかでなければならない (MUST).
+            
+            <tt>authorization_code</tt>, <tt>password</tt>, <tt>assertion</tt>, <tt>refresh_token</tt>, <tt>none</tt>.
+          
+</dd>
+<dt>client_id</dt>
+<dd>
+            
+            クライアントアイデンティティが (アサーションなどの) 他の方法で確立されない限り必須 (REQUIRED).
+            <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> に記載されるクライアント識別子.
+            
+          
+</dd>
+<dt>scope</dt>
+<dd>
+            
+            任意 (OPTIONAL).
+            要求するアクセス範囲.
+            空白区切りの文字列で表される.
+            <tt>scope</tt> の値に何を指定するかは認可サーバーによって定義される.
+            空白区切りで複数の値を含む場合は, その順序に意味はなく, それぞれの値を合わせたアクセス範囲が要求するアクセス権になる.
+            利用されるアクセス許可がすでに承認済のスコープを持つ場合 (認可コードやアサーションを利用した場合), 要求されたスコープは先に承認されたスコープの範囲を超えてはならない (MUST).
+            
+          
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<p>
+        さらにクライアントは, 利用するアクセス許可タイプごとに決められた適切なパラメーターを含めなければならない (MUST).
+        詳細は <a class='info' href='#access-grant-types'>Section&nbsp;4.1<span> (</span><span class='info'>アクセス許可タイプ</span><span>)</span></a> に記述する.
+        
+      
+</p>
+<p>
+        パラメーターの値が空の場合はパラメーター自体が指定されていないものとして扱われなければならない (MUST).
+        認可サーバーは処理できないパラメーターを無視すべきである (SHOULD).
+        
+      
+</p>
+<a name="access-grant-types"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1"></a><h3>4.1.&nbsp;
+アクセス許可タイプ</h3>
+
+<p>
+          クライアントは, アクセストークンを要求する際, 次の4つのアクセス許可タイプ (認可コード, パスワードクレデンシャル, アサーション, リフレッシュトークン) のうち1つを利用する.
+          
+        
+</p>
+<p>
+          アクセス許可タイプとして <tt>none</tt> を指定して (アクセス許可を含めずに) アクセストークンを要求する場合, それは自身のコントロール下にある保護リソースや, 他のリソースオーナーが (本仕様のスコープ外の方法で) 事前に認可サーバーと調整を終えている保護リソースに対するアクセス要求を意味する.
+          
+        
+</p>
+<a name="anchor11"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.1"></a><h3>4.1.1.&nbsp;
+認可コード</h3>
+
+<p>
+            アクセス許可タイプ <tt>authorization_code</tt> を用いる場合は, 次のパラメーターを含める.
+            
+
+            </p>
+<blockquote class="text"><dl>
+<dt>code</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                認可サーバーから取得した認可コード.
+                
+              
+</dd>
+<dt>redirect_uri</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                初期リクエストで利用したリダイレクトURI.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+              例えばクライアントは, クライアントクレデンシャルを <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> に記載する <tt>client_secret</tt> パラメーターに載せ, セキュリティ保護されたトランスポート層を用いて次のようなHTTPリクエストを行う.
+              (改行は掲載上の都合による)
+                
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=authorization_code&amp;client_id=s6BhdRkqt3&amp;
+  client_secret=gX1fBat3bV&amp;code=i1WsRn1uB1&amp;
+  redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+
+</pre></div>
+<p>
+            認可サーバーは次のことを実施しなければならない (MUST):
+            
+           
+            </p>
+<ul class="text">
+<li>
+                (もしクライアントクレデンシャルが含まれていれば) クライアントクレデンシャルの妥当性を確認し, それが認可コードとマッチすることを確認する.
+                
+              
+</li>
+<li>
+                認可コードとリダイレクトURIが妥当かつ保存済みアソシエーションに一致することを検証する.
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            もしリクエストが妥当ならば, 認可サーバーは <a class='info' href='#access-token-response'>Section&nbsp;4.2<span> (</span><span class='info'>アクセストークンレスポンス</span><span>)</span></a> に記載の通り成功レスポンスを返す.
+            
+          
+</p>
+<a name="anchor12"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.2"></a><h3>4.1.2.&nbsp;
+リソースオーナーパスワードクレデンシャル</h3>
+
+<p>
+            アクセス許可タイプ <tt>password</tt> を用いる場合は, 次のパラメーターを含める.
+            [[ ユーザー名とパスワードの国際化に関する考察を追記 ]]
+            
+            </p>
+<blockquote class="text"><dl>
+<dt>username</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                リソースオーナーのユーザー名.
+                
+              
+</dd>
+<dt>password</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                リソースオーナーのパスワード.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+              例えばクライアントは, クライアントクレデンシャルを <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> に記載する <tt>client_secret</tt> パラメーターに載せ, セキュリティ保護されたトランスポート層を用いて次のようなHTTPリクエストを行う.
+              (改行は掲載上の都合による)
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=password&amp;client_id=s6BhdRkqt3&amp;
+  client_secret=47HDu8s&amp;username=johndoe&amp;password=A3ddj3w
+
+</pre></div>
+<p>
+            認可サーバーは (クライアントクレデンシャルが含まれていればクライアントクレデンシャルと) エンドユーザークレデンシャルの妥当性を確認しなければならない (MUST).
+            それらが妥当であれば, <a class='info' href='#access-token-response'>Section&nbsp;4.2<span> (</span><span class='info'>アクセストークンレスポンス</span><span>)</span></a> に記載の通り, アクセストークンレスポンスを返さなければならない (MUST).
+            
+          
+</p>
+<a name="anchor13"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.3"></a><h3>4.1.3.&nbsp;
+アサーション</h3>
+
+<p>
+            アクセス許可タイプ <tt>assertion</tt> を用いる場合は, 以下のパラメーターを含める.
+            
+
+            </p>
+<blockquote class="text"><dl>
+<dt>assertion_type</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                認可サーバーにより定義されるアサーションのフォーマット.
+                値は絶対URIでなければならない (MUST).
+                
+              
+</dd>
+<dt>assertion</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                アサーション.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+              例えばクライアントは, セキュリティ保護されたトランスポート層を用いて次のようなHTTPリクエストを行う.
+              この場合, クライアント認証はアサーション経由で行われる.
+              (改行は掲載上の都合による)
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=assertion&amp;
+  assertion_type=urn%3Aoasis%3Anames%3Atc%3ASAML%3A2.0%3Aassertion&amp;
+  assertion=PHNhbWxwOl...[omitted for brevity]...ZT4%3D
+
+</pre></div>
+<p>
+            認可サーバーは (クライアントクレデンシャルがある場合は) クライアントクレデンシャルを検証し, <a class='info' href='#access-token-response'>Section&nbsp;4.2<span> (</span><span class='info'>アクセストークンレスポンス</span><span>)</span></a> で記載されるアクセストークンレスポンスを返さなければならない (MUST).
+            認可サーバーはリフレッシュトークンを発行すべきでない (SHOULD NOT).
+            (その代わりクライアントに同じもしくは新しいアサーションを要求する)
+            
+          
+</p>
+<p>
+            認可サーバーは生存時間が限られたアクセストークンを発行すべきであり (SHOULD), もし同じアサーションが有効であるならば, それを用いて新しいアクセストークンを要求することによりクライアントにアクセストークンを更新させるべきである (SHOULD). 
+            アサーションが無効な場合, クライアントは新しい有効なアサーションを取得しなければならない (MUST).
+            
+          
+</p>
+<a name="token-refresh"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.4"></a><h3>4.1.4.&nbsp;
+リフレッシュトークン</h3>
+
+<p>
+            アクセス許可タイプ <tt>refresh_token</tt> を用いる場合は, 以下のパラメーターを含める.
+            
+
+            </p>
+<blockquote class="text"><dl>
+<dt>refresh_token</dt>
+<dd>
+                
+                必須 (REQUIRED).
+                更新されるアクセストークンと関連づけられたリフレッシュトークン.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+              例えばクライアントは, クライアントクレデンシャルを <a class='info' href='#client-authentication'>Section&nbsp;2<span> (</span><span class='info'>クライアントクレデンシャル</span><span>)</span></a> に記載する <tt>client_secret</tt> パラメーターに載せ, セキュリティ保護されたトランスポート層を用いて次のようなHTTPリクエストを行う.
+              (改行は掲載上の都合による)
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=refresh_token&amp;client_id=s6BhdRkqt3&amp;
+  client_secret=8eSEIpnqmM&amp;refresh_token=n4E9O119d
+
+</pre></div>
+<p>
+            認可サーバーは (もしクライアントクレデンシャルが存在する場合はクライアントクレデンシャルと) リフレッシュトークンの正当性, リソースオーナーの認可の有効性を検証しなければならない (MUST).
+            リクエストが有効であれば, 認可サーバーは <a class='info' href='#access-token-response'>Section&nbsp;4.2<span> (</span><span class='info'>アクセストークンレスポンス</span><span>)</span></a> で記載されるアクセストークンレスポンスを返す.
+            認可サーバーは新しいリフレッシュトークンを発行してもよい (MAY).
+            
+          
+</p>
+<a name="access-token-response"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.2"></a><h3>4.2.&nbsp;
+アクセストークンレスポンス</h3>
+
+<p>
+          認可サーバーは, 認可済の有効なアクセストークンリクエストを受信および検証した後, アクセストークン (と任意でリフレッシュトークン) を発行し, ステータスコード200 (OK) とともに以下のパラメーターをHTTPレスポンスボディーに付加してレスポンスを構築する.
+          
+        
+</p>
+<p>
+          トークンレスポンスは以下のパラメーターを含む.
+          
+
+          </p>
+<blockquote class="text"><dl>
+<dt>access_token</dt>
+<dd>
+              
+              必須 (REQUIRED).
+              認可サーバーによって発行されたアクセストークン.
+              アクセストークンの文字列は <a class='info' href='#authz-header'>Section&nbsp;5.1.1<span> (</span><span class='info'>認証リクエストヘッダー</span><span>)</span></a> で定義されたアクセストークンのルールに従わなければならない.
+              
+            
+</dd>
+<dt>expires_in</dt>
+<dd>
+              
+              任意 (OPTIONAL).
+              アクセストークンの有効期間を表す秒数.
+              例えば, <tt>3600</tt> という値は, 認可サーバーによってレスポンスが生成された1時間後にアクセストークンが失効することを表す.
+              
+            
+</dd>
+<dt>refresh_token</dt>
+<dd>
+              
+              任意 (OPTIONAL).
+              リフレッシュトークンは <a class='info' href='#token-refresh'>Section&nbsp;4.1.4<span> (</span><span class='info'>リフレッシュトークン</span><span>)</span></a> で記載される通り, 同一のエンドユーザーのアクセス許可を使って新しいアクセストークンを取得するのに利用される.
+              認可サーバーはアクセス許可タイプが <tt>none</tt> に設定されている場合, リフレッシュトークンを発行すべきでない (SHOULD NOT).
+              
+            
+</dd>
+<dt>scope</dt>
+<dd>
+              
+              任意 (OPTIONAL).
+              スペース区切りの文字列のリストで表されるアクセストークンのスコープ.
+              <tt>scope</tt> の値は認可サーバーによって定義される.
+              空白区切りで複数の値を含む場合は, その順序に意味はなく, それぞれの値を合わせたアクセス範囲が要求するアクセス権になる.
+              要求されたスコープがクライアントから要求されたものと異なる場合, 認可サーバーはこのパラメーターを含めるべきである.
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+          これらのパラメーターは, <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> で定義されているメディアタイプ <tt>application/json</tt> 形式で, HTTPレスポンスボディーに含まれる.
+          JSONへのシリアライゼーションは, 各パラメーターをJSONオブジェクトの最上位要素とする形式で行う.
+          パラメーター名と文字列値はJSON文字列, 数値はJSON数値となる.
+          
+        
+</p>
+<p>
+          認可サーバーは, トークン, シークレット, その他センシティブな情報を含むいかなるレスポンスにおいても, HTTP <tt>Cache-Control</tt> ヘッダーの値を <tt>no-store</tt> として含めなければならない (MUST).
+          
+        
+</p>
+<p>
+            例：
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Cache-Control: no-store
+
+  {
+    "access_token":"SlAV32hkKG",
+    "expires_in":3600,
+    "refresh_token":"8xLOxBtZp8"
+  }
+
+</pre></div>
+<p>
+          クライアントは処理できないレスポンスパラメーターを無視すべきである (SHOULD).
+          トークンや認可サーバーから受けとるその他の値のサイズは, 本仕様では定義しない.
+          クライアントは値のサイズについてなんらかの仮定をすべきではない.
+          サーバーは自身が発行するあらゆる値のサイズについてドキュメントに明記すべきである.
+          
+        
+</p>
+<a name="token-error"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.3"></a><h3>4.3.&nbsp;
+エラーレスポンス</h3>
+
+<p>
+          トークンリクエストが不正または未認可の場合, 認可サーバーはメディアタイプ <tt>application/json</tt> でHTTPレスポンスボディーに以下に示すパラメーターを付与して, クライアントにエラーを通知する.
+          
+
+          </p>
+<blockquote class="text"><dl>
+<dt>error</dt>
+<dd>
+              
+              必須 (REQUIRED).
+              <a class='info' href='#token-error-codes'>Section&nbsp;4.3.1<span> (</span><span class='info'>エラーコード</span><span>)</span></a> に記載されているいずれか1つのエラーコード.
+              
+            
+</dd>
+<dt>error_description</dt>
+<dd>
+              任意 (OPTIONAL).
+              エラーについての詳しい情報を人間に読めるかたちで記したもので, 起こっているエラーを理解・解決するために使用される.
+              
+            
+</dd>
+<dt>error_uri</dt>
+<dd>
+              任意 (OPTIONAL).
+              エラーについての情報を記したウェブページを指すURIで, エンドユーザーにエラーについての詳しい情報を提供するために使用される.
+              
+            
+</dd>
+</dl></blockquote><p>
+        
+</p>
+<p>
+            例:
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 400 Bad Request
+  Content-Type: application/json
+  Cache-Control: no-store
+
+  {
+    "error":"invalid_request"
+  }
+
+</pre></div>
+<p>
+          クライアントが <tt>Authorization</tt> リクエストヘッダーによるHTTP認証を利用して無効なクレデンシャルを与えた場合, 認可サーバーはステータスコード HTTP 401 (Unauthorized) を返さなくてはならない.
+          そうでなければ認可サーバーはステータスコードHTTP 400 (Bad Request) を返すものとする (SHALL).
+          
+        
+</p>
+<a name="token-error-codes"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.3.1"></a><h3>4.3.1.&nbsp;
+エラーコード</h3>
+
+<p>
+            認可サーバーは以下のいずれかのエラーコードをエラーレスポンスに含める.
+            
+            </p>
+<blockquote class="text"><dl>
+<dt>invalid_request</dt>
+<dd>
+                
+                必須のパラメーターを指定していない, サポートされていないパラメーターもしくは値を含んでいる, パラメーターに重複がある, 複数クレデンシャルを含む, クライアント認証の為の2つ以上のメソッドを利用している, あるいは形式に問題がある.
+                
+              
+</dd>
+<dt>invalid_client</dt>
+<dd>
+                
+                不正なクライアント識別子を指定した, クライアントが認証に失敗した, クライアントがクレデンシャルを含めなかった, 複数のクライアントクレデンシャルを指定した, サポートされていないクレデンシャルタイプを使用した.
+                
+              
+</dd>
+<dt>unauthorized_client</dt>
+<dd>
+                
+                クライアントは指定されたアクセス許可タイプを使用する権限を持たない.
+                
+              
+</dd>
+<dt>invalid_grant</dt>
+<dd>
+                
+                指定されたアクセス認可が無効, 期限切れ, もしくは取り消された.
+                (例：無効なアサーション, 期限切れの認可コード, 間違ったエンドユーザーのパスワードクレデンシャル, 認可コードとリダイレクトURIの不一致)
+                
+              
+</dd>
+<dt>unsupported_grant_type</dt>
+<dd>
+                
+                リクエストに含むアクセス許可のタイプもしくは他の属性が認可サーバーでサポートされていない.
+                
+              
+</dd>
+<dt>invalid_scope</dt>
+<dd>
+                
+                指定されたscopeが不正, 未知, 形式に問題がある, もしくは前回許可したscopeの範囲を超えている.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+            [[ エラーコードを拡張する仕組みを追加 ]]
+            
+          
+</p>
+<a name="access-resource"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+保護リソースへのアクセス</h3>
+
+<p>
+        クライアントはアクセストークンをリソースサーバーに提示し, 保護リソースにアクセスする.
+        アクセストークンはbearer tokenとして機能し, アクセストークンのトークン文字列は共有対称鍵として機能する.
+        このことから, アクセストークンをその他の鍵と同じように扱う必要がある (例えば, エンドユーザーのパスワードのように).
+        アクセストークンはセキュアでないチャンネルを平文で送られるべきではない (SHOULD NOT).
+        
+      
+</p>
+<p>
+        セキュアな通信を使わずに平文でアクセストークンを送る必要がある場合には, 不正なアクセストークンがもつ潜在的なリスクを減じるために, 認可サーバーはスコープと生存期間が限られたアクセストークンを発行すべきである (SHOULD).
+        
+      
+</p>
+<p>
+        クライアントは, セキュアな通信かそうでないかに関わらず, 未知のリソースサーバーに対してアクセストークンを含む認証済リクエストを行ってはならない (MUST NOT).
+        
+      
+</p>
+<p>
+        リソースサーバーはアクセストークンを検証し, トークンの有効期限が切れてないこと, およびそのトークンのスコープが要求されたリソースをカバーしていることを確認しなければならない (MUST).
+        リソースサーバーがアクセストークンを検証するために用いるメソッドについては, この仕様の定める範囲ではない.
+        しかし, 一般的にそれらのメソッドは, リソースサーバーと認証サーバーの間の連携および調整の方法を含んでいる.
+        
+      
+</p>
+<a name="anchor14"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+認証済リクエスト</h3>
+
+<p>
+          クライアントは <tt>Authorization</tt> リクエストヘッダーを使って, 認証済トークンリクエストを生成する.
+          リソースサーバーは, <a class='info' href='#authz-header'>Section&nbsp;5.1.1<span> (</span><span class='info'>認証リクエストヘッダー</span><span>)</span></a> に記載する <tt>OAuth</tt> HTTP認証スキーマを用いた認証済リクエストを受け入れなければならない (MUST).
+          リソースサーバーは付加的なメソッドをサポートしてもよい (MAY).
+          
+        
+</p>
+<p>
+          代替手段として, クライアントは, <a class='info' href='#query-param'>Section&nbsp;5.1.2<span> (</span><span class='info'>URI クエリーパラメーター</span><span>)</span></a> に記載するHTTPリクエストURI中のクエリー部, もしくは <a class='info' href='#body-param'>Section&nbsp;5.1.3<span> (</span><span class='info'>フォームエンコードボディーパラメーター</span><span>)</span></a> に記載する <tt>application/x-www-form-urlencoded</tt> コンテントタイプのHTTPボディーのいずれかにアクセストークンを含めてもよい (MAY).
+          
+        
+</p>
+<p>
+          クライアントは, <tt>Authorization</tt> リクエストヘッダーが利用できない場合, リクエストURIまたはボディーだけを用いるべきである (SHOULD).
+          さらに, クライアントは1リクエスト中で2つ以上のメソッドを使用してはならない (MUST NOT).
+          
+        
+</p>
+<a name="authz-header"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.1"></a><h3>5.1.1.&nbsp;
+認証リクエストヘッダー</h3>
+
+<p>
+            クライアントは <tt>Authorization</tt> リクエストヘッダーを用いて, 認証済トークンリクエストを生成する.
+            クライアントは, リクエストにアクセストークンを含めるために <tt>OAuth</tt> 認証スキーマを用いる.
+            
+          
+</p>
+<p>
+              例:
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  GET /resource HTTP/1.1
+  Host: server.example.com
+  Authorization: OAuth vF9dft4qmT
+
+</pre></div>
+<p>
+            <tt>Authorization</tt> ヘッダーは, <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> によって定義された下記に示すフレームワークに従う.
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  credentials    = "OAuth" RWS access-token [ CS 1#auth-param ]
+  access-token   = 1*( quoted-char / &lt;"&gt; )
+
+  CS             = OWS "," OWS
+
+  quoted-char    =   "!" / "#" / "$" / "%" / "&amp;" / "'" / "("
+                   / ")" / "*" / "+" / "-" / "." / "/" / DIGIT
+                   / ":" / "&lt;" / "=" / "&gt;" / "?" / "@" / ALPHA
+                   / "[" / "]" / "^" / "_" / "`" / "{" / "|"
+                   / "}" / "~" / "\" / "," / ";"
+
+</pre></div>
+<p>
+            </p>
+<blockquote class="text">
+<p>
+                注釈: <a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a> は, <tt>OAuth</tt> 認証スキーマの異なるフォーマットを定義している.
+                リソースサーバーは, 以前のバージョンで必須 (REQUIRED) とされていた <tt>oauth_signature_method</tt> パラメーターの有無を元に, 2つのバージョンを区別することができる.
+                <tt>oauth_signature_method</tt> は本仕様ではサポートしていない.
+                
+              
+</p>
+</blockquote><p>
+          
+</p>
+<a name="query-param"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2"></a><h3>5.1.2.&nbsp;
+URI クエリーパラメーター</h3>
+
+<p>
+            HTTPリクエストURIにアクセストークンを含める場合, クライアントは <tt>oauth_token</tt> パラメーターとして, <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> に定義するリクエストURIのクエリー部にアクセストークンを付与する.
+            
+          
+</p>
+<p>
+              例えば, クライアントはトランスポート層のセキュリティ機能を利用し, 次のようなHTTPリクエストを行う.
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  GET /resource?oauth_token=vF9dft4qmT HTTP/1.1
+  Host: server.example.com
+
+</pre></div>
+<p>
+            HTTPリクエストURIのクエリー部には, OAuth以外のリクエスト固有のパラメーターが含まれる可能性がある.
+            その場合, <tt>oauth_token</tt> パラメーターはリクエスト固有のパラメーターの後ろに付与され, 適切に <tt>&amp;</tt> (ASCII code 38) で分割されるべきである (SHOULD).
+            
+          
+</p>
+<p>
+              例:
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  http://example.com/resource?x=y&amp;oauth_token=vF9dft4qmT
+
+</pre></div>
+<p>
+            </p>
+<blockquote class="text">
+<p>
+                注釈: <tt>oauth_token</tt> パラメーターは, <a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a> に記載する以前のバージョンのOAuthプロトコルで用いられている.
+                リソースサーバーは, 以前のバージョンで必須 (REQUIRED) とされていた <tt>oauth_signature_method</tt> パラメーターの有無を元に, 2つのバージョンを区別することができる.
+                <tt>oauth_signature_method</tt> は本仕様ではサポートしていない.
+                
+              
+</p>
+</blockquote><p>
+          
+</p>
+<a name="body-param"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.3"></a><h3>5.1.3.&nbsp;
+フォームエンコードボディーパラメーター</h3>
+
+<p>
+            HTTPリクエストボディーにアクセストークンを含める場合, クライアントは <tt>oauth_token</tt> パラメーターとしてアクセストークンをリクエストボディーに付与する.
+            クライアントは下記の必要条件 (REQUIRED) が成り立つ場合のみ, このメソッドを用いることができる.
+            
+
+            </p>
+<ul class="text">
+<li>
+                エンティティーボディーがシングルパートである.
+                
+              
+</li>
+<li>
+                エンティティーボディーが <a class='info' href='#W3C.REC-html401-19991224'>[W3C.REC&#8209;html401&#8209;19991224]<span> (</span><span class='info'>Raggett, D., Hors, A., and I. Jacobs, &ldquo;HTML 4.01 Specification,&rdquo; December&nbsp;1999.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> コンテントタイプのエンコード要件を満たす
+                
+              
+</li>
+<li>
+                HTTPリクエストエンティティーヘッダーの <tt>Content-Type</tt> フィールドが, <tt>application/x-www-form-urlencoded</tt> である.
+                
+              
+</li>
+<li>
+                HTTPリクエストメソッドが <tt>POST</tt>, <tt>PUT</tt>, または <tt>DELETE</tt> である.
+                
+              
+</li>
+</ul><p>
+          
+</p>
+<p>
+            エンティティーボディーには, OAuth以外のリクエスト固有パラメーターが含まれる可能性がある.
+            その場合, <tt>oauth_token</tt> パラメーターはリクエスト固有のパラメーターの後ろに付与され, 適切に <tt>&amp;</tt> (ASCII code 38) で分割されるべきである (SHOULD).
+            
+          
+</p>
+<p>
+              例えば, クライアントはトランスポート層のセキュリティ機能を利用し, 次のようなHTTPリクエストを行う.
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  POST /resource HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  oauth_token=vF9dft4qmT
+
+</pre></div>
+<p>
+            </p>
+<blockquote class="text">
+<p>
+                注釈: <tt>oauth_token</tt> パラメーターは, <a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a> に記載する以前のバージョンのOAuthプロトコルで用いられている.
+                リソースサーバーは, 以前のバージョンで必須 (REQUIRED) とされていた <tt>oauth_signature_method</tt> パラメーターの有無を元に, 2つのバージョンを区別することができる.
+                <tt>oauth_signature_method</tt> は本仕様ではサポートしていない.
+                
+              
+</p>
+</blockquote><p>
+          
+</p>
+<a name="authn-header"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2"></a><h3>5.2.&nbsp;
+WWW-Authenticate レスポンスヘッダーフィールド</h3>
+
+<p>
+          保護リソースへのリクエストが, 不正または形式に問題があるアクセストークンを含む場合, リソースサーバーはHTTP <tt>WWW-Authenticate</tt> レスポンスヘッダーフィールドを含めなければならない (MUST).
+          <tt>WWW-Authenticate</tt> は, <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> により定義されている以下のフレームワークを使用する.
+          
+        
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  challenge       = "OAuth" RWS token-challenge
+
+  token-challenge = realm
+                    [ CS error ]
+                    [ CS error-desc ]
+                    [ CS error-uri ]
+                    [ CS scope ]
+                    [ CS 1#auth-param ]
+
+  error           = "error" "=" &lt;"&gt; token &lt;"&gt;
+  error-desc      = "error_description" "=" quoted-string
+  error-uri       = "error_uri" = &lt;"&gt; URI-Reference &lt;"&gt;
+  scope           = quoted-value /
+                    &lt;"&gt; quoted-value *( 1*SP quoted-value ) &lt;"&gt;
+  quoted-value    = 1*quoted-char
+
+</pre></div>
+<p>
+            例:
+            
+          
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 401 Unauthorized
+  WWW-Authenticate: OAuth realm='Example Service', error='expired-token'
+
+</pre></div>
+<p>
+          <tt>realm</tt> 属性は, <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> に定義された通り, 保護リソース領域を分割するために使用される.
+          [[ 説明を追加 ]]
+          
+        
+</p>
+<p>
+          <tt>error</tt> 属性は, リクエストが拒否された理由をクライアントに通知するために使用される.
+          パラメーターの値は <a class='info' href='#resource-error-codes'>Section&nbsp;5.2.1<span> (</span><span class='info'>エラーコード</span><span>)</span></a> に記載する.
+          
+        
+</p>
+<p>
+          <tt>error_description</tt> 属性は, 追加情報を含んだ解読可能なテキストを提供し, エラー原因の理解と解明を助ける.
+          
+        
+</p>
+<p>
+          <tt>error_uri</tt> 属性は, エラーに関する情報をもつ解読可能なウェブページを識別するURIを提供し, エンドユーザーにエラーに関する追加情報を提供するために使用される.
+          もし値が絶対URIでなければ, それはリクエストされた保護リソースに対する相対URIである.
+          
+        
+</p>
+<p>
+          <tt>scope</tt> 属性は, 要求されたリソースへのアクセスに必要となるスペース区切りのスコープ値のリストである.
+          この属性は保護リソースへのアクセスに必要なアクセストークンのスコープを示す.
+          
+        
+</p>
+<a name="resource-error-codes"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2.1"></a><h3>5.2.1.&nbsp;
+エラーコード</h3>
+
+<p>
+            
+
+            </p>
+<blockquote class="text"><dl>
+<dt>invalid_request</dt>
+<dd>
+                
+                必須のパラメーターを指定していない, サポートされていないパラメーターもしくは値を含んでいる, パラメーターに重複がある, アクセストークンを含むための2つ以上のメソッドを使っている, その他不正な形式のリクエスト.
+                リソースサーバーは HTTP 400 (Bad Request)のステータスコードを応答しなければならない (MUST).
+                
+              
+</dd>
+<dt>invalid_token</dt>
+<dd>
+                
+                提供されたアクセストークンが無効.
+                新しい認可が必要であることをクライアントに示すために, リフレッシュできない期限切れのトークンを受け取った場合, リソースサーバーはこのエラーコードを使用するべきである (SHOULD).
+                リソースサーバーは HTTP 401 (Unauthorized) ステータスコードを応答しなければならない (MUST).
+                
+              
+</dd>
+<dt>expired_token</dt>
+<dd>
+                
+                提供されたアクセストークンが期限切れ.
+                リソースサーバーは, クライアントがレスポンスを受け取り, 期限切れアクセストークンとセットで発行されたリフレッシュトークンを用いて新しいアクセストークンをリクエストできると期待する場合のみ, このエラーコードを用いるべきである (SHOULD).
+                 リソースサーバーは HTTP 401 (Unauthorized) ステータスコードを返さなければならない (MUST).
+                
+              
+</dd>
+<dt>insufficient_scope</dt>
+<dd>
+                
+                リクエストはアクセストークンの持つ権限よりも, より高い権限を要求する.
+                リソースサーバーは HTTP 403 (Forbidden) ステータスコードを返すべきである (SHOULD).
+                また, 保護リソースのアクセスに必要なスコープを <tt>scope</tt> 属性として含んでもよい (MAY).
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<p>
+            [[ エラーコードを拡張する仕組みを追加 ]]
+            
+          
+</p>
+<p>
+            リクエストが認証情報を欠いている場合 (例えば, クライアントが認証が必要なこと, またはサポートされていない認証方法を使って認証しようとしていることに気付かなかった場合), リソースサーバーはエラーコードおよびその他のエラー情報を含めてはならない (SHOULD).
+            
+          
+</p>
+<p>
+              例:
+              
+            
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  HTTP/1.1 401 Unauthorized
+  WWW-Authenticate: OAuth realm='Example Service'
+
+</pre></div>
+<a name="anchor15"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+拡張性</h3>
+
+<a name="anchor16"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.1"></a><h3>6.1.&nbsp;
+クライアントクレデンシャルタイプの拡張</h3>
+
+<p>
+          [[ TBD ]]
+        
+</p>
+<a name="anchor17"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2"></a><h3>6.2.&nbsp;
+エンドポイントパラメーターの拡張</h3>
+
+<p>
+          エンドユーザー認可エンドポイントおよびトークンエンドポイントにおいて, リクエストおよびレスポンスパラメーターを追加定義するアプリケーションは, 以下の2つのいずれかを選択するものとする (SHALL).
+          (<a class='info' href='#parameters-registry'>Section&nbsp;8.1<span> (</span><span class='info'>OAuthパラメーターの登録<!-- The OAuth Parameters Registry --></span><span>)</span></a> で定められた手順に従って) パラメーターレジストリーに登録する.
+          <tt>x_</tt> をパラメーター名のプレフィックスとして用いる.
+          
+        
+</p>
+<p>
+          <tt>x_</tt> プレフィクスを用いるパラメーターは, ベンダー固有の拡張に限定する (MUST).
+          これらの拡張は汎用に適用されるものではなく, パラメーターをサポートする認可サーバーの実装に固有のものである.
+          これに該当しないパラメーターはレジストリー登録を必要とし (MUST), <tt>x_</tt> プレフィックスを用いてはならない (MUST NOT).
+          
+        
+</p>
+<p>
+          パラメーター名はパラメーター名 ABNF に従い (MUST), パラメーター値のシンタックスは (ABNF や既存のパラメーターシンタックスを用いて) 明確に定義すること (MUST).
+          
+        
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  param-name  = 1*name-char
+  name-char   = "-" / "." / "_" / DIGIT / ALPHA
+
+</pre></div>
+<a name="anchor18"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.3"></a><h3>6.3.&nbsp;
+ヘッダーパラメーターの拡張</h3>
+
+<p>
+          OAuthの <tt>Authorization</tt> および <tt>WWW-Authenticate</tt> ヘッダーパラメーターを追加定義するアプリケーションは, パラメーターレジストリーへの登録を行うこと (MUST).
+          レジストリーへの登録は <a class='info' href='#parameters-registry'>Section&nbsp;8.1<span> (</span><span class='info'>OAuthパラメーターの登録<!-- The OAuth Parameters Registry --></span><span>)</span></a> に従う.
+         
+          
+        
+</p>
+<p>
+          パラメーター名はパラメーター名 ABNF に従い (MUST), <tt>x_</tt> で始まってはならない (MUST NOT).
+          パラメーター値はパラメーター値 ABNF に従い (MUST), そのシンタックスは (ABNF や既存のパラメーターシンタックスを用いて) 明確に定義すること (MUST).
+          
+        
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+
+  param-value  = quoted-value | quoted-string
+
+</pre></div>
+<a name="anchor19"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.4"></a><h3>6.4.&nbsp;
+アクセス許可タイプの拡張</h3>
+
+<p>
+          アサーションアクセス許可タイプは, 認可サーバーが本仕様で未定義の付加的なアクセス許可を受け入れることを想定している.
+          アクセス許可タイプを追加するアプリケーションは, 新規および既存のアサーションタイプおよびフォーマットを利用することができる.
+          
+        
+</p>
+<a name="anchor20"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+Security Considerations</h3>
+
+<p>
+        [[ TBD ]]
+      
+</p>
+<a name="anchor21"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+IANAに関する考察<!-- IANA Considerations --></h3>
+
+<a name="parameters-registry"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1"></a><h3>8.1.&nbsp;
+OAuthパラメーターの登録<!-- The OAuth Parameters Registry --></h3>
+
+<p>
+          この文書はOAuthパラメーターの登録について規定する.
+          
+        
+</p>
+<p>
+          エンドユーザーの認可エンドポイントに対するリクエスト, エンドユーザーの認可エンドポイントからのレスポンス, トークンエンドポイントに対するリクエスト, トークンエンドポイントからのレスポンス, <tt>Authorization</tt> ヘッダーフィールド, および <tt>WWW-Authenticate</tt> ヘッダーフィールドで利用される追加パラメーターは, IESGまたは代理に選出されたものにより指名をうけた, 1名以上の指定専門家のアドバイスに基づいて, 要求仕様(<a class='info' href='#RFC5226'>[RFC5226]<span> (</span><span class='info'>Narten, T. and H. Alvestrand, &ldquo;Guidelines for Writing an IANA Considerations Section in RFCs,&rdquo; May&nbsp;2008.</span><span>)</span></a> で使われる用語)とともに追加される.
+          しかしながら, 公開に先立って値を割り当てる行為を許可するために, 指定専門家は将来仕様が公開される条件が満たされるなどした場合は, 値の登録を許可しても良い.
+          
+        
+</p>
+<p>
+          登録要求は, レビュー, コメントを目的として, 適切なサブジェクト (e.g., "Request for parameter: example") で [TBD]@ietf.org メーリングリストに対して送られるべきである.
+          
+          [[ Note to RFC-EDITOR: The name of the mailing list should be determined in consultation
+          with the IESG and IANA. Suggested name: oauth-ext-review. ]]
+        
+</p>
+<p>
+          14日の期間が経過する前に, 指定専門家は登録要求を承認するか棄却し, この決定はレビューリストとIANAの両方に通知される.
+          棄却には説明, または内容自体が妥当であるならば, どうすれば要求が受理されるかという提案が伴なっているべきである.
+          21日間を越えて未決となっている登録要求は, 解決のために (iesq@iesq.org メーリングリストを利用して) IESG宛に通知される.
+          
+        
+</p>
+<a name="anchor22"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1.1"></a><h3>8.1.1.&nbsp;
+登録用テンプレート<!-- Registration Template --></h3>
+
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt><!-- Parameter name -->パラメーター名:</dt>
+<dd>
+                要求名称 (e.g., "example").
+                
+              
+</dd>
+<dt><!-- Parameter usage location -->パラメーター使用位置:</dt>
+<dd>
+                パラメーターが使用できる位置. 使用されうる位置は, エンドユーザー認可エンドポイントリクエスト, エンドユーザー認可エンドポイントレスポンス, トークンエンドポイントリクエスト, トークンエンドポイントレスポンス, <tt>Authorization</tt> ヘッダーフィールド, そして <tt>WWW-Authenticate</tt> ヘッダーフィールドである.
+                
+              
+</dd>
+<dt><!-- Change controller -->変更管理者:</dt>
+<dd>
+                標準化過程のRFCであるため, "IETF" と記載すること. その他, 責任ある当事者の名称を記載すること.
+                他の詳細 (e.g. 住所, メールアドレス, ホームページURI) を含んでいても良い.
+                
+              
+</dd>
+<dt><!-- Specification document(s) -->仕様文書:</dt>
+<dd>
+                パラメーターを規定する文書への参照であり, 文書のコピーを取得することができるURIを含むことが望ましい.
+                関連する節の表示を含んでいても良いが, 必須ではない.
+                
+              
+</dd>
+<dt><!-- Related information -->関連情報:</dt>
+<dd>
+                任意で, さらなる関連情報を含む追加の文書への引用を記載する.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<a name="anchor23"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1.2"></a><h3>8.1.2.&nbsp;
+<!-- Example -->例</h3>
+
+<p>
+            次の例は, この仕様書で定義されている <tt>scope</tt> パラメーターに対するパラメーター登録要求である.
+            
+            </p>
+<blockquote class="text"><dl>
+<dt><!-- Parameter name -->パラメーター名:</dt>
+<dd>
+                scope
+              
+</dd>
+<dt><!-- Parameter usage location -->パラメーター使用位置:</dt>
+<dd>
+                エンドユーザー認可エンドポイントリクエスト, エンドユーザー認可エンドポイントレスポンス, トークンエンドポイントリクエスト, トークンエンドポイントレスポンス, および <tt>WWW-Authenticate</tt> ヘッダーフィールド.
+                
+              
+</dd>
+<dt><!-- Change controller -->変更管理者:</dt>
+<dd>
+                IETF
+              
+</dd>
+<dt><!-- Specification document(s) -->仕様文書:</dt>
+<dd>
+                [[ 本文書 ]]
+              
+</dd>
+<dt><!-- Related information -->関連情報:</dt>
+<dd>
+                なし.
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<a name="anchor24"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A"></a><h3>Appendix A.&nbsp;
+Examples</h3>
+
+<p>
+        [[ TBD ]]
+      
+</p>
+<a name="anchor25"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
+Contributors</h3>
+
+<p>
+        The following people contributed to preliminary versions of this document:
+        Blaine Cook (BT), Brian Eaton (Google), Yaron Goland (Microsoft), Brent Goldman (Facebook),
+        Raffi Krikorian (Twitter), Luke Shepard (Facebook), and Allen Tom (Yahoo!). The content and
+        concepts within are a product of the OAuth community, WRAP community, and the OAuth Working
+        Group.
+      
+</p>
+<p>
+        The OAuth Working Group has dozens of very active contributors who proposed ideas and
+        wording for this document, including: [[ If your name is missing or you think someone
+        should be added here, please send Eran a note - don't be shy ]]
+      
+</p>
+<p>
+        Michael Adams, Andrew Arnott, Dirk Balfanz, Brian Campbell, Leah Culver, Brian Ellin,
+        Igor Faynberg, George Fletcher, Evan Gilbert, Justin Hart, John Kemp, Chasen Le Hara,
+        Torsten Lodderstedt, Eve Maler, James Manger, Laurence Miao, Chuck Mortimore,
+        Justin Richer, Peter Saint-Andre, Nat Sakimura, Rob Sayre, Marius Scurtescu, Justin Smith,
+        Jeremy Suriel, and Franklin Tse.
+      
+</p>
+<a name="anchor26"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C"></a><h3>Appendix C.&nbsp;
+Acknowledgements</h3>
+
+<p>
+        [[ Add OAuth 1.0a authors + WG contributors ]]
+      
+</p>
+<a name="anchor27"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.D"></a><h3>Appendix D.&nbsp;
+Document History</h3>
+
+<p>
+        [[ to be removed by RFC editor before publication as an RFC ]]
+      
+</p>
+<p>
+        -10
+       
+        </p>
+<ul class="text">
+<li>
+            Fixed typos. Many editorial changes. Rewrote introduction. removed terminology
+            grouping.
+          
+</li>
+<li>
+            Allowed POST for end-user authorization endpoint.
+          
+</li>
+<li>
+            Fixed token endpoint to not require client authentication.
+          
+</li>
+<li>
+            Made URI query and POST body 'oauth_token' parameter optional.
+          
+</li>
+<li>
+            Moved all parameter names and values to use underscores.
+          
+</li>
+<li>
+            Changed 'basic_credentials' to 'password', 'invalid_client_credentials' and
+            'invalid_client_id' to 'invalid_client'.
+          
+</li>
+<li>
+            Added note that access token requests without an access grant should not include
+            a refresh token.
+          
+</li>
+<li>
+            Changed scheme name from 'Token' to 'OAuth', simplified request format to simple
+            string for token instead of key=value pair (still supported for extensions).
+          
+</li>
+<li>
+            Defined permitted access token string characters (suitable for inclusion in an HTTP
+            header).
+          
+</li>
+<li>
+            Added a note about conflicts with previous versions.
+          
+</li>
+<li>
+            Moved 'client_id' definition from client authentication to access token endpoint.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -09
+
+        </p>
+<ul class="text">
+<li>
+            Fixed typos, editorial changes.
+          
+</li>
+<li>
+            Added token expiration example.
+          
+</li>
+<li>
+            Added scope parameter to end-user authorization endpoint response.
+          
+</li>
+<li>
+            Added note about parameters with empty values (same as omitted).
+          
+</li>
+<li>
+            Changed parameter values to use '-' instead of '_'. Parameter names still use '_'.
+          
+</li>
+<li>
+            Changed authorization endpoint client type to response type with values: code, token,
+            and both.
+          
+</li>
+<li>
+            Complete cleanup of error codes. Added support for error description and URI.
+          
+</li>
+<li>
+            Add initial extensibility support.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -08
+
+        </p>
+<ul class="text">
+<li>
+            Renamed verification code to authorization code.
+          
+</li>
+<li>
+            Revised terminology, structured section, added new terms.
+          
+</li>
+<li>
+            Changed flows to profiles and moved to introduction.
+          
+</li>
+<li>
+            Added support for access token rescoping.
+          
+</li>
+<li>
+            Cleaned up client credentials section.
+          
+</li>
+<li>
+            New introduction overview.
+          
+</li>
+<li>
+            Added error code for invalid username and password, and renamed error code to be more
+            consistent.
+          
+</li>
+<li>
+            Added access grant type parameter to token endpoint.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -07
+
+        </p>
+<ul class="text">
+<li>
+            Major rewrite of entire document structure.
+          
+</li>
+<li>
+            Removed device profile.
+          
+</li>
+<li>
+            Added verification code support to user-agent flow.
+          
+</li>
+<li>
+            Removed multiple formats support, leaving JSON as the only format.
+          
+</li>
+<li>
+            Changed assertion <tt>assertion_format</tt> parameter to
+            <tt>assertion_type</tt>.
+          
+</li>
+<li>
+            Removed <tt>type</tt> parameter from token endpoint.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -06
+
+        </p>
+<ul class="text">
+<li>
+            Editorial changes, corrections, clarifications, etc.
+          
+</li>
+<li>
+            Removed conformance section.
+          
+</li>
+<li>
+            Moved authors section to contributors appendix.
+          
+</li>
+<li>
+            Added section on native applications.
+          
+</li>
+<li>
+            Changed error response to use the requested format. Added support for HTTP
+            <tt>Accept</tt> header.
+          
+</li>
+<li>
+            Flipped the order of the web server and user-agent flows.
+          
+</li>
+<li>
+            Renamed assertion flow <tt>format</tt> parameter name to
+            <tt>assertion_format</tt> to resolve conflict.
+          
+</li>
+<li>
+            Removed the term identifier from token definitions. Added a cryptographic token
+            definition.
+          
+</li>
+<li>
+            Added figure titles.
+          
+</li>
+<li>
+            Added server response 401 when client tried to authenticate using multiple credentials.
+          
+</li>
+<li>
+            Clarified support for TLS alternatives, and added requirement for TLS 1.2 support for
+            token endpoint.
+          
+</li>
+<li>
+            Removed all signature and cryptography.
+          
+</li>
+<li>
+            Removed all discovery.
+          
+</li>
+<li>
+            Updated HTML4 reference.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -05
+
+        </p>
+<ul class="text">
+<li>
+            Corrected device example.
+          
+</li>
+<li>
+            Added client credentials parameters to the assertion flow as OPTIONAL.
+          
+</li>
+<li>
+            Added the ability to send client credentials using an HTTP authentication scheme.
+          
+</li>
+<li>
+            Initial text for the <tt>WWW-Authenticate</tt> header (also added
+            scope support).
+          
+</li>
+<li>
+            Change authorization endpoint to end-user endpoint.
+          
+</li>
+<li>
+            In the device flow, change the <tt>user_uri</tt> parameter to
+            <tt>verification_uri</tt> to avoid confusion with the end-user
+            endpoint.
+          
+</li>
+<li>
+            Add <tt>format</tt> request parameter and support for XML and
+            form-encoded responses.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -04
+
+        </p>
+<ul class="text">
+<li>
+            Changed all token endpoints to use <tt>POST</tt>
+          
+</li>
+<li>
+            Clarified the authorization server's ability to issue a new refresh token when
+            refreshing a token.
+          
+</li>
+<li>
+            Changed the flow categories to clarify the autonomous group.
+          
+</li>
+<li>
+            Changed client credentials language not to always be server-issued.
+          
+</li>
+<li>
+            Added a <tt>scope</tt> response parameter.
+          
+</li>
+<li>
+            Fixed typos.
+          
+</li>
+<li>
+            Fixed broken document structure.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -03
+
+        </p>
+<ul class="text">
+<li>
+            Fixed typo in JSON error examples.
+          
+</li>
+<li>
+            Fixed general typos.
+          
+</li>
+<li>
+            Moved all flows sections up one level.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -02
+
+        </p>
+<ul class="text">
+<li>
+            Removed restriction on <tt>redirect_uri</tt> including a query.
+          
+</li>
+<li>
+            Added <tt>scope</tt> parameter.
+          
+</li>
+<li>
+            Initial proposal for a JSON-based token response format.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -01
+
+        </p>
+<ul class="text">
+<li>
+            Editorial changes based on feedback from Brian Eaton, Bill Keenan, and Chuck Mortimore.
+          
+</li>
+<li>
+            Changed device flow <tt>type</tt> parameter values and switch to use
+            only the token endpoint.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -00
+
+        </p>
+<ul class="text">
+<li>
+            Initial draft based on a combination of WRAP and OAuth 1.0a.
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="anchor28"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.E"></a><h3>Appendix E.&nbsp;
+翻訳者</h3>
+
+<p>
+        本仕様書の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
+        質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
+      
+</p>
+<p>
+        </p>
+<ul class="text">
+<li>
+            Daichi Morifuji
+          
+</li>
+<li>
+            Kazuyoshi Kato (mixi)
+          
+</li>
+<li>
+            Nov Matake (Cerego Japan)
+          
+</li>
+<li>
+            Nozomi Yamakawa (NRI)
+          
+</li>
+<li>
+            Ryo Ito
+          
+</li>
+<li>
+            Takanori Ishikawa (mixi)
+          
+</li>
+<li>
+            Tatsuya Katsuhara (NRI)
+          
+</li>
+<li>
+            Tom Tsuruhara (mixi)
+          
+</li>
+<li>
+            Toyoaki Ohgochi
+          
+</li>
+<li>
+            Yusuke Kondo (Yahoo! Japan)
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-httpbis-p1-messaging">[I-D.ietf-httpbis-p1-messaging]</a></td>
+<td class="author-text">Fielding, R., Gettys, J., Mogul, J., Nielsen, H., Masinter, L., Leach, P., Berners-Lee, T., and J. Reschke, &ldquo;<a href="http://www.ietf.org/internet-drafts/draft-ietf-httpbis-p1-messaging-09.txt">HTTP/1.1, part 1: URIs, Connections, and Message Parsing</a>,&rdquo; draft-ietf-httpbis-p1-messaging-09 (work in progress), March&nbsp;2010 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-httpbis-p1-messaging-09.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="NIST FIPS-180-3">[NIST FIPS-180-3]</a></td>
+<td class="author-text">National Institute of Standards and Technology, &ldquo;<a href="http://csrc.nist.gov/publications/fips/fips180-3/fips180-3_final.pdf">Secure Hash Standard (SHS). FIPS PUB 180-3, October 2008</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2045">[RFC2045]</a></td>
+<td class="author-text"><a href="mailto:ned@innosoft.com">Freed, N.</a> and <a href="mailto:nsb@nsb.fv.com">N. Borenstein</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2045">Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</a>,&rdquo; RFC&nbsp;2045, November&nbsp;1996 (<a href="http://www.rfc-editor.org/rfc/rfc2045.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2104">[RFC2104]</a></td>
+<td class="author-text"><a href="mailto:hugo@watson.ibm.com">Krawczyk, H.</a>, <a href="mailto:mihir@cs.ucsd.edu">Bellare, M.</a>, and <a href="mailto:canetti@watson.ibm.com">R. Canetti</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2104">HMAC: Keyed-Hashing for Message Authentication</a>,&rdquo; RFC&nbsp;2104, February&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2104.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2616">[RFC2616]</a></td>
+<td class="author-text"><a href="mailto:fielding@ics.uci.edu">Fielding, R.</a>, <a href="mailto:jg@w3.org">Gettys, J.</a>, <a href="mailto:mogul@wrl.dec.com">Mogul, J.</a>, <a href="mailto:frystyk@w3.org">Frystyk, H.</a>, <a href="mailto:masinter@parc.xerox.com">Masinter, L.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, and <a href="mailto:timbl@w3.org">T. Berners-Lee</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2616.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.pdf">PDF</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2616.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2616.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2617">[RFC2617]</a></td>
+<td class="author-text"><a href="mailto:john@math.nwu.edu">Franks, J.</a>, <a href="mailto:pbaker@verisign.com">Hallam-Baker, P.</a>, <a href="mailto:jeff@AbiSource.com">Hostetler, J.</a>, <a href="mailto:lawrence@agranat.com">Lawrence, S.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, Luotonen, A., and <a href="mailto:stewart@OpenMarket.com">L. Stewart</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2617">HTTP Authentication: Basic and Digest Access Authentication</a>,&rdquo; RFC&nbsp;2617, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2617.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2617.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2617.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2818">[RFC2818]</a></td>
+<td class="author-text">Rescorla, E., &ldquo;<a href="http://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, May&nbsp;2000 (<a href="http://www.rfc-editor.org/rfc/rfc2818.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3023">[RFC3023]</a></td>
+<td class="author-text">Murata, M., St. Laurent, S., and D. Kohn, &ldquo;<a href="http://tools.ietf.org/html/rfc3023">XML Media Types</a>,&rdquo; RFC&nbsp;3023, January&nbsp;2001 (<a href="http://www.rfc-editor.org/rfc/rfc3023.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3447">[RFC3447]</a></td>
+<td class="author-text">Jonsson, J. and B. Kaliski, &ldquo;<a href="http://tools.ietf.org/html/rfc3447">Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1</a>,&rdquo; RFC&nbsp;3447, February&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3447.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, November&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3629.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
+<td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4627">[RFC4627]</a></td>
+<td class="author-text">Crockford, D., &ldquo;<a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, July&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4627.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5226">[RFC5226]</a></td>
+<td class="author-text">Narten, T. and H. Alvestrand, &ldquo;<a href="http://tools.ietf.org/html/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>,&rdquo; BCP&nbsp;26, RFC&nbsp;5226, May&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5226.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
+<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, August&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5246.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5849">[RFC5849]</a></td>
+<td class="author-text">Hammer-Lahav, E., &ldquo;<a href="http://tools.ietf.org/html/rfc5849">The OAuth 1.0 Protocol</a>,&rdquo; RFC&nbsp;5849, April&nbsp;2010 (<a href="http://www.rfc-editor.org/rfc/rfc5849.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.REC-html401-19991224">[W3C.REC-html401-19991224]</a></td>
+<td class="author-text">Raggett, D., Hors, A., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML 4.01 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html401-19991224, December&nbsp;1999 (<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML</a>).</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.2.&nbsp;Informative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="I-D.hammer-oauth">[I-D.hammer-oauth]</a></td>
+<td class="author-text">Hammer-Lahav, E., &ldquo;<a href="http://www.ietf.org/internet-drafts/draft-hammer-oauth-10.txt">The OAuth 1.0 Protocol</a>,&rdquo; draft-hammer-oauth-10 (work in progress), February&nbsp;2010 (<a href="http://www.ietf.org/internet-drafts/draft-hammer-oauth-10.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.hardt-oauth">[I-D.hardt-oauth]</a></td>
+<td class="author-text">Hardt, D., Tom, A., Eaton, B., and Y. Goland, &ldquo;<a href="http://www.ietf.org/internet-drafts/draft-hardt-oauth-01.txt">OAuth Web Resource Authorization Profiles</a>,&rdquo; draft-hardt-oauth-01 (work in progress), January&nbsp;2010 (<a href="http://www.ietf.org/internet-drafts/draft-hardt-oauth-01.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="OASIS.saml-core-2.0-os">[OASIS.saml-core-2.0-os]</a></td>
+<td class="author-text"><a href="mailto:cantor.2@osu.edu">Cantor, S.</a>, <a href="mailto:John.Kemp@nokia.com">Kemp, J.</a>, <a href="mailto:rphilpott@rsasecurity.com">Philpott, R.</a>, and <a href="mailto:eve.maler@sun.com">E. Maler</a>, &ldquo;<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">Assertions and Protocol for the OASIS Security Assertion Markup Language
+            (SAML) V2.0</a>,&rdquo; OASIS Standard&nbsp;saml-core-2.0-os, March&nbsp;2005.</td></tr>
+</table>
+
+<a name="rfc.references3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.3.&nbsp;翻訳プロジェクト</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="oidfj">[oidfj]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://www.openid.or.jp/">OpenIDファウンデーションジャパン</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-github">[oidfj-github]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="https://github.com/openid-foundation-japan">Githubレポジトリー</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-trans">[oidfj-trans]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://openid-foundation-japan.github.com/">翻訳・教育ワーキンググループ</a>.&rdquo;</td></tr>
+</table>
+
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Authors' Addresses</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Eran Hammer-Lahav (editor)</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Yahoo!</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:eran@hueniverse.com">eran@hueniverse.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://hueniverse.com">http://hueniverse.com</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">David Recordon</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Facebook</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:davidrecordon@facebook.com">davidrecordon@facebook.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://www.davidrecordon.com/">http://www.davidrecordon.com/</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Dick Hardt</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Microsoft</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:dick.hardt@gmail.com">dick.hardt@gmail.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://dickhardt.org/">http://dickhardt.org/</a></td></tr>
+</table>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script type="text/javascript"> 
+  try {
+    var pageTracker = _gat._getTracker("UA-15411889-1");
+    pageTracker._trackPageview();
+  } catch(err) {
+  }
+</script>
+</body></html>
+

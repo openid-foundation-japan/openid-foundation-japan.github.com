@@ -1,0 +1,171 @@
+/*-----------------]: base :[---------------------*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Verdana,Helvetica,'ＭＳ Ｐゴシック','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3',osaka,sans-serif;
+  color: #666;
+  background: #333 url(/images/black_back.gif);
+}
+
+a {
+  color: #f7931e;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  font-size: 1.05em;
+  padding: 35px 0 10px;
+}
+
+section, article, header, footer, aside, nav {
+  display: block;
+}
+
+
+/*-----------------]: layout :[---------------------*/
+
+body>header,
+body>section,
+body>aside,
+body>footer {
+  width: 800px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+body>section,
+body>aside {
+  width: 700px;
+  padding: 10px 50px;
+}
+
+
+/*-----------------]: header :[---------------------*/
+
+body>header {
+  border-top: 8px solid #f7931e;
+}
+
+body>header a {
+  color: #505050;
+  font-weight: bold;
+}
+
+body>header h1 {
+  float: left;
+  text-indent: -9999px;
+  margin: 0;
+  width: 310px;
+  height: 110px;
+  background: url(http://www.openid.or.jp/images/oidfj_logo.gif) no-repeat 5px 5px;
+}
+
+body>header p {
+  float: left;
+  font-size: .7em;
+  width: 370px;
+  margin: 35px 0 0 80px;
+}
+
+body>header nav {
+  clear: both;
+  font-size: .8em;
+  padding: 3px 15px;
+  background: #eee;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+}
+
+body>header nav li {
+  display: inline;
+  margin: 0 5px;
+}
+
+
+/*-----------------]: article :[---------------------*/
+
+article h3 {
+  font-size: .95em;
+  margin-bottom: .3em;
+}
+
+article p {
+  font-size: .9em;
+  padding: .1em 0;
+}
+
+article time {
+  color: #999;
+  font-size: .6em;
+}
+
+article time:after {
+  margin-left: 4px;
+  content: '公開';
+}
+
+article .more {
+  font-size: .8em;
+}
+
+article .original {
+  font-size: .6em;
+  text-align: right;
+}
+
+article .original a {
+  color: #999;
+}
+
+
+/*-----------------]: aside :[---------------------*/
+
+body>aside,
+body>aside #disqus_thread {
+  padding-top: 20px;
+}
+
+
+/*-----------------]: footer :[---------------------*/
+
+body>footer {
+  font-size: .9em;
+  text-align: center;
+  padding: 15px 0;
+  background: #eee;
+  border-top: 2px solid #ddd;
+}
+
+body>footer a {
+  color: #505050;
+}
+
+body>footer nav {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+body>footer li {
+  display: inline;
+}
+
+body>footer li:not(:first-child):before {
+  margin-right: 4px;
+  content: '-'
+}
+
+body>footer small {
+  font-size: .9em;
+}
+
+body>footer li small {
+  font-size: 1em
+}

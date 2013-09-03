@@ -1,0 +1,2228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>JSON Web Token (JWT)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="JSON Web Token (JWT)">
+<meta name="keywords" content="RFC, Request for Comments, I-D, Internet-Draft, Assertion, Claim, Security Token, JavaScript Object Notation, JSON, JSON Web Token, JWT, JSON Object Signing and Encryption, JOSE, JSON Web Signature, JWS, JSON Web Encryption, JWE, JSON Web Key, JWK, JSON Web Algorithms, JWA">
+<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">OAuth Working Group</td><td class="header">M. Jones</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">Microsoft</td></tr>
+<tr><td class="header">Intended status: Standards Track</td><td class="header">J. Bradley</td></tr>
+<tr><td class="header">Expires: January 30, 2014</td><td class="header">Ping Identity</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">N. Sakimura</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">NRI</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">July 29, 2013</td></tr>
+</table></td></tr></table>
+<h1><br />JSON Web Token (JWT)<br />draft-ietf-oauth-json-web-token-11</h1>
+
+<h3>Abstract</h3>
+
+<p>
+      	JSON Web Token (JWT) は2者間でやりとりされるコンパクトで URL-safe なクレームの表現方法である.
+      	JWT に含まれるクレームは JavaScript Object Notation (JSON) オブジェクトとしてエンコードされ, JSON Web Signature (JWS) のペイロードや JSON Web Encryption (JWE) の平文として利用される.
+      	JWS や JWE とともに用いることで, クレームに対してデジタル署名や MAC を付与と暗号化の両方を行うことが可能となる.
+      
+</p>
+<p>
+	  	JWT の推奨される発音は, 英単語の "jot" と同じである.
+	  
+</p>
+<h3>Status of this Memo</h3>
+<p>
+This Internet-Draft is submitted  in full
+conformance with the provisions of BCP&nbsp;78 and BCP&nbsp;79.</p>
+<p>
+Internet-Drafts are working documents of the Internet Engineering
+Task Force (IETF).  Note that other groups may also distribute
+working documents as Internet-Drafts.  The list of current
+Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>
+Internet-Drafts are draft documents valid for a maximum of six months
+and may be updated, replaced, or obsoleted by other documents at any time.
+It is inappropriate to use Internet-Drafts as reference material or to cite
+them other than as &ldquo;work in progress.&rdquo;</p>
+<p>
+This Internet-Draft will expire on January 30, 2014.</p>
+
+<h3>Copyright Notice</h3>
+<p>
+Copyright (c) 2013 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#Introduction">1.</a>&nbsp;
+はじめに<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#NotationalConventions">1.1.</a>&nbsp;
+要求記法および規則<br />
+<a href="#Terminology">2.</a>&nbsp;
+用語集<br />
+<a href="#Overview">3.</a>&nbsp;
+JSON Web Token (JWT) 概要<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExampleJWT">3.1.</a>&nbsp;
+JWTの例<br />
+<a href="#Claims">4.</a>&nbsp;
+JWTクレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ReservedClaimName">4.1.</a>&nbsp;
+予約済クレーム名<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#issDef">4.1.1.</a>&nbsp;
+"iss" (Issuer) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#subDef">4.1.2.</a>&nbsp;
+"sub" (Subject) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#audDef">4.1.3.</a>&nbsp;
+"aud" (Audience) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#expDef">4.1.4.</a>&nbsp;
+"exp" (Expiration Time) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#nbfDef">4.1.5.</a>&nbsp;
+"nbf" (Not Before) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#iatDef">4.1.6.</a>&nbsp;
+"iat" (Issued At) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#jtiDef">4.1.7.</a>&nbsp;
+"jti" (JWT ID) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#typDef">4.1.8.</a>&nbsp;
+"typ" (Type) クレーム<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PublicClaimName">4.2.</a>&nbsp;
+パブリッククレーム名<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PrivateClaimName">4.3.</a>&nbsp;
+プライベートクレーム名<br />
+<a href="#Header">5.</a>&nbsp;
+JWT ヘッダ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#typHdrDef">5.1.</a>&nbsp;
+"typ" (Type) ヘッダ・パラメータ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ctyHdrDef">5.2.</a>&nbsp;
+"cty" (Content Type) ヘッダ・パラメータ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ClaimsAsHeaders">5.3.</a>&nbsp;
+ヘッダ・パラメータとしてクレームを複製する<br />
+<a href="#Plaintext">6.</a>&nbsp;
+プレーンテキストJWT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExamplePlaintextJWT">6.1.</a>&nbsp;
+プレーンテキストJWTの例<br />
+<a href="#Validating">7.</a>&nbsp;
+JWTを作成および検証するためのルール<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#StringComparison">7.1.</a>&nbsp;
+文字列の比較規則<br />
+<a href="#Algorithms">8.</a>&nbsp;
+暗号化アルゴリズム<br />
+<a href="#IANA">9.</a>&nbsp;
+IANA Considerations<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#JWTClaimsReg">9.1.</a>&nbsp;
+JSON Web トークンクレームレジストリ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ClaimsTemplate">9.1.1.</a>&nbsp;
+レジストリテンプレート<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ClaimsContents">9.1.2.</a>&nbsp;
+初期レジストリコンテンツ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#URNReg">9.2.</a>&nbsp;
+Sub-Namespace Registration of urn:ietf:params:oauth:token-type:jwt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#URNContents">9.2.1.</a>&nbsp;
+レジストリコンテンツ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#TypReg">9.3.</a>&nbsp;
+JSON Web Signature and Encryption Type Values Registration<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#TypContents">9.3.1.</a>&nbsp;
+レジストリコンテンツ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MediaReg">9.4.</a>&nbsp;
+Media Type Registration<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MediaContents">9.4.1.</a>&nbsp;
+レジストリコンテンツ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HdrReg">9.5.</a>&nbsp;
+Registration of JWE Header Parameter Names<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HdrContents">9.5.1.</a>&nbsp;
+レジストリコンテンツ<br />
+<a href="#Security">10.</a>&nbsp;
+Security Considerations<br />
+<a href="#rfc.references1">11.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">11.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">11.2.</a>&nbsp;
+Informative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references3">11.3.</a>&nbsp;
+翻訳プロジェクト<br />
+<a href="#JWTExamples">Appendix&nbsp;A.</a>&nbsp;
+JWT Examples<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#EncryptedJWTExample">A.1.</a>&nbsp;
+暗号化されたJWTの例<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#NestedJWTExample">A.2.</a>&nbsp;
+入れ子 JWT の例<br />
+<a href="#SAMLRelationship">Appendix&nbsp;B.</a>&nbsp;
+JWTとSAMLアサーションの関係<br />
+<a href="#SWTRelationship">Appendix&nbsp;C.</a>&nbsp;
+JWTとシンプル・ウェブ・トークン (SWT) の関係<br />
+<a href="#Acknowledgements">Appendix&nbsp;D.</a>&nbsp;
+Acknowledgements<br />
+<a href="#History">Appendix&nbsp;E.</a>&nbsp;
+Document History<br />
+<a href="#Translator">Appendix&nbsp;F.</a>&nbsp;
+翻訳者<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Authors' Addresses<br />
+</p>
+<br clear="all" />
+
+<a name="Introduction"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+はじめに</h3>
+
+<p> 
+	JSON Web Token(JWT)はHTTP認証ヘッダやURIクエリパラメータなどスペースに制約のある環境を意図したコンパクトな表現形式である.
+    JWTは, クレームをJSON Web Signature(JWS)<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>のペイロードや
+	JSON Web Encryption(JWE)<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>のプレーンテキストとなるJavaScript Object Notation(JSON)<a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a>オブジェクトとしてエンコードし, クレームに対するデジタル署名やMACと暗号化の両方を可能にする.
+	JWTは常にJWSのコンパクトシリアライゼーションまたはJWS Compact Serializationを利用して表現される.
+	
+</p>
+<p>
+	  JWTの推奨される発音は, 英単語の"jot"と同じである.
+		
+</p>
+<a name="NotationalConventions"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.1"></a><h3>1.1.&nbsp;
+要求記法および規則</h3>
+
+<p>
+	  	本文書で用いられる各キーワード「MUST (しなければならない) 」, 「MUST NOT (してはならない) 」, 「REQUIRED (必須である) 」, 「SHALL (するものとする) 」, 「SHALL NOT (しないものとする) 」, 
+		  「SHOULD (すべきである) 」, 「SHOULD NOT (すべきではない) 」, 「RECOMMENDED (推奨される) 」, 「MAY (してもよい) 」, 「OPTIONAL (任意である) 」は Key words for use in RFCs to Indicate Requirement Levels<a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a>で述べられている通りに解釈されるべきものである.
+	  
+</p>
+<a name="Terminology"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+用語集</h3>
+
+<p>
+	</p>
+<blockquote class="text"><dl>
+<dt>JSON Web Token (JWT)</dt>
+<dd>
+        クレームのセットをJSONオブジェクトとして文字列表現にしてJWSやJWEにエンコードすることで, クレームに対するデジタル署名やMACと暗号化の両方が可能になる.
+	    
+	  
+</dd>
+<dt>base64urlエンコーディング</dt>
+<dd>
+          
+        <a class='info' href='#RFC4648'>RFC 4648<span> (</span><span class='info'>Josefsson, S., &ldquo;The Base16, Base32, and Base64 Data Encodings,&rdquo; October&nbsp;2006.</span><span>)</span></a> [RFC4648]の節 5で説明されているURLおよびファイル名として安全なBase64エンコーディングであり, 節 3.2で許可されているように (URLとして安全ではない) '=' パディング文字が省略されている.
+	    (パディングなしのbase64urlエンコーディングの導入についての注意事項は<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>のAppendix Cを参照のこと)
+	    
+	  
+</dd>
+<dt>JSONテキストオブジェクト</dt>
+<dd>
+ 	  
+	    UTF-8 <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a>エンコード済テキストでありJSONオブジェクトを表現する.
+	    JSONオブジェクトの構文は<a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a>の節 2.2で定義されている.
+	    
+	  
+</dd>
+<dt>JWTヘッダ</dt>
+<dd>
+          
+	    JWTに適用される暗号化オペレーションについて記述しているJSONテキストオブジェクト.
+	    JWTがデジタル署名もしくはMACされている場合, JWTヘッダはJWSヘッダである.
+	    JWTが暗号化されている場合, JWTヘッダはJWEヘッダである.
+	    
+	  
+</dd>
+<dt>ヘッダ・パラメータ名</dt>
+<dd>
+	  
+	    JWTヘッダのメンバの名前.
+	    
+	  
+</dd>
+<dt>ヘッダ・パラメータ値</dt>
+<dd>
+	  
+	    JWTヘッダのメンバの値.
+	    
+	  
+</dd>
+<dt>JWTクレームセット</dt>
+<dd>
+          
+	    JWTによって伝搬されるクレームを含むJSONテキストオブジェクト.
+	    
+	  
+</dd>
+<dt>クレーム</dt>
+<dd>
+	  
+	    ある主体に関するひとまとまりの情報.
+	    クレームはクレーム名とクレーム値から構成される名前と値のペアで表現される.
+	    
+	  
+</dd>
+<dt>クレーム名</dt>
+<dd>
+	  
+	    クレーム表現の中の名前の部分.
+	    クレーム名は常に文字列である.
+	    
+	  
+</dd>
+<dt>クレーム値</dt>
+<dd>
+	  
+	    クレーム表現の中の値の部分.
+	    クレーム値は任意のJSON値であり得る.
+	    
+	  
+</dd>
+<dt>エンコード済JWTヘッダ</dt>
+<dd>
+          
+	    JWTヘッダをbase64urlエンコードしたもの.
+	    
+	  
+</dd>
+<dt>入れ子にされたJWT</dt>
+<dd>
+	  
+	    署名と暗号化の両方が適用されたJWTに入れ子にされているJWT.
+	    入れ子にされたJWTでは, JWTは内包されたJWS/JWEのペイロード/平文の値として利用される.
+	    
+	  
+</dd>
+<dt>平文のJWT</dt>
+<dd>
+	  
+	    完全性保護も暗号化もされていないクレームからなるJWT.
+	    
+	  
+</dd>
+<dt>耐衝突性を持つ名前空間</dt>
+<dd>
+	  
+	    他の名前空間とほとんど衝突しない様に割り当てられた名前空間.
+	    例えば, 耐衝突性は名前空間の一部の管理を移譲したり, 耐衝突性を持つ名前の割り付け機能の利用によって達成することが出来る.
+	    耐衝突性を持つ名前空間の例は次のものを含んでいる.
+	    ドメイン名, ITU-T X.600とX.670推奨シリーズで定義されているオブジェクト識別子 (OID), ユニバーサル・ユニーク識別子 (UUID)<a class='info' href='#RFC4122'>[RFC4122]<span> (</span><span class='info'>Leach, P., Mealling, M., and R. Salz, &ldquo;A Universally Unique IDentifier (UUID) URN Namespace,&rdquo; July&nbsp;2005.</span><span>)</span></a>.
+	    管理を移譲された名前空間を利用する場合, 名前を定義する人は定義するための名前空間の一部を管理していることを保証するために合理的な予防措置を講ずる必要がある.
+	    
+	  
+</dd>
+<dt>StringOrURI</dt>
+<dd>
+	    任意の文字列を使っても良い一方で, ":"を含むどのような値もURI<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>でなければならない, という追加の要求があるJSON文字列の値.
+	    StringOrURIの値には変形や正規化が適用されず, 大文字・小文字を区別する文字列として比較される.
+	    
+	  
+</dd>
+<dt>IntDate</dt>
+<dd>
+	    1970-01-01T0:0:0Z UTCから指定されたUTCの日付/時刻まで秒の数を表わすJSON数値.
+	    日付/時刻に関する詳細は<a class='info' href='#RFC3339'>RFC 3339<span> (</span><span class='info'>Klyne, G., Ed. and C. Newman, &ldquo;Date and Time on the Internet: Timestamps,&rdquo; July&nbsp;2002.</span><span>)</span></a> [RFC3339]の全般と, 特にUTCを参照すること.
+	    
+	  
+</dd>
+</dl></blockquote><p>
+      
+</p>
+<a name="Overview"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+JSON Web Token (JWT) 概要</h3>
+
+<p>
+	JWTは, JWSとJWE構造の両方の中にエンコードされるJSONオブジェクトとしてクレームのセットを表す.
+	このJSONオブジェクトはJWTクレーム・セットである.
+	<a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]の節 2.2の通り, JSONオブジェクトは0以上の名前/値のペア(もしくはメンバ)から構成され, その名前は文字列であり値は任意のJSON値である.
+	これらのメンバはJWTによって表現されるクレームである.
+	
+      
+</p>
+<p>
+	JWTクレームセットの中のメンバ名はクレーム名として参照される. 対応する値はクレーム値として参照される.
+	
+      
+</p>
+<p>
+	JWTヘッダの内容は, JWTクレーム・セットに適用される暗号化オペレーションについて記述している.
+	JWTヘッダがJWSヘッダである場合, そのJWTクレーム・セットをJWSペイロードとしたJWSとして表現され, クレームにはデジタル署名もしくはMACが付与される.
+	JWTヘッダがJWEヘッダである場合, そのJWTはJWTクレーム・セットをJWEの平文入力としたJWEとして表現され, クレームは暗号化される.
+	JWTはJWEやJWS構造の中に含まれ入れ子のJWTを構成することができ, 単一のJWTに対して署名や暗号化を繰り返し実施することができる.
+	
+      
+</p>
+<p>
+	JWTはピリオド('.')によって連結された一連のURL-safeな文字列として表現される.
+	それぞれのパートはbase64urlでエンコード済の値で構成される.
+	JWTの中のパートの数は, JWSコンパクト・シリアライゼーション表現のJWSもしくはJWS Compact Serialization表現のJWEのどちらとして利用されているかに依存する.
+	
+      
+</p>
+<a name="ExampleJWT"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
+JWTの例</h3>
+
+<p>
+	  下記はJWTヘッダの例である.
+	  このヘッダは, エンコード済オブジェクトがJSON Web Token (JWT) であり, そのJWTにはHMAC SHA-256アルゴリズムを使ってMACが付与されていることを表している.
+	  
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"typ":"JWT",
+   "alg":"HS256"}
+</pre></div>
+<p>
+	  JWTヘッダのUTF-8表現のオクテットをbase64urlエンコードすると, このエンコード済JWSヘッダの値が作られ, それはエンコードされたJWTヘッダとして使われる.
+	  
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
+</pre></div>
+<p>
+	  下記がJWTクレーム・セットの例である.
+	  
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"iss":"joe",
+   "exp":1300819380,
+   "http://example.com/is_root":true}
+</pre></div>
+<p>
+	  下記のオクテット配列は, 上記JWTクレーム・セットをUTF-8で表現したものであり, JWSペイロードである.
+	  
+	
+</p>
+<p>
+
+[123, 34, 105, 115, 115, 34, 58, 34, 106, 111, 101, 34, 44, 13, 10, 32, 34, 101, 120, 112, 34, 58, 49, 51, 48, 48, 56, 49, 57, 51, 56, 48, 44, 13, 10, 32, 34, 104, 116, 116, 112, 58, 47, 47, 101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109, 47, 105, 115, 95, 114, 111, 111, 116, 34, 58, 116, 114, 117, 101, 125]
+
+	
+</p>
+<p>
+	  JWSペイロードをbase64urlエンコードすると, このエンコード済JWSペイロードが作り出せる.
+	  (改行は掲載上の都合による)
+	  
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly
+  9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ
+</pre></div>
+<p>
+	  エンコード済のJWSヘッダとエンコード済のJWSペイロードをHMAC SHA-256アルゴリズムで署名し, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>に指定された形で署名をbase64urlエンコードすると, このエンコード済JWS署名を作り出せる.
+	  
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+</pre></div>
+<p>
+	  これら3つのパートをこの順に各パートの間をピリオド('.')で連結すると完全なJWTが作り出せる.
+	  (表示上の都合で改行を含む)
+	  
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
+  .
+  eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
+  cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
+  .
+  dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+</pre></div>
+<p>
+	  この計算についての詳細は<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>のAppendix A.1に記載されている.
+	  暗号化されたJWTについては<a class='info' href='#EncryptedJWTExample'>Appendix&nbsp;A.1<span> (</span><span class='info'>暗号化されたJWTの例</span><span>)</span></a>を参照のこと.
+	  
+	
+</p>
+<a name="Claims"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+JWTクレーム</h3>
+
+<p>
+        JWT クレームセットは JSON オブジェクトであり, それぞれのメンバは JWT として送られるクレームである.
+        JWT クレームセット内のクレーム名は一意でなければならない（MUST）.
+        受信者はクレーム名が重複した JWT を拒否するか, あるいは JSON パーサーを ECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a> の節 15.12 (JSON オブジェクト) で定義されているとおり語彙的に最後の重複メンバ名だけを返却する JSON パーサを利用しなければならない（MUST）.
+      
+</p>
+<p>
+        有効な JWT が含まねばならないクレームはコンテキストに依存するため, 本仕様の範囲外とする.
+        JWT を実装するアプリケーションごとに, クレームを理解する方法と処理方法について定めることになる.
+        アプリケーションがこのような要件を定めていないクレームについては, それが理解不可能な場合には無視すること (SHOULD).
+      
+</p>
+<p>
+        JWT クレーム名には予約済クレーム名とパブリッククレーム名, プライベートクレーム名の3つのクラスが定義されている.
+      
+</p>
+<a name="ReservedClaimName"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1"></a><h3>4.1.&nbsp;
+予約済クレーム名</h3>
+
+<p>
+    次のクレーム名は予約済である.
+    以下に定義されているクレームは, いずれも必須とされることを想定されてはいないが, 有用で相互運用性のあるクレームとなることを期待して提供されている.
+    JWT は表現がコンパクトになることを目的としているため, すべてのクレーム名は短くなっている.
+    追加の予約済クレーム名は <a class='info' href='#JWTClaimsReg'>Section&nbsp;9.1<span> (</span><span class='info'>JSON Web トークンクレームレジストリ</span><span>)</span></a> の IANA JSON Web トークンクレームレジストリにしたがって定義することができる.
+  
+</p>
+<a name="issDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.1"></a><h3>4.1.1.&nbsp;
+"iss" (Issuer) クレーム</h3>
+
+<p>
+      <tt>iss</tt>（issuer）クレームは JWT の発行者の識別子である.
+      このクレームの処理は一般的にアプリケーション固有である.
+      <tt>iss</tt> の値は文字列あるいは StringOrURI 値である.
+      このクレームの使用は任意である（OPTIONAL）.
+    
+</p>
+<a name="subDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.2"></a><h3>4.1.2.&nbsp;
+"sub" (Subject) クレーム</h3>
+
+<p>
+      <tt>sub</tt>（subject）クレームは JWT の主語となる主体の識別子である.
+      JWT に含まれるクレームは, 通常 subject について述べたものである.
+      このクレームの処理は一般的にアプリケーション固有である.
+      <tt>sub</tt> の値は文字列あるいは StringOrURI 値である.
+      このクレームの使用は任意であるOPTIONAL）.
+    
+</p>
+<a name="audDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.3"></a><h3>4.1.3.&nbsp;
+"aud" (Audience) クレーム</h3>
+
+<p>
+      <tt>aud</tt>（audience）クレームは JWT を利用することが想定された主体の識別子一覧である.
+      JWT を処理するために意図されたそれぞれの対象は, オーディエンスクレームの値に自身の識別子が含まれていることを確認し, <tt>aud</tt> に自身の識別子が含まれない場合はその JWT の処理を拒否しなければならない（MUST）.
+      一般的な場合において, <tt>aud</tt> クレームの値は文字列あるいは StringOrURI 値の配列である.
+      JWT が単一のオーディエンスから構成される場合に限って, <tt>aud</tt> の値は単一の文字列あるいは StringOrURI 値でもよい（MAY）.
+      オーディエンス値の解釈は一般的にアプリケーション固有である.
+      このクレームの使用は任意である（OPTIONAL）.
+    
+</p>
+<a name="expDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.4"></a><h3>4.1.4.&nbsp;
+"exp" (Expiration Time) クレーム</h3>
+
+<p>
+      <tt>exp</tt> (expiration time) クレームは, JWT の有効期限を示す.
+      これ以降はその JWT を処理してはならない (MUST NOT).
+      <tt>exp</tt> クレームを処理する際には, <tt>exp</tt> が現在時刻以前でないことを確認しなければならない (MUST).
+      実装者はクロック・キューを考慮していくらかの小さな 余地 (通常は数分以上はない) を与えてもよい (MAY).
+      このクレームの値は IntDate 値でなければならない(MUST).
+      このクレームの使用は任意である (OPTIONAL).
+    
+</p>
+<a name="nbfDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.5"></a><h3>4.1.5.&nbsp;
+"nbf" (Not Before) クレーム</h3>
+
+<p>
+      <tt>nbf</tt> (not before) クレームは, JWT が有効になる日時を示す.
+      これ以前にその JWT を処理してはならない (MUST NOT).
+      <tt>nbf</tt> クレームを処理する際には, <tt>exp</tt> が現在時刻以前であることを確認しなければならない (MUST).
+      実装者はクロック・キューを考慮していくらかの小さな余地 (通常は数分以上はない) を与えてもよい (MAY).
+      その値は IntDate 値でなければならない (MUST).
+      このクレームの使用は任意である (OPTIONAL).
+    
+</p>
+<a name="iatDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.6"></a><h3>4.1.6.&nbsp;
+"iat" (Issued At) クレーム</h3>
+
+<p>
+      <tt>iat</tt> (issued at) クレームは, JWT を発行した時刻を示す.
+      このクレームは JWT の発行されてからの経過時間を求める際に利用可能である.
+      その値は IntDate 値でなければならない (MUST).
+      このクレームの使用は任意である (OPTIONAL).
+    
+</p>
+<a name="jtiDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.7"></a><h3>4.1.7.&nbsp;
+"jti" (JWT ID) クレーム</h3>
+
+<p>
+      <tt>jti</tt> (JWT ID) クレームは, JWT のための一意な識別子を提供する.
+      その識別子の値は, 重複確率が無視できるほど十分低いことを保証できる方法で割り当てられなければならない (MUST).
+      <tt>jti</tt> クレームは, JWT がリプレイされることを防ぐことに利用することができる.
+      <tt>jti</tt> の値は大文字と小文字を区別する文字列である.
+      このクレームの使用は任意である (OPTIONAL).
+    
+</p>
+<a name="typDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1.8"></a><h3>4.1.8.&nbsp;
+"typ" (Type) クレーム</h3>
+
+<p>
+      <tt>typ</tt> (type) クレームは, アプリケーションにとって有用なコンテキストにおいて, アプリケーション固有の方法で, JWT クレームセットのコンテンツのタイプを宣言するために利用できる (MAY).
+      <tt>typ</tt> の値は, 大文字と小文字を区別する文字列である.
+      このクレームの使用は任意である (OPTIONAL).
+    
+</p>
+<p>
+      <tt>typ</tt> クレーム値には, <tt>typ</tt> ヘッダパラメータと同じ値空間および同じ規則が適用される.
+    
+</p>
+<a name="PublicClaimName"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.2"></a><h3>4.2.&nbsp;
+パブリッククレーム名</h3>
+
+<p>
+          クレーム名は JWT の利用者によって自由に定義することができる.
+          しかしながら, 衝突をさけるために, いくつかのクレーム名は IANA JSON Web トークンクレームレジストリ <a class='info' href='#JWTClaimsReg'>Section&nbsp;9.1<span> (</span><span class='info'>JSON Web トークンクレームレジストリ</span><span>)</span></a> に登録するか, 耐衝突性を持つ名前空間を含むパブリック名にすべきである (SHOULD).
+          それぞれの場合において, 名前あるいは値の定義者は, クレーム名を定義するために用いる名前空間の一部が自身の管理下にあることを保証できるよう, 妥当な措置を講じる必要がある.
+        
+</p>
+<a name="PrivateClaimName"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.3"></a><h3>4.3.&nbsp;
+プライベートクレーム名</h3>
+
+<p>
+          JWT の作成者および利用者は, 相互に同意のもとで, 予約済クレーム名 <a class='info' href='#ReservedClaimName'>Section&nbsp;4.1<span> (</span><span class='info'>予約済クレーム名</span><span>)</span></a> でもパブリッククレーム名 <a class='info' href='#PublicClaimName'>Section&nbsp;4.2<span> (</span><span class='info'>パブリッククレーム名</span><span>)</span></a> でもないプライベートクレーム名を用いてもよい (MAY).
+          パブリッククレーム名とは異なり, プライベートクレーム名は衝突の可能性があり, 慎重に使用する必要がある.
+        
+</p>
+<a name="Header"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+JWT ヘッダ</h3>
+
+<p>
+	JWTヘッダ内のJSONオブジェクトのメンバは, JWTに適用される暗号化オペレーション, および任意でJWTの追加プロパティを表現している.
+	JWTヘッダ内のメンバ名はヘッダ・パラメータ名として参照される.
+	それらの名前はユニークである必要があり (MUST) ,
+	受信者は重複するヘッダ・パラメータ名を持つJWTを拒否するか, ECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a> の節 15.12 (JSONオブジェクト) に指定されているとおり語彙的に最後の重複メンバ名だけを返却するJSONパーサを利用しなければならない (MUST).
+	対応する値はヘッダ・パラメータ値として参照される.
+	
+      
+</p>
+<p>
+	JWSヘッダ・パラメータは<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>で定義されている.
+	JWEヘッダ・パラメータは<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>で定義されている.
+	更に本仕様は, JWTがJWSである場合とJWTがJWEである場合の両方のケースにおいて続くヘッダ・パラメータが利用されることを明示する.
+	
+      
+</p>
+<a name="typHdrDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+"typ" (Type) ヘッダ・パラメータ</h3>
+
+<p>
+	  <tt>typ</tt> (type) ヘッダ・パラメータは, アプリケーションにとって有用なコンテキストにおいて, アプリケーション固有の方法で, このJWTの形式を記述するために利用してもよい (MAY).
+	  このパラメータはJWTの処理に影響を及ぼさない.
+	  もしパラメータが存在した場合, その値はそのオブジェクトがJWTであることを示すため, <tt>JWT</tt>もしくは<tt>urn:ietf:params:oauth:token-type:jwt</tt>を指定することが推奨される (RECOMMENDED).
+	  <tt>typ</tt>の値は大文字小文字を区別する文字列である.
+	  このヘッダ・パラメータの利用は任意である (OPTIONAL).
+	
+	
+</p>
+<a name="ctyHdrDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2"></a><h3>5.2.&nbsp;
+"cty" (Content Type) ヘッダ・パラメータ</h3>
+
+<p>
+	  <tt>cty</tt> (content type) ヘッダ・パラメータはJWTの構造情報を記述するために用いられる.
+	  値は文字列でなければならない (MUST).
+	
+	
+</p>
+<p>
+	  入れ子の署名/暗号化オペレーションが使用されない通常時, このヘッダ・パラメータの使用は推奨されない (NOT RECOMMENDED).
+	  入れ子の署名/暗号化オペレーションが使用される場合, このヘッダ・パラメータの使用は必須である (REQUIRED).
+	  後者の場合, このJWTの中に入れ子となるJWTが含まれることを示すため, 値は<tt>JWT</tt>でなければならない (MUST).
+	  入れ子のJWTの例は<a class='info' href='#NestedJWTExample'>Appendix&nbsp;A.2<span> (</span><span class='info'>入れ子 JWT の例</span><span>)</span></a>を参照のこと.
+	
+	
+</p>
+<p>
+	  <tt>cty</tt>ヘッダ・パラメータ値には, <tt>typ</tt> ヘッダパラメータと同じ値空間および同じ規則が適用される.
+	
+	
+</p>
+<a name="ClaimsAsHeaders"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.3"></a><h3>5.3.&nbsp;
+ヘッダ・パラメータとしてクレームを複製する</h3>
+
+<p>
+	  暗号化されたJWTを使ういくつかのアプリケーションでは, 暗号化されていない表現のいくつかのクレームを持つことは有用である.
+	  例えばこれはアプリケーションがJWTを復号する前にそれををどのように処理するかを決定するためのルールを処理する際に使用される.
+	
+	
+</p>
+<p>
+	  本仕様は, JWE の JWT クレームセット中に存在するクレームが, アプリケーションの必要に応じてヘッダパラメータとしても重複して存在することを許可する.
+	  もしそのように複製されたクレームが存在する場合, それらを受け取るアプリケーションはそれらの値が同一であることを確認すべきである (SHOULD).
+	  JWTのヘッダ・パラメータ値として複製されるクレームが, 暗号化せずに送信しても安全なものであることを保証するのは, アプリケーションの責任である.
+	
+	
+</p>
+<p>
+	  本仕様はそれらを必要とするアプリケーションのために, 暗号化されたJWTの中のクレームの暗号化されていない複製を提供する目的で<tt>iss</tt> (issuer), <tt>sub</tt> (subject), <tt>aud</tt> (audience) ヘッダ・パラメータ名を予約する.
+	  他の仕様においても同様に必要があればヘッダ・パラメータ名として予約済クレーム名として他の名前を予約してもよい (MAY).
+	
+	
+</p>
+<a name="Plaintext"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+プレーンテキストJWT</h3>
+
+<p>
+     署名や暗号化以外の方法でJWTコンテンツが保護されるユースケースをサポートするために, 署名と暗号化の両方なしにJWTを生成することも可能とする (MAY).
+     プレーンテキストJWTはJSON Web Algorithms (JWA)で定義されたJWSのalgヘッダパラメータにnoneを使用したJWSであり, JWS署名値は空文字列となる.
+    
+</p>
+<a name="ExamplePlaintextJWT"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.1"></a><h3>6.1.&nbsp;
+プレーンテキストJWTの例</h3>
+
+<p>
+      次の例ではJWTヘッダはエンコード済オブジェクトがプレーンテキストJWTであることを宣言する.
+     
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"alg":"none"}
+</pre></div>
+<p>
+      JWTヘッダのUTF-8表現のオクテットをbase64urlエンコーディングし, 
+      このエンコード済JWTヘッダを得る.
+    
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJub25lIn0
+</pre></div>
+<p>
+      次はJWTクレームセットの例である.
+     
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"iss":"joe",
+   "exp":1300819380,
+   "http://example.com/is_root":true}
+</pre></div>
+<p>
+      JWTクレームセットのUTF-8表現のオクテットをbase64urlエンコードし, 
+      このエンコード済JWSペイロードを得る.
+      (改行は掲載上の都合による)
+     
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
+  cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
+</pre></div>
+<p>
+      エンコード済JWS署名は空文字列である.
+    
+</p>
+<p>
+	  パーツ間をピリオド文字('.') でこの順序で連結することで, 完全なJWTとなる. 
+	  (表示目的のための改行を含む) 
+    
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJub25lIn0
+  .
+  eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
+  cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
+  .
+</pre></div>
+<a name="Validating"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+JWTを作成および検証するためのルール</h3>
+
+<p>
+	JWTを作成するために, 次の手順を実行しなければならない(MUST).
+	手順の順序は, 手順の入力と出力の間に依存関係が存在しない場合において重要ではない.
+	
+      
+        </p>
+<ol class="text">
+<li>
+	    望ましいクレームを含むJWTクレームセットを作成する.
+		空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要がないため注意すること.
+	  
+</li>
+<li>
+	    メッセージはJWTクレームセットのUTF-8表現のオクテットとする.
+	  
+</li>
+<li>
+	    望ましいヘッダパラメータを含むJWTヘッダを作成する.
+		JWTは, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様, または<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様に従わなければならない(MUST).
+		空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要がないため注意すること.
+	  
+</li>
+<li>
+	    JWTヘッダのUTF-8表現のオクテットをbase64urlエンコードする.
+		これをエンコード済JWTヘッダとする,
+	  
+</li>
+<li>
+	    JWTは, JWSかJWEかによって２つのケースがある.
+	  
+	  
+	  
+	    
+<ul class="text">
+<li>
+		JWTがJWSの場合, JWSヘッダとしてJWTヘッダを, JWSペイロードとしてメッセージを使用してJWSを作成する.
+		JWSを作成するために<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>で明記されたすべての手順に従わなければならない(MUST).
+		
+</li>
+<li>
+		JWTがJWEの場合, JWEヘッダとしてJWTヘッダを, JWEプレーンテキストとしてメッセージを使用してJWEを作成する.
+		JWEを作成するために<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>で明記されたすべての手順に従わなければならない(MUST)
+		
+</li>
+</ul>
+	  
+</li>
+<li>
+	    ネストされた署名または暗号化の操作が行われた場合, メッセージはJWTまたはJWEとして,  
+		そのステップで作られた新しいJWTヘッダを<tt>JWT</tt>の<tt>cty</tt>(Content type)の値として利用し, ステップ3に戻る. 
+	  
+</li>
+<li>
+	  それ以外の場合, 結果のJWTはJWSまたはJWEとする.
+	  
+</li>
+</ol><p>
+      
+</p>
+<p>
+	  JWTを検証する際, 次の手順を取らねばならない(MUST).
+	  手順の順序は, 手順の入力と出力の間に依存関係が存在しない場合において重要ではない.
+	  列挙されている手順のいずれかが抜けた場合, JWTは処理のために拒絶されねばならない(MUST).
+	  
+</p>
+<p>
+	</p>
+<ol class="text">
+<li>
+	    JWTは少なくとも一つのピリオド('.')を含まねばならない(MUST)
+	  
+</li>
+<li>
+	    エンコード済JWTヘッダは最初のピリオド(',')の前のJWTの一部とする.
+	  
+</li>
+<li>
+	  	エンコード済JWTヘッダは本仕様で与えられた制限, パディング文字が使用されていないこと, に従い, base64urlデコードに成功しなければならない(MUST).
+	  
+</li>
+<li>
+      	結果としてJWTヘッダは<a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠し, 完全に有効なJSON構文でなければならない(MUST).
+	  
+</li>
+<li>
+	    結果としてJWTヘッダは, その構文と意味が理解およびサポートされている, または理解されていないとき無視されるよう指定されている, 
+		パラメータと値のみを含むように検証されなければならない(MUST)
+	  
+</li>
+<li>
+	  	JWTは, <tt>alg</tt>(アルゴリズム)ヘッダの値とオプションで<tt>enc</tt> (暗号化方式) ヘッダの値(存在する場合)を調べることで, JWSかJWEかを決定する.
+	  
+</li>
+<li>
+	    JWTはJWSかJWEかのどうかによって２つのケースがある.
+	  
+	    
+<ul class="text">
+<li>
+		JWTがJWSの場合, JWSを検証するために<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>で指定されたすべての手順に従わなければならない(MUST).
+		メッセージをbase64urlデコードした結果をJWSペイロードとする.
+		
+</li>
+<li>
+		JWTがJWEの場合, JWEを検証するために<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>で指定されたすべての手順に従わなければならない(MUST).
+		メッセージをJWEプレーンテキストとする.
+		
+</li>
+</ul>
+	  
+</li>
+<li>
+	  JWTヘッダが<tt>JWT</tt>の<tt>cty</tt> (content type)値を含む場合, 
+	  メッセージはネストされ署名または暗号化操作の対象となったJWTである.
+	  この場合, メッセージをJWTとして扱い, ステップ1に戻る.
+	  
+</li>
+<li>
+	    それ以外の場合, JWTクレームセットをメッセージとする.
+	  
+</li>
+<li>
+	    JWTクレームセットは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠し, 完全に有効なJSON構文でなければならない(MUST)
+	  
+</li>
+</ol><p>
+      
+</p>
+<a name="StringComparison"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7.1"></a><h3>7.1.&nbsp;
+文字列の比較規則</h3>
+
+<p>
+	  JWTを処理するとき必然的にJSONオブジェクトの値を既知の文字列と比較することを求められる.
+	  例えば, アルゴリズムが何であるかチェックするために, <tt>alg</tt>をエンコーディングしているUnicode文字列は,
+	  一致しているヘッダパラメータがあるかどうかを確認するために, JWTヘッダのメンバ名と照合される.
+	
+</p>
+<p>
+	  <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>の節 5.3の文字列の比較規則で指定されたJSON文字列と他のUnicode文字列の比較は, 
+	  正規化せずにUnicodeコードポイントを比較することによって実施されなければならない(MUST).
+	
+</p>
+<a name="Algorithms"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+暗号化アルゴリズム</h3>
+
+<p>
+	JWTはJSON Web Signature (JWS)<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>とJSON Web Encryption (JWE) <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>を, 
+	JWTのコンテンツに対して署名と暗号化の両方, またはいずれかを実施するために利用する.
+	
+</p>
+<p>
+	JWAの署名アルゴリズムのうち, HMAC SHA-256 (<tt>HS256</tt>)と<tt>none</tt>は, 
+	JWT実装に準拠する形で実装されなければならない(MUST).
+	また実装は, SHA-256ハッシュアルゴリズム(<tt>RS256</tt>)のRSASSA-PKCS1-V1_5と, 
+	P-256曲線を利用したECDSAと, SHA-256ハッシュアルゴリズム(<tt>ES256</tt>)のサポートも推奨される(RECOMMENDED).
+	他のアルゴリズムと鍵サイズのサポートは任意である(OPTIONAL).
+	
+</p>
+<p>
+	暗号化機能の実装を提供する場合, JWA暗号化アルゴリズムの, 2048ビット鍵(<tt>RSA1_5</tt>)のRSAES-PKCS1-V1_5, 
+	128と256ビット鍵のAESキーラップ(<tt>A128KW</tt>と<tt>A256KW</tt>), 
+	それと複合認証されたAES CBCとHMAC SHA-2(<tt>A128CBC-HS256</tt>と<tt>A256CBC-HS512</tt>)を
+	使用した暗号化アルゴリズムは、実装に準拠する形で実装しなければならない(MUST).
+	実装がコンテンツ暗号化鍵をラップするために利用される鍵について同意するためのECDH-ESと, 
+	128ビットと256ビットの鍵でGalois/Counterモード(GCM)のAES(<tt>A128GCM</tt>と<tt>A256GCM</tt>)
+	をサポートすることもまた推奨される(RECOMMENDED).
+	他のアルゴリズムと鍵サイズのサポートは任意である(OPTIONAL).
+  	
+</p>
+<a name="IANA"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+IANA Considerations</h3>
+
+<a name="JWTClaimsReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.1"></a><h3>9.1.&nbsp;
+JSON Web トークンクレームレジストリ</h3>
+
+<p>
+    本仕様では, 予約済 JWT クレーム名のための IANA JSON Web トークンクレームレジストリを定める.
+    このレジストリは, 予約済クレーム名とそれを定義している仕様へのリファレンスを記録する. 本仕様は <a class='info' href='#ReservedClaimName'>Section&nbsp;4.1<span> (</span><span class='info'>予約済クレーム名</span><span>)</span></a> で定義されているクレーム名を登録する.
+  
+</p>
+<p>
+    値は, 1名以上の Designated Experts の勧告に従い, [TBD]@ietf.org のメーリングリストで2週間の審査期間を経て, Specification Required <a class='info' href='#RFC5226'>[RFC5226]<span> (</span><span class='info'>Narten, T. and H. Alvestrand, &ldquo;Guidelines for Writing an IANA Considerations Section in RFCs,&rdquo; May&nbsp;2008.</span><span>)</span></a> な状態で登録される.
+    しかしながら, 発行に先立ってそれらの値を用いることができるように, Designated Expert(s) はそれらの値が公開できる状態になった時点で登録を許可することもありうる.
+  
+</p>
+<p>
+          登録要請は, 適切な件名 (例: "Request for access token type: example") で [TBD]@ietf.org のメーリングリストに通知しなければならず, そこでレビューとコメントが行われる.
+          [[ RFC-EDITORへの注意: メーリングリストの名前は, IESGとIANAと協議の上, 決定されるべきである. 推奨される名前: claims-reg-review ]]
+        
+</p>
+<p>
+          Designated Expert(s) は審査期間内に登録を承認または拒否し, レビューが行われるメーリングリストおよび IANA へその決定を告げる.
+          要請が拒否された場合は, その理由が通知され, 可能な場合は承認に向けた提案が行われるべきである.
+        
+</p>
+<p>
+          IANA は, Designed Export(s) からのレジストリ更新のみを受け付けなければならず, すべての登録要請をレビューメーリングリストに送信しなければならない.
+        
+</p>
+<a name="ClaimsTemplate"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.1.1"></a><h3>9.1.1.&nbsp;
+レジストリテンプレート</h3>
+
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt>Claim Name:</dt>
+<dd>
+                
+                名称 (例: "example"). 名称は大文字と小文字を区別する.
+                大文字と小文字を区別せず他の登録されている名称と一致する名称は受け付けられるべきではない (SHOULD NOT).
+                
+              
+</dd>
+<dt>Change Controller:</dt>
+<dd>
+                
+                RFC の標準に従う際は, "IETF" と記載する.
+                それ以外の場合は, 責任ある団体の名称を記載する.
+                その他の詳細 (例えば, 郵便番号, メールアドレス, ホームページの URL) も記載してもよい.
+                
+              
+</dd>
+<dt>Specification Document(s):</dt>
+<dd>
+                
+                パラメータ仕様を記載したドキュメントへの参照を記載する.
+                ドキュメントを取得することのできる URI が記載されていることが望ましい.
+                明確な記載箇所への参照が含まれることが望ましいが必須ではない.
+                
+              
+</dd>
+</dl></blockquote><p>
+          
+</p>
+<a name="ClaimsContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.1.2"></a><h3>9.1.2.&nbsp;
+初期レジストリコンテンツ</h3>
+
+<p> 
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>iss</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#issDef'>Section&nbsp;4.1.1<span> (</span><span class='info'>&quot;iss&quot; (Issuer) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>sub</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント:  <a class='info' href='#subDef'>Section&nbsp;4.1.2<span> (</span><span class='info'>&quot;sub&quot; (Subject) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>aud</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#audDef'>Section&nbsp;4.1.3<span> (</span><span class='info'>&quot;aud&quot; (Audience) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+	    </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>exp</tt>
+		
+	      
+</li>
+<li>
+		変更管理: IETF
+		
+	      
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#expDef'>Section&nbsp;4.1.4<span> (</span><span class='info'>&quot;exp&quot; (Expiration Time) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+	      
+</li>
+</ul><p>
+	  
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>nbf</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#nbfDef'>Section&nbsp;4.1.5<span> (</span><span class='info'>&quot;nbf&quot; (Not Before) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>iat</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#iatDef'>Section&nbsp;4.1.6<span> (</span><span class='info'>&quot;iat&quot; (Issued At) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>jti</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#jtiDef'>Section&nbsp;4.1.7<span> (</span><span class='info'>&quot;jti&quot; (JWT ID) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+		クレーム名: <tt>typ</tt>
+		
+              
+</li>
+<li>
+		変更管理: IETF
+		
+              
+</li>
+<li>
+		仕様ドキュメント: <a class='info' href='#typDef'>Section&nbsp;4.1.8<span> (</span><span class='info'>&quot;typ&quot; (Type) クレーム</span><span>)</span></a> of [[ this document ]]
+		
+              
+</li>
+</ul><p>
+          
+</p>
+<a name="URNReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.2"></a><h3>9.2.&nbsp;
+Sub-Namespace Registration of urn:ietf:params:oauth:token-type:jwt</h3>
+
+<a name="URNContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.2.1"></a><h3>9.2.1.&nbsp;
+レジストリコンテンツ</h3>
+
+<p>
+      本仕様は, コンテントが JWT であることを示すことが出来るように, <a class='info' href='#RFC6755'>An IETF URN Sub-Namespace for OAuth<span> (</span><span class='info'>Campbell, B. and H. Tschofenig, &ldquo;An IETF URN Sub-Namespace for OAuth,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6755] に設けられた IANA urn:ietf:params:oauth レジストリへ <tt>token-type:jwt</tt> の値を登録する.
+    
+</p>
+<p> 
+	  </p>
+<ul class="text">
+<li>URN: urn:ietf:params:oauth:token-type:jwt
+</li>
+<li>共通名: JSON Web Token (JWT) Token Type
+</li>
+<li>変更管理: IETF
+</li>
+<li>仕様ドキュメント: [[this document]]
+</li>
+</ul><p>
+	  
+</p>
+<a name="TypReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.3"></a><h3>9.3.&nbsp;
+JSON Web Signature and Encryption Type Values Registration</h3>
+
+<a name="TypContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.3.1"></a><h3>9.3.1.&nbsp;
+レジストリコンテンツ</h3>
+
+<p>
+      本仕様は, コンテントが JWT であることを示すことが出来るように, IANA JSON Web Signature and Encryption Type Values レジストリ <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> に <tt>JWT</tt> タイプの値を登録する.
+    
+</p>
+<p> 
+	  </p>
+<ul class="text">
+<li>
+	      "typ" ヘッダ・パラメータの値: <tt>JWT</tt>
+	
+	    
+</li>
+<li>
+	      MIME Type の略称: application/jwt
+	
+	    
+</li>
+<li>
+	      変更管理: IETF
+	
+	    
+</li>
+<li>
+	      仕様ドキュメント: <a class='info' href='#typHdrDef'>Section&nbsp;5.1<span> (</span><span class='info'>&quot;typ&quot; (Type) ヘッダ・パラメータ</span><span>)</span></a> of [[ this document ]]
+	
+	    
+</li>
+</ul><p>
+	  
+</p>
+<a name="MediaReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.4"></a><h3>9.4.&nbsp;
+Media Type Registration</h3>
+
+<a name="MediaContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.4.1"></a><h3>9.4.1.&nbsp;
+レジストリコンテンツ</h3>
+
+<p>
+      本仕様は, コンテントが JWT であることを示すことが出来るように, MIME Media Type registry <a class='info' href='#RFC4288'>[RFC4288]<span> (</span><span class='info'>Freed, N. and J. Klensin, &ldquo;Media Type Specifications and Registration Procedures,&rdquo; December&nbsp;2005.</span><span>)</span></a> に <tt>application/jwt</tt> Media Type <a class='info' href='#RFC2046'>[RFC2046]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types,&rdquo; November&nbsp;1996.</span><span>)</span></a> を登録する.
+    
+</p>
+<p> 
+	  </p>
+<ul class="text">
+<li>
+	      タイプ名: application
+	
+	    
+</li>
+<li>
+	      サブタイプ名: jwt
+	
+	    
+</li>
+<li>
+	      必須パラメータ: n/a
+	
+	    
+</li>
+<li>
+	      オプションパラメータ: n/a
+	
+	    
+</li>
+<li>
+	      エンコーディングにおける考慮点: JWT の値はピリオド ('.') で区切られた base64url エンコード済の値 (それらのうち幾つかが空の文字列の場合もある) の列としてエンコードされる.
+	
+	    
+</li>
+<li>
+	      セキュリティ上の考慮点: [[ this document ]] のセキュリティ上の考慮点の節を参照のこと.
+	
+	    
+</li>
+<li>
+	      相互運用上の考慮点: n/a
+	
+	    
+</li>
+<li>
+	      公開された仕様: [[ this document ]]
+	
+	    
+</li>
+<li>
+	      このメディアタイプを利用するアプリケーション:
+	      OpenID Connect, Mozilla Persona, Salesforce, Google, 他多数
+	
+	    
+</li>
+<li>
+	      追加情報:
+	      マジックナンバー: n/a,
+	      ファイル拡張子: n/a,
+	      Macintosh ファイルタイプコード: n/a
+	
+	    
+</li>
+<li>
+	      その他情報の問い合わせ先とメールアドレス:
+	      Michael B. Jones, mbj@microsoft.com
+	
+	    
+</li>
+<li>
+	      意図された用途: COMMON
+	
+	    
+</li>
+<li>
+	      用途の制限: none
+	
+	    
+</li>
+<li>
+	      著者: Michael B. Jones, mbj@microsoft.com
+	
+	    
+</li>
+<li>
+	      変更管理: IETF
+	
+	    
+</li>
+</ul><p>
+	  
+</p>
+<a name="HdrReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.5"></a><h3>9.5.&nbsp;
+Registration of JWE Header Parameter Names</h3>
+
+<p>
+    本仕様は, <a class='info' href='#ClaimsAsHeaders'>Section&nbsp;5.3<span> (</span><span class='info'>ヘッダ・パラメータとしてクレームを複製する</span><span>)</span></a> のヘッダパラメータとして複製されたクレームで使用するために <a class='info' href='#ReservedClaimName'>Section&nbsp;4.1<span> (</span><span class='info'>予約済クレーム名</span><span>)</span></a> に定義されている特定の予約済クレーム名を IANA JSON Web Signature and Encryption Header Parameters registry <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> に登録する.
+  
+</p>
+<a name="HdrContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.5.1"></a><h3>9.5.1.&nbsp;
+レジストリコンテンツ</h3>
+
+<p> 
+            </p>
+<ul class="text">
+<li>
+                Header Parameter Name: <tt>iss</tt>
+              
+</li>
+<li>
+		Header Parameter Usage Location(s): JWE
+	      
+</li>
+<li>
+                Change Controller: IETF
+              
+</li>
+<li>
+                Specification Document(s): <a class='info' href='#issDef'>Section&nbsp;4.1.1<span> (</span><span class='info'>&quot;iss&quot; (Issuer) クレーム</span><span>)</span></a> of [[ this document ]]
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+ 	    </p>
+<ul class="text">
+<li>
+                Header Parameter Name: <tt>sub</tt>
+              
+</li>
+<li>
+		Header Parameter Usage Location(s): JWE
+	      
+</li>
+<li>
+                Change Controller: IETF
+              
+</li>
+<li>
+                Specification Document(s): <a class='info' href='#subDef'>Section&nbsp;4.1.2<span> (</span><span class='info'>&quot;sub&quot; (Subject) クレーム</span><span>)</span></a> of [[ this document ]]
+              
+</li>
+</ul><p>
+	  
+</p>
+<p>
+ 	    </p>
+<ul class="text">
+<li>
+                Header Parameter Name: <tt>aud</tt>
+              
+</li>
+<li>
+		Header Parameter Usage Location(s): JWE
+	      
+</li>
+<li>
+                Change Controller: IETF
+              
+</li>
+<li>
+                Specification Document(s): <a class='info' href='#audDef'>Section&nbsp;4.1.3<span> (</span><span class='info'>&quot;aud&quot; (Audience) クレーム</span><span>)</span></a> of [[ this document ]]
+              
+</li>
+</ul><p>
+	  
+</p>
+<a name="Security"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10"></a><h3>10.&nbsp;
+Security Considerations</h3>
+
+<p>
+	どんな暗号化アプリケーションが直面したすべてのセキュリティ問題はJWT/JWS/JWE/JWKエージェントによって直面しなければならない.
+	これらの問題の中には, ユーザのプライベート鍵および対称鍵を保護し, 様々な攻撃を防ぎ, ユーザが間違った受信者のためのメッセージを不注意に暗号化するような間違いを避けることを助ける.
+	セキュリティに関する検討項目の全てのリストを挙げることは本ドキュメントの範囲外である.
+	
+      
+</p>
+<p>
+	JWSの仕様のすべてのセキュリティに関する検討項目は, 暗号化が使用される際のJWEのセキュリティに関する検討項目と同様に, JWTにも当てはまる.
+	特に, JWSのJSONのセキュリティに関する検討項目とUnicode比較のセキュリティに関する検討項目はJWSヘッダに適用されるのと同様にJWTクレームセットにも等しく適用される.
+	
+      
+</p>
+<p>
+	構文上, 入れ子のJWTのための署名と暗号化のオペレーションは任意の順番に適用してもよいが, 通常送信者はメッセージに署名してからその結果を暗号化するべきである (したがって, 署名を暗号化する).
+	これはメッセージを暗号化されたままにするので, 署名者にプライバシーを提供するのと同様に, 署名を暴かれる攻撃を防ぐ.
+	更に, 暗号化されたテキストに対する署名は多くのルール上, 有効であるとは考えられてはいない.
+	
+      
+</p>
+<p>
+	署名と暗号化オペレーションの順序に関連するセキュリティ問題に関する潜在的な懸念は, 既にJWSとJWEの仕様に取り込まれていることに留意すること.
+	特に, JWEは認証された暗号化アルゴリズムの利用のみをサポートしているため, 多くのコンテキストで適用される暗号化後の署名に関する潜在的な必要性についての暗号化関連の懸念事項は, 本仕様には適用されない.
+	
+      
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.11"></a><h3>11.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>11.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="ECMAScript">[ECMAScript]</a></td>
+<td class="author-text">Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; ECMA&nbsp;262, June&nbsp;2011 (<a href="http://www.ecma-international.org/ecma-262/5.1/">HTML</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWA">[JWA]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms">JSON Web Algorithms (JWA)</a>,&rdquo; draft-ietf-jose-json-web-algorithms (work in progress), July&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWE">[JWE]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, <a href="mailto:ekr@rtfm.com">Rescorla, E.</a>, and <a href="mailto:jhildebr@cisco.com">J. Hildebrand</a>, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-encryption">JSON Web Encryption (JWE)</a>,&rdquo; draft-ietf-jose-json-web-encryption (work in progress), July&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-encryption">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWK">[JWK]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-key">JSON Web Key (JWK)</a>,&rdquo; draft-ietf-jose-json-web-key (work in progress), July&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-key">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWS">[JWS]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, <a href="mailto:ve7jtb@ve7jtb.com">Bradley, J.</a>, and <a href="mailto:n-sakimura@nri.co.jp">N. Sakimura</a>, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature">JSON Web Signature (JWS)</a>,&rdquo; draft-ietf-jose-json-web-signature (work in progress), July&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2046">[RFC2046]</a></td>
+<td class="author-text"><a href="mailto:ned@innosoft.com">Freed, N.</a> and <a href="mailto:nsb@nsb.fv.com">N. Borenstein</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2046">Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</a>,&rdquo; RFC&nbsp;2046, November&nbsp;1996 (<a href="http://www.rfc-editor.org/rfc/rfc2046.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3339">[RFC3339]</a></td>
+<td class="author-text"><a href="mailto:GK@ACM.ORG">Klyne, G., Ed.</a> and <a href="mailto:chris.newman@sun.com">C. Newman</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3339">Date and Time on the Internet: Timestamps</a>,&rdquo; RFC&nbsp;3339, July&nbsp;2002 (<a href="http://www.rfc-editor.org/rfc/rfc3339.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3339.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3339.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, November&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3629.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
+<td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4288">[RFC4288]</a></td>
+<td class="author-text">Freed, N. and J. Klensin, &ldquo;<a href="http://tools.ietf.org/html/rfc4288">Media Type Specifications and Registration Procedures</a>,&rdquo; RFC&nbsp;4288, December&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc4288.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4627">[RFC4627]</a></td>
+<td class="author-text">Crockford, D., &ldquo;<a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, July&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4627.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4648">[RFC4648]</a></td>
+<td class="author-text">Josefsson, S., &ldquo;<a href="http://tools.ietf.org/html/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>,&rdquo; RFC&nbsp;4648, October&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4648.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5226">[RFC5226]</a></td>
+<td class="author-text">Narten, T. and H. Alvestrand, &ldquo;<a href="http://tools.ietf.org/html/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>,&rdquo; BCP&nbsp;26, RFC&nbsp;5226, May&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5226.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6755">[RFC6755]</a></td>
+<td class="author-text">Campbell, B. and H. Tschofenig, &ldquo;<a href="http://tools.ietf.org/html/rfc6755">An IETF URN Sub-Namespace for OAuth</a>,&rdquo; RFC&nbsp;6755, October&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6755.txt">TXT</a>).</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>11.2.&nbsp;Informative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="CanvasApp">[CanvasApp]</a></td>
+<td class="author-text">Facebook, &ldquo;<a href="http://developers.facebook.com/docs/authentication/canvas">Canvas Applications</a>,&rdquo; 2010.</td></tr>
+<tr><td class="author-text" valign="top"><a name="JSS">[JSS]</a></td>
+<td class="author-text">Bradley, J. and N. Sakimura (editor), &ldquo;<a href="http://jsonenc.info/jss/1.0/">JSON Simple Sign</a>,&rdquo; September&nbsp;2010.</td></tr>
+<tr><td class="author-text" valign="top"><a name="MagicSignatures">[MagicSignatures]</a></td>
+<td class="author-text">Panzer (editor), J., Laurie, B., and D. Balfanz, &ldquo;<a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-magicsig-01.html">Magic Signatures</a>,&rdquo; January&nbsp;2011.</td></tr>
+<tr><td class="author-text" valign="top"><a name="OASIS.saml-core-2.0-os">[OASIS.saml-core-2.0-os]</a></td>
+<td class="author-text"><a href="mailto:cantor.2@osu.edu">Cantor, S.</a>, <a href="mailto:John.Kemp@nokia.com">Kemp, J.</a>, <a href="mailto:rphilpott@rsasecurity.com">Philpott, R.</a>, and <a href="mailto:eve.maler@sun.com">E. Maler</a>, &ldquo;<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">Assertions and Protocol for the OASIS Security Assertion Markup Language
+            (SAML) V2.0</a>,&rdquo; OASIS Standard&nbsp;saml-core-2.0-os, March&nbsp;2005.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3275">[RFC3275]</a></td>
+<td class="author-text">Eastlake, D., Reagle, J., and D. Solo, &ldquo;<a href="http://tools.ietf.org/html/rfc3275">(Extensible Markup Language) XML-Signature Syntax and Processing</a>,&rdquo; RFC&nbsp;3275, March&nbsp;2002 (<a href="http://www.rfc-editor.org/rfc/rfc3275.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4122">[RFC4122]</a></td>
+<td class="author-text"><a href="mailto:paulle@microsoft.com">Leach, P.</a>, <a href="mailto:michael@refactored-networks.com">Mealling, M.</a>, and <a href="mailto:rsalz@datapower.com">R. Salz</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc4122">A Universally Unique IDentifier (UUID) URN Namespace</a>,&rdquo; RFC&nbsp;4122, July&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc4122.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc4122.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc4122.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="SWT">[SWT]</a></td>
+<td class="author-text">Hardt, D. and Y. Goland, &ldquo;<a href="http://msdn.microsoft.com/en-us/library/windowsazure/hh781551.aspx">Simple Web Token (SWT)</a>,&rdquo; Version&nbsp;0.9.5.1, November&nbsp;2009.</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.CR-xml11-20021015">[W3C.CR-xml11-20021015]</a></td>
+<td class="author-text">Cowan, J., &ldquo;<a href="http://www.w3.org/TR/2002/CR-xml11-20021015">Extensible Markup Language (XML) 1.1</a>,&rdquo; W3C CR&nbsp;CR-xml11-20021015, October&nbsp;2002.</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.REC-xml-c14n-20010315">[W3C.REC-xml-c14n-20010315]</a></td>
+<td class="author-text">Boyer, J., &ldquo;<a href="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">Canonical XML Version 1.0</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-xml-c14n-20010315, March&nbsp;2001 (<a href="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">HTML</a>).</td></tr>
+</table>
+
+<a name="rfc.references3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>11.3.&nbsp;翻訳プロジェクト</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="oidfj">[oidfj]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://www.openid.or.jp/">OpenIDファウンデーションジャパン</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-github">[oidfj-github]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="https://github.com/openid-foundation-japan">Githubレポジトリー</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-trans">[oidfj-trans]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://openid-foundation-japan.github.com/">翻訳・教育ワーキンググループ</a>.&rdquo;</td></tr>
+</table>
+
+<a name="JWTExamples"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A"></a><h3>Appendix A.&nbsp;
+JWT Examples</h3>
+
+<p>
+	This section contains examples of JWTs.
+	For other example JWTs, see <a class='info' href='#ExamplePlaintextJWT'>Section&nbsp;6.1<span> (</span><span class='info'>プレーンテキストJWTの例</span><span>)</span></a> and
+	Appendices A.1, A.2, and A.3 of <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>.
+      
+</p>
+<a name="EncryptedJWTExample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.1"></a><h3>A.1.&nbsp;
+暗号化されたJWTの例</h3>
+
+<p>     
+      この例では, RSAES-PKCS1-V1_5とAES_128_CBC_HMAC_SHA_256を使用して, 
+      受信者に<a class='info' href='#ExampleJWT'>Section&nbsp;3.1<span> (</span><span class='info'>JWTの例</span><span>)</span></a>で使用したものと同じクレームを暗号化する.
+    
+</p>
+<p>
+      次の例ではJWEヘッダ(改行は掲載上の都合による)を宣言する.
+      </p>
+<ul class="text">
+<li>
+          暗号化鍵コンテンツは, JWE暗号化鍵を生成するために, 
+          RSAES-PKCS1-V1_5アルゴリズムを用いて受信者によって暗号化され, 
+      	
+</li>
+<li>
+          平文は暗号文を生成するためにAES_128_CBC_HMAC_SHA_256アルゴリズムを用いて暗号化される.
+      	
+</li>
+</ul><p>
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"alg":"RSA1_5","enc":"A128CBC-HS256"}
+</pre></div>
+<p>
+      平文の値として<a class='info' href='#ExampleJWT'>Section&nbsp;3.1<span> (</span><span class='info'>JWTの例</span><span>)</span></a>のJWTクレームセットのUTF-8表現のオクテットを利用するほか, 
+      このJWTの計算は使用される鍵を含む<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>のAppendix A.2に記載されているJWEの計算と同じである
+     
+</p>
+<p>
+      この例の最終的な結果は以下の様になる.
+      (改行は掲載上の都合による)
+    
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJSU0ExXzUiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.
+  QR1Owv2ug2WyPBnbQrRARTeEk9kDO2w8qDcjiHnSJflSdv1iNqhWXaKH4MqAkQtM
+  oNfABIPJaZm0HaA415sv3aeuBWnD8J-Ui7Ah6cWafs3ZwwFKDFUUsWHSK-IPKxLG
+  TkND09XyjORj_CHAgOPJ-Sd8ONQRnJvWn_hXV1BNMHzUjPyYwEsRhDhzjAD26ima
+  sOTsgruobpYGoQcXUwFDn7moXPRfDE8-NoQX7N7ZYMmpUDkR-Cx9obNGwJQ3nM52
+  YCitxoQVPzjbl7WBuB7AohdBoZOdZ24WlN1lVIeh8v1K4krB8xgKvRU8kgFrEn_a
+  1rZgN5TiysnmzTROF869lQ.
+  AxY8DCtDaGlsbGljb3RoZQ.
+  MKOle7UQrG6nSxTLX6Mqwt0orbHvAKeWnDYvpIAeZ72deHxz3roJDXQyhxx0wKaM
+  HDjUEOKIwrtkHthpqEanSBNYHZgmNOV7sln1Eu9g3J8.
+  fiK51VwhsxJ-siBMR-YFiA
+</pre></div>
+<a name="NestedJWTExample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.2"></a><h3>A.2.&nbsp;
+入れ子 JWT の例</h3>
+
+<p>
+    この例では, JWT が入れ子になったJWTを作成する JWE または JWS のペイロードとして使用する方法を示す.
+    この場合, JWT クレームセットは始めに署名した後, 暗号化されている.
+  
+</p>
+<p>
+    内部の署名 JWT は, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> の 付録 A.2 の例と同じである.
+    この例は, その後 RSAES-PKCS1-V1_5 と AES_128_CBC_HMAC_SHA_256 を使用して受信者にこの内部の JWT を暗号化する.
+  
+</p>
+<p>
+    以下のJWEヘッダ (改行は掲載上の都合による) の例を宣言する:
+    
+	  </p>
+<ul class="text">
+<li>
+        コンテンツ暗号化キーは, JWE 暗号化されたキーを生成するための RSAES-PKCS1-V1_5 アルゴリズムを使用した受信者に暗号化され, 
+      
+</li>
+<li>
+        その平文は, 暗号化文を生成するための AES_128_CBC_HMAC_SHA_256 アルゴリズムを使用した暗号化であり, 
+      
+</li>
+<li>
+        その平文は JWT である.
+      
+</li>
+</ul><p>
+	
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"alg":"RSA1_5","enc":"A128CBC-HS256","cty":"JWT"}
+</pre></div>
+<p>
+      JWTヘッダのUTF-8表現のオクテットをbase64urlエンコードすることによりエンコード済JWTヘッダの値を得られる:
+    
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJSU0ExXzUiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIn0
+</pre></div>
+<p>
+    この JWT の計算は <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a> の 付録 A.2 の JWE の計算と同じであり, 異なる JWE ヘッダ, 平文, 初期ベクトル, およびコンテンツ暗号化キーの値以外が使用される.
+  
+</p>
+<p>
+    使用されているペイロードは, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> (すべての空白や改行は削除されている) の 付録の節 A.2.1 終わりの JWT の ASCII 表現の8ビットバイトである.
+  
+</p>
+<p>
+    使用されている初期ベクトルの値である:
+  
+</p>
+<p>
+	  [82, 101, 100, 109, 111, 110, 100, 32, 87, 65, 32, 57, 56, 48, 53, 50]
+	
+</p>
+<p>
+    この例では, 以下のJSON Webキー <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a> フォーマットで表現されているコンテンツ暗号キーを使用している:
+  
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"kty":"oct",
+   "k":"GawgguFyGrWKav7AX4VKUg"
+  }
+</pre></div>
+<p>
+    この入れ子JWT (改行は掲載上の都合による) のための最後的な結果は:
+  
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJSU0ExXzUiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldU
+  In0.
+  g_hEwksO1Ax8Qn7HoN-BVeBoa8FXe0kpyk_XdcSmxvcM5_P296JXXtoHISr_DD_M
+  qewaQSH4dZOQHoUgKLeFly-9RI11TG-_Ge1bZFazBPwKC5lJ6OLANLMd0QSL4fYE
+  b9ERe-epKYE3xb2jfY1AltHqBO-PM6j23Guj2yDKnFv6WO72tteVzm_2n17SBFvh
+  DuR9a2nHTE67pe0XGBUS_TK7ecA-iVq5COeVdJR4U4VZGGlxRGPLRHvolVLEHx6D
+  YyLpw30Ay9R6d68YCLi9FYTq3hIXPK_-dmPlOUlKvPr1GgJzRoeC9G5qCvdcHWsq
+  JGTO_z3Wfo5zsqwkxruxwA.
+  UmVkbW9uZCBXQSA5ODA1Mg.
+  VwHERHPvCNcHHpTjkoigx3_ExK0Qc71RMEParpatm0X_qpg-w8kozSjfNIPPXiTB
+  BLXR65CIPkFqz4l1Ae9w_uowKiwyi9acgVztAi-pSL8GQSXnaamh9kX1mdh3M_TT
+  -FZGQFQsFhu0Z72gJKGdfGE-OE7hS1zuBD5oEUfk0Dmb0VzWEzpxxiSSBbBAzP10
+  l56pPfAtrjEYw-7ygeMkwBl6Z_mLS6w6xUgKlvW6ULmkV-uLC4FUiyKECK4e3WZY
+  Kw1bpgIqGYsw2v_grHjszJZ-_I5uM-9RA8ycX9KqPRp9gc6pXmoU_-27ATs9XCvr
+  ZXUtK2902AUzqpeEUJYjWWxSNsS-r1TJ1I-FMJ4XyAiGrfmo9hQPcNBYxPz3GQb2
+  8Y5CLSQfNgKSGt0A4isp1hBUXBHAndgtcslt7ZoQJaKe_nNJgNliWtWpJ_ebuOpE
+  l8jdhehdccnRMIwAmU1n7SPkmhIl1HlSOpvcvDfhUN5wuqU955vOBvfkBOh5A11U
+  zBuo2WlgZ6hYi9-e3w29bR0C2-pp3jbqxEDw3iWaf2dc5b-LnR0FEYXvI_tYk5rd
+  _J9N0mg0tQ6RbpxNEMNoA9QWk5lgdPvbh9BaO195abQ.
+  AVO9iT5AV4CzvDJCdhSFlQ
+</pre></div>
+<a name="SAMLRelationship"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
+JWTとSAMLアサーションの関係</h3>
+
+<p>
+	<a class='info' href='#OASIS.saml-core-2.0-os'>SAML 2.0<span> (</span><span class='info'>Cantor, S., Kemp, J., Philpott, R., and E. Maler, &ldquo;Assertions and Protocol for the OASIS Security Assertion Markup Language             (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a> [OASIS.saml&#8209;core&#8209;2.0&#8209;os]はJWTによってサポートされるものよりもより多くの表現とセキュリティ・オプションを持ってセキュリティ・トークンを生成するための標準を提供する.
+	しかしながら, この柔軟性と表現の豊かさの代償はサイズと複雑性の両方である.
+	SAMLのXML <a class='info' href='#W3C.CR-xml11-20021015'>[W3C.CR&#8209;xml11&#8209;20021015]<span> (</span><span class='info'>Cowan, J., &ldquo;Extensible Markup Language (XML) 1.1,&rdquo; October&nbsp;2002.</span><span>)</span></a>とXML DSIG <a class='info' href='#RFC3275'>[RFC3275]<span> (</span><span class='info'>Eastlake, D., Reagle, J., and D. Solo, &ldquo;(Extensible Markup Language) XML-Signature Syntax and Processing,&rdquo; March&nbsp;2002.</span><span>)</span></a>の使用はSAMLアサーションのサイズを大きくしている.
+	そのXMLの使用と特にXML正規化 <a class='info' href='#W3C.REC-xml-c14n-20010315'>[W3C.REC&#8209;xml&#8209;c14n&#8209;20010315]<span> (</span><span class='info'>Boyer, J., &ldquo;Canonical XML Version 1.0,&rdquo; March&nbsp;2001.</span><span>)</span></a>がその複雑性を増大させている.
+	
+      
+</p>
+<p>
+	JWTはHTTPヘッダとURIのクエリ引数に収まるだけの大きさの単純なセキュリティ・トークン・フォーマットを提供する様に意図されている.
+	それは, SAMLよりはるかに単純なトークン・モデルをサポートすることにより実現しており, <a class='info' href='#RFC4627'>JSON<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]オブジェクト・エンコーディングの構文を使用する.
+	更にそれは, メッセージ認証コード (MAC) とXML DSIGより小さい (それほど柔軟ではない) フォーマットを使用するデジタル署名を利用するセキュリティ・トークンをサポートしている.
+	
+      
+</p>
+<p>
+	したがって, JWTはSAMLアサーションが行うことのうち幾らかを実現することが出来るが, JWTはSAMLアサーションのすべてを置き換えるのではなく, 実装の容易さ, もしくはコンパクトさが考慮される様な場合に使われるトークン・フォーマットとして意図されている.
+	
+      
+</p>
+<p>
+	SAMLアサーションは常にサブジェクトに関するエンティティによって発行されるステートメントである.
+	しばしばJWTも, エンティティが<tt>iss</tt> (issuer) クレームによって表現され, サブジェクトが<tt>sub</tt> (subject) クレームによって表現されるステートメントを生成することにより, それと同じ方法で使用される.
+	しかしながら, これらのクレームはオプションなので, JWTフォーマットは他の用途でも用いることが出来る.
+	
+      
+</p>
+<a name="SWTRelationship"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C"></a><h3>Appendix C.&nbsp;
+JWTとシンプル・ウェブ・トークン (SWT) の関係</h3>
+
+<p>
+	中核おいて, JWTとシンプル・ウェブ・トークン<a class='info' href='#SWT'>SWT<span> (</span><span class='info'>Hardt, D. and Y. Goland, &ldquo;Simple Web Token (SWT),&rdquo; November&nbsp;2009.</span><span>)</span></a> [SWT]は両方とも, アプリケーション間でクレームのセットのやり取りを可能にする.
+	SWTについては, クレーム名とクレーム値の両方が文字列であり, JWTはクレーム名が文字列である一方でクレーム値が任意のJSON型であることが出来る.
+	両方のトークンの型は暗号化を使った内容の保護を提供している. SWTはHMAC SHA-256を, JWTは署名, MAC, 暗号化アルゴリズムを含むアルゴリズムを選択することが出来る.
+	
+      
+</p>
+<a name="Acknowledgements"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.D"></a><h3>Appendix D.&nbsp;
+Acknowledgements</h3>
+
+<p>
+	The authors acknowledge that the design of JWTs was
+	intentionally influenced by the design and simplicity of <a class='info' href='#SWT'>Simple Web Tokens<span> (</span><span class='info'>Hardt, D. and Y. Goland, &ldquo;Simple Web Token (SWT),&rdquo; November&nbsp;2009.</span><span>)</span></a> [SWT] and ideas for JSON
+	tokens that Dick Hardt discussed within the OpenID community.
+      
+</p>
+<p>
+	Solutions for signing JSON content were previously explored by
+	<a class='info' href='#MagicSignatures'>Magic Signatures<span> (</span><span class='info'>Panzer (editor), J., Laurie, B., and D. Balfanz, &ldquo;Magic Signatures,&rdquo; January&nbsp;2011.</span><span>)</span></a> [MagicSignatures], <a class='info' href='#JSS'>JSON Simple Sign<span> (</span><span class='info'>Bradley, J. and N. Sakimura (editor), &ldquo;JSON Simple Sign,&rdquo; September&nbsp;2010.</span><span>)</span></a> [JSS], and <a class='info' href='#CanvasApp'>Canvas Applications<span> (</span><span class='info'>Facebook, &ldquo;Canvas Applications,&rdquo; 2010.</span><span>)</span></a> [CanvasApp], all of which
+	influenced this draft.
+      
+</p>
+<p>
+        This specification is the work of the OAuth Working Group,
+	which includes dozens of active and dedicated participants.
+	In particular, the following individuals contributed ideas,
+        feedback, and wording that influenced this specification:
+      
+</p>
+<p>
+	Dirk Balfanz,
+	Richard Barnes,
+	Brian Campbell,
+	Breno de Medeiros,
+	Dick Hardt,
+	Joe Hildebrand,
+	Jeff Hodges,
+	Edmund Jay,
+	Yaron Y. Goland,
+	Ben Laurie,
+	James Manger,
+	Prateek Mishra,
+	Tony Nadalin,
+	Axel Nennker,
+	John Panzer,
+	Emmanuel Raviart,
+	David Recordon,
+	Eric Rescorla,
+	Jim Schaad,
+	Paul Tarjan,
+	Hannes Tschofenig,
+	and Sean Turner.
+      
+</p>
+<p>
+	Hannes Tschofenig and Derek Atkins chaired the OAuth working group and
+	Sean Turner and Stephen Farrell served as Security area directors
+	during the creation of this specification.
+      
+</p>
+<a name="History"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.E"></a><h3>Appendix E.&nbsp;
+Document History</h3>
+
+<p>
+	[[ to be removed by the RFC editor before publication as an RFC ]]
+      
+</p>
+<p>
+	-11
+	</p>
+<ul class="text">
+<li>
+	    Added a Nested JWT example.
+	  
+</li>
+<li>
+	    Added <tt>sub</tt> to the list of Claims
+	    registered for use as Header Parameter values when
+	    an unencrypted representation is required in an encrypted JWT.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-10
+	</p>
+<ul class="text">
+<li>
+	    Allowed Claims to be replicated as Header Parameters in
+	    encrypted JWTs as needed by applications that require
+	    an unencrypted representation of specific Claims.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-09
+	</p>
+<ul class="text">
+<li>
+	    Clarified that the
+	    <tt>typ</tt> header parameter is used
+	    in an application-specific manner
+	    and has no effect upon the JWT processing.
+	  
+</li>
+<li>
+	    Stated that recipients MUST either reject JWTs with
+	    duplicate Header Parameter Names
+	    or with duplicate Claim Names
+	    or use a JSON parser that returns only
+	    the lexically last duplicate member name.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-08
+	</p>
+<ul class="text">
+<li>
+	    Tracked a change to how JWEs are computed
+	    (which only affected the example encrypted JWT value).
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-07
+	</p>
+<ul class="text">
+<li>
+	    Defined that the default action for claims that are not understood
+	    is to ignore them unless otherwise specified by applications.
+	  
+</li>
+<li>
+	    Changed from using the term "byte" to "octet" when referring to 8 bit values.
+	  
+</li>
+<li>
+	    Tracked encryption computation changes in the JWE specification.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-06
+	</p>
+<ul class="text">
+<li>
+	    Changed the name of the <tt>prn</tt> claim
+	    to <tt>sub</tt> (subject)
+	    both to more closely align with SAML name usage
+	    and to use a more intuitive name.
+	  
+</li>
+<li>
+	    Allow JWTs to have multiple audiences.
+	  
+</li>
+<li>
+	    Applied editorial improvements suggested by
+	    Jeff Hodges, Prateek Mishra, and Hannes Tschofenig.
+	    Many of these simplified the terminology used.
+	  
+</li>
+<li>
+	    Explained why Nested JWTs should be signed and then encrypted.
+	  
+</li>
+<li>
+	    Clarified statements of the form "This claim is OPTIONAL"
+	    to "Use of this claim is OPTIONAL".
+	  
+</li>
+<li>
+	    Referenced String Comparison Rules in JWS.
+	  
+</li>
+<li>
+	    Added seriesInfo information to Internet Draft references.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-05
+	</p>
+<ul class="text">
+<li>
+	    Updated values for example AES CBC calculations.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-04
+	</p>
+<ul class="text">
+<li>
+	    Promoted Initialization Vector from being a header parameter to being a top-level JWE element.
+	    This saves approximately 16 bytes in the compact serialization,
+	    which is a significant savings for some use cases.
+	    Promoting the Initialization Vector out of the header also avoids repeating
+	    this shared value in the JSON serialization.
+	  
+</li>
+<li>
+	    Applied changes made by the RFC Editor to RFC 6749's registry language
+	    to this specification.
+	  
+</li>
+<li>
+	    Reference RFC 6755 -- An IETF URN Sub-Namespace for OAuth.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-03
+	</p>
+<ul class="text">
+<li>
+	    Added statement that
+	    "StringOrURI values are compared as case-sensitive strings
+	    with no transformations or canonicalizations applied".
+	  
+</li>
+<li>
+	    Indented artwork elements to better distinguish them from the body text.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+	-02
+	</p>
+<ul class="text">
+<li>
+	    Added an example of an encrypted JWT.
+	  
+</li>
+<li>
+	    Added this language to Registration Templates:
+	    "This name is case sensitive.  Names that match other registered names
+	    in a case insensitive manner SHOULD NOT be accepted."
+	  
+</li>
+<li>
+	    Applied editorial suggestions.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -01
+        </p>
+<ul class="text">
+<li>
+	    Added the <tt>cty</tt> (content type) header parameter
+	    for declaring type information about the secured content,
+	    as opposed to the <tt>typ</tt> (type) header parameter,
+	    which declares type information about this object.
+	    This significantly simplified nested JWTs.
+	  
+</li>
+<li>
+	    Moved description of how to determine whether a header is
+	    for a JWS or a JWE from the JWT spec to the JWE spec.
+	  
+</li>
+<li>
+	    Changed registration requirements from RFC Required to
+	    Specification Required with Expert Review.
+	  
+</li>
+<li>
+	    Added Registration Template sections for defined registries.
+	  
+</li>
+<li>
+	    Added Registry Contents sections to populate registry values.
+	  
+</li>
+<li>
+	    Added "Collision Resistant Namespace" to the terminology section.
+	  
+</li>
+<li>
+	    Numerous editorial improvements.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -00
+        </p>
+<ul class="text">
+<li>
+            Created the initial IETF draft based upon
+            draft-jones-json-web-token-10 with no normative
+            changes.
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="Translator"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.F"></a><h3>Appendix F.&nbsp;
+翻訳者</h3>
+
+<p>
+        本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
+        質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
+      
+</p>
+<p>
+        </p>
+<ul class="text">
+<li>
+            Masaru Kurahayashi (Yahoo! Japan)
+          
+</li>
+<li>
+            Muneomi Sakuta
+          
+</li>
+<li>
+            Naohiro Fujie (Itochu Techno Solutions)
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Authors' Addresses</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Michael B. Jones</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Microsoft</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">mbj@microsoft.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://self-issued.info/">http://self-issued.info/</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">John Bradley</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Ping Identity</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:ve7jtb@ve7jtb.com">ve7jtb@ve7jtb.com</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Nat Sakimura</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Nomura Research Institute</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:n-sakimura@nri.co.jp">n-sakimura@nri.co.jp</a></td></tr>
+</table>
+</body></html>

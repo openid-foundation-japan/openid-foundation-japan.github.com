@@ -1,0 +1,1340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Use Cases and Requirements for JSON Object
+    Signing and Encryption (JOSE)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Use Cases and Requirements for JSON Object
+    Signing and Encryption (JOSE)">
+<meta name="keywords" content="JWS, JWE, JWK, JWA, JWT, CMS, S/MIME, JOSE, XMPP, ALTO, OAuth">
+<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">JOSE</td><td class="header">R. Barnes</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">BBN Technologies</td></tr>
+<tr><td class="header">Intended status: Informational</td><td class="header">September 3, 2013</td></tr>
+<tr><td class="header">Expires: March 7, 2014</td><td class="header">&nbsp;</td></tr>
+</table></td></tr></table>
+<h1><br />Use Cases and Requirements for JSON Object
+    Signing and Encryption (JOSE)<br />draft-ietf-jose-use-cases-03</h1>
+
+<h3>Abstract</h3>
+
+<p>
+        多くのインターネット上のアプリケーションは, ネットワークレイヤーやトランスポートレイヤーでのセキュリティメカニズムに加えて, オブジェクトベースのセキュリティメカニズムを必要とする.
+        かつては Cryptographic Message Syntax (CMS) が ASN.1 に基づいたバイナリレベルでのセキュアオブジェクトフォーマットを提供していた.
+        しかしながら時代の変化とともに ASN.1 のようなバイナリオブジェクトエンコーディングは時代遅れとなり, JSON などのテキストベースエンコーディングが主流となった.
+        本ドキュメントでは, 現在実用化されている様々なアプリケーションレイヤーセキュリティメカニズムをもとに, JSON ベースのセキュアオブジェクトフォーマットの各種ユースケースと要件をまとめる.
+      
+</p>
+<h3>Status of this Memo</h3>
+<p>
+This Internet-Draft is submitted  in full
+conformance with the provisions of BCP&nbsp;78 and BCP&nbsp;79.</p>
+<p>
+Internet-Drafts are working documents of the Internet Engineering
+Task Force (IETF).  Note that other groups may also distribute
+working documents as Internet-Drafts.  The list of current
+Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>
+Internet-Drafts are draft documents valid for a maximum of six months
+and may be updated, replaced, or obsoleted by other documents at any time.
+It is inappropriate to use Internet-Drafts as reference material or to cite
+them other than as &ldquo;work in progress.&rdquo;</p>
+<p>
+This Internet-Draft will expire on March 7, 2014.</p>
+
+<h3>Copyright Notice</h3>
+<p>
+Copyright (c) 2013 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#intro-sec">1.</a>&nbsp;
+Introduction<br />
+<a href="#def-sec">2.</a>&nbsp;
+Definitions<br />
+<a href="#basic-sec">3.</a>&nbsp;
+Basic Requirements<br />
+<a href="#app-req-sec">4.</a>&nbsp;
+Requirements on Application Protocols<br />
+<a href="#use-cases-sec">5.</a>&nbsp;
+Use Cases<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#sec-token-sec">5.1.</a>&nbsp;
+Security Tokens<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#oauth-sec">5.2.</a>&nbsp;
+OAuth<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#fed-sec">5.3.</a>&nbsp;
+Federation<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#xmpp-sec">5.4.</a>&nbsp;
+XMPP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#alto-sec">5.5.</a>&nbsp;
+ALTO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#atoca-sec">5.6.</a>&nbsp;
+Emergency Alerting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#webcrypto-sec">5.7.</a>&nbsp;
+Web Cryptography<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor1">5.8.</a>&nbsp;
+Constrained Devices<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">5.8.1.</a>&nbsp;
+Example: MAC based on ECDH-derived key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">5.8.2.</a>&nbsp;
+Object security for CoAP<br />
+<a href="#req-sec">6.</a>&nbsp;
+Requirements<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#functional-sec">6.1.</a>&nbsp;
+Functional Requirements<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#sec-req-sec">6.2.</a>&nbsp;
+Security Requirements<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#desiderata-sec">6.3.</a>&nbsp;
+Desiderata<br />
+<a href="#iana-sec">7.</a>&nbsp;
+IANA Considerations<br />
+<a href="#sec-cons-sec">8.</a>&nbsp;
+Security Considerations<br />
+<a href="#rfc.references1">9.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">9.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">9.2.</a>&nbsp;
+Informative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references3">9.3.</a>&nbsp;
+翻訳プロジェクト<br />
+<a href="#ack-sec">Appendix&nbsp;A.</a>&nbsp;
+Acknowledgements<br />
+<a href="#hist-sec">Appendix&nbsp;B.</a>&nbsp;
+Document History<br />
+<a href="#Translator">Appendix&nbsp;C.</a>&nbsp;
+翻訳者<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Author's Address<br />
+</p>
+<br clear="all" />
+
+<a name="intro-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+Introduction</h3>
+
+<p>
+        インターネット上のアプリケーションは, インターネットを構成する各レイヤーにおけるセキュリティメカニズムを活用できる.
+        多くのアプリケーションは, IPSec や TLS などの, チャネルベースのセキュリティに大きく依存している.
+        これらのセキュリティメカニズムは, アプリケーションデータが流れる IP レイヤーやトランスポートレイヤーにおいてセキュアチャネルを確立するものである.
+        <a class='info' href='#RFC4301'>[RFC4301]<span> (</span><span class='info'>Kent, S. and K. Seo, &ldquo;Security Architecture for the Internet Protocol,&rdquo; December&nbsp;2005.</span><span>)</span></a>
+        <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a>
+        しかしながらこれらのセキュリティメカニズムは状況によっては end-to-end のセキュリティを保証しない.
+        例えば, アプリケーションレイヤーに仲介者が存在する場合は, チャネルベースのセキュリティプロトコルでは, 仲介者同士の間を流れるメッセージを改竄しようとするアタッカーからの攻撃は防ぐことができても, 仲介者自身がメッセージを改竄 / 盗聴することは防げない.
+        こういったケースでは, オブジェクトベースのセキュリティメカニズムを用いてアプリケーションデータをセキュアオブジェクトに埋め込み, 信頼できない主体がデータを扱ってもセキュリティを確保できるようにする必要がある.
+      
+</p>
+<p>
+        上記のようなプロトコルとして現在最も広く利用されているのは, Secure/Multipurpose Internet Mail Extensions (S/MIME) である.
+        Email メッセージは, 通常一連の Mail Transfer Agents (MTA) を仲介者として, 受信者に届けられる.
+        これら MTA は通常チャネルベースのセキュリティメカニズムを用いて通信を保護する (例: STARTTLS <a class='info' href='#RFC3207'>[RFC3207]<span> (</span><span class='info'>Hoffman, P., &ldquo;SMTP Service Extension for Secure SMTP over Transport Layer Security,&rdquo; February&nbsp;2002.</span><span>)</span></a>) が, こういった仕組みは MTA 自身がメッセージを改竄 / 盗聴することを防ぐものではない.
+        信頼できない MTA が存在する状況でも end-to-end のセキュリティを確保するには, S/MIME を利用してメッセージボディーをセキュアオブジェクトに内包し, 情報の機密性 (confidentiality), 完全性 (integrity), 送信者認証 (data origin authentication) を確保することが有効である.
+      
+</p>
+<p>
+        S/MIME は Cryptographic Message Syntax for secure objects (CMS) <a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> をベースにしている.
+        CMS は Abstract Syntax Notation 1 (ASN.1) を用いて定義され, 慣習的に ASN.1 Distinguished Encoding Rules (DER) でエンコードされる.
+        DER では保護されるメッセージと関連パラメーターはバイナリエンコーディングされる. <a class='info' href='#ITU.X690.2002'>[ITU.X690.2002]<span> (</span><span class='info'>International Telecommunications Union, &ldquo;Information Technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER),&rdquo; 2002.</span><span>)</span></a>
+        近年では ASN.1 (やその他の汎用オブジェクトに対するバイナリエンコーディング) が利用されるケースは減少し, Extensible Markup Language (XML) <a class='info' href='#W3C.REC-xml'>[W3C.REC&#8209;xml]<span> (</span><span class='info'>Bray, T., Paoli, J., Sperberg-McQueen, C., and E. Maler, &ldquo;Extensible Markup Language (XML) 1.0 (2nd ed),&rdquo; October&nbsp;2000.</span><span>)</span></a> や JavaScript Object Notation (JSON) <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> といったテキストベースのフォーマットの利用が増加している.
+      
+</p>
+<p>
+        最近の多くのアプリケーションは ASN.1 オブジェクトよりも遥かにテキストベースフォーマットのオブジェクトの処理に長けており, そもそも ASN.1 オブジェクトを処理できないものも多い.
+        オブジェクトベースのセキュリティの実装を単純化するため, IETF JSON Object Signing and Encryption (JOSE) ワーキンググループでは JSON ベースのセキュアオブジェクトフォーマットを策定している.
+        その名前が示す通り, ここで策定されているのは JSON エンコードされたオブジェクトの機密性 (confidentiality), 完全性 (integrity) を確保するためのフォーマットである.
+        しかしながら, ワーキンググループ内での議論の結果, JOSE で定義されるフォーマットを利用するアプリケーションごとに, そのフォーマットに対する要件が異なることも分かった.
+        よって本ドキュメントでは, JOSE フォーマットを利用する可能性のあるアプリケーションを想定し, セキュリティメカニズムとオブジェクトエンコーディングに対する要件をまとめる.
+      
+</p>
+<p>
+        XML を利用するシステムでは, XML ベースのオブジェクトベースセキュリティメカニズムである XML Digital Signatures および XML Encryption を利用するものもある.
+        <a class='info' href='#W3C.xmldsig-core'>[W3C.xmldsig&#8209;core]<span> (</span><span class='info'>Eastlake, D., Reagle , J., and D. Solo, &ldquo;XML-Signature Syntax and Processing,&rdquo; October&nbsp;2000.</span><span>)</span></a>
+        <a class='info' href='#W3C.xmlenc-core'>[W3C.xmlenc&#8209;core]<span> (</span><span class='info'>Eastlake, D. and J. Reagle , &ldquo;XML Encryption Syntax and Processing,&rdquo; August&nbsp;2002.</span><span>)</span></a>
+        これらは SAML <a class='info' href='#OASIS.saml-core-2.0-os'>[OASIS.saml&#8209;core&#8209;2.0&#8209;os]<span> (</span><span class='info'>Cantor, S., Kemp, J., Philpott, R., and E. Maler, &ldquo;Assertions and Protocol for the OASIS Security Assertion Markup Language             (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a> や WS-Federation <a class='info' href='#WS-Federation'>[WS&#8209;Federation]<span> (</span><span class='info'>Kaler, C., McIntosh, M., Goodner, M., and A. Nadalin, &ldquo;Web Services Federation Language (WS-Federation) Version 1.2,&rdquo; May&nbsp;2009.</span><span>)</span></a> などのセキュリティトークンや CAP 緊急アラートフォーマット <a class='info' href='#CAP'>[CAP]<span> (</span><span class='info'>Botterell, A. and E. Jones, &ldquo;Common Alerting Protocol v1.1,&rdquo; October&nbsp;2005.</span><span>)</span></a> での利用を想定して定義されたものである.
+        しかし現実には XML ベースのセキュアオブジェクトフォーマットは ASN.1 と同レベルの複雑性を持ち, ASN.1 を扱えない / 扱いたくないデベロッパーがこういった XML ベースのセキュリティメカニズムを利用することは考えづらい.
+        こういった背景が, JSON ベースのセキュアオブジェクトフォーマット策定に至る動機となっている.
+        JSON ベースであれば, 実装や利用も容易であり, 開発者はわずかな労力とツールのみでそれを取り入れることができるであろう.
+      
+</p>
+<a name="def-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+Definitions</h3>
+
+<p>この文書は<a class='info' href='#RFC4949'>[RFC4949]<span> (</span><span class='info'>Shirey, R., &ldquo;Internet Security Glossary, Version 2,&rdquo; August&nbsp;2007.</span><span>)</span></a>に記載される標準セキュリティ用語を広範囲に活用するものである.
+          JOSEとCMSのユースケースは似ていることから, いくつかのCMSのコンセプトについて<a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a>を例に説明する.
+</p>
+<p>JOSEワーキンググループでは３つのJSONオブジェクトフォーマットを定義する.
+      
+      </p>
+<ol class="text">
+<li>機密性保護オブジェクトフォーマット
+</li>
+<li>完全性保護オブジェクトフォーマット
+</li>
+<li>鍵表現フォーマット
+</li>
+</ol><p>
+
+      この文書では, 上記をそれぞれ"署名済みオブジェクトフォーマット", "暗号化オブジェクトフォーマット", "鍵フォーマット"と呼ぶ.
+      これらのフォーマットを表現することを目的としたJOSEワーキンググループの仕様はそれぞれJSON Web Signature (JWS)<a class='info' href='#I-D.ietf-jose-json-web-signature'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;signature]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>, JSON Web Encryption (JWE)<a class='info' href='#I-D.ietf-jose-json-web-encryption'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;encryption]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>, JSON Web Key (JWK)<a class='info' href='#I-D.ietf-jose-json-web-key'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;key]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a>である.
+      JWS, JWE, JWKで使用されるアルゴリズムやアルゴリズム識別子はJSON Web Alogrithms (JWA) <a class='info' href='#I-D.ietf-jose-json-web-algorithms'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;algorithms]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a> で定義されている.
+      
+      
+</p>
+<p>通常, 非対称/対称な処理を区別する必要がない場面では, 共通鍵を使ったメッセージ認証コード(MAC) と公開鍵暗号を含むデジタル署名についても同様に"署名", "シグネチャ"などの用語を用いる
+</p>
+<p>セキュアオブジェクトの存続期間には, オブジェクトを生成するエンティティ (例：ペイロードを暗号化もしくは署名する側) とオブジェクトを利用するエンティティ (例：復号化, 検証をする側) の２つの基本的なロールが存在する.
+          これらのロールをそれぞれ"送信者", "受信者"と呼ぶことにする.
+          要件やユースケースによってはこれらのロールを単一エンティティが担うことを明記するかもしれないが, 同一ロールに複数のエンティティが存在する可能性があることに留意すること.
+          たとえば, メッセージは複数の送信者によって署名されたり, 複数の受信者によって復号化される可能性がある.
+</p>
+<a name="basic-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+Basic Requirements</h3>
+
+<p>
+        言うまでもなく,  暗号化および署名済みオブジェクトフォーマットに対し, 機密性のためには対称あるいは非対称暗号化, 完全性保護のためにはMACあるいはデジタル署名といった, 適切な暗号メカニズムを用いることで, 必要な保護が形成される.
+        両方のケースで, 対称および非対称処理の両方のサポートがJOSEフォーマットには必要である.
+        </p>
+<ul class="text">
+<li>
+            JOSE暗号化オブジェクトフォーマットは, 送信者と受信者が対称鍵を共有しているケースでのオブジェクト暗号化をサポートしなければならない.
+          
+</li>
+<li>
+            JOSE暗号化オブジェクトフォーマットは, 送信者が受信者の公開鍵のみを所持しているケースでのオブジェクト暗号化をサポートしなければならない.
+          
+</li>
+<li>
+            JOSE署名済みオブジェクトフォーマットは, 送信者と受信者が対称鍵のみを共有しているケースでのメッセージ認証コード (MAC) を用いた完全性保護をサポートしなければならない.
+          
+</li>
+<li>
+            JOSE署名済みオブジェクトフォーマットは, 受信者が送信者の公開鍵のみを所持しているケースでのデジタル署名を用いた完全性保護をサポートしなければならない.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        いくつかのアプリケーションでは, JOSEオブジェクトの処理に用いる鍵が, JOSEオブジェクトの中で直接提示されるのではなく, アプリケーションのコンテキストを通じて提示される.
+        しかし, 混乱を避けるために, 必要なコンテキストが不足しているエンドポイントは, 不足を認識し, 問題なく失敗処理を行える必要がある.
+        鍵以外, JOSEオブジェクトは事前ネゴシエーションをサポートしない.
+        全ての暗号パラメータはJOSEオブジェクトの中に直接記述されなければならない.
+        </p>
+<ul class="text">
+<li>
+             JOSE署名済みおよび暗号化オブジェクトフォーマットは, 対象のオブジェクトの処理に必要な鍵を持っているかどうか, そしてその鍵はそのオブジェクト自身によって提示されているか, あるいはなんらかのout-of-bandメカニズムによって提示されているかどうかについて実装が認識するためのプロセスを定義しなければならない.
+          
+</li>
+<li>
+            JOSEで利用される各アルゴリズムについて, そのアルゴリズムを使用するJOSEオブジェクトが内包しなければならないパラメータを定義する必要がある.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        二つのエンティティが複数のJOSEオブジェクトを交換しようとするケースで, 全てのJOSEオブジェクトで個々にパラメータを記述しなくても済むように, いくつかのパラメータについて事前にネゴシエーションをすることは有用かもしれない.
+        しかし, 事前ネゴシエーションをサポートしないエンドポイントと混同しないように, これらのケースでは事前にネゴシエーションされたパラメータを使用していることを示すことは有益である.
+
+        </p>
+<ul class="text">
+<li>
+            オブジェクトの処理に事前ネゴシエーションされたパラメータが使用されることを示すことができるように, 基本のJOSE署名済みおよび暗号化オブジェクトフォーマットを拡張できるようにすべきである.
+            この拡張は, どのパラメータが使用されるのかを示す手段も提供すべきである.
+          
+</li>
+</ul><p>
+      
+</p>
+<p>
+        鍵フォーマットの目的は, 暗号メッセージ処理用の符号化された鍵を使用するために十分な情報を受信者に提供することである.
+        そのため, 時には純粋な鍵だけではなく追加のパラメータを含める必要がある.
+      
+</p>
+<p>
+        </p>
+<ul class="text">
+<li>
+            JOSE鍵フォーマットは符号化された鍵を使用するために必要な全てのアルゴリズムパラメータを含めることが出来なければならない.
+            そのパラメータには, アルゴリズムで必要となる追加のパラメータ (例: 楕円曲線パラメータ) とともに, その鍵が使用されるアルゴリズムの識別子も含まれる.
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="app-req-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+Requirements on Application Protocols</h3>
+
+<p>
+        各 JOSE セキュアオブジェクトフォーマット仕様は, 保護対象コンテンツに対する暗号処理を詳細に定め, JOSE オブジェクトの受信者が, 適切に暗号化されたオブジェクトを復号したり, 署名を検証したりできることを保証する.
+        しかしながら, JOSE を利用する各アプリケーション側でも, 以下のような点については独自に定める必要がある.
+        </p>
+<ul class="text">
+<li>保護対象となるアプリケーションコンテンツ
+</li>
+<li>利用される暗号アルゴリズム
+</li>
+<li>エンティティ間での鍵確立手法
+</li>
+<li>利用される鍵が JOSE オブジェクト内に明示的に示されているのか, アプリケーションのコンテキストにより決まるのか
+</li>
+</ul><p>
+      
+</p>
+<a name="use-cases-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+Use Cases</h3>
+
+<p>アプリケーションレイヤーのプロトコルについて策定しているワーキンググループにはJOSEデータフォーマットをエンドツーエンドのセキュリティ機能の設計で利用したいという要望を表明しているところもある.
+            この章では, このようなグループが提案したユースケースをとりまとめ, JOSEオブジェクトフォーマットに求められる要件について説明する.
+</p>
+<a name="sec-token-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+Security Tokens</h3>
+
+<p>セキュリティトークンはオブジェクトベースのセキュリティではよくあるユースケースである. 例えばSAMLのアサーション <a class='info' href='#OASIS.saml-core-2.0-os'>[OASIS.saml&#8209;core&#8209;2.0&#8209;os]<span> (</span><span class='info'>Cantor, S., Kemp, J., Philpott, R., and E. Maler, &ldquo;Assertions and Protocol for the OASIS Security Assertion Markup Language             (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a>がある.
+            セキュリティトークンは発行者から受信者へ対象のエンティティ ("クレーム"または"アサーション") に関する情報を渡すために使われる.
+            トークンフォーマットのセキュリティ機能により, 受信者はクレームが発行者により発行され, 完全性が保護されているオブジェクトの場合は他のパーティから読み取れないことを検証することができる.
+</p>
+<p>セキュリティトークンはOAuth2.0<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a>とそれに含まれるOAuth bearer tokens <a class='info' href='#RFC6750'>[RFC6750]<span> (</span><span class='info'>Jones, M. and D. Hardt, &ldquo;The OAuth 2.0 Authorization Framework: Bearer Token Usage,&rdquo; October&nbsp;2012.</span><span>)</span></a> などのリソース認可のプロトコルだけでなく, SAML 2.0 <a class='info' href='#OASIS.saml-core-2.0-os'>[OASIS.saml&#8209;core&#8209;2.0&#8209;os]<span> (</span><span class='info'>Cantor, S., Kemp, J., Philpott, R., and E. Maler, &ldquo;Assertions and Protocol for the OASIS Security Assertion Markup Language             (SAML) V2.0,&rdquo; March&nbsp;2005.</span><span>)</span></a>, WS-Federation <a class='info' href='#WS-Federation'>[WS&#8209;Federation]<span> (</span><span class='info'>Kaler, C., McIntosh, M., Goodner, M., and A. Nadalin, &ldquo;Web Services Federation Language (WS-Federation) Version 1.2,&rdquo; May&nbsp;2009.</span><span>)</span></a>, Mozilla Persona <a class='info' href='#Persona'>[Persona]<span> (</span><span class='info'>Mozilla, &ldquo;Mozilla Persona,&rdquo; April&nbsp;2013.</span><span>)</span></a>, OpenID Connect <a class='info' href='#OpenID.Messages'>[OpenID.Messages]<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., Mortimore, C., and E. Jay, &ldquo;OpenID Connect Messages 1.0,&rdquo; May&nbsp;2013.</span><span>)</span></a> などのフェデレーションプロトコルで利用される.
+            あるケースでは, セキュリティトークンはクライアント認証やアクセス制御 <a class='info' href='#I-D.ietf-oauth-jwt-bearer'>[I&#8209;D.ietf&#8209;oauth&#8209;jwt&#8209;bearer]<span> (</span><span class='info'>Jones, M., Campbell, B., and C. Mortimore, &ldquo;JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants,&rdquo; July&nbsp;2013.</span><span>)</span></a><a class='info' href='#I-D.ietf-oauth-saml2-bearer'>[I&#8209;D.ietf&#8209;oauth&#8209;saml2&#8209;bearer]<span> (</span><span class='info'>Campbell, B., Mortimore, C., and M. Jones, &ldquo;SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants,&rdquo; July&nbsp;2013.</span><span>)</span></a>に利用される.
+</p>
+<p>JSON Web Token (JWT) <a class='info' href='#I-D.ietf-oauth-json-web-token'>[I&#8209;D.ietf&#8209;oauth&#8209;json&#8209;web&#8209;token]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; July&nbsp;2013.</span><span>)</span></a> はJSONおよびJOSEをベースとしたセキュリティートークンフォーマットである.
+        JWTはMozilla Persona, OpenID Connect, OAuthと共に利用される.
+        JWTは限定された場面 (例: HTTPクエリパラメータ) で主に利用されていたためJWTの主要な要件となり, それゆえJOSEは短くURLセーフな形式になっている.
+</p>
+<a name="oauth-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.2"></a><h3>5.2.&nbsp;
+OAuth</h3>
+
+<p>
+          OAuthプロトコルは, HTTP <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> を用いた認可トークンの流通と利用のメカニズムを定義している.
+          保護リソースへアクセスしたいクライアントは, リソースオーナーからの認可を要求する.
+          このアクセスを許可する場合, リソースオーナーは認可サーバーに対し, クライアントへアクセストークンを発行するよう指示する.
+          クライアントは, 保護リソースにアクセスしたいとき, 関係するリソースサーバーにそのトークンを提示する.
+          そしてリソースサーバーは保護リソースへのアクセスを提供する前にそのトークンの妥当性を検証する.
+        
+</p><br /><hr class="insert" />
+<a name="figOAuth"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>              +---------------+          +---------------+
+              |               |          |               |
+              |   Resource    |&lt;........&gt;| Authorization |
+              |    Server     |          |     Server    |
+              |               |          |               |
+              +---------------+          +---------------+
+                           ^                |
+                           |                |
+                           |                |
+                           |                |
+                           |                |
+              +------------|--+          +--|------------+
+              |            +----------------+            |
+              |               |          |   Resource    |
+              |     Client    |          |     Owner     |
+              |               |          |               |
+              +---------------+          +---------------+</pre></div>
+<p>
+</p><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1: The OAuth process&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+          実質的にこのプロセスは, クライアントおよびリソースオーナー経由で, 認可サーバー(オブジェクトの送信者)からリソースサーバー(受信者)へトークンを移すことである
+          (リソースオーナーを経由するのはこのプロトコルが利用しているHTTPのメカニズムに起因している).
+          そこで, 信頼できない中間者経由でアプリケーションオブジェクトを転送するケースが出てくる.
+        
+</p>
+<p>
+          このアプリケーションには二つの不可欠なセキュリティ要件がある.
+          完全性とデータ生成元の認証である.
+          完全性保護は, リソースオーナーとクライアントがトークン内に符合化されたパーミッションを変更できないようするために必要である.
+          リソースオーナーは究極的には認可を付与するエンティティではあるが, 例えばリソースオーナーが所有していないリソースへのアクセス権の付与も出来てしまうため, 認可トークンの変更に対しては信頼できない.
+        
+</p>
+<p>
+          データ生成元の認証は, トークンが信頼できる認可サーバーによって生成されたものかどうかをリソースサーバーが検証できるようにするために必要である.
+        
+</p>
+<p>
+          認可サーバーがリソースオーナーやクライアントに対してパーミッション情報を不可視としたい場合, 機密性保護も必要となるかもしれない.
+          例えば, ソーシャルネットワーキングに関連したパーミッションはプライベートな情報と見なされるかもしれない.
+          しかし, OAuthは下位層で用いているHTTPトランザクションがTLSによって保護されていることを元々要求していることには注意すること.
+          よってトークンはリソースサーバーとクライアント以外のエンティティに対する機密性保護に関しては既に達成されている.
+        
+</p>
+<p>
+          署名と暗号化が対称暗号または非対称暗号のいずれを用いて提供されるのかに関わらず, 機密性および完全性のニーズは, 署名済みおよび暗号化オブジェクトフォーマットの基本要件に合致している.
+          どちらのメカニズムを採用するかの選択は, 二つのサーバ間の関係, すなわちそれらが対称鍵を共有するのか, 公開鍵のみを共有するのかに依存するだろう.
+        
+</p>
+<p>
+          認証の要件はデプロイの特性にも依存するだろう.
+          リソースサーバーと認可サーバーの結びつけが相対的に強いところでは, トークンを発行した認可サーバを識別するにはトークンの署名に用いた鍵だけで十分かもしれない.
+          これは, 認可サーバーの公開鍵, あるいは公開鍵か対称鍵の識別子をプロトコルが伝送することを必要とする.
+          OAuthでは <tt>client_id</tt> パラメータが, 使用される鍵を識別する.
+        
+</p>
+<p>
+          リソースサーバーは事前に認可サーバーの鍵を知らないといったような, より高度なケースも存在するかもしれない.
+          例えば一つのエンティティが(負荷分散のために)複数の認可サーバーをインスタンス化する場合, それらが個々に独立した鍵ペアを持っている例が挙げられる.
+          このようなケースの場合, 対象の認可サーバーが信頼するエンティティかどうかをリソースサーバーが検証できるように, 認可サーバーの証明書または証明書チェーンを含める必要もあるかもしれない.
+        
+</p>
+<p>
+          OAuthにとってHTTPトランスポートはエンコーディングに関して特定の制約を課している.
+          OAuthプロトコルでは, base64urlエンコーディング <a class='info' href='#RFC4648'>[RFC4648]<span> (</span><span class='info'>Josefsson, S., &ldquo;The Base16, Base32, and Base64 Data Encodings,&rdquo; October&nbsp;2006.</span><span>)</span></a> が実施された上で, トークンはHTTP URI <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 内のクエリーパラメータとして頻繁にやり取りされる.
+          URI (従ってクエリパラメータも) の長さには制限が規定されていないが, 実際にはいくつかのユーザーエージェントでは2048文字超のURIは拒否される.
+          いくつかのモバイルブラウザでは, この制限はさらに小さな値となっている.
+          そのためこのユースケースでは, JOSEオブジェクトに対して, URIクエリパラメータに含むことが可能なようシンプルであることと同時に, 署名後 (場合によっては暗号化も) でも十分に小さなサイズであることを要求する.
+        
+</p>
+<a name="fed-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.3"></a><h3>5.3.&nbsp;
+Federation</h3>
+
+<p>
+          セキュリティトークンは2つのアイデンティティフェデレーションプロトコルで用いられている.
+          これら2つの要件は, 前節で述べたものと似ている.
+        
+</p>
+<p></p>
+<ul class="text">
+<li>
+            OpenID Connect <a class='info' href='#OpenID.Messages'>[OpenID.Messages]<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., Mortimore, C., and E. Jay, &ldquo;OpenID Connect Messages 1.0,&rdquo; May&nbsp;2013.</span><span>)</span></a> は, OAuth 2.0 をベースとした REST/JSON ベースのシンプルなアイデンティティフェデレーションプロトコルである.
+            OpenID Connect では, JWT および JOSE フォーマットがセキュリティトークンおよびその他のプロトコルメッセージの保護 (署名およびオプショナルで暗号化) の為に利用されている.
+            OpenID Connect は, 暗号アルゴリズムのネゴシエーションや鍵情報の配送の為に, JWT/JOSE ヘッダーパラメーターとしては定義されていない要素を利用している.
+          
+</li>
+<li>
+            Mozilla Persona <a class='info' href='#Persona'>[Persona]<span> (</span><span class='info'>Mozilla, &ldquo;Mozilla Persona,&rdquo; April&nbsp;2013.</span><span>)</span></a> は, アイデンティティ情報やアプリケーション情報, 関与する各エンティティの鍵情報などの表現形式として, JOSE JWS オブジェクトとして署名された JWT を利用した, シンプルなシングルサインオン (SSO) プロトコルである.
+            Persona は鍵配送のために JOSE ヘッダーパラメータではなく JWT メッセージ中の属性を利用する.
+          
+</li>
+</ul>
+
+<a name="xmpp-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.4"></a><h3>5.4.&nbsp;
+XMPP</h3>
+
+<p>
+              Extensible Messaging and Presence Protocol (XMPP) は末端のクライアントから他の端末へXMPP serversの仕様に従ってメッセージを送信するプロトコルである. <a class='info' href='#RFC6120'>[RFC6120]<span> (</span><span class='info'>Saint-Andre, P., &ldquo;Extensible Messaging and Presence Protocol (XMPP): Core,&rdquo; March&nbsp;2011.</span><span>)</span></a>
+              一般的には任意の送信メッセージに2つのサーバが関与する.
+              あるクライアント(Alice) は他のクライアント (Bob) 宛のメッセージをサーバ(A)へ送信する.
+              サーバAはBobのIDとDNSによってBobのドメイン(B)を持つサーバを特定し, メッセージをそのサーバへ送信する. その後サーバBはBobへメッセージを送信する.
+          
+</p><br /><hr class="insert" />
+<a name="fig-xmpp"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+         +-------+   +----------+   +----------+   +-----+
+         | Alice |--&gt;| Server A |--&gt;| Server B |--&gt;| Bob |
+         +-------+   +----------+   +----------+   +-----+</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;2: Delivering an XMPP message&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+            信頼できない中間者の問題については特にXMPPにとって深刻である. なぜならば, 現時点で多くの適用例では, XMPPドメインの所有者がドメインのサーバの処理を他のエンティティに委託しているためである.
+            この環境では, ドメイン所有者の個人情報がドメインのオペレーターに露出してしまう明白なリスクが存在する.
+            XMPPはS/MIMEを利用して端末間セキュリティのメカニズム<a class='info' href='#RFC3923'>[RFC3923]<span> (</span><span class='info'>Saint-Andre, P., &ldquo;End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP),&rdquo; October&nbsp;2004.</span><span>)</span></a>を既に定義しているが, キー管理の問題やS/MIMEオブジェクトの処理が難しいこともあり, 普及させることはできなかった.
+</p>
+<p>
+            XMPPワーキンググループはJOSEベースのエンコーディングとより明快なキー管理のシステムを利用した新しい端末間暗号化システムの策定に取り組んでいる. <a class='info' href='#I-D.miller-xmpp-e2e'>[I&#8209;D.miller&#8209;xmpp&#8209;e2e]<span> (</span><span class='info'>Miller, M., &ldquo;End-to-End Object Encryption and Signatures for the Extensible Messaging and Presence Protocol (XMPP),&rdquo; June&nbsp;2013.</span><span>)</span></a>
+            このシステム上で暗号化メッセージを送信するプロセスは２つのステップからなる.
+            1つ目は, 送信者は対象な Content Encryption Key (CEK)を生成してメッセージコンテンツを暗号化して, 暗号メッセージを届けたい先の受信者へ送信する.
+            2つ目は, 各受信者は自身の公開鍵を提示することで受信者へ「コールバック」を行い, 送信者は受信者の公開鍵で変換された関連のあるCEKを受け取る.
+        message to the desired set of recipients. Second, each recipient
+        "dials back" to the sender, providing his public key; the sender then
+        responds with the relevant CEK, wrapped with the recipient's public
+        key.
+</p><br /><hr class="insert" />
+<a name="fig-xmpp-sec"></a>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+         +-------+   +----------+   +----------+   +-----+
+         | Alice |&lt;-&gt;| Server A |&lt;-&gt;| Server B |&lt;-&gt;| Bob |
+         +-------+   +----------+   +----------+   +-----+
+             |             |              |           |
+             |------------Encrypted--message---------&gt;|
+             |             |              |           |
+             |&lt;---------------Public-key--------------|
+             |             |              |           |
+             |---------------Wrapped CEK-------------&gt;|
+             |             |              |           |</pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;3: Delivering a secure XMPP message&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+<p>
+            このシステムがJOSEフォーマットから要求する主要な事項は, コンテンツ部の暗号化による機密性保護に加え, 共有鍵より導出したMACによる完全性の検証機能である.
+            しかしながら, 暗号コンテンツの送受信での鍵交換を区別するためには, JOSE暗号化オブジェクトフォーマットに暗号ペイロードとは区別して共通鍵を含むメッセージを伝達できるような仕組みが要求される.
+            さらに, 暗号オブジェクトにはコンテンツの暗号化に利用した鍵のタグが必要になる. そうすることで受信者(Bob)は送信者(Alice)へ鍵を含んだメッセージを送信する際にタグを提示することができる.
+        
+</p>
+<p>XMPPの重要な他の特徴は, 複数の受信者へのメッセージの同時配信を許可していることである.
+            上記のダイアグラムで言うと, サーバAはサーバB (Bobのサーバ) だけでなくほかのユーザの所有するサーバC, D, Eなどへもメッセージを配信できる.
+            そのようなケースでは, 上記の仕組みに示される複数の「コールバック」のトランザクションを回避するため, XMPPシステムは受信者の公開鍵をキャッシュすることがあり, それにより鍵はこの後のメッセージの内容と共に送信することができる.
+            このことによりJOSE暗号オブジェクトフォーマットは複数バージョンものCEKの発行をサポートしなくてはならない.  (CMS EnvelopedData structureでは複数の受信者情報の構造を含むことができるが)
+        
+</p>
+<p>
+            XMPPの端末間セキュリティシステムの最新のドラフトでは, 各パーティはXMPPメッセージ伝達システム内にある他パーティの信用情報にもとづいて認証される.
+            送信者は, "Alice"という識別子宛のメッセージ (具体的には, 鍵交換のためのリクエスト) を受け取ることができ, またその識別子宛のメッセージ (ラップされた鍵情報) を送信できるため, 受信者に認証される.
+            同様に, 受信者はオリジナルの暗号メッセージと元の鍵交換のリクエストを送ることができるため, 送信者に認証される.
+            そのため, ここでの認証で要求されるのはXMPPのルーティングが正しく行われることだけでなく, TLSが全てのホップにおいて使われることである.
+            それに加えて, ３ホップ中いずれかにおいて中間者によってBobになりすまして暗号メッセージの鍵情報を取得できてしまうため, 強い認証強度のTLSチャネルが要求される.
+        
+</p>
+<p>
+            この認証は比較的脆弱 (TLSを用いた３つのホップに依存しているため) でエンドポイントでは検証できない.  そのためXMPPワーキンググループは最終受信者のためになんらかのクレデンシャルを導入することも考えられる.  そのようなケースでは, そういったクレデンシャルをJOSEオブジェクトと関連づける方法も必要となるであろう.
+        
+</p>
+<p>
+            最終的に, XMPPがJSONではなくXMLベースであることに意味はない.
+            そのため, JOSEを利用するときは, XMPPはXML内にJSONオブジェクトを含めて送信される.
+            したがって, JOSEオブジェクトはXMLに含まれても問題ないような方法でエンコードされることが望ましい.
+            そうでなければ, XMLとしてパースされないように明示するため, 明示的なCDATAの指定をパーサーに対して行わければならない.
+            この要件を満たすひとつの方法としては, base64urlエンコードをかけることがあげられるが, 中〜大サイズのXMPPメッセージにとっては, これによりかなりのオーバーヘッドを強いる可能性がある.
+        
+</p>
+<a name="alto-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.5"></a><h3>5.5.&nbsp;
+ALTO</h3>
+
+<p>
+          Application-Layer Traffic Optimization (ALTO) は, エンド端末に対する分散ネットワークトポロジー情報のためのシステムであり,
+          これによりエンド端末はネットワークへのインパクトを抑えつつ自らの動作を修正することが可能となる <a class='info' href='#RFC6708'>[RFC6708]<span> (</span><span class='info'>Kiesel, S., Previdi, S., Stiemerling, M., Woundy, R., and Y. Yang, &ldquo;Application-Layer Traffic Optimization (ALTO) Requirements,&rdquo; September&nbsp;2012.</span><span>)</span></a> .
+          ALTOプロトコルは, HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> で搬送するJSONオブジェクトの形態でトポロジー情報を分配する <a class='info' href='#I-D.ietf-alto-protocol'>[I&#8209;D.ietf&#8209;alto&#8209;protocol]<span> (</span><span class='info'>Alimi, R., Penno, R., and Y. Yang, &ldquo;ALTO Protocol,&rdquo; July&nbsp;2013.</span><span>)</span></a> .
+          元々の版のALTOはシンプルなクライアントサーバプロトコルであり, このケースではHTTPSを単純に使用するだけで十分である <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> .
+          しかし, クライアントに到達する前に複数の中間サーバを経由してこれらのJSONオブジェクトが分配されるというALTOのユースケースの議論が始まり,
+          一方でクライアントがオブジェクトのオリジナルの送信元を認証する機能は依然として維持する必要があった.
+          元々のALTOプロトコルでも「ALTO情報を取得するALTOクライアントは, その受け取ったALTO情報が適切なALTOサーバーによって生成されたものかどうかの検証ができなければならない」という言及があった.
+        
+</p>
+<p>
+          このケースでのセキュリティ要件は明確である.
+          ALTOペイロードを搬送するJOSEオブジェクトは, オリジナルの送信元サーバーのデジタル署名が付随している必要があり,
+          そしてそのサーバーのアイデンティティを証明できなければならないだろう.
+          ALTO情報は一般に公開されるものであるため, このケースでは機密性に関する要件はない.
+        
+</p>
+<p>
+          より興味深い議題はエンコーディングに関することである.
+          ALTOオブジェクトは前述の2つのケースよりもペイロードが大きくなる可能性があり, そのサイズは数メガバイトにまでなると考えられる.
+          このような大きなオブジェクトの処理は, シングルパスで実施できた方がより高速に処理できる.
+          そしてそれは, JSON構造内でフィールドが特定の順番であることをJOSEオブジェクトが要求することで可能となるだろう.
+        
+</p>
+<p>
+          加えて, ALTOオブジェクトはJSONとしてエンコードされているため, JOSEオブジェクト内に安全に包含することが可能である.
+          署名済みのJOSEオブジェクトは, 署名とともに署名されたデータを搬送するだろう.
+          JSONオブジェクトは, JSON文字列内に安全にエンコードされて格納されることが可能という性質を持っている.
+          これに関する要件は, 不必要な空白は取り除くことだけであり, 例えばbase64urlエンコーディングよりもかなりシンプルな変換である.
+          このことは, 特定の「JSON-safe」なケースでのJOSEエンコーディングを最適化できるかどうかという議題に繋がる.
+        
+</p>
+<p>
+          最終的に, 「分離署名 (detached signature)」メカニズム, つまり署名情報を保護対象のコンテンツから分離してエンコードする方法が, ALTOにとっては望ましいかもしれない.
+          これはALTOプロトコルで, 署名をHTTPSのヘッダ, 署名されたコンテンツをHTTPSのエンティティボディに含めることを可能とするだろう.
+        
+</p>
+<a name="atoca-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.6"></a><h3>5.6.&nbsp;
+Emergency Alerting</h3>
+
+<p>
+          緊急警報 (Emergency alerting) は IP ネットワークの緊急利用を行うものである <a class='info' href='#I-D.ietf-atoca-requirements'>[I&#8209;D.ietf&#8209;atoca&#8209;requirements]<span> (</span><span class='info'>Schulzrinne, H., Norreys, S., Rosen, B., and H. Tschofenig, &ldquo;Requirements, Terminology and Framework for Exigent Communications,&rdquo; March&nbsp;2012.</span><span>)</span></a>.
+          差し迫った危険が察知されると, アラートシステムはユーザーのデバイスにアラートメッセージを送り, 危険を通知する.
+          ハリケーンやトルネードなどが発生した場合には, その通り道にあたる場所のすべてのデバイスに対してアラートが送られることもある.
+        
+</p>
+<p>
+          アラートシステムへの最大の要件は, アタッカーが誤報を送信することができないようにすることである.
+          アタッカーによる誤報送信が行われると, アタッカーが広範囲にパニックを起こすことが可能になるであろう.
+          通常アラートシステムはこういったアタックを防ぐため, メッセージ送信元を厳格に管理し, なおかつメッセージ受信側ではメッセージ送信元の検証を行う.
+          前者はアラート送信元のローカルセキュリティとして実施され, 後者はアラートメッセージへのデジタル署名 (チャネルベースまたはオブジェクトベース) を用いて実現される.
+          オブジェクトベースのデジタル署名を採用した場合は, 署名はセキュアオブジェクト内にエンコードされる.
+          チャネルベースのデジタル署名を採用した場合は, アラートメッセージを認証済かつ完全性が保護されたチャネルを経由して送ることで, "署名済" であるとして扱う.
+        
+</p>
+<p>
+          アラートは一般的に一連の中間者を経由してエンドユーザーに届けられる.
+          例えば, ある国家が運営する天気予報サービスがハリケーンのアラートを送信する場合には, まずアラートメッセージを国家のゲートウェイに送り, ネットワークオペレーターがそれをエンドユーザーにブロードキャストするであろう.
+        
+</p>
+<p><br /><hr class="insert" />
+<a name="fig-atoca-sec"></a>
+</p>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>        +------------+    +------------+    +------------+
+        | Originator |    | Originator |    | Originator |
+        +------------+    +------------+    +------------+
+              |                 .                 .
+              +-----------------+..................
+                                |
+                                V
+                           +---------+
+                           | Gateway |
+                           +---------+
+                                |
+                   +------------+------------+
+                   |                         |
+                   V                         V
+              +---------+               +---------+
+              | Network |               | Network |
+              +---------+               +---------+
+                   |                         |
+            +------+-----+            +------+-----+
+            |            |            |            |
+            V            V            V            V
+        +--------+   +--------+   +--------+   +--------+
+        | Device |   | Device |   | Device |   | Device |
+        +--------+   +--------+   +--------+   +--------+
+
+</pre></div><p>
+<table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;4: Delivering an emergency alert&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
+
+</p>
+<p>
+          アラートメッセージへの署名を検証するためには, 受信者が信頼できるアラート送信者の正規の公開鍵を所有している必要がある.
+          ここで成り立っている信頼関係は, アラートの送信経路にそった区分的なものかもしれない.
+          例えば, 各ネットワークで運営されるアラート中継機それぞれがすべてのアラート送信元の証明書を所有していても, 末端のデバイスではローカルネットワーク内の中継機のみを信頼しているかもしれない.
+          もしくは末端デバイスがメッセージ送信者およびローカルネットワーク中継機双方に署名されたメッセージを要求するかもしれない.
+        
+</p>
+<p>
+          このケースでは, 1つのアラートメッセージに対して複数の署名を付与する必要がでてくる.
+          そうすることで, アラートメッセージはその送信経路の任意 / 全てのエンティティによる署名を含むことができるようになる.
+          なるべく複雑なことを避けるためには, ここでの署名はモジュール化され, ある署名を付ける際にそれ以前の署名を変更したり再計算する必要のないようにすべきである.
+        
+</p>
+<a name="webcrypto-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.7"></a><h3>5.7.&nbsp;
+Web Cryptography</h3>
+
+<p>W3C Web Cryptography APIではWeb用の標準暗号API <a class='info' href='#WebCrypto'>[WebCrypto]<span> (</span><span class='info'>Sleevi, R. and D. Dahl, &ldquo;Web Cryptography API,&rdquo; January&nbsp;2013.</span><span>)</span></a>を定義している.
+              もしブラウザがこのAPIを使えるようにした場合, ウェブページの一部として実行されたJavaScriptがブラウザにダイジェスト, MAC, 暗号化, デジタル署名などの処理を実行させることが可能となる.
+</p>
+<p>
+          ブラウザが暗号処理を実行することの主要な理由の一つに, JavaScriptコードによって暗号処理に利用されるの鍵情報にアクセスできないようにすることが挙げられる.
+          例えば, この分離によって, クロスサイトスクリプティング(XSS)によって注入されたコードがブラウザ内に保持された鍵を読み取ったり抜き取ったりすることを防げるだろう.
+          悪意のあるコードがブラウザ上で実行し続けている間は鍵を依然として利用可能である一方, この脆弱性はユーザのブラウザ上で脆弱なページがアクティブな間のみ有効である.
+      
+</p>
+<p>
+          しかしながら, WebCryptGraphy API は鍵のエクスポート機能も提供する. それによりJavascriptでAPIをラップされた形式で鍵を抜き出すことができる.
+          例えば, JavaScriptは別のデバイスが保持する対になる秘密鍵の代わりに公開鍵を提供したかもしれない.
+          それにより, APIが提供する鍵は新しいデバイスへ安全に鍵を転送するのに使うことができる.
+          こうして悪意のあるコードが鍵をエクスポートできるようにする可能性があるが, ユーザへの通知や同意の検証を考慮にいれても, 明示的なエクスポート処理を必要とすることが制御のポイントとなっている.
+      
+</p>
+<p>
+          Web CryptGraphy API はブラウザが自身の扱う鍵の利用を制限することを強いることも許可している.
+          例えば, 対象鍵は暗号化のみでMACには利用できないこと注目されがちである.
+          鍵がラップされた形式でエクスポートされる際, これらの属性は鍵と一緒にもっていかれるべきである.
+      
+</p>
+<p>
+          Web CryptGraphy API はこのようにして, いくつかの鍵の形式を表現するフォーマットが必要とされる.
+          言うまでもなく, 非対称な鍵のペアから公開鍵は自由にインポートでき, ブラウザよりエクスポート可能であるため, 公開鍵を表現するためのフォーマットが必要である.
+          秘密鍵や対象鍵を表現できるようなフォーマットもまた必要とされている.
+          公開鍵以外の形式のため, まず第一に必要なものは鍵を暗号的に機密性および完全性が保証されているような、ラップされた形式である.
+          ダイレクトでラップされていないフォーマットを定義することもまた, セキュリティ的に閉じた環境での利用に有用であるかもしれない.
+      
+</p>
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.8"></a><h3>5.8.&nbsp;
+Constrained Devices</h3>
+
+<p>
+        このセクションでは <a class='info' href='#I-D.ietf-lwig-terminology'>[I&#8209;D.ietf&#8209;lwig&#8209;terminology]<span> (</span><span class='info'>Bormann, C., Ersue, M., and A. Keranen, &ldquo;Terminology for Constrained Node Networks,&rdquo; July&nbsp;2013.</span><span>)</span></a> に定義されている制約のあるデバイスでのユースケースを示す.
+        このタイプのデバイスでの典型的な問題には, 限られたメモリ, 限られた電源, 低い処理能力, そして通信プロトコルでの厳しいサイズ制限が挙げられる.
+      
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.8.1"></a><h3>5.8.1.&nbsp;
+Example: MAC based on ECDH-derived key</h3>
+
+<p>
+          小さく低電力なデバイスのメーカーがJOSEワーキンググループの成果を暗号化や認証のフレームワークとして採用することを決定したとしよう.
+          このデバイスメーカーではゲートと電力の双方に関して共に予算の限りがある.
+          このため, これらの必要量を最小化するために多数のショートカットと設計決定がなされてきた.
+        
+</p>
+<p>
+          設計チームは, メッセージ認証コード (MAC) を使用することで必要な認証の提供には十分だろうと決定した.
+          しかし彼らはMACは使用するが, 単一の共有秘密鍵を長期間使用することは望まない.
+          代わりに, 彼らは以下に提案する検証可能な共有秘密鍵を計算により求める方式を採用する.
+        
+</p>
+<p></p>
+<ul class="text">
+<li>
+            Elliptic-Curve Diffie-Hellman (ECDH) 鍵は, デバイスの製造時に (もしくは導入時の設定処理の一環として) 生成される.
+          
+</li>
+<li>
+            コントローラー用のECDH公開鍵は, 設定時にセットされる.
+          
+</li>
+<li>
+            設定システムは, ECDHの計算を行い, 結果の共有秘密鍵をデバイスに設定する.
+            このプロセスは, 必要な指数計算をデバイス上で実施する必要をなくす.
+            この計算された共有秘密鍵の保護に関するセキュリティ要件は, ECDH秘密鍵の保護に関する要件と同等である.
+          
+</li>
+<li>
+            カウンターと増分値はデバイス上に設定される.
+          
+</li>
+<li>
+            デバイスがメッセージを送信する際, カウンターはインクリメントされ, 新たなMAC鍵がECDH秘密鍵とカウンター値から計算される.
+            必要なMAC鍵を導出するために, AES-CBCをベースとした独自の鍵導出関数 (KDF) を用いる.
+            そしてMAC鍵は, メッセージのMAC値を計算するのに用いられる.
+          
+</li>
+</ul>
+
+<p>
+          システムがメッセージの機密性を提供する必要があるとき, 同様の方法でKDFは, AEADアルゴリズム鍵を計算するためにも利用できる.
+          より大きなデバイスのコントローラーでは, 指数計算のステップを実施したり, 送信元ナンス値を生成するために乱数生成器を使用するだろう.
+        
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.8.2"></a><h3>5.8.2.&nbsp;
+Object security for CoAP</h3>
+
+<p>
+          このユースケースでは, C0/C1 クラス (<a class='info' href='#I-D.ietf-lwig-terminology'>[I&#8209;D.ietf&#8209;lwig&#8209;terminology]<span> (</span><span class='info'>Bormann, C., Ersue, M., and A. Keranen, &ldquo;Terminology for Constrained Node Networks,&rdquo; July&nbsp;2013.</span><span>)</span></a> 参照) の制約下にあるデバイスを扱う.
+          これらのデバイスは, CoAP プロトコルで RESTful リクエスト/レスポンスをやりとりする <a class='info' href='#I-D.ietf-core-coap'>[I&#8209;D.ietf&#8209;core&#8209;coap]<span> (</span><span class='info'>Shelby, Z., Hartke, K., and C. Bormann, &ldquo;Constrained Application Protocol (CoAP),&rdquo; June&nbsp;2013.</span><span>)</span></a>.
+          問題を単純化するため, 全てのコミュニケーションはユニキャストであるものとする.
+          つまり, ここで述べるセキュリティ対策はマルチキャストやブロードキャストをカバーするものではない.
+        
+</p>
+<p>
+          ここで対象としているような環境では, セッションベースのセキュリティ (four-pass authentication プロトコル等) は高コストすぎる可能性がある.
+          データの受信や送信 (特に送信) には多くの電力が必要であり, 特にワイヤレスデバイスではこれが問題となる.
+          従ってただ平文の CoAP リクエスト/レスポンスペイロードのみを JWE オブジェクトに置き換えるてセキュアにするということは, 重要な代替案である.
+          そこには保護レベルとパフォーマンスのトレードオフが存在する.
+          (CoAP ヘッダーは保護対象にならない)
+        
+</p>
+<p>
+          単純な例では, センサータイプのデバイスから返される CoAP GET レスポンスが挙げられる.
+          センサーの取得データは, プライバシーセンシティブであったりビジネスセンシティブであることもあり, 完全性保護と暗号化のどちらもが必要となりうる.
+        
+</p>
+<p>
+          しかしながら, 一部には取得データが非常に短い (数バイト) ものもあり, このようなケースでは, デフォルトの暗号化および完全性保護アルゴリズム (128 bit AES with HMAC_SHA256 等) を利用すると, たとえ JWE ヘッダーを無視したとしても劇的にペイロードサイズを大きくしてしまう可能性がある.
+        
+</p>
+<p>
+          またある種のセンサーの取得情報は突然価値が下がることもある.
+          例としては交通情報や環境データなどが挙げられる.
+          こういうケースでは, 状況に応じてセキュリティオーバーヘッドを低減可能になっている必要がある.
+        
+</p>
+<p>
+          以上のことから JWE/JWS プロファイルとして以下のような要件が挙げられる.
+        
+</p>
+<p></p>
+<ul class="text">
+<li>
+            セキュアオブジェクトのサイズは可能な限り小さく保たれるべきである.
+            データ受信には, 公開鍵暗号処理よりもはるかに多くの電力コストがかかる.
+            これは特にワイヤレス環境で顕著である.
+          
+</li>
+<li>
+            完全性保護:
+            デジタル署名フィールドを持つなど完全性保護をサポートし, 公開鍵署名/共通鍵メッセージ認証コードをともにサポートすべきである.
+          
+</li>
+<li>
+            暗号化:
+            完全性保護の追加オプションとして暗号化をサポートすべきである.
+            また特定のフィールドを暗号化対象から外して完全性検証および復号化を行える様にすべきである.
+          
+</li>
+<li>
+            暗号スイート:
+            制約付きデバイスのユースケースをサポートするため, 多様な暗号スイートをサポートすべきである.
+            例えば
+            
+<ul class="text">
+<li>
+                複数のブロックサイズでのブロック暗号化 (標準の128bitに加えて96bitなど)
+              
+</li>
+<li>
+                ブロックサイズ調整のためのパディングでメッセージサイズを増大させることのない AES-GCM などのブロック暗号モード
+              
+</li>
+<li>
+                暗号化と MAC 計算を同時にサポートする暗号スイート (ブロック暗号の AEAD モード等)
+              
+</li>
+</ul>
+          
+</li>
+</ul>
+
+<a name="req-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+Requirements</h3>
+
+<p>
+            この章では前章のユースケースの要件を要約を行い, またユースケースから直接的には得られないもう一歩進んだ要件を並べる.
+            JOSEのシステムが採用するのに依然として望ましい特長ではあるが, 厳しい要件ではない制約もまたある.
+        
+</p>
+<a name="functional-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.1"></a><h3>6.1.&nbsp;
+Functional Requirements</h3>
+
+<p></p>
+<blockquote class="text"><dl>
+<dt>F1</dt>
+<dd>
+              下記のセキュリティ特性を備えたセキュアオブジェクトのためのフォーマットを定義すること
+            
+<ul class="text">
+<li>デジタル署名 (非対象鍵のペアによる完全性保護/認証)
+</li>
+<li>メッセージ認証 (対象鍵による完全性保護/認証)
+</li>
+<li>認証付き暗号化
+</li>
+</ul>
+            つまり, このワーキンググループによって定義されたセキュアオブジェクトはCMS SignedData, CMS AuthenticatedData, CMS EnvelopedData, CMS AuthEnvelopedDataオブジェクトと同等のセキュリティ特性を提供するべきだ<a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> <a class='info' href='#RFC5083'>[RFC5083]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS) Authenticated-Enveloped-Data Content Type,&rdquo; November&nbsp;2007.</span><span>)</span></a>.
+</dd>
+<dt>F2</dt>
+<dd>
+              非対称暗号アルゴリズムのための公開鍵と秘密鍵と関連付けられた属性を付帯し, ラップされた形式の秘密鍵を含むフォーマットを定義すること.
+          
+</dd>
+<dt>F3</dt>
+<dd>
+              ラップされた鍵とされていない鍵の両者を扱えるような関連属性を持つ対象鍵のためのフォーマットを定義すること.
+
+          
+</dd>
+<dt>F4</dt>
+<dd>
+              上記オブジェクト個別のJSONシリアライズ機能を定義すること.
+              JSON ABNF syntax <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> によると, この変換でのオブジェクトは正しくなければならない.
+          
+</dd>
+<dt>F5</dt>
+<dd>
+              暗号化署名済みオブジェクトフォーマットのためのコンパクトでURLセーフなテキストシリアライズ機能を定義すること.
+          
+</dd>
+<dt>F6</dt>
+<dd>
+              ラップされた鍵と関連付けられた属性を暗号的にオブジェクトにひもづけられるようにすること.
+          
+</dd>
+<dt>F7</dt>
+<dd>
+              ラップされた鍵が対象鍵を利用するセキュアオブジェクトから区別されるようにすること.
+              そのようなケースでは, ラップされた鍵 (例：暗号文, MAC値) 以外のセキュアオブジェクトの暗号コンポーネントは鍵形式とは非依存でなくてはならない.
+              例えば, 暗号化オブジェクトが複数の受信者宛に準備された場合, 暗号文ではなくラップされた鍵のみが変わる.
+          
+</dd>
+<dt>F8</dt>
+<dd>
+              この文書記載の要件に合わせようとして, 特に大量のアプリケーションの内容が保護されるような場合に, 余計なオーバーヘッドを強いないようにすること.
+          
+</dd>
+</dl></blockquote>
+
+<a name="sec-req-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2"></a><h3>6.2.&nbsp;
+Security Requirements</h3>
+
+<p></p>
+<blockquote class="text"><dl>
+<dt>S1</dt>
+<dd>
+          暗号化やMACの計算に同じ対称鍵を繰り返し使用することを避けるためのメカニズムを提供すること.
+          その代わりに, 長期間有効な鍵は鍵ラップのためだけに用いるべきであり, 直接暗号化やMACに用いるべきではない.
+          CMS <a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> で提供されているいずれかの鍵管理手法を用いるべきである.
+          
+<ul class="text">
+<li>鍵配送 (公開鍵のラップ)
+</li>
+<li>鍵暗号化 (対称鍵のラップ)
+</li>
+<li>鍵合意 (DH公開鍵のラップ)
+</li>
+<li>パスワードベース暗号化 (パスワードから導出された鍵によるラップ)
+</li>
+</ul>
+        
+</dd>
+<dt>S2</dt>
+<dd>
+          長期間有効な対称鍵を暗号操作に直接用いる場合 (すなわち要件S1に合致しない場合), 鍵の生存期間を制限する必要がある等の, 鍵管理の実践に関するデプロイガイダンスを提供すること.
+        
+</dd>
+<dt>S3</dt>
+<dd>
+          主要な検証プロセスに準拠した方法で暗号アルゴリズムを使用すること.
+          例えばFIPS標準がアルゴリズムAは目的Yではなく目的Xに対して用いることとしている場合, JOSEは目的Yに対するアルゴリズムAの使用を推奨すべきではない.
+        
+</dd>
+<dt>S4</dt>
+<dd>
+          事前ネゴシエーションを伴うケース, 伴わないケースの双方をサポートすること.
+          鍵のプロビジョニングを超えるいかなる設定も, セキュアオブジェクトの生成や処理に必要とされるべきではない.
+          鍵がアプリケーションのコンテキストから導出可能な場合, 受信者自身が適切な鍵を所持しているかどうかを認識可能でなければならない.
+        
+</dd>
+</dl></blockquote>
+
+<a name="desiderata-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.3"></a><h3>6.3.&nbsp;
+Desiderata</h3>
+
+<p></p>
+<blockquote class="text"><dl>
+<dt>D1</dt>
+<dd>
+            W3C WebCrypto 仕様との互換性を最大化する.
+            WebCrypto ワーキンググループと協調し, サポートするアルゴリズムの選択やアルゴリズム識別子の決定を行うことなどが考えられる.
+          
+</dd>
+<dt>D2</dt>
+<dd>
+            可能な限り JSON 正規化を避ける.
+            その他の条件が同じであれば, オブジェクトを正規化するよりも, Base64 URL エンコーディングなどでオブジェクトをシリアライゼーションする方が好まれる.
+          
+</dd>
+<dt>D3</dt>
+<dd>
+            可能な限り JOSE 暗号処理の入出力をアプリケーションによってコントロール可能にする.
+            JOSE 特有の手順は可能な限り減らすべきである.
+            こうすることにより JOSE のフレキシビリティは向上し, 多くの暗号プロトコルが持つ多様なニーズに応えられるようになる.
+            例えば, 再暗号化や再署名の処理無しに JOSE オブジェクトを CMS などのレガシーフォーマットに変換する, といったニーズも発生するかもしれない.
+          
+</dd>
+</dl></blockquote>
+
+<a name="iana-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+IANA Considerations</h3>
+
+<p>This document makes no request of IANA.
+</p>
+<a name="sec-cons-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+Security Considerations</h3>
+
+<p>
+        本ドキュメントの主目的は JSON ベースのセキュアオブジェクトフォーマットが満たすべき要件をまとめることである.
+        このフォーマットに関する Security Consideratios は, 一般的なオブジェクトベースのセキュリティテクノロジーに関するレベルでは CMS <a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> のそれに準じる.
+        JOSE フォーマットと CMS の最大の違いは, JOSE が JSON ベースであることである.
+        JSON は正規化された表現形式が存在しないため, 2つの JSON オブジェクトが同じ情報を表現しているのかどうかを判断することは難しく, それが JOSE を利用する上で脆弱性につながることもあるかもしれない.
+      
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC4627">[RFC4627]</a></td>
+<td class="author-text">Crockford, D., &ldquo;<a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, July&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4627.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4949">[RFC4949]</a></td>
+<td class="author-text">Shirey, R., &ldquo;<a href="http://tools.ietf.org/html/rfc4949">Internet Security Glossary, Version 2</a>,&rdquo; RFC&nbsp;4949, August&nbsp;2007 (<a href="http://www.rfc-editor.org/rfc/rfc4949.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5083">[RFC5083]</a></td>
+<td class="author-text">Housley, R., &ldquo;<a href="http://tools.ietf.org/html/rfc5083">Cryptographic Message Syntax (CMS) Authenticated-Enveloped-Data Content Type</a>,&rdquo; RFC&nbsp;5083, November&nbsp;2007 (<a href="http://www.rfc-editor.org/rfc/rfc5083.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5652">[RFC5652]</a></td>
+<td class="author-text">Housley, R., &ldquo;<a href="http://tools.ietf.org/html/rfc5652">Cryptographic Message Syntax (CMS)</a>,&rdquo; STD&nbsp;70, RFC&nbsp;5652, September&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5652.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6120">[RFC6120]</a></td>
+<td class="author-text">Saint-Andre, P., &ldquo;<a href="http://tools.ietf.org/html/rfc6120">Extensible Messaging and Presence Protocol (XMPP): Core</a>,&rdquo; RFC&nbsp;6120, March&nbsp;2011 (<a href="http://www.rfc-editor.org/rfc/rfc6120.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6708">[RFC6708]</a></td>
+<td class="author-text">Kiesel, S., Previdi, S., Stiemerling, M., Woundy, R., and Y. Yang, &ldquo;<a href="http://tools.ietf.org/html/rfc6708">Application-Layer Traffic Optimization (ALTO) Requirements</a>,&rdquo; RFC&nbsp;6708, September&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6708.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6749">[RFC6749]</a></td>
+<td class="author-text">Hardt, D., &ldquo;<a href="http://tools.ietf.org/html/rfc6749">The OAuth 2.0 Authorization Framework</a>,&rdquo; RFC&nbsp;6749, October&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6749.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.REC-xml">[W3C.REC-xml]</a></td>
+<td class="author-text"><a href="mailto:tbray@textuality.com">Bray, T.</a>, <a href="mailto:jeanpa@microsoft.com">Paoli, J.</a>, <a href="mailto:cmsmcq@uic.edu">Sperberg-McQueen, C.</a>, and <a href="mailto:eve.maler@east.sun.com">E. Maler</a>, &ldquo;<a href="http://www.w3.org/TR/REC-xml">Extensible Markup Language (XML) 1.0 (2nd ed)</a>,&rdquo; W3C&nbsp;REC-xml, October&nbsp;2000.</td></tr>
+<tr><td class="author-text" valign="top"><a name="WebCrypto">[WebCrypto]</a></td>
+<td class="author-text">Sleevi, R. and D. Dahl, &ldquo;Web Cryptography API,&rdquo; January&nbsp;2013.</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.2.&nbsp;Informative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="CAP">[CAP]</a></td>
+<td class="author-text">Botterell, A. and E. Jones, &ldquo;Common Alerting Protocol v1.1,&rdquo; October&nbsp;2005.</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-alto-protocol">[I-D.ietf-alto-protocol]</a></td>
+<td class="author-text">Alimi, R., Penno, R., and Y. Yang, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-alto-protocol-17">ALTO Protocol</a>,&rdquo; draft-ietf-alto-protocol-17 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-alto-protocol-17.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-atoca-requirements">[I-D.ietf-atoca-requirements]</a></td>
+<td class="author-text">Schulzrinne, H., Norreys, S., Rosen, B., and H. Tschofenig, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-atoca-requirements-03">Requirements, Terminology and Framework for Exigent Communications</a>,&rdquo; draft-ietf-atoca-requirements-03 (work in progress), March&nbsp;2012 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-atoca-requirements-03.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-core-coap">[I-D.ietf-core-coap]</a></td>
+<td class="author-text">Shelby, Z., Hartke, K., and C. Bormann, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-core-coap-18">Constrained Application Protocol (CoAP)</a>,&rdquo; draft-ietf-core-coap-18 (work in progress), June&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-core-coap-18.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-jose-json-web-algorithms">[I-D.ietf-jose-json-web-algorithms]</a></td>
+<td class="author-text">Jones, M., &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-14">JSON Web Algorithms (JWA)</a>,&rdquo; draft-ietf-jose-json-web-algorithms-14 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-algorithms-14.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-algorithms-14.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-jose-json-web-encryption">[I-D.ietf-jose-json-web-encryption]</a></td>
+<td class="author-text">Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-encryption-14">JSON Web Encryption (JWE)</a>,&rdquo; draft-ietf-jose-json-web-encryption-14 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-encryption-14.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-encryption-14.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-jose-json-web-key">[I-D.ietf-jose-json-web-key]</a></td>
+<td class="author-text">Jones, M., &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-key-14">JSON Web Key (JWK)</a>,&rdquo; draft-ietf-jose-json-web-key-14 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-key-14.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-key-14.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-jose-json-web-signature">[I-D.ietf-jose-json-web-signature]</a></td>
+<td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-14">JSON Web Signature (JWS)</a>,&rdquo; draft-ietf-jose-json-web-signature-14 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-signature-14.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-jose-json-web-signature-14.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-lwig-terminology">[I-D.ietf-lwig-terminology]</a></td>
+<td class="author-text">Bormann, C., Ersue, M., and A. Keranen, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-lwig-terminology-05">Terminology for Constrained Node Networks</a>,&rdquo; draft-ietf-lwig-terminology-05 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-lwig-terminology-05.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-oauth-json-web-token">[I-D.ietf-oauth-json-web-token]</a></td>
+<td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-11">JSON Web Token (JWT)</a>,&rdquo; draft-ietf-oauth-json-web-token-11 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-oauth-json-web-token-11.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-oauth-json-web-token-11.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-oauth-jwt-bearer">[I-D.ietf-oauth-jwt-bearer]</a></td>
+<td class="author-text">Jones, M., Campbell, B., and C. Mortimore, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-oauth-jwt-bearer-06">JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants</a>,&rdquo; draft-ietf-oauth-jwt-bearer-06 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-oauth-jwt-bearer-06.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-oauth-jwt-bearer-06.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-oauth-saml2-bearer">[I-D.ietf-oauth-saml2-bearer]</a></td>
+<td class="author-text">Campbell, B., Mortimore, C., and M. Jones, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-oauth-saml2-bearer-17">SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</a>,&rdquo; draft-ietf-oauth-saml2-bearer-17 (work in progress), July&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-oauth-saml2-bearer-17.txt">TXT</a>, <a href="http://www.ietf.org/internet-drafts/draft-ietf-oauth-saml2-bearer-17.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.miller-xmpp-e2e">[I-D.miller-xmpp-e2e]</a></td>
+<td class="author-text">Miller, M., &ldquo;<a href="http://tools.ietf.org/html/draft-miller-xmpp-e2e-06">End-to-End Object Encryption and Signatures for the Extensible Messaging and Presence Protocol (XMPP)</a>,&rdquo; draft-miller-xmpp-e2e-06 (work in progress), June&nbsp;2013 (<a href="http://www.ietf.org/internet-drafts/draft-miller-xmpp-e2e-06.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="ITU.X690.2002">[ITU.X690.2002]</a></td>
+<td class="author-text">International Telecommunications Union, &ldquo;Information Technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER),&rdquo; ITU-T&nbsp;Recommendation X.690, 2002.</td></tr>
+<tr><td class="author-text" valign="top"><a name="OASIS.saml-core-2.0-os">[OASIS.saml-core-2.0-os]</a></td>
+<td class="author-text"><a href="mailto:cantor.2@osu.edu">Cantor, S.</a>, <a href="mailto:John.Kemp@nokia.com">Kemp, J.</a>, <a href="mailto:rphilpott@rsasecurity.com">Philpott, R.</a>, and <a href="mailto:eve.maler@sun.com">E. Maler</a>, &ldquo;<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">Assertions and Protocol for the OASIS Security Assertion Markup Language
+            (SAML) V2.0</a>,&rdquo; OASIS Standard&nbsp;saml-core-2.0-os, March&nbsp;2005.</td></tr>
+<tr><td class="author-text" valign="top"><a name="OpenID.Messages">[OpenID.Messages]</a></td>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., Mortimore, C., and E. Jay, &ldquo;<a href="http://openid.net/specs/openid-connect-messages-1_0.html">OpenID Connect Messages 1.0</a>,&rdquo; May&nbsp;2013.</td></tr>
+<tr><td class="author-text" valign="top"><a name="Persona">[Persona]</a></td>
+<td class="author-text">Mozilla, &ldquo;<a href="https://developer.mozilla.org/en-US/docs/Persona">Mozilla Persona</a>,&rdquo; April&nbsp;2013.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2616">[RFC2616]</a></td>
+<td class="author-text"><a href="mailto:fielding@ics.uci.edu">Fielding, R.</a>, <a href="mailto:jg@w3.org">Gettys, J.</a>, <a href="mailto:mogul@wrl.dec.com">Mogul, J.</a>, <a href="mailto:frystyk@w3.org">Frystyk, H.</a>, <a href="mailto:masinter@parc.xerox.com">Masinter, L.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, and <a href="mailto:timbl@w3.org">T. Berners-Lee</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2616.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.pdf">PDF</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2616.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2616.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2818">[RFC2818]</a></td>
+<td class="author-text">Rescorla, E., &ldquo;<a href="http://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, May&nbsp;2000 (<a href="http://www.rfc-editor.org/rfc/rfc2818.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3207">[RFC3207]</a></td>
+<td class="author-text">Hoffman, P., &ldquo;<a href="http://tools.ietf.org/html/rfc3207">SMTP Service Extension for Secure SMTP over Transport Layer Security</a>,&rdquo; RFC&nbsp;3207, February&nbsp;2002 (<a href="http://www.rfc-editor.org/rfc/rfc3207.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3923">[RFC3923]</a></td>
+<td class="author-text"><a href="mailto:stpeter@jabber.org">Saint-Andre, P.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3923">End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP)</a>,&rdquo; RFC&nbsp;3923, October&nbsp;2004 (<a href="http://www.rfc-editor.org/rfc/rfc3923.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3923.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3923.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4301">[RFC4301]</a></td>
+<td class="author-text">Kent, S. and K. Seo, &ldquo;<a href="http://tools.ietf.org/html/rfc4301">Security Architecture for the Internet Protocol</a>,&rdquo; RFC&nbsp;4301, December&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc4301.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4648">[RFC4648]</a></td>
+<td class="author-text">Josefsson, S., &ldquo;<a href="http://tools.ietf.org/html/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>,&rdquo; RFC&nbsp;4648, October&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4648.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
+<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, August&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5246.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5322">[RFC5322]</a></td>
+<td class="author-text"><a href="mailto:presnick@qualcomm.com">Resnick, P., Ed.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc5322">Internet Message Format</a>,&rdquo; RFC&nbsp;5322, October&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5322.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc5322.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc5322.xml">XML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5751">[RFC5751]</a></td>
+<td class="author-text">Ramsdell, B. and S. Turner, &ldquo;<a href="http://tools.ietf.org/html/rfc5751">Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 3.2 Message Specification</a>,&rdquo; RFC&nbsp;5751, January&nbsp;2010 (<a href="http://www.rfc-editor.org/rfc/rfc5751.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6750">[RFC6750]</a></td>
+<td class="author-text">Jones, M. and D. Hardt, &ldquo;<a href="http://tools.ietf.org/html/rfc6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a>,&rdquo; RFC&nbsp;6750, October&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6750.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.xmldsig-core">[W3C.xmldsig-core]</a></td>
+<td class="author-text"><a href="mailto:dee3@torque.pothole.com">Eastlake, D.</a>, <a href="mailto:reagle@w3.org">Reagle , J.</a>, and <a href="mailto:dsolo@alum.mit.edu">D. Solo</a>, &ldquo;<a href="http://www.w3.org/TR/xmldsig-core/">XML-Signature Syntax and Processing</a>,&rdquo; W3C Recommendation&nbsp;xmldsig-core, October&nbsp;2000.</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.xmlenc-core">[W3C.xmlenc-core]</a></td>
+<td class="author-text"><a href="mailto:dee3@torque.pothole.com">Eastlake, D.</a> and <a href="mailto:reagle@w3.org">J. Reagle </a>, &ldquo;<a href="http://www.w3.org/TR/xmlenc-core/">XML Encryption Syntax and Processing</a>,&rdquo; W3C Candidate Recommendation&nbsp;xmlenc-core, August&nbsp;2002.</td></tr>
+<tr><td class="author-text" valign="top"><a name="WS-Federation">[WS-Federation]</a></td>
+<td class="author-text">Kaler, C., McIntosh, M., Goodner, M., and A. Nadalin, &ldquo;<a href="http://docs.oasis-open.org/wsfed/federation/v1.2/os/ws-federation-1.2-spec-os.html">Web Services Federation Language (WS-Federation) Version 1.2</a>,&rdquo; May&nbsp;2009.</td></tr>
+</table>
+
+<a name="rfc.references3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.3.&nbsp;翻訳プロジェクト</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="oidfj">[oidfj]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://www.openid.or.jp/">OpenIDファウンデーションジャパン</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-github">[oidfj-github]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="https://github.com/openid-foundation-japan">Githubレポジトリー</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-trans">[oidfj-trans]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://openid-foundation-japan.github.com/">翻訳・教育ワーキンググループ</a>.&rdquo;</td></tr>
+</table>
+
+<a name="ack-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A"></a><h3>Appendix A.&nbsp;
+Acknowledgements</h3>
+
+<p>Thanks to Matt Miller for discussions related to XMPP end-to-end
+      security model, and to Mike Jones for considerations related to security
+      tokens and XML security.  Thanks to Mark Watson for raising the need for
+      representing symmetric keys and binding attributes to them.  Thanks to
+      Ludwig Seitz for contributing the constrained device use case.
+</p>
+<a name="hist-sec"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
+Document History</h3>
+
+<p>
+	[[ to be removed by the RFC editor before publication as an RFC ]]
+      
+</p>
+<p>
+        -03
+        </p>
+<ul class="text">
+<li>Replaced the "small device" case with the "constrained device" case
+</li>
+<li>Added S2 to cover cases where the WG decides not to implement S1
+</li>
+<li>Addressed multiple other WGLC comments
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -02
+        </p>
+<ul class="text">
+<li>
+            Referenced the JWS, JWE, JWK, and JWA specifications
+	    making the "signed object format", "encrypted object format",
+	    "key format", and algorithms resulting from these use cases concrete.
+          
+</li>
+<li>
+	    Added "Requirements on Application Protocols" section.
+	  
+</li>
+<li>
+	    Broke former huge "Security Tokens and Authorization" Use Case section
+	    into "Security Tokens", "OAuth", and "Federation" Use Case sections.
+	  
+</li>
+<li>
+	    Cited Mozilla Persona as a single-sign-on (SSO) system using JWTs
+	    and JOSE data formats.
+	  
+</li>
+<li>
+	    Spelling and grammar corrections.
+	  
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -01
+        </p>
+<ul class="text">
+<li>Added the "Small Devices" use case
+</li>
+</ul><p>
+      
+</p>
+<p>
+        -00
+        </p>
+<ul class="text">
+<li>
+            Created the initial IETF draft based upon
+            draft-barnes-jose-use-cases-01 with some additions.
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="Translator"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C"></a><h3>Appendix C.&nbsp;
+翻訳者</h3>
+
+<p>
+        本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
+        質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
+      
+</p>
+<p>
+        </p>
+<ul class="text">
+<li>
+            Nov Matake (GREE, Inc.)
+          
+</li>
+<li>
+            Satoshi Yagi
+          
+</li>
+<li>
+            Yusuke Kondo (Yahoo! Japan)
+          
+</li>
+</ul><p>
+      
+</p>
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Author's Address</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Richard Barnes</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">BBN Technologies</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">1300 N 17th St</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Arlington, VA  22209</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">US</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:rlb@ipv.sx">rlb@ipv.sx</a></td></tr>
+</table>
+</body></html>

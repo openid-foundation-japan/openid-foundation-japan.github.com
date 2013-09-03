@@ -358,7 +358,7 @@ Introduction</h3>
       
 </p>
 <p>
-        JWSオブジェクトのために2つの密接に関連する表現が定義されている
+        JWSオブジェクトのために2つの密接に関連する表現が定義されている.
         JWS Compact Serializationはコンパクトであり, HTTP Authorization ヘッダやURIクエリパラメータのようなスペースが制約された環境を意図したURL-safeな表現である.
         JWS JSON SerializationはJSONオブジェクトとしてJWSオブジェクトを表現し, 同じコンテンツに対して複数の署名とMACsの両方, またはいずれかを適用することができる.
         両方とも, 同じ暗号基盤を共有する.
@@ -389,54 +389,54 @@ Terminology</h3>
 <dt>JSON Web Signature (JWS)</dt>
 <dd>
         デジタル署名もしくはMAC化されたメッセージを表現するデータ構造.
-        この構造は次の3つの値を表す:
+        JWSは以下の3つの値より構成される:
         JWS ヘッダ,
         JWS ペイロード,
         JWS 署名
 	  
 </dd>
-<dt>JSON Text Object</dt>
+<dt>JSON Text Object (JSON テキストオブジェクト)</dt>
 <dd>
         JSONオブジェクトを表現するUTF-8 <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a>でエンコードされた文字列.
         JSONオブジェクトの構文は<a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a>のSection 2.2で定義されている.
 	  
 </dd>
-<dt>JWS Header</dt>
+<dt>JWS Header (JWS ヘッダ)</dt>
 <dd>
         JWS 署名値を作成するために使用したデジタル署名やMACの操作を説明するJSONテキストオブジェクト(もしくはJWS JSON Serializationを用いたJSONテキストオブジェクト).
-        JWS ヘッダオブジェクトのメンバはヘッダパラメータである.
+        JWS ヘッダオブジェクトのメンバは後述の "ヘッダパラメータ" である.
 	  
 </dd>
-<dt>JWS Payload</dt>
+<dt>JWS Payload (JWS ペイロード)</dt>
 <dd>
-        保護されたオクテット列であり, メッセージとも呼ばれる.
+        保護対象となるオクテット列であり, メッセージとも呼ばれる.
         ペイロードは任意のオクテット列を含むことが出来る.
 	  
 </dd>
-<dt>JWS Signature</dt>
+<dt>JWS Signature (JWS 署名)</dt>
 <dd>
-        JWS プロテクトヘッダとJWS ペイロードの完全性を保証する暗号を含んだオクテット列.
+        JWS プロテクトヘッダとJWS ペイロードの完全性を保証する暗号論的情報からなるオクテット列.
         JWS 署名値はJWS ヘッダで指定されたパラメータを使いJWS署名入力から計算されたデジタル署名やMACの値である.
 	  
 </dd>
-<dt>JWS Protected Header</dt>
+<dt>JWS Protected Header (JWS プロテクトヘッダ)</dt>
 <dd>
-        完全性が保護されたJWS ヘッダの部分を含むJSON テキストオブジェクト.
-        JWS Compact Serializationについては, これは完全なJWS ヘッダを含む.
-        JWS JSON Serializationについては, これはJWSヘッダのコンポーネントの1つである.
+        JWS ヘッダのうち完全性が保護された部分にあたる JSON テキストオブジェクト.
+        JWS Compact Serialization では, JWS ヘッダ全体が JWS プロテクトヘッダとなる.
+        JWS JSON Serialization では, JWS プロテクトヘッダは JWS ヘッダ全体のうちの一部である.
 	  
 </dd>
-<dt>Header Parameter</dt>
+<dt>Header Parameter (ヘッダパラメータ)</dt>
 <dd>
         JWSヘッダのメンバである名前と値のペア.
 	  
 </dd>
-<dt>Header Parameter Name</dt>
+<dt>Header Parameter Name (ヘッダパラメータ名)</dt>
 <dd>
         JWSヘッダのメンバの名前.
 	  
 </dd>
-<dt>Header Parameter Value</dt>
+<dt>Header Parameter Value (ヘッダパラメータ値)</dt>
 <dd>
         JWSヘッダのメンバの値.
 	  
@@ -446,22 +446,22 @@ Terminology</h3>
         <a class='info' href='#RFC4648'>RFC 4648<span> (</span><span class='info'>Josefsson, S., &ldquo;The Base16, Base32, and Base64 Data Encodings,&rdquo; October&nbsp;2006.</span><span>)</span></a> [RFC4648]のSection 3.2で許可されているように, Section 5で述べられているURL-safeでない穴埋め文字'='を除いた, URL-safeかつfilename-safeであるBase64エンコーディング. (穴埋めなしのbase64urlエンコーディングの実装に関する注意事項については<a class='info' href='#base64urlnotes'>Appendix&nbsp;C<span> (</span><span class='info'>Notes on implementing base64url encoding without padding</span><span>)</span></a>を参照.)
 	  
 </dd>
-<dt>Encoded JWS Header</dt>
+<dt>Encoded JWS Header (エンコード済 JWS ヘッダ)</dt>
 <dd>
         Base64urlでエンコードされたJWS プロテクトヘッダ.
 	  
 </dd>
-<dt>Encoded JWS Payload</dt>
+<dt>Encoded JWS Payload (エンコード済 JWS ペイロード)</dt>
 <dd>
         Base64urlでエンコードされたJWS ペイロード.
 	  
 </dd>
-<dt>Encoded JWS Signature</dt>
+<dt>Encoded JWS Signature (エンコード済 JWS 署名)</dt>
 <dd>
         Base64urlでエンコードされたJWS 署名.
 	  
 </dd>
-<dt>JWS Signing Input</dt>
+<dt>JWS Signing Input (JWS署名入力)</dt>
 <dd>
         エンコード済JWSヘッダ, ピリオド('.'), およびエンコード済JWSペイロードを連結したもの.
 	  
@@ -474,12 +474,8 @@ Terminology</h3>
 </dd>
 <dt>JWS JSON Serialization</dt>
 <dd>
-	    JWS ヘッダ,
-	    エンコード済 JWS ペイロード,
-	    エンコード済 JWS 署名値
-        を含むJSON構造であるJWSの表現.
-        JWS Compact Serializationと異なり,
-        JWS JSON Serializationは同じコンテンツに対して複数の署名とMACsの両方, またはいずれかを適用することができる.
+	  	JWS ヘッダ, エンコード済 JWS ペイロード, エンコード済 JWS 署名値で構成される JSON 構造による JWS の表現.
+        JWS Compact Serializationと異なり, JWS JSON Serializationは同じコンテンツに対して複数の署名とMACsの両方, またはいずれかを適用することができる.
         この表現はコンパクトでもなくURL-safeでもない.
 	  
 </dd>
@@ -521,7 +517,7 @@ JSON Web Signature (JWS) Overview</h3>
 </p>
 <p>
         JWSヘッダは採用した署名もしくはMACの手法とパラメータを記述する.
-        JWSペイロードは保護されるメッセージコンテンツである.
+        JWSペイロードは保護対象となるメッセージコンテンツである.
         JWS署名はJWSプロテクトヘッダとJWSヘッダ両方の完全性を保証する.
       
 </p>
@@ -544,7 +540,8 @@ Example JWS</h3>
   eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
 </pre></div>
 <p>
-      以下はJWSペイロードとして用いることの出来るJSONオブジェクトの例である.(ペイロードは任意のコンテンツになり得るため, JSONオブジェクト表現である必要はないことに注意する.)
+      以下はJWSペイロードとして用いることの出来るJSONオブジェクトの例である.
+      (ペイロードは任意のコンテンツになり得るため, JSONオブジェクト表現である必要はないことに注意する.)
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
@@ -570,13 +567,13 @@ Example JWS</h3>
   cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
 </pre></div>
 <p>
-      JWS署名入力(エンコード済JWSヘッダ, ピリオド('.'), エンコード済JWSペイロードを連結したもの)をASCII <a class='info' href='#USASCII'>[USASCII]<span> (</span><span class='info'>American National Standards Institute, &ldquo;Coded Character Set -- 7-bit American Standard Code for Information Interchange,&rdquo; 1986.</span><span>)</span></a> で表現したオクテットのHMACを, <a class='info' href='#HS256Example'>Appendix&nbsp;A.1<span> (</span><span class='info'>Example JWS using HMAC SHA-256</span><span>)</span></a>で指定されたキーを用いてHMAC SHA-256アルゴリズムで計算し, 結果をbase64urlエンコードすることで, 以下のエンコード済JWS署名値が得られる:
+      JWS署名入力 (エンコード済JWSヘッダ, ピリオド('.'), エンコード済JWSペイロードを連結したもの) の ASCII <a class='info' href='#USASCII'>[USASCII]<span> (</span><span class='info'>American National Standards Institute, &ldquo;Coded Character Set -- 7-bit American Standard Code for Information Interchange,&rdquo; 1986.</span><span>)</span></a> オクテットの HMAC を, <a class='info' href='#HS256Example'>Appendix&nbsp;A.1<span> (</span><span class='info'>Example JWS using HMAC SHA-256</span><span>)</span></a>で指定されたキーを用いてHMAC SHA-256アルゴリズムで計算し, 結果をbase64urlエンコードすることで, 以下のエンコード済JWS署名値が得られる:
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
 </pre></div>
 <p>
-      これらの値をヘッダ.ペイロード.署名の順番で, パーツの間をピリオド('.')で連結することでJWS Compact Serializationを用いたこの完全なJWS表現が得られる
+      これらの値を "ヘッダ.ペイロード.署名" の順番で, パーツの間をピリオド('.')で連結することで, JWS Compact Serializationを用いたこの完全なJWS表現が得られる
       (改行は掲載上の都合による):
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -598,7 +595,8 @@ Example JWS</h3>
 JWS Header</h3>
 
 <p>
-        JWSヘッダを表現するJSONオブジェクトのメンバは, エンコードJWSヘッダ, エンコード済JWSペイロード, およびJWSのオプショナルプロパティーに適用されたデジタル署名ないしMACを記述する.
+        JWSヘッダを構成するJSONオブジェクトのメンバは, エンコードJWSヘッダおよびエンコード済JWSペイロード適用されたデジタル署名ないしMACについて記述する.
+        また, それ以外のJWSプロパティーについて記述することもある.
         JWSヘッダ内のヘッダパラメータ名はユニークでなければならない (MUST).
         受信者は重複したヘッダパラメータ名を持つJWSを, 拒否するか, または以下の動作をするJSONパーサーを使用しなければならない (MUST).
         すなわち, 重複したメンバ名に対して字面上で最後の(lexically last)もののみを返すようなJSONパーサーである(この動作はECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a> Section 15.12 (The JSON Object)で定義されている).
@@ -636,7 +634,7 @@ Reserved Header Parameter Names</h3>
 
 <p>
 	    <tt>alg</tt> (algorithm) ヘッダパラメータはJWSの署名に使われる暗号アルゴリズムを識別する.
-            受信者は以下の場合にはJWSを拒否しなければならない (MUST): <tt>alg</tt>の値がサポートするアルゴリズムを表現していない場合, またはデジタル署名ないしMACを行ったパーティーの有効な鍵がない場合.
+            受信者は以下の場合にはJWSを拒否しなければならない (MUST): <tt>alg</tt>で示されるアルゴリズムをサポートしていない場合, またはデジタル署名ないしMACを行ったパーティーの有効な鍵がない場合.
 	    <tt>alg</tt>の値はIANA
 	    JSON Web Signature and Encryption Algorithms レジストリ
 	    <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a> に登録されているか, またはCollision Resistant Namespaceを含んでいるべきである (SHOULD).
@@ -749,7 +747,7 @@ Reserved Header Parameter Names</h3>
 "typ" (Type) Header Parameter</h3>
 
 <p>
-	    <tt>typ</tt> (type) ヘッダパラメータは, これがアプリケーションにとって有用かどうかという文脈の中でアプリケーションに特化した方法でこの完全なJWSオブジェクトの種類を表すために用いられてもよい (MAY).
+	    <tt>typ</tt> (type) ヘッダパラメータは, これがアプリケーションにとって有用な文脈の中で, アプリケーションに特化した方法で, この完全なJWSオブジェクトの種類を表すために用いられてもよい (MAY).
         このパラメータはJWSの処理に影響を及ぼさない.
 	    <tt>JOSE</tt> という値はアプリケーションによりこのオブジェクトがJWS Compact Serializationを用いたJWSもしくはJWE Compact Serializationを用いたJWEであることを示すために用いられてもよい (MAY).
 	    <tt>JOSE+JSON</tt> という値はアプリケーションによりこのオブジェクトがJWS JSON Serialiationを用いたJWSもしくはJWE JSON Serializationを用いたJWEであることを示すために用いられてもよい (MAY).
@@ -772,7 +770,7 @@ Reserved Header Parameter Names</h3>
 "cty" (Content Type) Header Parameter</h3>
 
 <p>
-	    <tt>cty</tt> (content type) ヘッダパラメータは, これがアプリケーションにとって有用かどうかという文脈の中でアプリケーションに特化した方法で保護されているコンテント(ペイロード)の種類を表すために用いられてもよい (MAY).
+	    <tt>cty</tt> (content type) ヘッダパラメータは, これがアプリケーションにとって有用な文脈の中で, アプリケーションに特化した方法で, 保護されているコンテント(ペイロード)の種類を表すために用いられてもよい (MAY).
         このパラメータはJWSの処理に影響を及ぼさない.
         コンテントタイプの値が理解されなかった場合は無視されるべきである (SHOULD).
 	    <tt>cty</tt> の値は文字列であり, 大文字・小文字を区別する.
@@ -789,12 +787,13 @@ Reserved Header Parameter Names</h3>
 "crit" (Critical) Header Parameter</h3>
 
 <p>
-	    <tt>crit</tt> (critical) ヘッダパラメータは必ず理解され処理されなければならない (MUST) この仕様に対する拡張を示す.
-        その値はJWSヘッダ内で用いられるこれらの拡張機能によって定義されたヘッダパラメータ名が記載された配列である.
+	    <tt>crit</tt> (critical) ヘッダパラメータは, 本仕様の拡張が利用されていること, およびその拡張仕様が必ず理解されなければならない (MUST) ことを示す.
+        その値はJWSヘッダ内で用いられるこれらの拡張仕様によって定義されたヘッダパラメータ名が記載された配列である.
         もし記載された拡張ヘッダパラメータが受信者により理解されずサポートされない場合, そのJWSは拒否されなければならない (MUST).
         送信者はこの仕様もしくはJWS利用のために <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a> により定義されているヘッダパラメータ, 重複した名前, JWSヘッダに現れないヘッダパラメータ名を <tt>crit</tt> リストに含めてはならない (MUST NOT).
         送信者は <tt>crit</tt> の値に空のリスト <tt>[]</tt> を用いてはならない (MUST NOT).
-        もしcriticalリストがこの仕様もしくはJWS利用のために <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a> で定義されている, その利用が違反であるその他の制約により定義されている任意のヘッダパラメータを含むとき, 受信者はそのJWSを拒否してもよい (MAY).
+        もしcriticalリストがこの仕様もしくはJWS利用のために <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a> で定義されているヘッダパラメータを含む場合, 受信者はそのJWSを拒否してもよい (MAY).
+        同様に, critヘッダを利用する上でのなんらかの制約条件に違反する場合にも, 受信者はそのJWSを拒否してもよい (MAY).
         このヘッダパラメータは完全に保護されなければならず (MUST), 従って利用されるときは必ずJWSプロテクトヘッダのみに現れなければならない (MUST).
         このヘッダパラメータの利用は任意 (OPTIONAL) である.
         実装はこのヘッダパラメータを理解しなければならない (MUST).
@@ -821,11 +820,11 @@ Public Header Parameter Names</h3>
 <p>
       JWS利用者により, 追加のヘッダパラメータ名を定義することができる.
       しかしながら, 衝突を防ぐために, 新しいヘッダパラメータ名は IANA JSON Web Signature and Encryption Header Parameters レジストリ <a class='info' href='#HdrReg'>Section&nbsp;8.1<span> (</span><span class='info'>JSON Web Signature and Encryption Header Parameters Registry</span><span>)</span></a> に登録されるか, またはパブリックな名前(衝突耐性を持つ名前空間を含む)となるべきである (SHOULD).
-      それぞれのケースにおいて, 名前もしくは値の定義者はヘッダパラメータ名を定義するために用いる名前空間の一部を制限していることを保証するために適切な注意を払う必要がある.
+      それぞれのケースにおいて, 名前もしくは値の定義者は, ヘッダパラメータ名定義に用いる名前空間の一部を制御可能なことを保証するために, 適切な注意を払う必要がある.
 	
 </p>
 <p>
-      新しいヘッダパラメータはそれらが非互換なJWSが生じ得るため, 慎重に導入されるべきである.
+      新しいヘッダパラメータは非互換なJWSの発生原因となりうるため, 慎重に導入されるべきである.
 	
 </p>
 <a name="PrivateHeaderParameterName"></a><br /><hr />
@@ -834,7 +833,7 @@ Public Header Parameter Names</h3>
 Private Header Parameter Names</h3>
 
 <p>
-      JWSの生産者と消費者は, 予約済パラメータ名 <a class='info' href='#ReservedHeaderParameterName'>Section&nbsp;4.1<span> (</span><span class='info'>Reserved Header Parameter Names</span><span>)</span></a> やパブリックパラメータ名 <a class='info' href='#PublicHeaderParameterName'>Section&nbsp;4.2<span> (</span><span class='info'>Public Header Parameter Names</span><span>)</span></a> ではないプライベートパラメータ名であるヘッダパラメータを用いることに同意してもよい.
+      JWSの生成者と消費者は, 予約済パラメータ名 <a class='info' href='#ReservedHeaderParameterName'>Section&nbsp;4.1<span> (</span><span class='info'>Reserved Header Parameter Names</span><span>)</span></a> やパブリックパラメータ名 <a class='info' href='#PublicHeaderParameterName'>Section&nbsp;4.2<span> (</span><span class='info'>Public Header Parameter Names</span><span>)</span></a> ではないプライベートパラメータ名であるヘッダパラメータを用いることに同意してもよい.
       パブリックな名前とは異なり, プライベートな名前は衝突しやすく注意して利用すべきである.
 	
 </p>

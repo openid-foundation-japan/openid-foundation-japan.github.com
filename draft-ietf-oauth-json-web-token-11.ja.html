@@ -885,24 +885,24 @@ JWTを作成および検証するためのルール</h3>
 
 <p>
 	JWTを作成するために, 次の手順を実行しなければならない(MUST).
-	手順の順序は, 手順の入力と出力の間に依存関係が存在しない場合において重要ではない.
+	手順の入力と出力の間に依存関係が存在しない場合には, 手順の順序は重要ではない.
 	
       
         </p>
 <ol class="text">
 <li>
-	    望ましいクレームを含むJWTクレームセットを作成する.
-		空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要がないため注意すること.
+	    必要とされるクレームからなるJWTクレームセットを作成する.
+		なお, 空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要はない.
 	  
 </li>
 <li>
-	    メッセージはJWTクレームセットのUTF-8表現のオクテットとする.
+	    メッセージをJWTクレームセットのUTF-8表現のオクテットとする.
 	  
 </li>
 <li>
-	    望ましいヘッダパラメータを含むJWTヘッダを作成する.
+	    必要とされるヘッダパラメータからなるJWTヘッダを作成する.
 		JWTは, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様, または<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様に従わなければならない(MUST).
-		空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要がないため注意すること.
+		なお, 空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要はない.
 	  
 </li>
 <li>
@@ -931,12 +931,12 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	    ネストされた署名または暗号化の操作が行われた場合, メッセージはJWTまたはJWEとして,  
-		そのステップで作られた新しいJWTヘッダを<tt>JWT</tt>の<tt>cty</tt>(Content type)の値として利用し, ステップ3に戻る. 
+	  	ネストした署名または暗号化処理を行う場合は, JWSもしくはJWEをメッセージとしてステップ3に戻る.
+	  	この際, 次のステップで新たに作られる JWTヘッダーの<tt>cty</tt> (content type) ヘッダ値には, <tt>JWT</tt>を指定する.
 	  
 </li>
 <li>
-	  それ以外の場合, 結果のJWTはJWSまたはJWEとする.
+	  それ以外の場合, 計算されたJWTをJWSまたはJWEとする.
 	  
 </li>
 </ol><p>
@@ -944,8 +944,8 @@ JWTを作成および検証するためのルール</h3>
 </p>
 <p>
 	  JWTを検証する際, 次の手順を取らねばならない(MUST).
-	  手順の順序は, 手順の入力と出力の間に依存関係が存在しない場合において重要ではない.
-	  列挙されている手順のいずれかが抜けた場合, JWTは処理のために拒絶されねばならない(MUST).
+	  手順の入力と出力の間に依存関係が存在しない場合には, 手順の順序は重要ではない.
+	  列挙されている手順のいずれかが失敗した場合, そのJWTの処理はリジェクトされねばならない(MUST).
 	  
 </p>
 <p>
@@ -960,24 +960,23 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	  	エンコード済JWTヘッダは本仕様で与えられた制限, パディング文字が使用されていないこと, に従い, base64urlデコードに成功しなければならない(MUST).
+	  	エンコード済JWTヘッダは, パディング文字を使用しないという本仕様が定める制約に従い, base64urlデコードに成功しなければならない(MUST).
 	  
 </li>
 <li>
-      	結果としてJWTヘッダは<a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠し, 完全に有効なJSON構文でなければならない(MUST).
+      	計算されたJWTヘッダは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠した, 完全に有効なJSON構文でなければならない(MUST).
 	  
 </li>
 <li>
-	    結果としてJWTヘッダは, その構文と意味が理解およびサポートされている, または理解されていないとき無視されるよう指定されている, 
-		パラメータと値のみを含むように検証されなければならない(MUST)
+	    計算されたJWTヘッダは, その構文と意味が理解可能でサポートされている, または理解できないとき無視するよう指定されたパラメータと値のみを含むように検証されなければならない (MUST).
 	  
 </li>
 <li>
-	  	JWTは, <tt>alg</tt>(アルゴリズム)ヘッダの値とオプションで<tt>enc</tt> (暗号化方式) ヘッダの値(存在する場合)を調べることで, JWSかJWEかを決定する.
+	  	<tt>alg</tt> (アルゴリズム) ヘッダ値, およびオプションで<tt>enc</tt> (暗号化方式) ヘッダ値 (存在する場合) を調べ, JWT が JWS なのか JWE なのかを判別する.
 	  
 </li>
 <li>
-	    JWTはJWSかJWEかのどうかによって２つのケースがある.
+	    JWTは, JWSかJWEかによって２つのケースがある.
 	  
 	    
 <ul class="text">
@@ -995,8 +994,7 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	  JWTヘッダが<tt>JWT</tt>の<tt>cty</tt> (content type)値を含む場合, 
-	  メッセージはネストされ署名または暗号化操作の対象となったJWTである.
+	  JWTヘッダが<tt>cty</tt> (content type) に <tt>JWT</tt> という値を持つ場合, このメッセージはネストした署名または暗号化処理を受けたJWTである.
 	  この場合, メッセージをJWTとして扱い, ステップ1に戻る.
 	  
 </li>
@@ -1018,13 +1016,11 @@ JWTを作成および検証するためのルール</h3>
 
 <p>
 	  JWTを処理するとき必然的にJSONオブジェクトの値を既知の文字列と比較することを求められる.
-	  例えば, アルゴリズムが何であるかチェックするために, <tt>alg</tt>をエンコーディングしているUnicode文字列は,
-	  一致しているヘッダパラメータがあるかどうかを確認するために, JWTヘッダのメンバ名と照合される.
+	  例えば, アルゴリズムが何であるかチェックするためには, <tt>alg</tt> というUnicode文字列を受け取ったJWTヘッダメンバ名と比較し, 一致しているヘッダパラメータがあるかどうかを確認することになる.
 	
 </p>
 <p>
-	  <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>の節 5.3の文字列の比較規則で指定されたJSON文字列と他のUnicode文字列の比較は, 
-	  正規化せずにUnicodeコードポイントを比較することによって実施されなければならない(MUST).
+	  <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> Section 5.3の "String Comparison Rules" に示す通り, JSON文字列と他のUnicode文字列の比較は, 正規化せずにUnicodeコードポイントを比較することによって実施されなければならない(MUST).
 	
 </p>
 <a name="Algorithms"></a><br /><hr />

@@ -271,7 +271,7 @@ Media Type Registration<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MediaContents">9.4.1.</a>&nbsp;
 レジストリコンテンツ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#HdrReg">9.5.</a>&nbsp;
-Registration of JWE Header Parameter Names<br />
+JWEヘッダパラメータの登録<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HdrContents">9.5.1.</a>&nbsp;
 レジストリコンテンツ<br />
 <a href="#Security">10.</a>&nbsp;
@@ -891,7 +891,7 @@ JWTを作成および検証するためのルール</h3>
         </p>
 <ol class="text">
 <li>
-	    必要とされるクレームからなるJWTクレームセットを作成する.
+	    必要なクレームを含むJWTクレームセットを作成する.
 		なお, 空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要はない.
 	  
 </li>
@@ -900,7 +900,7 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	    必要とされるヘッダパラメータからなるJWTヘッダを作成する.
+	    必要なヘッダパラメータを含むJWTヘッダを作成する.
 		JWTは, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様, または<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様に従わなければならない(MUST).
 		なお, 空白は表現の中で明確に許容されており, エンコーディングの前に正規化を実行する必要はない.
 	  
@@ -911,7 +911,7 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	    JWTは, JWSかJWEかによって２つのケースがある.
+	    当該のJWTがJWSかJWEかによって2つのケースがある.
 	  
 	  
 	  
@@ -931,12 +931,12 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	  	ネストした署名または暗号化処理を行う場合は, JWSもしくはJWEをメッセージとしてステップ3に戻る.
-	  	この際, 次のステップで新たに作られる JWTヘッダーの<tt>cty</tt> (content type) ヘッダ値には, <tt>JWT</tt>を指定する.
+	  	入れ子にされた署名または暗号化処理を行う場合は, JWSもしくはJWEをメッセージとしてステップ3に戻る.
+	  	この際, そのステップで新たに作られる JWTヘッダの<tt>cty</tt> (content type) ヘッダ値には, <tt>JWT</tt>を指定する.
 	  
 </li>
 <li>
-	  それ以外の場合, 計算されたJWTをJWSまたはJWEとする.
+	  それ以外の場合, 結果として生成されるJWTはJWSまたはJWEとなる.
 	  
 </li>
 </ol><p>
@@ -960,41 +960,41 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	  	エンコード済JWTヘッダは, パディング文字を使用しないという本仕様が定める制約に従い, base64urlデコードに成功しなければならない(MUST).
+	  	エンコード済JWTヘッダは, パディング文字を使用しないという本仕様が定める制約に従い, base64urlデコードできなければならない(MUST).
 	  
 </li>
 <li>
-      	計算されたJWTヘッダは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠した, 完全に有効なJSON構文でなければならない(MUST).
+      	生成されたJWTヘッダは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠した, 完全に有効なJSON構文でなければならない(MUST).
 	  
 </li>
 <li>
-	    計算されたJWTヘッダは, その構文と意味が理解可能でサポートされている, または理解できないとき無視するよう指定されたパラメータと値のみを含むように検証されなければならない (MUST).
+	    生成されたJWTヘッダは, その構文と意味が理解可能で且つサポートされ, 理解できないとき無視されるパラメータと値のみを含むように検証されなければならない (MUST).
 	  
 </li>
 <li>
-	  	<tt>alg</tt> (アルゴリズム) ヘッダ値, およびオプションで<tt>enc</tt> (暗号化方式) ヘッダ値 (存在する場合) を調べ, JWT が JWS なのか JWE なのかを判別する.
+	  	<tt>alg</tt> (アルゴリズム) ヘッダの値, およびオプションで<tt>enc</tt> (暗号化方式) ヘッダの値 (存在する場合) を検証し, そのJWT が JWS なのか JWE なのかを判別する.
 	  
 </li>
 <li>
-	    JWTは, JWSかJWEかによって２つのケースがある.
+	    JWTがJWSかJWEかによって, 2つのケースがある.
 	  
 	    
 <ul class="text">
 <li>
 		JWTがJWSの場合, JWSを検証するために<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>で指定されたすべての手順に従わなければならない(MUST).
-		メッセージをbase64urlデコードした結果をJWSペイロードとする.
+		メッセージはbase64urlデコードされたJWSペイロードとなる.
 		
 </li>
 <li>
 		JWTがJWEの場合, JWEを検証するために<a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>で指定されたすべての手順に従わなければならない(MUST).
-		メッセージをJWEプレーンテキストとする.
+		メッセージはJWEプレーンテキストとなる.
 		
 </li>
 </ul>
 	  
 </li>
 <li>
-	  JWTヘッダが<tt>cty</tt> (content type) に <tt>JWT</tt> という値を持つ場合, このメッセージはネストした署名または暗号化処理を受けたJWTである.
+	  JWTヘッダが <tt>cty</tt> (content type) の値として <tt>JWT</tt> を持つ場合, このメッセージは入れ子にされた署名または暗号化処理を受けたJWTである.
 	  この場合, メッセージをJWTとして扱い, ステップ1に戻る.
 	  
 </li>
@@ -1003,7 +1003,7 @@ JWTを作成および検証するためのルール</h3>
 	  
 </li>
 <li>
-	    JWTクレームセットは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠し, 完全に有効なJSON構文でなければならない(MUST)
+	    JWTクレームセットは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に準拠した, 完全に有効なJSON構文でなければならない(MUST)
 	  
 </li>
 </ol><p>
@@ -1015,12 +1015,12 @@ JWTを作成および検証するためのルール</h3>
 文字列の比較規則</h3>
 
 <p>
-	  JWTを処理するとき必然的にJSONオブジェクトの値を既知の文字列と比較することを求められる.
+	  JWTを処理するとき必然的にJSONオブジェクトの中の値を既知の文字列と比較することを求められる.
 	  例えば, アルゴリズムが何であるかチェックするためには, <tt>alg</tt> というUnicode文字列を受け取ったJWTヘッダメンバ名と比較し, 一致しているヘッダパラメータがあるかどうかを確認することになる.
 	
 </p>
 <p>
-	  <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> Section 5.3の "String Comparison Rules" に示す通り, JSON文字列と他のUnicode文字列の比較は, 正規化せずにUnicodeコードポイントを比較することによって実施されなければならない(MUST).
+	  <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> 節 5.3の "String Comparison Rules" に示す通り, JSON文字列と他のUnicode文字列の比較は, 正規化せずにUnicodeコードポイントを比較することによって実施されなければならない(MUST).
 	
 </p>
 <a name="Algorithms"></a><br /><hr />
@@ -1029,8 +1029,8 @@ JWTを作成および検証するためのルール</h3>
 暗号化アルゴリズム</h3>
 
 <p>
-	JWTはJSON Web Signature (JWS)<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>とJSON Web Encryption (JWE) <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>を, 
-	JWTのコンテンツに対して署名と暗号化の両方, またはいずれかを実施するために利用する.
+  	JWTはJSON Web Signature (JWS)<a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a>とJSON Web Encryption (JWE) <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>を, 
+	JWTのコンテンツに対して署名と暗号化の両方を実施するために利用する.
 	
 </p>
 <p>
@@ -1042,7 +1042,7 @@ JWTを作成および検証するためのルール</h3>
 	
 </p>
 <p>
-	暗号化機能の実装を提供する場合, JWA暗号化アルゴリズムの, 2048ビット鍵(<tt>RSA1_5</tt>)のRSAES-PKCS1-V1_5, 
+	JWA暗号化アルゴリズムの実装が, 暗号化機能を提供する場合, 2048ビット鍵(<tt>RSA1_5</tt>)のRSAES-PKCS1-V1_5, 
 	128と256ビット鍵のAESキーラップ(<tt>A128KW</tt>と<tt>A256KW</tt>), 
 	それと複合認証されたAES CBCとHMAC SHA-2(<tt>A128CBC-HS256</tt>と<tt>A256CBC-HS512</tt>)を
 	使用した暗号化アルゴリズムは、実装に準拠する形で実装しなければならない(MUST).
@@ -1467,10 +1467,10 @@ Media Type Registration</h3>
 <a name="HdrReg"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.9.5"></a><h3>9.5.&nbsp;
-Registration of JWE Header Parameter Names</h3>
+JWEヘッダパラメータの登録</h3>
 
 <p>
-    本仕様は, <a class='info' href='#ClaimsAsHeaders'>Section&nbsp;5.3<span> (</span><span class='info'>ヘッダ・パラメータとしてクレームを複製する</span><span>)</span></a> のヘッダパラメータとして複製されたクレームで使用するために <a class='info' href='#ReservedClaimName'>Section&nbsp;4.1<span> (</span><span class='info'>予約済クレーム名</span><span>)</span></a> に定義されている特定の予約済クレーム名を IANA JSON Web Signature and Encryption Header Parameters registry <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; July&nbsp;2013.</span><span>)</span></a> に登録する.
+    本仕様は, <a class='info' href='#ClaimsAsHeaders'>Section&nbsp;5.3<span> (</span><span class='info'>ヘッダ・パラメータとしてクレームを複製する</span><span>)</span></a> にあるように, ヘッダパラメータとして複製されたクレームを使用するために, JSON Web Signature and Encryption Header Parameters レジストリの<a class='info' href='#ReservedClaimName'>Section&nbsp;4.1<span> (</span><span class='info'>予約済クレーム名</span><span>)</span></a>で定義された特定の予約済クレーム名を登録する.
   
 </p>
 <a name="HdrContents"></a><br /><hr />
@@ -1482,19 +1482,23 @@ Registration of JWE Header Parameter Names</h3>
             </p>
 <ul class="text">
 <li>
-                Header Parameter Name: <tt>iss</tt>
+                ヘッダパラメータ名: <tt>iss</tt>
+		
               
 </li>
 <li>
-		Header Parameter Usage Location(s): JWE
+		ヘッダパラメータの使用箇所: JWE
+		
 	      
 </li>
 <li>
-                Change Controller: IETF
+                変更管理: IETF
+		
               
 </li>
 <li>
-                Specification Document(s): <a class='info' href='#issDef'>Section&nbsp;4.1.1<span> (</span><span class='info'>&quot;iss&quot; (Issuer) クレーム</span><span>)</span></a> of [[ this document ]]
+                仕様ドキュメント: <a class='info' href='#issDef'>Section&nbsp;4.1.1<span> (</span><span class='info'>&quot;iss&quot; (Issuer) クレーム</span><span>)</span></a> of [[ this document ]]
+		
               
 </li>
 </ul><p>
@@ -1504,19 +1508,23 @@ Registration of JWE Header Parameter Names</h3>
  	    </p>
 <ul class="text">
 <li>
-                Header Parameter Name: <tt>sub</tt>
+                ヘッダパラメータ名: <tt>sub</tt>
+		
               
 </li>
 <li>
-		Header Parameter Usage Location(s): JWE
+		ヘッダパラメータの使用箇所: JWE
+		
 	      
 </li>
 <li>
-                Change Controller: IETF
+                変更管理: IETF
+		
               
 </li>
 <li>
-                Specification Document(s): <a class='info' href='#subDef'>Section&nbsp;4.1.2<span> (</span><span class='info'>&quot;sub&quot; (Subject) クレーム</span><span>)</span></a> of [[ this document ]]
+                仕様ドキュメント: <a class='info' href='#subDef'>Section&nbsp;4.1.2<span> (</span><span class='info'>&quot;sub&quot; (Subject) クレーム</span><span>)</span></a> of [[ this document ]]
+		
               
 </li>
 </ul><p>
@@ -1526,19 +1534,23 @@ Registration of JWE Header Parameter Names</h3>
  	    </p>
 <ul class="text">
 <li>
-                Header Parameter Name: <tt>aud</tt>
+                ヘッダパラメータ名: <tt>aud</tt>
+		
               
 </li>
 <li>
-		Header Parameter Usage Location(s): JWE
+		ヘッダパラメータの使用箇所: JWE
+		
 	      
 </li>
 <li>
-                Change Controller: IETF
+                変更管理: IETF
+		
               
 </li>
 <li>
-                Specification Document(s): <a class='info' href='#audDef'>Section&nbsp;4.1.3<span> (</span><span class='info'>&quot;aud&quot; (Audience) クレーム</span><span>)</span></a> of [[ this document ]]
+                仕様ドキュメント: <a class='info' href='#audDef'>Section&nbsp;4.1.3<span> (</span><span class='info'>&quot;aud&quot; (Audience) クレーム</span><span>)</span></a> of [[ this document ]]
+		
               
 </li>
 </ul><p>
@@ -1550,27 +1562,27 @@ Registration of JWE Header Parameter Names</h3>
 Security Considerations</h3>
 
 <p>
-	どんな暗号化アプリケーションが直面したすべてのセキュリティ問題はJWT/JWS/JWE/JWKエージェントによって直面しなければならない.
-	これらの問題の中には, ユーザのプライベート鍵および対称鍵を保護し, 様々な攻撃を防ぎ, ユーザが間違った受信者のためのメッセージを不注意に暗号化するような間違いを避けることを助ける.
+	JWT/JWS/JWE/JWKエージェントは, 暗号化アプリケーションが直面したあらゆるセキュリティ問題に対応しなければならない.
+	これらの問題の中には, ユーザのプライベート鍵および対称鍵を保護し, 様々な攻撃を防ぎ, ユーザが不正な受信者のためにメッセージを不注意に暗号化するような間違いを避けることを助けることが含まれる.
 	セキュリティに関する検討項目の全てのリストを挙げることは本ドキュメントの範囲外である.
 	
       
 </p>
 <p>
-	JWSの仕様のすべてのセキュリティに関する検討項目は, 暗号化が使用される際のJWEのセキュリティに関する検討項目と同様に, JWTにも当てはまる.
+	JWSの仕様のすべてのセキュリティに関する検討項目は, 暗号化が使用される際のJWEのセキュリティに関する検討項目と同様に, JWTにも適用される.
 	特に, JWSのJSONのセキュリティに関する検討項目とUnicode比較のセキュリティに関する検討項目はJWSヘッダに適用されるのと同様にJWTクレームセットにも等しく適用される.
 	
       
 </p>
 <p>
 	構文上, 入れ子のJWTのための署名と暗号化のオペレーションは任意の順番に適用してもよいが, 通常送信者はメッセージに署名してからその結果を暗号化するべきである (したがって, 署名を暗号化する).
-	これはメッセージを暗号化されたままにするので, 署名者にプライバシーを提供するのと同様に, 署名を暴かれる攻撃を防ぐ.
+	このことは, メッセージを暗号化されたままにするため, 署名者にプライバシーを提供するのと同様に, 署名を暴かれる攻撃を防ぐ.
 	更に, 暗号化されたテキストに対する署名は多くのルール上, 有効であるとは考えられてはいない.
 	
       
 </p>
 <p>
-	署名と暗号化オペレーションの順序に関連するセキュリティ問題に関する潜在的な懸念は, 既にJWSとJWEの仕様に取り込まれていることに留意すること.
+	署名と暗号化オペレーションの順序に関連するセキュリティ問題に関する潜在的な懸念は, 既にJWSとJWEの仕様の中で指摘されている.
 	特に, JWEは認証された暗号化アルゴリズムの利用のみをサポートしているため, 多くのコンテキストで適用される暗号化後の署名に関する潜在的な必要性についての暗号化関連の懸念事項は, 本仕様には適用されない.
 	
       

@@ -2543,24 +2543,20 @@ Validating</h3>
 Example Plaintext JWS</h3>
 
 <p>
-	  The following example JWS Header declares that the
-	  encoded object is a Plaintext JWS:
+	  以下のJWSヘッダの例はエンコード済みのオブジェクトが平文のJWSである例を示している:
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"none"}
 </pre></div>
 <p>
-	  Base64url encoding the octets of the UTF-8 representation of
-	  the JWS Header yields this Encoded JWS Header:
+	  このJWSヘッダのUTF-8表現のオクテット列をbase64urlエンコーディングすると以下のエンコード済みJWSヘッダが生成される:
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJub25lIn0
 </pre></div>
 <p>
-	  The JWS Payload used in this example, which
-	  follows, is the same as in the previous examples.  Since
-	  the Encoded JWS Payload will therefore be the same, its
-	  computation is not repeated here.
+	  以下に示されるこの例の中で使われているJWSペイロードは, 前の例のものと同じである.
+	  それゆえエンコード済みJWSペイロードは同じであるため, ここでは再度算出は行わない.
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
@@ -2568,14 +2564,11 @@ Example Plaintext JWS</h3>
    "http://example.com/is_root":true}
 </pre></div>
 <p>
-	  The Encoded JWS Signature is the empty string.
+	  エンコード済みJWS署名は空文字となる.
 	
 </p>
 <p>
-	  Concatenating these parts in the order
-	  Header.Payload.Signature with period ('.') characters between the
-	  parts yields this complete JWS (with line breaks for
-	  display purposes only):
+	  ヘッダ.ペイロードPayload.署名の順でそれぞれの部分をピリオド('.')で連結すると完全なJWSが生成される(改行は掲載上の都合による):
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJub25lIn0
@@ -2590,34 +2583,24 @@ Example Plaintext JWS</h3>
 Example JWS Using JWS JSON Serialization</h3>
 
 <p>
-	  This section contains an example using the JWS JSON Serialization.
-	  This example demonstrates the capability for
-	  conveying multiple digital signatures and/or MACs for the
-	  same payload.
+	  このセクションはJWS JSON Serializationを利用した場合の例を含む.
+	  この例では同一のペイロードについて複数の電子署名, および/またはMAC値を伝送できることを示す.
 	
 </p>
 <p>
-	  The Encoded JWS Payload used in this example is the same as
-	  that used in the examples in <a class='info' href='#RS256Example'>Appendix&nbsp;A.2<span> (</span><span class='info'>Example JWS using RSASSA-PKCS-v1_5 SHA-256</span><span>)</span></a>
-	  and <a class='info' href='#ES256Example'>Appendix&nbsp;A.3<span> (</span><span class='info'>Example JWS using ECDSA P-256 SHA-256</span><span>)</span></a>
-	  (with line breaks for display purposes only):
+	  この例で利用されているエンコード済みJWSペイロードは <a class='info' href='#RS256Example'>Appendix&nbsp;A.2<span> (</span><span class='info'>Example JWS using RSASSA-PKCS-v1_5 SHA-256</span><span>)</span></a>と <a class='info' href='#ES256Example'>Appendix&nbsp;A.3<span> (</span><span class='info'>Example JWS using ECDSA P-256 SHA-256</span><span>)</span></a>の例で利用されているものと同じである(改行は掲載上の都合による):
 	
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
   cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
 </pre></div>
 <p>
-	  Two digital signatures are used in this example:
-	  the first using RSASSA-PKCS-v1_5 SHA-256 and
-	  the second using ECDSA P-256 SHA-256.
-	  For the first, the JWS Protected Header and key
-	  are the same as in <a class='info' href='#RS256Example'>Appendix&nbsp;A.2<span> (</span><span class='info'>Example JWS using RSASSA-PKCS-v1_5 SHA-256</span><span>)</span></a>,
-	  resulting in the same JWS Signature value;
-	  therefore, its computation is not repeated here.
-	  For the second, the JWS Protected Header and key
-	  are the same as in <a class='info' href='#ES256Example'>Appendix&nbsp;A.3<span> (</span><span class='info'>Example JWS using ECDSA P-256 SHA-256</span><span>)</span></a>,
-	  resulting in the same JWS Signature value;
-	  therefore, its computation is not repeated here.
+	  この例では二つの電子署名が使用される:
+	  1つ目ではRSASSA-PKCS-v1_5 SHA-256を2つ目ではECDSA P-256 SHA-256を利用する.
+	  1つ目のJWSプロテクトヘッダと鍵は <a class='info' href='#RS256Example'>Appendix&nbsp;A.2<span> (</span><span class='info'>Example JWS using RSASSA-PKCS-v1_5 SHA-256</span><span>)</span></a>のものと同じになり, 結果として得られるJWS署名が同じ値になる;
+      それゆえここでは再度算出は行わない.
+	  2つ目のJWSプロテクトヘッダと鍵は <a class='info' href='#ES256Example'>Appendix&nbsp;A.3<span> (</span><span class='info'>Example JWS using ECDSA P-256 SHA-256</span><span>)</span></a>のものと同じになり, 結果として得られるJWS署名が同じ値になる;
+	  それゆえここでは再度算出は行わない.
 	
 </p>
 <a name="JSProtectedHeader"></a><br /><hr />
@@ -2626,27 +2609,25 @@ Example JWS Using JWS JSON Serialization</h3>
 JWS Per-Signature Protected Headers</h3>
 
 <p>
-	    The JWS Protected Header value used for the first signature is:
+	    1つ目の署名に利用されるJWSプロテクトヘッダ値は以下となる:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"RS256"}
 </pre></div>
 <p>
-	    Base64url encoding these octets yields this
-	    Encoded JWS Header value:
+	    これらのオクテット列をbase64urlエンコーディングすると以下のエンコード済みJWSヘッダ値が生成される:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJSUzI1NiJ9
 </pre></div>
 <p>
-	    The JWS Protected Header value used for the second signature is:
+	    2つ目の署名に利用されるJWSプロテクトヘッダ値は以下となる:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES256"}
 </pre></div>
 <p>
-	    Base64url encoding these octets yields this
-	    Encoded JWS Header value:
+	    これらのオクテット列をbase64urlエンコーディングすると以下のエンコード済みJWSヘッダ値が生成される:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzI1NiJ9
@@ -2657,15 +2638,14 @@ JWS Per-Signature Protected Headers</h3>
 JWS Per-Signature Unprotected Headers</h3>
 
 <p>
-	    Key ID values are supplied for both keys using per-signature
-	    header parameters.
-	    The two values used to represent these Key IDs are:
+	    Key ID の値は, 署名毎のヘッダパラメータを利用して両方の鍵に対して与えられる.
+	    これらのKey IDを表す2つの値は以下となる:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kid":"2010-12-29"}
 </pre></div>
 <p>
-	    and:
+	    と:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kid":"e9bc097a-ce51-4036-9562-d2ade882db0d"}
@@ -2676,16 +2656,14 @@ JWS Per-Signature Unprotected Headers</h3>
 Complete JWS Header Values</h3>
 
 <p>
-	    Combining the protected and unprotected header values
-	    supplied, the JWS Header values used for the first and second
-	    signatures respectively are:
+	    与えられたプロテクトヘッダとプロテクトされていないヘッダの値を合わせて, 1つ目の署名と2つ目の署名それぞれに利用されるJWSヘッダ値は以下のようになる:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"RS256",
    "kid":"2010-12-29"}
 </pre></div>
 <p>
-	    and:
+	    と:
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES256",
@@ -2697,9 +2675,7 @@ Complete JWS Header Values</h3>
 Complete JWS JSON Serialization Representation</h3>
 
 <p>
-	    The complete JSON Web Signature JSON Serialization
-	    for these values is as follows
-	    (with line breaks for display purposes only):
+	    これらの値の完全なJSON Web Signature JSON Serializationは以下のようになる(改行は掲載上の都合による):
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"payload":
@@ -2730,12 +2706,8 @@ Complete JWS JSON Serialization Representation</h3>
 "x5c" (X.509 Certificate Chain) Example</h3>
 
 <p>
-	The JSON array below is an example of a certificate chain
-	that could be used as the value of an
-	<tt>x5c</tt> (X.509 Certificate Chain) header parameter,
-	per <a class='info' href='#x5cDef'>Section&nbsp;4.1.6<span> (</span><span class='info'>&quot;x5c&quot; (X.509 Certificate Chain) Header Parameter</span><span>)</span></a>.
-	Note that since these strings contain base64 encoded (not base64url encoded)
-	values, they are allowed to contain white space and line breaks.
+      	以下の JSON array は, <a class='info' href='#x5cDef'>Section&nbsp;4.1.6<span> (</span><span class='info'>&quot;x5c&quot; (X.509 Certificate Chain) Header Parameter</span><span>)</span></a> にあるように, <tt>x5c</tt> ヘッダパラメータとして指定される証明書チェーンの例である.
+      	ここでは Base64URL エンコードではなく Base64 エンコードが用いられるため, 空白と改行が許可されていることに注意すること.
       
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   ["MIIE3jCCA8agAwIBAgICAwEwDQYJKoZIhvcNAQEFBQAwYzELMAkGA1UEBhMCVVM
@@ -2816,16 +2788,13 @@ Complete JWS JSON Serialization Representation</h3>
 Notes on implementing base64url encoding without padding</h3>
 
 <p>
-	This appendix describes how to implement base64url encoding
-	and decoding functions without padding based upon standard
-	base64 encoding and decoding functions that do use padding.
+      	ここではパディング無し Base64URL エンコード/デコードを, 標準のパディング付き Base64 エンコード/デコードを元に実装する方法について述べる.
       
 </p>
 <p>
-	To be concrete, example C# code implementing these functions
-	is shown below.  Similar code could be used in other
-	languages.
-      
+	  	具体例として, 以下に C# での実装例を挙げる.
+	  	他の言語でも実装方法は同様である.
+	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   static string base64urlencode(byte [] arg)
   {
@@ -2853,23 +2822,14 @@ Notes on implementing base64url encoding without padding</h3>
   }
 </pre></div>
 <p>
-	As per the example code above, the number of '=' padding
-	characters that needs to be added to the end of a base64url
-	encoded string without padding to turn it into one with
-	padding is a deterministic function of the length of the
-	encoded string.  Specifically,
-
-	if the length mod 4 is 0, no padding is added;
-	if the length mod 4 is 2, two '=' padding characters are added;
-	if the length mod 4 is 3, one '=' padding character is added;
-	if the length mod 4 is 1, the input is malformed.
-      
+	  	上記コードの通り, パディング無しBase64URL エンコード文字列をパディング付きに変換する為に付与すべきパディング "=" の文字数は, エンコード文字列長から求められる.
+	  	"length mod 4 = 0" の時, パディングは必要なく, "length mod 4 = 2" の時は2つの "=" を追加, "length mod 4 = 3" の時は1つ, "length mod 4 = 1" の時はその入力が不正である.
+	  
 </p>
 <p>
-	An example correspondence between unencoded and encoded values
-	follows.  The octet sequence below encodes into the string
-	below, which when decoded, reproduces the octet sequence.
-      
+	  	エンコードあり/なしの値の対応例を以下に示す.
+	  	以下のオクテット列はその下の文字列にエンコードされ, デコードすると元のオクテット列が導出される.
+	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>3 236 255 224 193</pre></div><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>A-z_4ME</pre></div>
 <a name="critTest"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2877,19 +2837,15 @@ Notes on implementing base64url encoding without padding</h3>
 Negative Test Case for "crit" Header Parameter</h3>
 
 <p>
-	Conforming implementations must reject input containing critical extensions
-	that are not understood or cannot be processed.  The following JWS must
-	be rejected by all implementations, because it uses an extension
-	header parameter name <tt>http://example.invalid/UNDEFINED</tt>
-	that they do not understand.
-	Any other similar input, in which the use of the value
-	<tt>http://example.invalid/UNDEFINED</tt> is substituted for
-	any other header parameter name not understood by the implementation,
-	must also be rejected.
+      	適切な実装は, 理解不能もしくは処理不能なクリティカル拡張を含む入力を拒否しなければならない.
+      	以下に示す JWS は, <tt>http://example.invalid/UNDEFINED</tt> という理解不能な拡張ヘッダパラメータを利用しているため, いかなる実装もこの JWS を拒否しなければならない.
+      	<tt>http://example.invalid/UNDEFINED</tt> に変わるなんらかの理解不能なヘッダパラメータが含まれる場合にも, 同様に実装はそれらを拒否しなければならない.
+      	
 
 	
 <p>
-	    The JWS Header value for this JWS is:
+	  	JWS ヘッダ
+	  	
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"none",
@@ -2900,8 +2856,8 @@ Negative Test Case for "crit" Header Parameter</h3>
 
 	
 <p>
-	    The complete JWS that must be rejected is as follows
-	    (with line breaks for display purposes only):
+	  	JWS 全体 (改行は表示の都合による)
+	  	
 	  
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJub25lIiwNCiAiY3JpdCI6WyJodHRwOi8vZXhhbXBsZS5jb20vVU5ERU

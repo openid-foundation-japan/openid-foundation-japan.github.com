@@ -1,9 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en"><head><title>Draft: OpenID Connect
-    Basic Client Implementer's Guide 1.0 - draft 32</title>
+    Basic Client Implementer's Guide 1.0 - draft 33</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="OpenID Connect
-    Basic Client Implementer's Guide 1.0 - draft 32">
+    Basic Client Implementer's Guide 1.0 - draft 33">
 <meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
@@ -153,10 +153,10 @@
 <tr><td class="header">&nbsp;</td><td class="header">Google</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">C. Mortimore</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">Salesforce</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">December 19, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">February 25, 2014</td></tr>
 </table></td></tr></table>
 <h1><br />OpenID Connect
-    Basic Client Implementer's Guide 1.0 - draft 32</h1>
+    Basic Client Implementer's Guide 1.0 - draft 33</h1>
 
 <h3>Abstract</h3>
 
@@ -286,13 +286,13 @@ Authors' Addresses<br />
 Introduction</h3>
 
 <p>
-        本ドキュメント OpenID Connect Basic Client Implementer's Guide 1.0 は, <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Core] 仕様のサブセットであり, OAuth 2.0 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Authorization Code Flow を利用して Web ベースの Relying Party を実装する際に読みやすいように構成されている.
+        本ドキュメント OpenID Connect Basic Client Implementer's Guide 1.0 は, <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Core] 仕様のサブセットであり, OAuth 2.0 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Authorization Code Flow を利用して Web ベースの Relying Party を実装する際に読みやすいように構成されている.
         本仕様は Core 仕様と重複したコンテンツを含んでいるが, それは実装者が本仕様を読むだけで OAuth Authorization Code Flow を利用した Relying Party を実装できるよう意図したものである.
         本実装者ガイドと OpenID Connect Core 仕様の間に齟齬がある場合は, Core 仕様を優先する.
       
 </p>
 <p>
-        OAuth Implicit Flow を利用する Web ベースの Relying Party を実装する場合には, <a class='info' href='#OpenID.Implicit'>OpenID Connect Implicit Client Implementer's Guide 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Implicit Client Implementer's Guide 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Implicit] を参照のこと.
+        OAuth Implicit Flow を利用する Web ベースの Relying Party を実装する場合には, <a class='info' href='#OpenID.Implicit'>OpenID Connect Implicit Client Implementer's Guide 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Implicit Client Implementer's Guide 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Implicit] を参照のこと.
         OpenID Provider および Web ベース以外のアプリケーションの実装者は, Core 仕様を参照のこと.
         本ガイドは OpenID Provider および Web ベース以外のアプリケーションに関する Implimentation Consideration および Security Considerations を省略している.
       
@@ -318,12 +318,12 @@ Introduction</h3>
 </p>
 <p>
         本ドキュメントでは, Relying Party は Authorization Endpoint, Token Endpoint 等を含む OpenID Provider の設定情報を既に得ているものとする.
-        これらの情報は通常 <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Discovery] にある Discovery を通じて得られるが, その他の手段で得られることもある.
+        これらの情報は通常 <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Discovery] にある Discovery を通じて得られるが, その他の手段で得られることもある.
       
 </p>
 <p>
         また同様に, Relying Party は OpenID Provider 利用に必要なクレデンシャルを取得し, OP 利用に必要な情報を登録しているものとする.
-        これの処理は通常 <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Registration] にある Dynamic Registration を通じて行われるが, その他の手段で行われることもある.
+        これの処理は通常 <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Registration] にある Dynamic Registration を通じて行われるが, その他の手段で行われることもある.
       
 </p>
 <a name="rnc"></a><br /><hr />
@@ -373,12 +373,14 @@ Terminology</h3>
 <blockquote class="text"><dl>
 <dt>Authentication</dt>
 <dd>
+              
               提示された Identity と実際の Entity が紐づいているという十分な確信を得るためのプロセス.
               
             
 </dd>
 <dt>Authentication Request</dt>
 <dd>
+              
               OpenID Connect が定める拡張パラメータおよびスコープを利用して, Authorization Server に End-User の認証を要求する OAuth 2.0 Authorization Request.
               このとき Authorization Server は OpenID Connect Provider, Client は OpenID Connect Relying Party となる.
               
@@ -386,24 +388,28 @@ Terminology</h3>
 </dd>
 <dt>Claim</dt>
 <dd>
+              
               Entity に関する情報の部分集合.
               
             
 </dd>
 <dt>Claims Provider</dt>
 <dd>
+              
               Entity の Claim を返すサーバー.
               
             
 </dd>
 <dt>End-User</dt>
 <dd>
+              
               一連のフローに参加する人間.
               
             
 </dd>
 <dt>Entity</dt>
 <dd>
+              
               あるコンテキストの中で識別される, 他と独立した個.
               End-User は Entity の一例.
               
@@ -411,6 +417,7 @@ Terminology</h3>
 </dd>
 <dt>ID Token</dt>
 <dd>
+              
               Authentication イベントに関する Claim を含む <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWT].
               その他の Claim を含むこともある (MAY).
               
@@ -418,18 +425,21 @@ Terminology</h3>
 </dd>
 <dt>Identifier</dt>
 <dd>
+              
               あるコンテキスト中で Entity をユニークに特徴づける値.
               
             
 </dd>
 <dt>Issuer</dt>
 <dd>
+              
               Claim を発行する Entity.
               
             
 </dd>
 <dt>Issuer Identifier</dt>
 <dd>
+              
               検証可能な Issuer の識別子.
               Issuer Identifier は, 大文字小文字を区別する URL である.
               この URL は <tt>https</tt> スキーム, ホスト, そして任意でポート番号およびパス要素からなり, クエリーとフラグメント要素は含まない.
@@ -438,6 +448,7 @@ Terminology</h3>
 </dd>
 <dt>OpenID Provider (OP)</dt>
 <dd>
+              
               End-User を Authenticate できる OAuth 2.0 Authorization Server.
               End-User の Authentication イベントに関する Claim を Relying Party に提供する.
               
@@ -445,6 +456,7 @@ Terminology</h3>
 </dd>
 <dt>Pairwise Pseudonymous Identifier (PPID)</dt>
 <dd>
+              
               ある Relying Party に対してのみ, ある Entity の識別子として提供される値.
               他の Relying Party には, 当該 PPID を当該 Entity と関連づけることはできない.
               
@@ -452,6 +464,7 @@ Terminology</h3>
 </dd>
 <dt>Personally Identifiable Information (PII)</dt>
 <dd>
+              
               特定の人物に紐づき, 実際の人物の識別に用いることができる情報.
               もしくは特定の人物に直接および間接的にリンクされる可能性のある情報.
               
@@ -459,12 +472,14 @@ Terminology</h3>
 </dd>
 <dt>Relying Party (RP)</dt>
 <dd>
+              
               OpenID Provider に End-User Authentication と Claim を要求する OAuth 2.0 Client.
               
             
 </dd>
 <dt>Subject Identifier</dt>
 <dd>
+              
               Issuer にとって局地的にユニークで再利用されることのない End-User 識別子.
               この値は Client に利用されることを想定する.
               
@@ -472,6 +487,7 @@ Terminology</h3>
 </dd>
 <dt>UserInfo Endpoint</dt>
 <dd>
+              
               Protected Resource のひとつ.
               Access Token を提示する Client に対して, Authorization Grant に従って End-User に関する情報を提供する.
               
@@ -479,18 +495,21 @@ Terminology</h3>
 </dd>
 <dt>Validation</dt>
 <dd>
+              
               あるものごとの健全性および正当性を確立するためのプロセス.
               
             
 </dd>
 <dt>Verification</dt>
 <dd>
+              
               ある事実や値の正確さを検査もしくは証明するためのプロセス.
               
             
 </dd>
 <dt>Voluntary Claim</dt>
 <dd>
+              
               Client が End-User が要求するあるタスクを実行する際に, 有用ではあるが Essential ではないとを Client が指定した Claim.
               
             
@@ -673,6 +692,7 @@ Request Parameters</h3>
 <blockquote class="text"><dl>
 <dt>response_type</dt>
 <dd>
+                  
                   REQUIRED.
                   値は <tt>code</tt> とすること (MUST).
                   これにより Authorization Endpoint から返される <tt>code</tt> と交換で, Access Token および ID Token が Token Endpoint から返されることになる.
@@ -681,6 +701,7 @@ Request Parameters</h3>
 </dd>
 <dt>client_id</dt>
 <dd>
+                  
                   REQUIRED.
                   Authorization Server における OAuth 2.0 Client Identifier の値.
                   
@@ -688,6 +709,7 @@ Request Parameters</h3>
 </dd>
 <dt>scope</dt>
 <dd>
+                  
                   REQUIRED.
                   OpenID Connect リクエストは scope に <tt>openid</tt> を含まねばならない (MUST).
                   OPTIONAL な scope としては,
@@ -702,6 +724,7 @@ Request Parameters</h3>
 </dd>
 <dt>redirect_uri</dt>
 <dd>
+                  
                   REQUIRED.
                   レスポンスが返される Redirection URI.
                   この URI は, Client が OpenID Provider に対して事前に登録済みの Redirection URI のいずれかと完全一致しなければならない (MUST).
@@ -714,6 +737,7 @@ Request Parameters</h3>
 </dd>
 <dt>state</dt>
 <dd>
+                  
                   RECOMMENDED.
                   リクエストとコールバックの間で維持されるランダムな値.
                   一般的に Cross-Site Request Forgery (CSRF, XSRF) 対策の目的で利用される, ブラウザ Cookie と紐づく暗号論的にセキュアな値を取る.
@@ -732,6 +756,7 @@ Request Parameters</h3>
 <blockquote class="text"><dl>
 <dt>nonce</dt>
 <dd>
+                  
                   OPTIONAL.
                   Client セッションと ID Token を紐づける文字列であり, リプレイアタック対策に用いられる.
                   この値は Authentication Request で指定され, そのままの値で ID Token に含まれる.
@@ -744,6 +769,7 @@ Request Parameters</h3>
 </dd>
 <dt>display</dt>
 <dd>
+                  
                   OPTIONAL.
                   Authorization Server が認証および同意のためのユーザーインタフェースを End-User にどのように表示するかを指定するための ASCII 値.
                   以下の値が定義されている.
@@ -753,6 +779,7 @@ Request Parameters</h3>
 <blockquote class="text"><dl>
 <dt>page</dt>
 <dd>
+                      
                       Authorization Server は認証および同意 UI を User Agent の全画面に表示すべきである (SHOULD).
                       display パラメータが指定されていない場合, この値がデフォルトとなる.
                       
@@ -760,6 +787,7 @@ Request Parameters</h3>
 </dd>
 <dt>popup</dt>
 <dd>
+                      
                       Authorization Server は認証および同意 UI を User Agent のポップアップウィンドウに表示すべきである (SHOULD).
                       User Agent のポップアップウィンドウはログインダイアログに適切なサイズで, 親ウィンドウ全体を覆うことのないようにすべきである.
                       
@@ -767,12 +795,14 @@ Request Parameters</h3>
 </dd>
 <dt>touch</dt>
 <dd>
+                      
                       Authorization Server は認証および同意 UI をタッチインタフェースを持つデバイスに適した形で表示すべきである (SHOULD).
                       
                     
 </dd>
 <dt>wap</dt>
 <dd>
+                      
                       Authorization Server は認証および同意 UI を "feature phone" に適した形で表示すべきである (SHOULD).
                       
                     
@@ -785,6 +815,7 @@ Request Parameters</h3>
 </dd>
 <dt>prompt</dt>
 <dd>
+                  
                   OPTIONAL.
                   Authorization Server が End-User に再認証および同意を再度要求するかどうか指定するための, スペース区切りの ASCII 文字列のリスト.
                   以下の値が定義されている.
@@ -794,6 +825,7 @@ Request Parameters</h3>
 <blockquote class="text"><dl>
 <dt>none</dt>
 <dd>
+                      
                       Authorization Server はいかなる認証および同意 UI をも表示してはならない (MUST NOT).
                       End-User が認証済でない場合, Client が要求する Claim 取得に十分な事前同意を取得済でない場合, またはリクエストを処理するために必要な何らかの条件を満たさない場合には, エラーが返される.
                       典型的なエラーコードは <tt>login_required</tt>, <tt>interaction_required</tt> である.
@@ -803,6 +835,7 @@ Request Parameters</h3>
 </dd>
 <dt>login</dt>
 <dd>
+                      
                       Authorization Server は End-User を再認証するべきである (SHOULD).
                       再認証が不可能な場合はエラーを返す (MUST).
                       典型的なエラーコードは <tt>login_required</tt> である.
@@ -811,6 +844,7 @@ Request Parameters</h3>
 </dd>
 <dt>consent</dt>
 <dd>
+                      
                       Authorization Server は Client にレスポンスを返す前に End-User に同意を要求するべきである (SHOULD).
                       同意要求が不可能な場合はエラーを返す (MUST).
                       典型的なエラーコードは <tt>consent_required</tt> である.
@@ -819,6 +853,7 @@ Request Parameters</h3>
 </dd>
 <dt>select_account</dt>
 <dd>
+                      
                       Authorization Server は End-User にアカウント選択を促すべきである (SHOULD).
                       この prompt 値は, End-User が Authorization Server 上に複数アカウントを持っているとき, 現在のセッションに紐づくアカウントの中から一つを選択することを可能にする.
                       End-User によるアカウント選択が不可能な場合はエラーを返す (MUST).
@@ -835,6 +870,7 @@ Request Parameters</h3>
 </dd>
 <dt>max_age</dt>
 <dd>
+                  
                   OPTIONAL.
                   Authentication Age の最大値.
                   End-User が OP によって明示的に認証されてからの経過時間の最大許容値 (秒).
@@ -845,6 +881,7 @@ Request Parameters</h3>
 </dd>
 <dt>ui_locales</dt>
 <dd>
+                  
                   OPTIONAL.
                   End-User の選好する UI の表示言語および文字種.
                   スペース区切りの <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A. and M. Davis, &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ値のリストとして表現され, 順序は選好順となる.
@@ -855,6 +892,7 @@ Request Parameters</h3>
 </dd>
 <dt>claims_locales</dt>
 <dd>
+                  
                   OPTIONAL.
                   End-User の選好する Claim の表示言語および文字種.
                   スペース区切りの <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A. and M. Davis, &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ値のリストとして表現され, 順序は選好順となる.
@@ -864,6 +902,7 @@ Request Parameters</h3>
 </dd>
 <dt>id_token_hint</dt>
 <dd>
+                  
                   OPTIONAL.
                   Authorization Server が以前発行した ID Token.
                   Client が認証した End-User の現在もしくは過去のセッションに関するヒントとして利用される.
@@ -877,6 +916,7 @@ Request Parameters</h3>
 </dd>
 <dt>login_hint</dt>
 <dd>
+                  
                   OPTIONAL.
                   Authorization Server に対する End-User ログイン識別子のヒントとして利用される.
                   RP が End-User に Email アドレス (もしくはその他の識別子) を要求し, それを Authorization Server にヒントとして送信することでヒントとする.
@@ -888,6 +928,7 @@ Request Parameters</h3>
 </dd>
 <dt>acr_values</dt>
 <dd>
+                  
                   OPTIONAL.
                   Authentication Context Class Reference リクエスト値.
                   Authorization Server が認可リクエストを処理する際に要求される <tt>acr</tt> の値をスペース区切りで示した文字列.
@@ -984,12 +1025,14 @@ End-User Grants Authorization</h3>
 <blockquote class="text"><dl>
 <dt>code</dt>
 <dd>
+                  
                   REQUIRED.
                   OAuth 2.0 Authorization Code.
                 
 </dd>
 <dt>state</dt>
 <dd>
+                  
                   OAuth 2.0 state 値.
                   Authorization Request に <tt>state</tt> パラメータが含まれていた場合は必須 (REQUIRED).
                   Clients は <tt>state</tt> 値が Authorization Request に含めた値と同一であることを検証しなければならない (MUST).
@@ -1035,7 +1078,7 @@ Client Sends Code</h3>
 <p>
               Client は <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] の Section 4.1.3 にあるように, Token Endpoint に対して Form Serialization (<a class='info' href='#FormSerialization'>Section&nbsp;3.2<span> (</span><span class='info'>Form Serialization</span><span>)</span></a>) を用いてリクエストを送る.
               ここで Client は OAuth 2.0 の Section 2.3.1 に従い, 自身の Client Credentials を HTTP Basic 方式で Authorization ヘッダーに付与して認証を行う.
-              (この方法は <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Discovery] において <tt>client_secret_basic</tt> と呼ばれているものである)
+              (この方法は <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Discovery] において <tt>client_secret_basic</tt> と呼ばれているものである)
             
 </p>
 <p>
@@ -1071,12 +1114,15 @@ Client Receives Tokens</h3>
 <blockquote class="text"><dl>
 <dt>access_token</dt>
 <dd>
+                  
                   REQUIRED.
                   UserInfo Endpoint にアクセスするための Access Token.
+                  
                 
 </dd>
 <dt>token_type</dt>
 <dd>
+                  
                   REQUIRED.
                   OAuth 2.0 Token Type 値.
                   この値は Clients が <a class='info' href='#RFC6750'>OAuth 2.0 Bearer Token Usage<span> (</span><span class='info'>Jones, M. and D. Hardt, &ldquo;The OAuth 2.0 Authorization Framework: Bearer Token Usage,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6750] に従い <tt>Bearer</tt> とすること (MUST).
@@ -1084,17 +1130,25 @@ Client Receives Tokens</h3>
                 
 </dd>
 <dt>id_token</dt>
-<dd>REQUIRED.
-                ID Token.
+<dd>
+                  
+                  REQUIRED.
+                  ID Token.
+                
 </dd>
 <dt>expires_in</dt>
 <dd>
+                  
                   OPTIONAL.
                   Access Token が生成されてから期限切れになるまでの秒数.
+                  
                 
 </dd>
 <dt>refresh_token</dt>
-<dd>OPTIONAL. Refresh Token.
+<dd>
+                  
+                  OPTIONAL. Refresh Token.
+                
 </dd>
 </dl></blockquote><p>
             
@@ -1139,6 +1193,7 @@ ID Token</h3>
 <blockquote class="text"><dl>
 <dt>iss</dt>
 <dd>
+              
               REQUIRED.
               レスポンスを返した Issuer の Issuer Identifier.
               <tt>iss</tt> 値は, <tt>https</tt> スキーマで始まる大文字小文字を区別する URL であり, スキーマ, ホスト, そして任意でポート番号とパスを含む. クエリーとフラグメントは含まない.
@@ -1147,6 +1202,7 @@ ID Token</h3>
 </dd>
 <dt>sub</dt>
 <dd>
+              
               REQUIRED.
               Subject Identifier.
               Client に利用される前提で, Issuer のローカルでユニークであり再利用されない End-User の識別子.
@@ -1158,6 +1214,7 @@ ID Token</h3>
 </dd>
 <dt>aud</dt>
 <dd>
+              
               REQUIRED.
               ID Token の想定されるオーディエンス (Audience).
               この値は Relying Party の OAuth 2.0 <tt>client_id</tt> を含まなければならない (MUST).
@@ -1168,6 +1225,7 @@ ID Token</h3>
 </dd>
 <dt>exp</dt>
 <dd>
+              
               REQUIRED.
               ID Token の有効期限.
               この有効期限以降に該当 ID Token を受け入れたり処理してはならない (MUST NOT).
@@ -1175,26 +1233,31 @@ ID Token</h3>
               実装者は, 通常数分以内で, 時計のズレを考慮して多少の猶予期間を設けてもよい (MAY).
               この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
               詳細は <a class='info' href='#RFC3339'>RFC 3339<span> (</span><span class='info'>Klyne, G., Ed. and C. Newman, &ldquo;Date and Time on the Internet: Timestamps,&rdquo; July&nbsp;2002.</span><span>)</span></a> [RFC3339] を参照のこと.
+              
             
 </dd>
 <dt>iat</dt>
 <dd>
+              
               REQUIRED.
               JWT 発行時刻.
               この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
+              
             
 </dd>
 <dt>auth_time</dt>
 <dd>
+              
               End-User の認証が発生した時刻.
               この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
               リクエストに <tt>max_age</tt> が含まれていた場合, この Cliam は必須である (REQUIRED).
               その他の場合は任意 (OPTIONAL).
-            
+              
             
 </dd>
 <dt>nonce</dt>
 <dd>
+              
               OPTIONAL.
               Client セッションと ID Token を紐づける文字列値.
               リプレイアタック防止のために用いられる.
@@ -1207,6 +1270,7 @@ ID Token</h3>
 </dd>
 <dt>at_hash</dt>
 <dd>
+              
               OPTIONAL.
               Access Token のハッシュ値.
               ID Token が Token Endpoint から発行される場合には, 任意 (OPTIONAL) であるが, その場合にも <tt>at_hash</tt> Claim を含めてもよい (MAY).
@@ -1218,6 +1282,7 @@ ID Token</h3>
 </dd>
 <dt>acr</dt>
 <dd>
+              
               OPTIONAL.
               Authentication Context Class Reference.
               実施された認証処理が満たす Authentication Context Class を表す Authentication Context Class Reference 値を示す文字列.
@@ -1233,6 +1298,7 @@ ID Token</h3>
 </dd>
 <dt>amr</dt>
 <dd>
+              
               OPTIONAL.
               Authentication Methods References.
               認証時に用いられた認証方式を示す識別子文字列の JSON 配列.
@@ -1245,6 +1311,7 @@ ID Token</h3>
 </dd>
 <dt>azp</dt>
 <dd>
+              
               OPTIONAL.
               ID Token 発行対象である認可された関係者 (authorized party).
               この Claim が存在する場合, その値は受け取り手の OAuth 2.0 Client ID でなければならない.
@@ -1371,6 +1438,7 @@ UserInfo Request</h3>
 </p>
 <p>
               以下に UserInfo Request の例を示す.
+              
             
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /userinfo HTTP/1.1
@@ -1445,55 +1513,67 @@ Scope Values</h3>
 <blockquote class="text"><dl>
 <dt>openid</dt>
 <dd>
+              
               REQUIRED.
               Client が Authorization Server に OpenID Connect リクエストを投げていることを示す.
               <tt>openid</tt> scope 値が存在しない場合の挙動は定義しない.
+              
             
 </dd>
 <dt>profile</dt>
 <dd>
+              
               OPTIONAL.
               この scope 値は, 以下に示す End-User のデフォルトプロフィール Claim へのアクセス要求に用いる.
-            
+              
 
-            <tt>name</tt>,
-            <tt>family_name</tt>,
-            <tt>given_name</tt>,
-            <tt>middle_name</tt>,
-            <tt>nickname</tt>,
-            <tt>preferred_username</tt>,
-            <tt>profile</tt>,
-            <tt>picture</tt>,
-            <tt>website</tt>,
-            <tt>gender</tt>,
-            <tt>birthdate</tt>,
-            <tt>zoneinfo</tt>,
-            <tt>locale</tt>, and
-            <tt>updated_at</tt>.
+              <tt>name</tt>,
+              <tt>family_name</tt>,
+              <tt>given_name</tt>,
+              <tt>middle_name</tt>,
+              <tt>nickname</tt>,
+              <tt>preferred_username</tt>,
+              <tt>profile</tt>,
+              <tt>picture</tt>,
+              <tt>website</tt>,
+              <tt>gender</tt>,
+              <tt>birthdate</tt>,
+              <tt>zoneinfo</tt>,
+              <tt>locale</tt>, and
+              <tt>updated_at</tt>.
+            
 </dd>
 <dt>email</dt>
 <dd>
+              
               OPTIONAL.
               <tt>email</tt> および <tt>email_verified</tt> Claim へのアクセス要求に用いる.
+              
             
 </dd>
 <dt>address</dt>
 <dd>
+              
               OPTIONAL.
               <tt>address</tt> Claim へのアクセス要求に用いる.
+              
             
 </dd>
 <dt>phone</dt>
 <dd>
+              
               OPTIONAL.
               <tt>phone_number</tt> および <tt>phone_number_verified</tt> Claim へのアクセス要求に用いる.
+              
             
 </dd>
 <dt>offline_access</dt>
 <dd>
+              
               OPTIONAL.
               OAuth 2.0 Refresh Token 発行要求に用いる.
               Refresh Token は End-User とのインタラクションを介さずに UserInfo Endpoint にアクセスするための Access Token を発行する為に用いる.
+              
             
 </dd>
 </dl></blockquote><p>
@@ -1741,7 +1821,7 @@ Standard Claims</h3>
   }
 </pre></div>
 <p>
-          Registration <a class='info' href='#OpenID.Registration'>[OpenID.Registration]<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> において特に他フォーマットを指定されない限り, UserInfo Endpoint では Claim を JSON 形式で返し (MUST), Content-Type ヘッダーを用いてフォーマットを示すこと (MUST).
+          Registration <a class='info' href='#OpenID.Registration'>[OpenID.Registration]<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> において特に他フォーマットを指定されない限り, UserInfo Endpoint では Claim を JSON 形式で返し (MUST), Content-Type ヘッダーを用いてフォーマットを示すこと (MUST).
           以下に許可されたコンテンツタイプを示す.
         
 </p><table class="all" align="center" border="0" cellpadding="2" cellspacing="2">
@@ -1779,6 +1859,7 @@ Address Claim</h3>
 <blockquote class="text"><dl>
 <dt>formatted</dt>
 <dd>
+                
                 Full mailing address,
                 formatted for display or use on a mailing label.
                 This field MAY contain multiple lines, separated by newlines.
@@ -1789,6 +1870,7 @@ Address Claim</h3>
 </dd>
 <dt>street_address</dt>
 <dd>
+                
                 Full street address component,
                 which MAY include house number, street name,
                 Post Office Box, and multi-line extended street
@@ -1800,18 +1882,30 @@ Address Claim</h3>
               
 </dd>
 <dt>locality</dt>
-<dd>City or locality component.
+<dd>
+                
+                City or locality component.
+              
 </dd>
 <dt>region</dt>
-<dd>State, province,
-              prefecture, or region component.
+<dd>
+                
+                State, province,
+                prefecture, or region component.
+              
 </dd>
 <dt>postal_code</dt>
-<dd>Zip code or
-              postal code component.
+<dd>
+                
+                Zip code or
+                postal code component.
+              
 </dd>
 <dt>country</dt>
-<dd>Country name component.
+<dd>
+                
+                Country name component.
+              
 </dd>
 </dl></blockquote><p>
           
@@ -2000,7 +2094,7 @@ Discovery and Registration</h3>
         
 </p>
 <p>
-          しかしながら, 事前の信頼構築を前提とせず, Relying Party と OpenID Provider の間での事前予測不可能な形でのインタラクションをサポートする場合には, <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Discovery] と <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Registration] によってこれを実現すべきである (SHOULD).
+          しかしながら, 事前の信頼構築を前提とせず, Relying Party と OpenID Provider の間での事前予測不可能な形でのインタラクションをサポートする場合には, <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Discovery] と <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Registration] によってこれを実現すべきである (SHOULD).
         
 </p>
 <a name="Security"></a><br /><hr />
@@ -2010,7 +2104,7 @@ Security Considerations</h3>
 
 <p>
         以下に挙げたもの以外のセキュリティ上の考慮点については,
-        <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; December&nbsp;2013.</span><span>)</span></a> [OpenID.Core] 仕様を参照すること.
+        <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Core] 仕様を参照すること.
       
 </p>
 <a name="TLSRequirements"></a><br /><hr />
@@ -2142,11 +2236,11 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="JWT">[JWT]</a></td>
 <td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token">JSON Web Token (JWT)</a>,&rdquo; draft-ietf-oauth-json-web-token (work in progress), November&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-13">HTML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Core">[OpenID.Core]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>,&rdquo; December&nbsp;2013.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Discovery">[OpenID.Discovery]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;<a href="http://openid.net/specs/openid-connect-discovery-1_0.html">OpenID Connect Discovery 1.0</a>,&rdquo; December&nbsp;2013.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;<a href="http://openid.net/specs/openid-connect-discovery-1_0.html">OpenID Connect Discovery 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Registration">[OpenID.Registration]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., and M. Jones, &ldquo;<a href="http://openid.net/specs/openid-connect-registration-1_0.html">OpenID Connect Dynamic Client Registration 1.0</a>,&rdquo; December&nbsp;2013.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., and M. Jones, &ldquo;<a href="http://openid.net/specs/openid-connect-registration-1_0.html">OpenID Connect Dynamic Client Registration 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
 <td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2246">[RFC2246]</a></td>
@@ -2188,7 +2282,7 @@ References</h3>
 <h3>10.2.&nbsp;Informative References</h3>
 <table width="99%" border="0">
 <tr><td class="author-text" valign="top"><a name="OpenID.Implicit">[OpenID.Implicit]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-implicit-1_0.html">OpenID Connect Implicit Client Implementer's Guide 1.0</a>,&rdquo; December&nbsp;2013.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-implicit-1_0.html">OpenID Connect Implicit Client Implementer's Guide 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
 </table>
 
 <a name="Acknowledgements"></a><br /><hr />
@@ -2260,7 +2354,7 @@ Acknowledgements</h3>
 <a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
 Notices</h3>
 
-<p>Copyright (c) 2013 The OpenID Foundation.
+<p>Copyright (c) 2014 The OpenID Foundation.
 </p>
 <p>
         The OpenID Foundation (OIDF) grants to any Contributor, developer,
@@ -2308,6 +2402,17 @@ Notices</h3>
 Document History</h3>
 
 <p>[[ To be removed from the final specification ]]
+</p>
+<p>
+        -33
+        </p>
+<ul class="text">
+<li>
+            Updated dates for final OpenID Connect specifications.
+          
+</li>
+</ul><p>
+      
 </p>
 <p>
         -32

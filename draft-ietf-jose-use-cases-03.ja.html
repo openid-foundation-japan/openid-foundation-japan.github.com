@@ -159,7 +159,7 @@
         かつては Cryptographic Message Syntax (CMS) が ASN.1 に基づいたバイナリレベルでのセキュアオブジェクトフォーマットを提供していた.
         しかしながら時代の変化とともに ASN.1 のようなバイナリオブジェクトエンコーディングは時代遅れとなり, JSON などのテキストベースエンコーディングが主流となった.
         本ドキュメントでは, 現在実用化されている様々なアプリケーションレイヤーセキュリティメカニズムをもとに, JSON ベースのセキュアオブジェクトフォーマットの各種ユースケースと要件をまとめる.
-      
+
 </p>
 <h3>Status of this Memo</h3>
 <p>
@@ -270,21 +270,21 @@ Introduction</h3>
         しかしながらこれらのセキュリティメカニズムは状況によっては end-to-end のセキュリティを保証しない.
         例えば, アプリケーションレイヤーに仲介者が存在する場合は, チャネルベースのセキュリティプロトコルでは, 仲介者同士の間を流れるメッセージを改竄しようとするアタッカーからの攻撃は防ぐことができても, 仲介者自身がメッセージを改竄 / 盗聴することは防げない.
         こういったケースでは, オブジェクトベースのセキュリティメカニズムを用いてアプリケーションデータをセキュアオブジェクトに埋め込み, 信頼できない主体がデータを扱ってもセキュリティを確保できるようにする必要がある.
-      
+
 </p>
 <p>
         上記のようなプロトコルとして現在最も広く利用されているのは, Secure/Multipurpose Internet Mail Extensions (S/MIME) である.
         Email メッセージは, 通常一連の Mail Transfer Agents (MTA) を仲介者として, 受信者に届けられる.
         これら MTA は通常チャネルベースのセキュリティメカニズムを用いて通信を保護する (例: STARTTLS <a class='info' href='#RFC3207'>[RFC3207]<span> (</span><span class='info'>Hoffman, P., &ldquo;SMTP Service Extension for Secure SMTP over Transport Layer Security,&rdquo; February&nbsp;2002.</span><span>)</span></a>) が, こういった仕組みは MTA 自身がメッセージを改竄 / 盗聴することを防ぐものではない.
         信頼できない MTA が存在する状況でも end-to-end のセキュリティを確保するには, S/MIME を利用してメッセージボディーをセキュアオブジェクトに内包し, 情報の機密性 (confidentiality), 完全性 (integrity), 送信者認証 (data origin authentication) を確保することが有効である.
-      
+
 </p>
 <p>
         S/MIME は Cryptographic Message Syntax for secure objects (CMS) <a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> をベースにしている.
         CMS は Abstract Syntax Notation 1 (ASN.1) を用いて定義され, 慣習的に ASN.1 Distinguished Encoding Rules (DER) でエンコードされる.
         DER では保護されるメッセージと関連パラメーターはバイナリエンコーディングされる. <a class='info' href='#ITU.X690.2002'>[ITU.X690.2002]<span> (</span><span class='info'>International Telecommunications Union, &ldquo;Information Technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER),&rdquo; 2002.</span><span>)</span></a>
         近年では ASN.1 (やその他の汎用オブジェクトに対するバイナリエンコーディング) が利用されるケースは減少し, Extensible Markup Language (XML) <a class='info' href='#W3C.REC-xml'>[W3C.REC&#8209;xml]<span> (</span><span class='info'>Bray, T., Paoli, J., Sperberg-McQueen, C., and E. Maler, &ldquo;Extensible Markup Language (XML) 1.0 (2nd ed),&rdquo; October&nbsp;2000.</span><span>)</span></a> や JavaScript Object Notation (JSON) <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> といったテキストベースのフォーマットの利用が増加している.
-      
+
 </p>
 <p>
         最近の多くのアプリケーションは ASN.1 オブジェクトよりも遥かにテキストベースフォーマットのオブジェクトの処理に長けており, そもそも ASN.1 オブジェクトを処理できないものも多い.
@@ -292,7 +292,7 @@ Introduction</h3>
         その名前が示す通り, ここで策定されているのは JSON エンコードされたオブジェクトの機密性 (confidentiality), 完全性 (integrity) を確保するためのフォーマットである.
         しかしながら, ワーキンググループ内での議論の結果, JOSE で定義されるフォーマットを利用するアプリケーションごとに, そのフォーマットに対する要件が異なることも分かった.
         よって本ドキュメントでは, JOSE フォーマットを利用する可能性のあるアプリケーションを想定し, セキュリティメカニズムとオブジェクトエンコーディングに対する要件をまとめる.
-      
+
 </p>
 <p>
         XML を利用するシステムでは, XML ベースのオブジェクトベースセキュリティメカニズムである XML Digital Signatures および XML Encryption を利用するものもある.
@@ -302,7 +302,7 @@ Introduction</h3>
         しかし現実には XML ベースのセキュアオブジェクトフォーマットは ASN.1 と同レベルの複雑性を持ち, ASN.1 を扱えない / 扱いたくないデベロッパーがこういった XML ベースのセキュリティメカニズムを利用することは考えづらい.
         こういった背景が, JSON ベースのセキュアオブジェクトフォーマット策定に至る動機となっている.
         JSON ベースであれば, 実装や利用も容易であり, 開発者はわずかな労力とツールのみでそれを取り入れることができるであろう.
-      
+
 </p>
 <a name="def-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -313,7 +313,7 @@ Definitions</h3>
           JOSEとCMSのユースケースは似ていることから, いくつかのCMSのコンセプトについて<a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a>を例に説明する.
 </p>
 <p>JOSEワーキンググループでは３つのJSONオブジェクトフォーマットを定義する.
-      
+
       </p>
 <ol class="text">
 <li>機密性保護オブジェクトフォーマット
@@ -327,8 +327,8 @@ Definitions</h3>
       この文書では, 上記をそれぞれ"署名済みオブジェクトフォーマット", "暗号化オブジェクトフォーマット", "鍵フォーマット"と呼ぶ.
       これらのフォーマットを表現することを目的としたJOSEワーキンググループの仕様はそれぞれJSON Web Signature (JWS)<a class='info' href='#I-D.ietf-jose-json-web-signature'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;signature]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; October&nbsp;2013.</span><span>)</span></a>, JSON Web Encryption (JWE)<a class='info' href='#I-D.ietf-jose-json-web-encryption'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;encryption]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; October&nbsp;2013.</span><span>)</span></a>, JSON Web Key (JWK)<a class='info' href='#I-D.ietf-jose-json-web-key'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;key]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; October&nbsp;2013.</span><span>)</span></a>である.
       JWS, JWE, JWKで使用されるアルゴリズムやアルゴリズム識別子はJSON Web Alogrithms (JWA) <a class='info' href='#I-D.ietf-jose-json-web-algorithms'>[I&#8209;D.ietf&#8209;jose&#8209;json&#8209;web&#8209;algorithms]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; October&nbsp;2013.</span><span>)</span></a> で定義されている.
-      
-      
+
+
 </p>
 <p>通常, 非対称/対称な処理を区別する必要がない場面では, 共通鍵を使ったメッセージ認証コード(MAC) と公開鍵暗号を含むデジタル署名についても同様に"署名", "シグネチャ"などの用語を用いる
 </p>
@@ -349,22 +349,22 @@ Basic Requirements</h3>
 <ul class="text">
 <li>
             JOSE暗号化オブジェクトフォーマットは, 送信者と受信者が対称鍵を共有しているケースでのオブジェクト暗号化をサポートしなければならない.
-          
+
 </li>
 <li>
             JOSE暗号化オブジェクトフォーマットは, 送信者が受信者の公開鍵のみを所持しているケースでのオブジェクト暗号化をサポートしなければならない.
-          
+
 </li>
 <li>
             JOSE署名済みオブジェクトフォーマットは, 送信者と受信者が対称鍵のみを共有しているケースでのメッセージ認証コード (MAC) を用いた完全性保護をサポートしなければならない.
-          
+
 </li>
 <li>
             JOSE署名済みオブジェクトフォーマットは, 受信者が送信者の公開鍵のみを所持しているケースでのデジタル署名を用いた完全性保護をサポートしなければならない.
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         いくつかのアプリケーションでは, JOSEオブジェクトの処理に用いる鍵が, JOSEオブジェクトの中で直接提示されるのではなく, アプリケーションのコンテキストを通じて提示される.
@@ -375,14 +375,14 @@ Basic Requirements</h3>
 <ul class="text">
 <li>
              JOSE署名済みおよび暗号化オブジェクトフォーマットは, 対象のオブジェクトの処理に必要な鍵を持っているかどうか, そしてその鍵はそのオブジェクト自身によって提示されているか, あるいはなんらかのout-of-bandメカニズムによって提示されているかどうかについて実装が認識するためのプロセスを定義しなければならない.
-          
+
 </li>
 <li>
             JOSEで利用される各アルゴリズムについて, そのアルゴリズムを使用するJOSEオブジェクトが内包しなければならないパラメータを定義する必要がある.
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         二つのエンティティが複数のJOSEオブジェクトを交換しようとするケースで, 全てのJOSEオブジェクトで個々にパラメータを記述しなくても済むように, いくつかのパラメータについて事前にネゴシエーションをすることは有用かもしれない.
@@ -393,15 +393,15 @@ Basic Requirements</h3>
 <li>
             オブジェクトの処理に事前ネゴシエーションされたパラメータが使用されることを示すことができるように, 基本のJOSE署名済みおよび暗号化オブジェクトフォーマットを拡張できるようにすべきである.
             この拡張は, どのパラメータが使用されるのかを示す手段も提供すべきである.
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         鍵フォーマットの目的は, 暗号メッセージ処理用の符号化された鍵を使用するために十分な情報を受信者に提供することである.
         そのため, 時には純粋な鍵だけではなく追加のパラメータを含める必要がある.
-      
+
 </p>
 <p>
         </p>
@@ -409,10 +409,10 @@ Basic Requirements</h3>
 <li>
             JOSE鍵フォーマットは符号化された鍵を使用するために必要な全てのアルゴリズムパラメータを含めることが出来なければならない.
             そのパラメータには, アルゴリズムで必要となる追加のパラメータ (例: 楕円曲線パラメータ) とともに, その鍵が使用されるアルゴリズムの識別子も含まれる.
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="app-req-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -433,7 +433,7 @@ Requirements on Application Protocols</h3>
 <li>利用される鍵が JOSE オブジェクト内に明示的に示されているのか, アプリケーションのコンテキストにより決まるのか
 </li>
 </ul><p>
-      
+
 </p>
 <a name="use-cases-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -470,7 +470,7 @@ OAuth</h3>
           このアクセスを許可する場合, リソースオーナーは認可サーバーに対し, クライアントへアクセストークンを発行するよう指示する.
           クライアントは, 保護リソースにアクセスしたいとき, 関係するリソースサーバーにそのトークンを提示する.
           そしてリソースサーバーは保護リソースへのアクセスを提供する前にそのトークンの妥当性を検証する.
-        
+
 </p><br /><hr class="insert" />
 <a name="figOAuth"></a>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>              +---------------+          +---------------+
@@ -497,43 +497,43 @@ OAuth</h3>
           実質的にこのプロセスは, クライアントおよびリソースオーナー経由で, 認可サーバー(オブジェクトの送信者)からリソースサーバー(受信者)へトークンを移すことである
           (リソースオーナーを経由するのはこのプロトコルが利用しているHTTPのメカニズムに起因している).
           そこで, 信頼できない中間者経由でアプリケーションオブジェクトを転送するケースが出てくる.
-        
+
 </p>
 <p>
           このアプリケーションには二つの不可欠なセキュリティ要件がある.
           完全性とデータ生成元の認証である.
           完全性保護は, リソースオーナーとクライアントがトークン内に符合化されたパーミッションを変更できないようするために必要である.
           リソースオーナーは究極的には認可を付与するエンティティではあるが, 例えばリソースオーナーが所有していないリソースへのアクセス権の付与も出来てしまうため, 認可トークンの変更に対しては信頼できない.
-        
+
 </p>
 <p>
           データ生成元の認証は, トークンが信頼できる認可サーバーによって生成されたものかどうかをリソースサーバーが検証できるようにするために必要である.
-        
+
 </p>
 <p>
           認可サーバーがリソースオーナーやクライアントに対してパーミッション情報を不可視としたい場合, 機密性保護も必要となるかもしれない.
           例えば, ソーシャルネットワーキングに関連したパーミッションはプライベートな情報と見なされるかもしれない.
           しかし, OAuthは下位層で用いているHTTPトランザクションがTLSによって保護されていることを元々要求していることには注意すること.
           よってトークンはリソースサーバーとクライアント以外のエンティティに対する機密性保護に関しては既に達成されている.
-        
+
 </p>
 <p>
           署名と暗号化が対称暗号または非対称暗号のいずれを用いて提供されるのかに関わらず, 機密性および完全性のニーズは, 署名済みおよび暗号化オブジェクトフォーマットの基本要件に合致している.
           どちらのメカニズムを採用するかの選択は, 二つのサーバ間の関係, すなわちそれらが対称鍵を共有するのか, 公開鍵のみを共有するのかに依存するだろう.
-        
+
 </p>
 <p>
           認証の要件はデプロイの特性にも依存するだろう.
           リソースサーバーと認可サーバーの結びつけが相対的に強いところでは, トークンを発行した認可サーバを識別するにはトークンの署名に用いた鍵だけで十分かもしれない.
           これは, 認可サーバーの公開鍵, あるいは公開鍵か対称鍵の識別子をプロトコルが伝送することを必要とする.
           OAuthでは <tt>client_id</tt> パラメータが, 使用される鍵を識別する.
-        
+
 </p>
 <p>
           リソースサーバーは事前に認可サーバーの鍵を知らないといったような, より高度なケースも存在するかもしれない.
           例えば一つのエンティティが(負荷分散のために)複数の認可サーバーをインスタンス化する場合, それらが個々に独立した鍵ペアを持っている例が挙げられる.
           このようなケースの場合, 対象の認可サーバーが信頼するエンティティかどうかをリソースサーバーが検証できるように, 認可サーバーの証明書または証明書チェーンを含める必要もあるかもしれない.
-        
+
 </p>
 <p>
           OAuthにとってHTTPトランスポートはエンコーディングに関して特定の制約を課している.
@@ -541,7 +541,7 @@ OAuth</h3>
           URI (従ってクエリパラメータも) の長さには制限が規定されていないが, 実際にはいくつかのユーザーエージェントでは2048文字超のURIは拒否される.
           いくつかのモバイルブラウザでは, この制限はさらに小さな値となっている.
           そのためこのユースケースでは, JOSEオブジェクトに対して, URIクエリパラメータに含むことが可能なようシンプルであることと同時に, 署名後 (場合によっては暗号化も) でも十分に小さなサイズであることを要求する.
-        
+
 </p>
 <a name="fed-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -551,7 +551,7 @@ Federation</h3>
 <p>
           セキュリティトークンは2つのアイデンティティフェデレーションプロトコルで用いられている.
           これら2つの要件は, 前節で述べたものと似ている.
-        
+
 </p>
 <p></p>
 <ul class="text">
@@ -559,12 +559,12 @@ Federation</h3>
             OpenID Connect <a class='info' href='#OpenID.Messages'>[OpenID.Messages]<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., Mortimore, C., and E. Jay, &ldquo;OpenID Connect Messages 1.0,&rdquo; May&nbsp;2013.</span><span>)</span></a> は, OAuth 2.0 をベースとした REST/JSON ベースのシンプルなアイデンティティフェデレーションプロトコルである.
             OpenID Connect では, JWT および JOSE フォーマットがセキュリティトークンおよびその他のプロトコルメッセージの保護 (署名およびオプショナルで暗号化) の為に利用されている.
             OpenID Connect は, 暗号アルゴリズムのネゴシエーションや鍵情報の配送の為に, JWT/JOSE ヘッダーパラメーターとしては定義されていない要素を利用している.
-          
+
 </li>
 <li>
             Mozilla Persona <a class='info' href='#Persona'>[Persona]<span> (</span><span class='info'>Mozilla, &ldquo;Mozilla Persona,&rdquo; April&nbsp;2013.</span><span>)</span></a> は, アイデンティティ情報やアプリケーション情報, 関与する各エンティティの鍵情報などの表現形式として, JOSE JWS オブジェクトとして署名された JWT を利用した, シンプルなシングルサインオン (SSO) プロトコルである.
             Persona は鍵配送のために JOSE ヘッダーパラメータではなく JWT メッセージ中の属性を利用する.
-          
+
 </li>
 </ul>
 
@@ -578,7 +578,7 @@ XMPP</h3>
               一般的には任意の送信メッセージに2つのサーバが関与する.
               あるクライアント(Alice) は他のクライアント (Bob) 宛のメッセージをサーバ(A)へ送信する.
               サーバAはBobのIDとDNSによってBobのドメイン(B)を持つサーバを特定し, メッセージをそのサーバへ送信する. その後サーバBはBobへメッセージを送信する.
-          
+
 </p><br /><hr class="insert" />
 <a name="fig-xmpp"></a>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -618,13 +618,13 @@ XMPP</h3>
             このシステムがJOSEフォーマットから要求する主要な事項は, コンテンツ部の暗号化による機密性保護に加え, 共有鍵より導出したMACによる完全性の検証機能である.
             しかしながら, 暗号コンテンツの送受信での鍵交換を区別するためには, JOSE暗号化オブジェクトフォーマットに暗号ペイロードとは区別して共通鍵を含むメッセージを伝達できるような仕組みが要求される.
             さらに, 暗号オブジェクトにはコンテンツの暗号化に利用した鍵のタグが必要になる. そうすることで受信者(Bob)は送信者(Alice)へ鍵を含んだメッセージを送信する際にタグを提示することができる.
-        
+
 </p>
 <p>XMPPの重要な他の特徴は, 複数の受信者へのメッセージの同時配信を許可していることである.
             上記のダイアグラムで言うと, サーバAはサーバB (Bobのサーバ) だけでなくほかのユーザの所有するサーバC, D, Eなどへもメッセージを配信できる.
             そのようなケースでは, 上記の仕組みに示される複数の「コールバック」のトランザクションを回避するため, XMPPシステムは受信者の公開鍵をキャッシュすることがあり, それにより鍵はこの後のメッセージの内容と共に送信することができる.
             このことによりJOSE暗号オブジェクトフォーマットは複数バージョンものCEKの発行をサポートしなくてはならない.  (CMS EnvelopedData structureでは複数の受信者情報の構造を含むことができるが)
-        
+
 </p>
 <p>
             XMPPの端末間セキュリティシステムの最新のドラフトでは, 各パーティはXMPPメッセージ伝達システム内にある他パーティの信用情報にもとづいて認証される.
@@ -632,11 +632,11 @@ XMPP</h3>
             同様に, 受信者はオリジナルの暗号メッセージと元の鍵交換のリクエストを送ることができるため, 送信者に認証される.
             そのため, ここでの認証で要求されるのはXMPPのルーティングが正しく行われることだけでなく, TLSが全てのホップにおいて使われることである.
             それに加えて, ３ホップ中いずれかにおいて中間者によってBobになりすまして暗号メッセージの鍵情報を取得できてしまうため, 強い認証強度のTLSチャネルが要求される.
-        
+
 </p>
 <p>
             この認証は比較的脆弱 (TLSを用いた３つのホップに依存しているため) でエンドポイントでは検証できない.  そのためXMPPワーキンググループは最終受信者のためになんらかのクレデンシャルを導入することも考えられる.  そのようなケースでは, そういったクレデンシャルをJOSEオブジェクトと関連づける方法も必要となるであろう.
-        
+
 </p>
 <p>
             最終的に, XMPPがJSONではなくXMLベースであることに意味はない.
@@ -644,7 +644,7 @@ XMPP</h3>
             したがって, JOSEオブジェクトはXMLに含まれても問題ないような方法でエンコードされることが望ましい.
             そうでなければ, XMLとしてパースされないように明示するため, 明示的なCDATAの指定をパーサーに対して行わければならない.
             この要件を満たすひとつの方法としては, base64urlエンコードをかけることがあげられるが, 中〜大サイズのXMPPメッセージにとっては, これによりかなりのオーバーヘッドを強いる可能性がある.
-        
+
 </p>
 <a name="alto-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -659,21 +659,21 @@ ALTO</h3>
           しかし, クライアントに到達する前に複数の中間サーバを経由してこれらのJSONオブジェクトが分配されるというALTOのユースケースの議論が始まり,
           一方でクライアントがオブジェクトのオリジナルの送信元を認証する機能は依然として維持する必要があった.
           元々のALTOプロトコルでも「ALTO情報を取得するALTOクライアントは, その受け取ったALTO情報が適切なALTOサーバーによって生成されたものかどうかの検証ができなければならない」という言及があった.
-        
+
 </p>
 <p>
           このケースでのセキュリティ要件は明確である.
           ALTOペイロードを搬送するJOSEオブジェクトは, オリジナルの送信元サーバーのデジタル署名が付随している必要があり,
           そしてそのサーバーのアイデンティティを証明できなければならないだろう.
           ALTO情報は一般に公開されるものであるため, このケースでは機密性に関する要件はない.
-        
+
 </p>
 <p>
           より興味深い議題はエンコーディングに関することである.
           ALTOオブジェクトは前述の2つのケースよりもペイロードが大きくなる可能性があり, そのサイズは数メガバイトにまでなると考えられる.
           このような大きなオブジェクトの処理は, シングルパスで実施できた方がより高速に処理できる.
           そしてそれは, JSON構造内でフィールドが特定の順番であることをJOSEオブジェクトが要求することで可能となるだろう.
-        
+
 </p>
 <p>
           加えて, ALTOオブジェクトはJSONとしてエンコードされているため, JOSEオブジェクト内に安全に包含することが可能である.
@@ -681,12 +681,12 @@ ALTO</h3>
           JSONオブジェクトは, JSON文字列内に安全にエンコードされて格納されることが可能という性質を持っている.
           これに関する要件は, 不必要な空白は取り除くことだけであり, 例えばbase64urlエンコーディングよりもかなりシンプルな変換である.
           このことは, 特定の「JSON-safe」なケースでのJOSEエンコーディングを最適化できるかどうかという議題に繋がる.
-        
+
 </p>
 <p>
           最終的に, 「分離署名 (detached signature)」メカニズム, つまり署名情報を保護対象のコンテンツから分離してエンコードする方法が, ALTOにとっては望ましいかもしれない.
           これはALTOプロトコルで, 署名をHTTPSのヘッダ, 署名されたコンテンツをHTTPSのエンティティボディに含めることを可能とするだろう.
-        
+
 </p>
 <a name="atoca-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -697,7 +697,7 @@ Emergency Alerting</h3>
           緊急警報 (Emergency alerting) は IP ネットワークの緊急利用を行うものである <a class='info' href='#I-D.ietf-atoca-requirements'>[I&#8209;D.ietf&#8209;atoca&#8209;requirements]<span> (</span><span class='info'>Schulzrinne, H., Norreys, S., Rosen, B., and H. Tschofenig, &ldquo;Requirements, Terminology and Framework for Exigent Communications,&rdquo; March&nbsp;2012.</span><span>)</span></a>.
           差し迫った危険が察知されると, アラートシステムはユーザーのデバイスにアラートメッセージを送り, 危険を通知する.
           ハリケーンやトルネードなどが発生した場合には, その通り道にあたる場所のすべてのデバイスに対してアラートが送られることもある.
-        
+
 </p>
 <p>
           アラートシステムへの最大の要件は, アタッカーが誤報を送信することができないようにすることである.
@@ -706,12 +706,12 @@ Emergency Alerting</h3>
           前者はアラート送信元のローカルセキュリティとして実施され, 後者はアラートメッセージへのデジタル署名 (チャネルベースまたはオブジェクトベース) を用いて実現される.
           オブジェクトベースのデジタル署名を採用した場合は, 署名はセキュアオブジェクト内にエンコードされる.
           チャネルベースのデジタル署名を採用した場合は, アラートメッセージを認証済かつ完全性が保護されたチャネルを経由して送ることで, "署名済" であるとして扱う.
-        
+
 </p>
 <p>
           アラートは一般的に一連の中間者を経由してエンドユーザーに届けられる.
           例えば, ある国家が運営する天気予報サービスがハリケーンのアラートを送信する場合には, まずアラートメッセージを国家のゲートウェイに送り, ネットワークオペレーターがそれをエンドユーザーにブロードキャストするであろう.
-        
+
 </p>
 <p><br /><hr class="insert" />
 <a name="fig-atoca-sec"></a>
@@ -750,13 +750,13 @@ Emergency Alerting</h3>
           ここで成り立っている信頼関係は, アラートの送信経路にそった区分的なものかもしれない.
           例えば, 各ネットワークで運営されるアラート中継機それぞれがすべてのアラート送信元の証明書を所有していても, 末端のデバイスではローカルネットワーク内の中継機のみを信頼しているかもしれない.
           もしくは末端デバイスがメッセージ送信者およびローカルネットワーク中継機双方に署名されたメッセージを要求するかもしれない.
-        
+
 </p>
 <p>
           このケースでは, 1つのアラートメッセージに対して複数の署名を付与する必要がでてくる.
           そうすることで, アラートメッセージはその送信経路の任意 / 全てのエンティティによる署名を含むことができるようになる.
           なるべく複雑なことを避けるためには, ここでの署名はモジュール化され, ある署名を付ける際にそれ以前の署名を変更したり再計算する必要のないようにすべきである.
-        
+
 </p>
 <a name="webcrypto-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -770,20 +770,20 @@ Web Cryptography</h3>
           ブラウザが暗号処理を実行することの主要な理由の一つに, JavaScriptコードによって暗号処理に利用されるの鍵情報にアクセスできないようにすることが挙げられる.
           例えば, この分離によって, クロスサイトスクリプティング(XSS)によって注入されたコードがブラウザ内に保持された鍵を読み取ったり抜き取ったりすることを防げるだろう.
           悪意のあるコードがブラウザ上で実行し続けている間は鍵を依然として利用可能である一方, この脆弱性はユーザのブラウザ上で脆弱なページがアクティブな間のみ有効である.
-      
+
 </p>
 <p>
           しかしながら, WebCryptGraphy API は鍵のエクスポート機能も提供する. それによりJavascriptでAPIをラップされた形式で鍵を抜き出すことができる.
           例えば, JavaScriptは別のデバイスが保持する対になる秘密鍵の代わりに公開鍵を提供したかもしれない.
           それにより, APIが提供する鍵は新しいデバイスへ安全に鍵を転送するのに使うことができる.
           こうして悪意のあるコードが鍵をエクスポートできるようにする可能性があるが, ユーザへの通知や同意の検証を考慮にいれても, 明示的なエクスポート処理を必要とすることが制御のポイントとなっている.
-      
+
 </p>
 <p>
           Web CryptGraphy API はブラウザが自身の扱う鍵の利用を制限することを強いることも許可している.
           例えば, 対象鍵は暗号化のみでMACには利用できないこと注目されがちである.
           鍵がラップされた形式でエクスポートされる際, これらの属性は鍵と一緒にもっていかれるべきである.
-      
+
 </p>
 <p>
           Web CryptGraphy API はこのようにして, いくつかの鍵の形式を表現するフォーマットが必要とされる.
@@ -791,7 +791,7 @@ Web Cryptography</h3>
           秘密鍵や対象鍵を表現できるようなフォーマットもまた必要とされている.
           公開鍵以外の形式のため, まず第一に必要なものは鍵を暗号的に機密性および完全性が保証されているような、ラップされた形式である.
           ダイレクトでラップされていないフォーマットを定義することもまた, セキュリティ的に閉じた環境での利用に有用であるかもしれない.
-      
+
 </p>
 <a name="anchor1"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -801,7 +801,7 @@ Constrained Devices</h3>
 <p>
         このセクションでは <a class='info' href='#I-D.ietf-lwig-terminology'>[I&#8209;D.ietf&#8209;lwig&#8209;terminology]<span> (</span><span class='info'>Bormann, C., Ersue, M., and A. Keranen, &ldquo;Terminology for Constrained Node Networks,&rdquo; July&nbsp;2013.</span><span>)</span></a> に定義されている制約のあるデバイスでのユースケースを示す.
         このタイプのデバイスでの典型的な問題には, 限られたメモリ, 限られた電源, 低い処理能力, そして通信プロトコルでの厳しいサイズ制限が挙げられる.
-      
+
 </p>
 <a name="anchor2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -812,46 +812,46 @@ Example: MAC based on ECDH-derived key</h3>
           小さく低電力なデバイスのメーカーがJOSEワーキンググループの成果を暗号化や認証のフレームワークとして採用することを決定したとしよう.
           このデバイスメーカーではゲートと電力の双方に関して共に予算の限りがある.
           このため, これらの必要量を最小化するために多数のショートカットと設計決定がなされてきた.
-        
+
 </p>
 <p>
           設計チームは, メッセージ認証コード (MAC) を使用することで必要な認証の提供には十分だろうと決定した.
           しかし彼らはMACは使用するが, 単一の共有秘密鍵を長期間使用することは望まない.
           代わりに, 彼らは以下に提案する検証可能な共有秘密鍵を計算により求める方式を採用する.
-        
+
 </p>
 <p></p>
 <ul class="text">
 <li>
             Elliptic-Curve Diffie-Hellman (ECDH) 鍵は, デバイスの製造時に (もしくは導入時の設定処理の一環として) 生成される.
-          
+
 </li>
 <li>
             コントローラー用のECDH公開鍵は, 設定時にセットされる.
-          
+
 </li>
 <li>
             設定システムは, ECDHの計算を行い, 結果の共有秘密鍵をデバイスに設定する.
             このプロセスは, 必要な指数計算をデバイス上で実施する必要をなくす.
             この計算された共有秘密鍵の保護に関するセキュリティ要件は, ECDH秘密鍵の保護に関する要件と同等である.
-          
+
 </li>
 <li>
             カウンターと増分値はデバイス上に設定される.
-          
+
 </li>
 <li>
             デバイスがメッセージを送信する際, カウンターはインクリメントされ, 新たなMAC鍵がECDH秘密鍵とカウンター値から計算される.
             必要なMAC鍵を導出するために, AES-CBCをベースとした独自の鍵導出関数 (KDF) を用いる.
             そしてMAC鍵は, メッセージのMAC値を計算するのに用いられる.
-          
+
 </li>
 </ul>
 
 <p>
           システムがメッセージの機密性を提供する必要があるとき, 同様の方法でKDFは, AEADアルゴリズム鍵を計算するためにも利用できる.
           より大きなデバイスのコントローラーでは, 指数計算のステップを実施したり, 送信元ナンス値を生成するために乱数生成器を使用するだろう.
-        
+
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -863,7 +863,7 @@ Object security for CoAP</h3>
           これらのデバイスは, CoAP プロトコルで RESTful リクエスト/レスポンスをやりとりする <a class='info' href='#I-D.ietf-core-coap'>[I&#8209;D.ietf&#8209;core&#8209;coap]<span> (</span><span class='info'>Shelby, Z., Hartke, K., and C. Bormann, &ldquo;Constrained Application Protocol (CoAP),&rdquo; June&nbsp;2013.</span><span>)</span></a>.
           問題を単純化するため, 全てのコミュニケーションはユニキャストであるものとする.
           つまり, ここで述べるセキュリティ対策はマルチキャストやブロードキャストをカバーするものではない.
-        
+
 </p>
 <p>
           ここで対象としているような環境では, セッションベースのセキュリティ (four-pass authentication プロトコル等) は高コストすぎる可能性がある.
@@ -871,26 +871,26 @@ Object security for CoAP</h3>
           従ってただ平文の CoAP リクエスト/レスポンスペイロードのみを JWE オブジェクトに置き換えるてセキュアにするということは, 重要な代替案である.
           そこには保護レベルとパフォーマンスのトレードオフが存在する.
           (CoAP ヘッダーは保護対象にならない)
-        
+
 </p>
 <p>
           単純な例では, センサータイプのデバイスから返される CoAP GET レスポンスが挙げられる.
           センサーの取得データは, プライバシーセンシティブであったりビジネスセンシティブであることもあり, 完全性保護と暗号化のどちらもが必要となりうる.
-        
+
 </p>
 <p>
           しかしながら, 一部には取得データが非常に短い (数バイト) ものもあり, このようなケースでは, デフォルトの暗号化および完全性保護アルゴリズム (128 bit AES with HMAC_SHA256 等) を利用すると, たとえ JWE ヘッダーを無視したとしても劇的にペイロードサイズを大きくしてしまう可能性がある.
-        
+
 </p>
 <p>
           またある種のセンサーの取得情報は突然価値が下がることもある.
           例としては交通情報や環境データなどが挙げられる.
           こういうケースでは, 状況に応じてセキュリティオーバーヘッドを低減可能になっている必要がある.
-        
+
 </p>
 <p>
           以上のことから JWE/JWS プロファイルとして以下のような要件が挙げられる.
-        
+
 </p>
 <p></p>
 <ul class="text">
@@ -898,39 +898,39 @@ Object security for CoAP</h3>
             セキュアオブジェクトのサイズは可能な限り小さく保たれるべきである.
             データ受信には, 公開鍵暗号処理よりもはるかに多くの電力コストがかかる.
             これは特にワイヤレス環境で顕著である.
-          
+
 </li>
 <li>
             完全性保護:
             デジタル署名フィールドを持つなど完全性保護をサポートし, 公開鍵署名/共通鍵メッセージ認証コードをともにサポートすべきである.
-          
+
 </li>
 <li>
             暗号化:
             完全性保護の追加オプションとして暗号化をサポートすべきである.
             また特定のフィールドを暗号化対象から外して完全性検証および復号化を行える様にすべきである.
-          
+
 </li>
 <li>
             暗号スイート:
             制約付きデバイスのユースケースをサポートするため, 多様な暗号スイートをサポートすべきである.
             例えば
-            
+
 <ul class="text">
 <li>
                 複数のブロックサイズでのブロック暗号化 (標準の128bitに加えて96bitなど)
-              
+
 </li>
 <li>
                 ブロックサイズ調整のためのパディングでメッセージサイズを増大させることのない AES-GCM などのブロック暗号モード
-              
+
 </li>
 <li>
                 暗号化と MAC 計算を同時にサポートする暗号スイート (ブロック暗号の AEAD モード等)
-              
+
 </li>
 </ul>
-          
+
 </li>
 </ul>
 
@@ -942,7 +942,7 @@ Requirements</h3>
 <p>
             この章では前章のユースケースの要件を要約を行い, またユースケースから直接的には得られないもう一歩進んだ要件を並べる.
             JOSEのシステムが採用するのに依然として望ましい特長ではあるが, 厳しい要件ではない制約もまたある.
-        
+
 </p>
 <a name="functional-sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -954,7 +954,7 @@ Functional Requirements</h3>
 <dt>F1</dt>
 <dd>
               下記のセキュリティ特性を備えたセキュアオブジェクトのためのフォーマットを定義すること
-            
+
 <ul class="text">
 <li>デジタル署名 (非対象鍵のペアによる完全性保護/認証)
 </li>
@@ -968,41 +968,41 @@ Functional Requirements</h3>
 <dt>F2</dt>
 <dd>
               非対称暗号アルゴリズムのための公開鍵と秘密鍵と関連付けられた属性を付帯し, ラップされた形式の秘密鍵を含むフォーマットを定義すること.
-          
+
 </dd>
 <dt>F3</dt>
 <dd>
               ラップされた鍵とされていない鍵の両者を扱えるような関連属性を持つ対象鍵のためのフォーマットを定義すること.
 
-          
+
 </dd>
 <dt>F4</dt>
 <dd>
               上記オブジェクト個別のJSONシリアライズ機能を定義すること.
               JSON ABNF syntax <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> によると, この変換でのオブジェクトは正しくなければならない.
-          
+
 </dd>
 <dt>F5</dt>
 <dd>
               暗号化署名済みオブジェクトフォーマットのためのコンパクトでURLセーフなテキストシリアライズ機能を定義すること.
-          
+
 </dd>
 <dt>F6</dt>
 <dd>
               ラップされた鍵と関連付けられた属性を暗号的にオブジェクトにひもづけられるようにすること.
-          
+
 </dd>
 <dt>F7</dt>
 <dd>
               ラップされた鍵が対象鍵を利用するセキュアオブジェクトから区別されるようにすること.
               そのようなケースでは, ラップされた鍵 (例：暗号文, MAC値) 以外のセキュアオブジェクトの暗号コンポーネントは鍵形式とは非依存でなくてはならない.
               例えば, 暗号化オブジェクトが複数の受信者宛に準備された場合, 暗号文ではなくラップされた鍵のみが変わる.
-          
+
 </dd>
 <dt>F8</dt>
 <dd>
               この文書記載の要件に合わせようとして, 特に大量のアプリケーションの内容が保護されるような場合に, 余計なオーバーヘッドを強いないようにすること.
-          
+
 </dd>
 </dl></blockquote>
 
@@ -1018,7 +1018,7 @@ Security Requirements</h3>
           暗号化やMACの計算に同じ対称鍵を繰り返し使用することを避けるためのメカニズムを提供すること.
           その代わりに, 長期間有効な鍵は鍵ラップのためだけに用いるべきであり, 直接暗号化やMACに用いるべきではない.
           CMS <a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> で提供されているいずれかの鍵管理手法を用いるべきである.
-          
+
 <ul class="text">
 <li>鍵配送 (公開鍵のラップ)
 </li>
@@ -1029,25 +1029,25 @@ Security Requirements</h3>
 <li>パスワードベース暗号化 (パスワードから導出された鍵によるラップ)
 </li>
 </ul>
-        
+
 </dd>
 <dt>S2</dt>
 <dd>
           長期間有効な対称鍵を暗号操作に直接用いる場合 (すなわち要件S1に合致しない場合), 鍵の生存期間を制限する必要がある等の, 鍵管理の実践に関するデプロイガイダンスを提供すること.
-        
+
 </dd>
 <dt>S3</dt>
 <dd>
           主要な検証プロセスに準拠した方法で暗号アルゴリズムを使用すること.
           例えばFIPS標準がアルゴリズムAは目的Yではなく目的Xに対して用いることとしている場合, JOSEは目的Yに対するアルゴリズムAの使用を推奨すべきではない.
-        
+
 </dd>
 <dt>S4</dt>
 <dd>
           事前ネゴシエーションを伴うケース, 伴わないケースの双方をサポートすること.
           鍵のプロビジョニングを超えるいかなる設定も, セキュアオブジェクトの生成や処理に必要とされるべきではない.
           鍵がアプリケーションのコンテキストから導出可能な場合, 受信者自身が適切な鍵を所持しているかどうかを認識可能でなければならない.
-        
+
 </dd>
 </dl></blockquote>
 
@@ -1062,13 +1062,13 @@ Desiderata</h3>
 <dd>
             W3C WebCrypto 仕様との互換性を最大化する.
             WebCrypto ワーキンググループと協調し, サポートするアルゴリズムの選択やアルゴリズム識別子の決定を行うことなどが考えられる.
-          
+
 </dd>
 <dt>D2</dt>
 <dd>
             可能な限り JSON 正規化を避ける.
             その他の条件が同じであれば, オブジェクトを正規化するよりも, Base64 URL エンコーディングなどでオブジェクトをシリアライゼーションする方が好まれる.
-          
+
 </dd>
 <dt>D3</dt>
 <dd>
@@ -1076,7 +1076,7 @@ Desiderata</h3>
             JOSE 特有の手順は可能な限り減らすべきである.
             こうすることにより JOSE のフレキシビリティは向上し, 多くの暗号プロトコルが持つ多様なニーズに応えられるようになる.
             例えば, 再暗号化や再署名の処理無しに JOSE オブジェクトを CMS などのレガシーフォーマットに変換する, といったニーズも発生するかもしれない.
-          
+
 </dd>
 </dl></blockquote>
 
@@ -1097,7 +1097,7 @@ Security Considerations</h3>
         このフォーマットに関する Security Consideratios は, 一般的なオブジェクトベースのセキュリティテクノロジーに関するレベルでは CMS <a class='info' href='#RFC5652'>[RFC5652]<span> (</span><span class='info'>Housley, R., &ldquo;Cryptographic Message Syntax (CMS),&rdquo; September&nbsp;2009.</span><span>)</span></a> のそれに準じる.
         JOSE フォーマットと CMS の最大の違いは, JOSE が JSON ベースであることである.
         JSON は正規化された表現形式が存在しないため, 2つの JSON オブジェクトが同じ情報を表現しているのかどうかを判断することは難しく, それが JOSE を利用する上で脆弱性につながることもあるかもしれない.
-      
+
 </p>
 <a name="rfc.references"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1225,7 +1225,7 @@ Document History</h3>
 
 <p>
 	[[ to be removed by the RFC editor before publication as an RFC ]]
-      
+
 </p>
 <p>
         -03
@@ -1238,7 +1238,7 @@ Document History</h3>
 <li>Addressed multiple other WGLC comments
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -02
@@ -1248,28 +1248,28 @@ Document History</h3>
             Referenced the JWS, JWE, JWK, and JWA specifications
 	    making the "signed object format", "encrypted object format",
 	    "key format", and algorithms resulting from these use cases concrete.
-          
+
 </li>
 <li>
 	    Added "Requirements on Application Protocols" section.
-	  
+
 </li>
 <li>
 	    Broke former huge "Security Tokens and Authorization" Use Case section
 	    into "Security Tokens", "OAuth", and "Federation" Use Case sections.
-	  
+
 </li>
 <li>
 	    Cited Mozilla Persona as a single-sign-on (SSO) system using JWTs
 	    and JOSE data formats.
-	  
+
 </li>
 <li>
 	    Spelling and grammar corrections.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -01
@@ -1278,7 +1278,7 @@ Document History</h3>
 <li>Added the "Small Devices" use case
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -00
@@ -1287,10 +1287,10 @@ Document History</h3>
 <li>
             Created the initial IETF draft based upon
             draft-barnes-jose-use-cases-01 with some additions.
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="Translator"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1300,25 +1300,25 @@ Document History</h3>
 <p>
         本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
         質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
-      
+
 </p>
 <p>
         </p>
 <ul class="text">
 <li>
             Nov Matake (GREE, Inc.)
-          
+
 </li>
 <li>
             Satoshi Yagi
-          
+
 </li>
 <li>
             Yusuke Kondo
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="rfc.authors"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1337,4 +1337,14 @@ Document History</h3>
 <tr><td class="author" align="right">Email:&nbsp;</td>
 <td class="author-text"><a href="mailto:rlb@ipv.sx">rlb@ipv.sx</a></td></tr>
 </table>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15411889-1', 'github.com');
+  ga('send', 'pageview');
+
+</script>
 </body></html>

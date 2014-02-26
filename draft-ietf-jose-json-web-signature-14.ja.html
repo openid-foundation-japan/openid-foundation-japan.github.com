@@ -158,7 +158,7 @@
         JSON Web Signature (JWS)は, JavaScript Object Notation (JSON)をベースとしたデータ構造を用いて, デジタル署名やMessage Authentication Codes (MACs)により保護されたコンテンツを表現するための手段である.
         本仕様で使用する暗号アルゴリズムと識別子はJSON Web Algorithms (JWA) で述べられている.
         関連する暗号化の機能は, JSON Web Encryption (JWE) で述べられている.
-      
+
 </p>
 <h3>Status of this Memo</h3>
 <p>
@@ -355,19 +355,19 @@ Introduction</h3>
 <p>
         JSON Web Signature (JWS)は, JavaScript Object Notation (JSON) <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> をベースとしたデータ構造を用いて, デジタル署名やMessage Authentication Codes (MACs)により保護されたコンテンツを表現するための手段である.
         JWSの暗号化メカニズムは任意のオクテット列に対して完全性保護を提供する.
-      
+
 </p>
 <p>
         JWSオブジェクトのために2つの密接に関連する表現が定義されている.
         JWS Compact Serializationはコンパクトであり, HTTP Authorization ヘッダやURIクエリパラメータのようなスペースが制約された環境を意図したURL-safeな表現である.
         JWS JSON SerializationはJSONオブジェクトとしてJWSオブジェクトを表現し, 同じコンテンツに対して複数の署名とMACsの両方, またはいずれかを適用することができる.
         両方とも, 同じ暗号基盤を共有する.
-      
+
 </p>
 <p>
         本仕様で使用する暗号アルゴリズムと識別子はJSON Web Algorithms (JWA) <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a>で述べられている.
         関連する暗号化の機能は, JSON Web Encryption (JWE) <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M., Rescorla, E., and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; July&nbsp;2013.</span><span>)</span></a>で述べられている.
-      
+
 </p>
 <a name="NotationalConventions"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -376,7 +376,7 @@ Notational Conventions</h3>
 
 <p>
           本仕様で用いられる各キーワード「MUST (しなければならない)」, 「MUST NOT (してはならない)」, 「REQUIRED (必須である)」, 「SHALL (するものとする)」, 「SHALL NOT (しないものとする)」, 「SHOULD (すべきである)」, 「SHOULD NOT (すべきではない)」, 「RECOMMENDED (推奨される)」, 「MAY (してもよい)」, 「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> で述べられている通りに解釈されるべきものである.
-        
+
 </p>
 <a name="Terminology"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -393,91 +393,91 @@ Terminology</h3>
         JWS ヘッダ,
         JWS ペイロード,
         JWS 署名
-	  
+
 </dd>
 <dt>JSON Text Object (JSON テキストオブジェクト)</dt>
 <dd>
         JSONオブジェクトを表現するUTF-8 <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a>でエンコードされた文字列.
         JSONオブジェクトの構文は<a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a>のSection 2.2で定義されている.
-	  
+
 </dd>
 <dt>JWS Header (JWS ヘッダ)</dt>
 <dd>
         JWS 署名値を作成するために使用したデジタル署名やMACの操作を説明するJSONテキストオブジェクト(もしくはJWS JSON Serializationを用いたJSONテキストオブジェクト).
         JWS ヘッダオブジェクトのメンバは後述の "ヘッダパラメータ" である.
-	  
+
 </dd>
 <dt>JWS Payload (JWS ペイロード)</dt>
 <dd>
         保護対象となるオクテット列であり, メッセージとも呼ばれる.
         ペイロードは任意のオクテット列を含むことが出来る.
-	  
+
 </dd>
 <dt>JWS Signature (JWS 署名)</dt>
 <dd>
         JWS プロテクトヘッダとJWS ペイロードの完全性を保証する暗号論的情報からなるオクテット列.
         JWS 署名値はJWS ヘッダで指定されたパラメータを使いJWS署名入力から計算されたデジタル署名やMACの値である.
-	  
+
 </dd>
 <dt>JWS Protected Header (JWS プロテクトヘッダ)</dt>
 <dd>
         JWS ヘッダのうち完全性が保護された部分にあたる JSON テキストオブジェクト.
         JWS Compact Serialization では, JWS ヘッダ全体が JWS プロテクトヘッダとなる.
         JWS JSON Serialization では, JWS プロテクトヘッダは JWS ヘッダ全体のうちの一部である.
-	  
+
 </dd>
 <dt>Header Parameter (ヘッダパラメータ)</dt>
 <dd>
         JWSヘッダのメンバである名前と値のペア.
-	  
+
 </dd>
 <dt>Header Parameter Name (ヘッダパラメータ名)</dt>
 <dd>
         JWSヘッダのメンバの名前.
-	  
+
 </dd>
 <dt>Header Parameter Value (ヘッダパラメータ値)</dt>
 <dd>
         JWSヘッダのメンバの値.
-	  
+
 </dd>
 <dt>Base64url Encoding</dt>
 <dd>
         <a class='info' href='#RFC4648'>RFC 4648<span> (</span><span class='info'>Josefsson, S., &ldquo;The Base16, Base32, and Base64 Data Encodings,&rdquo; October&nbsp;2006.</span><span>)</span></a> [RFC4648]のSection 3.2で許可されているように, Section 5で述べられているURL-safeでない穴埋め文字'='を除いた, URL-safeかつfilename-safeであるBase64エンコーディング. (穴埋めなしのbase64urlエンコーディングの実装に関する注意事項については<a class='info' href='#base64urlnotes'>Appendix&nbsp;C<span> (</span><span class='info'>Notes on implementing base64url encoding without padding</span><span>)</span></a>を参照.)
-	  
+
 </dd>
 <dt>Encoded JWS Header (エンコード済 JWS ヘッダ)</dt>
 <dd>
         Base64urlでエンコードされたJWS プロテクトヘッダ.
-	  
+
 </dd>
 <dt>Encoded JWS Payload (エンコード済 JWS ペイロード)</dt>
 <dd>
         Base64urlでエンコードされたJWS ペイロード.
-	  
+
 </dd>
 <dt>Encoded JWS Signature (エンコード済 JWS 署名)</dt>
 <dd>
         Base64urlでエンコードされたJWS 署名.
-	  
+
 </dd>
 <dt>JWS Signing Input (JWS署名入力)</dt>
 <dd>
         エンコード済JWSヘッダ, ピリオド('.'), およびエンコード済JWSペイロードを連結したもの.
-	  
+
 </dd>
 <dt>JWS Compact Serialization</dt>
 <dd>
         エンコード済JWS ヘッダ, エンコード済JWS ペイロード, エンコード済JWS 署名を順番通りに, 3つの文字列を2つのピリオド('.')で区切り連結したJWSの表現.
         この表現はコンパクトでありURL-safeである.
-	  
+
 </dd>
 <dt>JWS JSON Serialization</dt>
 <dd>
 	  	JWS ヘッダ, エンコード済 JWS ペイロード, エンコード済 JWS 署名値で構成される JSON 構造による JWS の表現.
         JWS Compact Serializationと異なり, JWS JSON Serializationは同じコンテンツに対して複数の署名とMACsの両方, またはいずれかを適用することができる.
         この表現はコンパクトでもなくURL-safeでもない.
-	  
+
 </dd>
 <dt>Collision Resistant Namespace</dt>
 <dd>
@@ -489,16 +489,16 @@ Terminology</h3>
         Universally Unique IDentifiers (UUIDs)
         <a class='info' href='#RFC4122'>[RFC4122]<span> (</span><span class='info'>Leach, P., Mealling, M., and R. Salz, &ldquo;A Universally Unique IDentifier (UUID) URN Namespace,&rdquo; July&nbsp;2005.</span><span>)</span></a>.
         管理上委譲された名前空間を使用する場合, 名前を定義する際に, 名前を定義するために使用する名前空間の一部を制限していることを保証するために適切な注意を払う必要がある.
-	  
+
 </dd>
 <dt>StringOrURI</dt>
 <dd>
         以下の制約を設けたJSON文字列. 任意の文字列値を使用してよい(MAY)が, ":"を含む文字列はURI<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>でなければならない(MUST).
         StringOrURIの値は変換や正規化は適用されず, 比較時には大文字・小文字を区別する.
-	  
+
 </dd>
 </dl></blockquote><p>
-      
+
 </p>
 <a name="Overview"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -513,13 +513,13 @@ JSON Web Signature (JWS) Overview</h3>
         JWS署名.
         Compact Serializationでは3つの値はデータ転送のためにBase64urlでエンコードされ, またエンコードされた文字列を順番通りに, 3つの文字列を2つのピリオド('.')で区切って連結したものとして表現される.
         JSON Serializationの情報は<a class='info' href='#JSONSerialization'>Section&nbsp;7.2<span> (</span><span class='info'>JWS JSON Serialization</span><span>)</span></a>で定義されている.
-      
+
 </p>
 <p>
         JWSヘッダは採用した署名もしくはMACの手法とパラメータを記述する.
         JWSペイロードは保護対象となるメッセージコンテンツである.
         JWS署名はJWSプロテクトヘッダとJWSヘッダ両方の完全性を保証する.
-      
+
 </p>
 <a name="ExampleJWS"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -528,21 +528,21 @@ Example JWS</h3>
 
 <p>
       以下に示す例では, JWSヘッダはエンコードされたオブジェクトがJSON Web Token (JWT) <a class='info' href='#JWT'>[JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; July&nbsp;2013.</span><span>)</span></a>であり, JWSヘッダとJWSペイロードがHMAC SHA-256アルゴリズムで保護されていることを示している:
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"typ":"JWT",
    "alg":"HS256"}
 </pre></div>
 <p>
       JWSヘッダのUTF-8で表現されたオクテットをBase64urlエンコーディングすることで, 以下のエンコード済JWSヘッダの値が得られる:
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
 </pre></div>
 <p>
       以下はJWSペイロードとして用いることの出来るJSONオブジェクトの例である.
       (ペイロードは任意のコンテンツになり得るため, JSONオブジェクト表現である必要はないことに注意する.)
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
    "exp":1300819380,
@@ -550,32 +550,32 @@ Example JWS</h3>
 </pre></div>
 <p>
       上記のJSONオブジェクトのUTF-8表現である以下のオクテット列が, JWSペイロードである:
-	
+
 </p>
 <p>
 
 [123, 34, 105, 115, 115, 34, 58, 34, 106, 111, 101, 34, 44, 13, 10, 32, 34, 101, 120, 112, 34, 58, 49, 51, 48, 48, 56, 49, 57, 51, 56, 48, 44, 13, 10, 32, 34, 104, 116, 116, 112, 58, 47, 47, 101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109, 47, 105, 115, 95, 114, 111, 111, 116, 34, 58, 116, 114, 117, 101, 125]
 
-	
+
 </p>
 <p>
       JWSペイロードをBase64urlエンコーディングすることで, 以下のエンコード済JWSペイロードが得られる
       (改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
   cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
 </pre></div>
 <p>
       JWS署名入力 (エンコード済JWSヘッダ, ピリオド('.'), エンコード済JWSペイロードを連結したもの) の ASCII <a class='info' href='#USASCII'>[USASCII]<span> (</span><span class='info'>American National Standards Institute, &ldquo;Coded Character Set -- 7-bit American Standard Code for Information Interchange,&rdquo; 1986.</span><span>)</span></a> オクテットの HMAC を, <a class='info' href='#HS256Example'>Appendix&nbsp;A.1<span> (</span><span class='info'>Example JWS using HMAC SHA-256</span><span>)</span></a>で指定されたキーを用いてHMAC SHA-256アルゴリズムで計算し, 結果をbase64urlエンコードすることで, 以下のエンコード済JWS署名値が得られる:
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
 </pre></div>
 <p>
       これらの値を "ヘッダ.ペイロード.署名" の順番で, パーツの間をピリオド('.')で連結することで, JWS Compact Serializationを用いたこの完全なJWS表現が得られる
       (改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
   .
@@ -587,7 +587,7 @@ Example JWS</h3>
 <p>
       この計算は<a class='info' href='#HS256Example'>Appendix&nbsp;A.1<span> (</span><span class='info'>Example JWS using HMAC SHA-256</span><span>)</span></a>で更に詳細に示されている.
       その他の例については<a class='info' href='#JWSExamples'>Appendix&nbsp;A<span> (</span><span class='info'>JWS Examples</span><span>)</span></a>を参照すること.
-	
+
 </p>
 <a name="Header"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -600,17 +600,17 @@ JWS Header</h3>
         JWSヘッダ内のヘッダパラメータ名はユニークでなければならない (MUST).
         受信者は重複したヘッダパラメータ名を持つJWSを, 拒否するか, または以下の動作をするJSONパーサーを使用しなければならない (MUST).
         すなわち, 重複したメンバ名に対して字面上で最後の(lexically last)もののみを返すようなJSONパーサーである(この動作はECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a> Section 15.12 (The JSON Object)で定義されている).
-      
+
 </p>
 <p>
         実装は本仕様において「理解しなければならない (MUST)」と定義されているヘッダパラメータを理解し, 本仕様に定義されている方法で処理することが要求される.
         本仕様で定義されており, かつMUSTでないヘッダパラメータは, 理解できなかった場合にはすべて無視しなければならない (MUST).
         <a class='info' href='#critDef'>Section&nbsp;4.1.10<span> (</span><span class='info'>&quot;crit&quot; (Critical) Header Parameter</span><span>)</span></a>によってクリティカルヘッダパラメータとして列挙されている場合を除き, 本仕様で定義されていないヘッダパラメータは, 理解できなかった場合にはすべて無視しなければならない (MUST).
-      
+
 </p>
 <p>
         ヘッダパラメータ名には3つのクラスがある. すなわち, 予約済ヘッダパラメータ名, パブリックヘッダパラメータ名, およびプライベートヘッダパラメータ名である.
-      
+
 </p>
 <a name="ReservedHeaderParameterName"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -620,12 +620,12 @@ Reserved Header Parameter Names</h3>
 <p>
           以下に示すヘッダパラメータ名は予約済とし, その意味を以下で定義する.
           これらのパラメータ名は短いが, それは本仕様の主目的として, JWS Compact Serialization方式による生成結果を小さくするためである.
-	
+
 </p>
 <p>
           追加の予約済ヘッダパラメータ名が定義される場合は, IANAによって JSON Web Signature and Encryption Header Parameters レジストリ <a class='info' href='#HdrReg'>Section&nbsp;8.1<span> (</span><span class='info'>JSON Web Signature and Encryption Header Parameters Registry</span><span>)</span></a>に追加される.
           レジストリが共通であることから示されるとおり, JWSとJWEはヘッダパラメータ空間を共有する. あるパラメータが両方の仕様で使われる場合, その使い方は2つの仕様の間で互換でなればならない.
-	
+
 </p>
 <a name="algDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -641,12 +641,12 @@ Reserved Header Parameter Names</h3>
 	    <tt>alg</tt>の値はStringOrURIを表現する文字列であり, 大文字・小文字は区別される.
             このヘッダパラメータの利用は必須である (REQUIRED).
             実装はこのヘッダパラメータを理解しなければならない (MUST).
-	  
+
 </p>
 <p>
             定義済の<tt>alg</tt>値は IANA JSON Web Signature and Encryption Algorithms レジストリ <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a>に一覧されている.
             このレジストリの初期の内容はJSON Web Algorithms (JWA) <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様のSection 3.1で定義されている.
-	  
+
 </p>
 <a name="jkuDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -660,7 +660,7 @@ Reserved Header Parameter Names</h3>
             HTTP GETリクエストによってJWK Setを取得する場合にはTLS<a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a>を使用しなければならない (MUST).
             サーバーのアイデンティティーはHTTP Over TLS <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a>のSection 3.1で定義されるとおりに検証されなければならない (MUST)
             このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <a name="jwkDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -671,7 +671,7 @@ Reserved Header Parameter Names</h3>
 	    <tt>jwk</tt> (JSON Web Key)ヘッダパラメータはJWSにデジタル署名をするときに用いる秘密鍵と対応する公開鍵である.
             鍵は JSON Web Key <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a>形式で表現される.
             このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <a name="x5uDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -687,7 +687,7 @@ Reserved Header Parameter Names</h3>
             HTTP GETリクエストによってJWK Setを取得する場合にはTLS<a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a>を使用しなければならない (MUST).
             サーバーのアイデンティティーはHTTP Over TLS <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a>のSection 3.1で定義されるとおりに検証されなければならない (MUST)
             このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <a name="x5tDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -697,12 +697,12 @@ Reserved Header Parameter Names</h3>
 <p>
 	    <tt>x5t</tt> (X.509証明書フィンガープリント)ヘッダパラメータは, JWSにデジタル署名するために用いる鍵に対応するX.509証明書<a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a>をDER形式で表現し, そのSHA-1フィンガープリント(ダイジェスト)をBase64 URLエンコードしたものである.
             このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <p>
             将来, 証明書フィンガープリントをSHA-1以外のハッシュ関数によって計算する必要が発生した場合, その目的のために追加のヘッダパラメータを定義することが推奨される.
             例えば, 新しい<tt>x5t#S256</tt> (SHA-256によるX.509証明書フィンガープリント)というヘッダパラメータをIANA JSON Web Signature and Encryption Header Parameters レジストリに <a class='info' href='#HdrReg'>Section&nbsp;8.1<span> (</span><span class='info'>JSON Web Signature and Encryption Header Parameters Registry</span><span>)</span></a>登録することが推奨される.
-	  
+
 </p>
 <a name="x5cDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -717,11 +717,11 @@ Reserved Header Parameter Names</h3>
         これの後にさらなる証明書が続いても良く(MAY), それぞれの証明書は直前のものを証明する.
         受信者は証明書チェーンを <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> に従って確認する. 検証エラーが発生した場合には, そのJWSを拒否しなければならない (MUST).
         このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <p>
 	    <tt>x5c</tt> の例については <a class='info' href='#x5cExample'>Appendix&nbsp;B<span> (</span><span class='info'>&quot;x5c&quot; (X.509 Certificate Chain) Example</span><span>)</span></a> を参照.
-	  
+
 </p>
 <a name="kidDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -735,11 +735,11 @@ Reserved Header Parameter Names</h3>
         <tt>kid</tt> の値の説明は記載しない.
         その値は文字列でなければならない (MUST).
         このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <p>
         JWKを利用する場合, <tt>kid</tt> の値はJWK <tt>kid</tt> パラメータの値と一致するように利用できる.
-	  
+
 </p>
 <a name="typDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -754,15 +754,15 @@ Reserved Header Parameter Names</h3>
         その他の値も用いられても良く(MAY), もし理解されなかった場合は無視されるべきである (SHOULD).
 	    <tt>typ</tt> の値は文字列であり, 大文字・小文字を区別する.
         このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <p>
 	    MIME Media Type <a class='info' href='#RFC2046'>[RFC2046]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types,&rdquo; November&nbsp;1996.</span><span>)</span></a> の値は <tt>typ</tt> の値として用いられてもよい (MAY).
-	  
+
 </p>
 <p>
 	    <tt>typ</tt> の値は IANA JSON Web Signature and Encryption Type Values レジストリ <a class='info' href='#TypReg'>Section&nbsp;8.2<span> (</span><span class='info'>JSON Web Signature and Encryption Type Values Registry</span><span>)</span></a> に登録されるか衝突耐性を持つ名前空間を含む値であるべきである (SHOULD).
-	  
+
 </p>
 <a name="ctyDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -775,11 +775,11 @@ Reserved Header Parameter Names</h3>
         コンテントタイプの値が理解されなかった場合は無視されるべきである (SHOULD).
 	    <tt>cty</tt> の値は文字列であり, 大文字・小文字を区別する.
         このヘッダパラメータの利用は任意 (OPTIONAL) である.
-	  
+
 </p>
 <p>
 	    <tt>cty</tt> ヘッダパラメータに用いられる値は <tt>typ</tt> ヘッダパラメータと同じ値空間となり, 同じ規則が適用される.
-	  
+
 </p>
 <a name="critDef"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -797,20 +797,20 @@ Reserved Header Parameter Names</h3>
         このヘッダパラメータは完全に保護されなければならず (MUST), 従って利用されるときは必ずJWSプロテクトヘッダのみに現れなければならない (MUST).
         このヘッダパラメータの利用は任意 (OPTIONAL) である.
         実装はこのヘッダパラメータを理解しなければならない (MUST).
-	  
+
 </p>
 <p>
-	    
+
 <p>
           <tt>exp</tt> (expiration-time)フィールドを加えたと仮定した使用例 :
-	      
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES256",
    "crit":["exp"],
    "exp":1363284000
   }
 </pre></div>
-	  
+
 
 <a name="PublicHeaderParameterName"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -821,11 +821,11 @@ Public Header Parameter Names</h3>
       JWS利用者により, 追加のヘッダパラメータ名を定義することができる.
       しかしながら, 衝突を防ぐために, 新しいヘッダパラメータ名は IANA JSON Web Signature and Encryption Header Parameters レジストリ <a class='info' href='#HdrReg'>Section&nbsp;8.1<span> (</span><span class='info'>JSON Web Signature and Encryption Header Parameters Registry</span><span>)</span></a> に登録されるか, またはパブリックな名前(衝突耐性を持つ名前空間を含む)となるべきである (SHOULD).
       それぞれのケースにおいて, 名前もしくは値の定義者は, ヘッダパラメータ名定義に用いる名前空間の一部を制御可能なことを保証するために, 適切な注意を払う必要がある.
-	
+
 </p>
 <p>
       新しいヘッダパラメータは非互換なJWSの発生原因となりうるため, 慎重に導入されるべきである.
-	
+
 </p>
 <a name="PrivateHeaderParameterName"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -835,7 +835,7 @@ Private Header Parameter Names</h3>
 <p>
       JWSの生成者と消費者は, 予約済パラメータ名 <a class='info' href='#ReservedHeaderParameterName'>Section&nbsp;4.1<span> (</span><span class='info'>Reserved Header Parameter Names</span><span>)</span></a> やパブリックパラメータ名 <a class='info' href='#PublicHeaderParameterName'>Section&nbsp;4.2<span> (</span><span class='info'>Public Header Parameter Names</span><span>)</span></a> ではないプライベートパラメータ名であるヘッダパラメータを用いることに同意してもよい.
       パブリックな名前とは異なり, プライベートな名前は衝突しやすく注意して利用すべきである.
-	
+
 </p>
 <a name="JWSRules"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -855,48 +855,48 @@ Message Signing or MACing</h3>
 <ol class="text">
 <li>
 	      JWSペイロードとして利用されるコンテンツを作成する.
-	    
+
 </li>
 <li>
           JWSペイロードのオクテット列をbase64urlエンコードする. このエンコード結果がエンコード済みJWSペイロードとなる.
-	    
+
 </li>
 <li>
 	      希望のヘッダパラメータのセットを含んだJWSヘッダを作成する. 空白がその表現の中に存在することが明示的に許可されること, そしてエンコード前に正規化が必要ないことに注意する.
-	    
+
 </li>
 <li>
 	      JWSプロテクトヘッダのUTF-8表現のオクテット列をbase64urlエンコードし, エンコード済みJWSヘッダを作成する.
 	      JWSプロテクトヘッダが存在しない場合(JWS JSON Serializationを利用していて, <tt>protected</tt> 要素が存在しない場合のみに発生する),
 	      エンコード済みJWSヘッダは空文字列にする.
-	    
+
 </li>
 <li>
 	      JWS署名入力(エンコード済みJWSヘッダ, ピリオド ('.'), そしてエンコード済みJWSペイロードの連結文字列)に対して適用される特定のアルゴリズムで定義されている方法でJWS署名を算出する.
 	      <tt>alg</tt> (アルゴリズム)ヘッダパラメータは, JWSヘッダに存在し, JWS署名を生成するために利用されるアルゴリズムを正確に表すアルゴリズム名を値としなければならない (MUST).
-	    
+
 </li>
 <li>
 	      JWS署名をbase64urlエンコードし, エンコード済みJWS署名を作成する.
-	    
+
 </li>
 <li>
 	      これらの３つのエンコード部分がJWS Compact Serialization表現とJWS JSON Serialization表現の双方で利用される結果値となる.
-	    
+
 </li>
 <li>
 	      JWS JSON Serializationが利用される場合には, 適用対象となる各デジタル署名, もしくはMAC値毎にこのプロセスを繰り返す.
-	    
+
 </li>
 <li>
 	      希望の形式のシリアライズ結果を作成する.
 	      結果のJWS Compact Serializationは, エンコード済みJWSヘッダとエンコード済みJWSペイロード, そしてエンコード済みJWS署名をこの順で連結したもので,
 	      この３つの文字列は２つのピリオド('.')で分けられる.
 	      JWS JSON Serializationについては <a class='info' href='#JSONSerialization'>Section&nbsp;7.2<span> (</span><span class='info'>JWS JSON Serialization</span><span>)</span></a>で述べられる.
-	    
+
 </li>
 </ol><p>
-	
+
 </p>
 <a name="MessageValidation"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -907,7 +907,7 @@ Message Signature or MAC Validation</h3>
       JWSの正当性を評価する時には, 以下の手順を踏まなければならない (MUST).
       手順の順序は, それぞれの手順の入力と出力に依存関係がない場合には重要ではない.
       列挙されている手順のいずれかで異常が発生した場合には, JWSは拒否されなければならない (MUST).
-    
+
 </p>
 <p>
       </p>
@@ -916,56 +916,56 @@ Message Signature or MAC Validation</h3>
           シリアライズされた入力をパーズしJWSヘッダ, エンコード済みJWSペイロード, そしてエンコード済みJWS署名の値を確定する.
           JWS Compact Serializationを利用している場合には, エンコード済みJWSヘッダ, エンコード済みJWSペイロード, そしてエンコード済みJWS署名が, この順で二つのピリオド('.')によって分けられた文字列として表される.
           JWS JSON Serializationについては <a class='info' href='#JSONSerialization'>Section&nbsp;7.2<span> (</span><span class='info'>JWS JSON Serialization</span><span>)</span></a>で述べられる.
-        
+
 </li>
 <li>
           エンコード済みJWSヘッダは, 穴埋め文字は利用されないというこの仕様の制約に従ってbase64urlデコードされなければならない (MUST).
-        
+
 </li>
 <li>
           エンコード済みJWSヘッダをbase64urlでデコードした結果を, JWSプロテクトヘッダ値とする.
-        
+
 </li>
 <li>
           結果として得られたJWSプロテクトヘッダは, <a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]に従った完全に有効なJSONオブジェクトでなければならない (MUST).
-        
+
 </li>
 <li>
           JWS Compact Serializationを利用している場合, JWSプロテクトヘッダをJWSヘッダとする;
           さもなければ, JWS JSON Serializationを利用して,
           JWSヘッダを, 対応する <tt>protected</tt>ヘッダパラメータの値と <tt>header</tt>ヘッダパラメータの値の和集合とし,
           すべてを完全に有効なJSONオブジェクトとしなければならない.
-        
+
 </li>
 <li>
           結果のJWSヘッダは重複したヘッダパラメータ名を含んではならない (MUST NOT).
           JWS JSON Serializationを利用する場合は, この制約は, 共にJWSヘッダを含んだ, それぞれ別個のJSON Textオブジェクトの中に同じヘッダパラメータ名は存在してはならないことも含む (MUST NOT).
-        
+
 </li>
 <li>
           結果のJWSヘッダは, シンタックスやセマンティックスが理解され, かつサポートされている, もしくは理解されない場合には無視するよう指定されたパラメータやその値のみ含んでいることを確認されなければならない (MUST).
-        
+
 </li>
 <li>
           エンコード済みJWSペイロードは穴埋め文字は利用されないというこの仕様の制約に従ってbase64urlデコードされなければならない (MUST).
-        
+
 </li>
 <li>
           エンコード済みJWS署名は穴埋め文字は利用されないというこの仕様の制約に従ってbase64urlデコードされなければならない (MUST).
-        
+
 </li>
 <li>
           JWS署名は, JWS署名入力(エンコード済みJWSヘッダ, ピリオド ('.'), そしてエンコード済みJWSペイロードの連結文字列)に対して適用されているアルゴリズムで定義された方法で検証されなければならない (MUST).
           アルゴリズムは <tt>alg</tt>(アルゴリズム)ヘッダパラメータの値として正確に示されなければならない (MUST).
           このヘッダパラメータは存在していなければならない (MUST).
-        
+
 </li>
 <li>
           JWS JSON Serializationが利用されている場合には, 含まれている各デジタル署名, もしくはMAC値毎にこのプロセスを繰り返す.
-        
+
 </li>
 </ol><p>
-    
+
 </p>
 <a name="StringComparison"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -976,7 +976,7 @@ String Comparison Rules</h3>
       JWSの処理は必然的に既知の文字列とJSONオブジェクトの値を比較することを要求する. 例えばアルゴリズムが何であるかをチェックする場合, <tt>alg</tt>をエンコードしたUnicode文字列がJWSヘッダの要素名と照合され,
       マッチするヘッダパラメータ名があるかどうかを確かめる.
       同様のプロセスが <tt>alg</tt>ヘッダパラメータの値がサポートされているアルゴリズムであるかどうか判定するときにも発生する.
-    
+
 </p>
 <p>
       JSON文字列とその他のUnicode文字列の比較は以下の手順で実施されなければならない (MUST):
@@ -985,27 +985,27 @@ String Comparison Rules</h3>
 <ol class="text">
 <li>
           JSONのエスケープを入力JSON文字列から取り除き, その文字列をUnicodeのコードポイント列に変換する.
-        
+
 </li>
 <li>
           同様に比較対象文字列をUnicodeのコードポイント列に変換する.
-        
+
 </li>
 <li>
           Unicode正規化 <a class='info' href='#USA15'>[USA15]<span> (</span><span class='info'>Davis, M., Whistler, K., and M. Deurst, &ldquo;Unicode Normalization Forms,&rdquo; 09&nbsp;2009.</span><span>)</span></a>はJSON文字列, もしくはそれと比較される文字列について, いかなる時点においても適用されるべきではない (MUST NOT).
-        
+
 </li>
 <li>
           二つの文字列の比較はUnicodeのコードポイントどうしの等価比較として実行されなければならない (MUST).
           (もともと異なるUnicodeのエンコード方式(UTF-8, UTF-16, など.)を利用していた値どうしはそれぞれ同じコードポイントになる可能性があることに注意する.)
-        
+
 </li>
 </ol><p>
-    
+
 </p>
 <p>
       JSONのセキュリティ考慮事項 <a class='info' href='#JSONSecCon'>Section&nbsp;9.2<span> (</span><span class='info'>JSON Security Considerations</span><span>)</span></a>とUnicodeのセキュリティ考慮事項 <a class='info' href='#UnicodeSecCon'>Section&nbsp;9.3<span> (</span><span class='info'>Unicode Comparison Security Considerations</span><span>)</span></a>も参照すること.
-    
+
 </p>
 <a name="IDingKeys"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1026,7 +1026,7 @@ Key Identification</h3>
         送信者は鍵を識別するために十分な情報をヘッダパラメータに含めるべきである(SHOULD).
         ただし, アプリケーションが他の手段やコンベンションによって使用する鍵を識別する場合にはこの限りではない.
         受信者は, 指定されたアルゴリズムが鍵を必要とする場合であり(実際, <tt>none</tt>以外のすべてのアルゴリズムは鍵を必要とする), 使用する鍵が識別できない場合には, 入力を拒否しなければならない(MUST).
-      
+
 </p>
 <a name="Serializations"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1037,7 +1037,7 @@ Serializations</h3>
 	JWSオブジェクトは2通りのシリアライズ形式を使用する. JWS Compact Serialization および JWS JSON Serializationである.
         JWS Compact Serializationの実装は必須である.
 	JWS JSON Serializationの実装はオプショナルである(OPTIONAL).
-      
+
 </p>
 <a name="CompactSerialization"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1048,7 +1048,7 @@ JWS Compact Serialization</h3>
 	  JWS Compact Serializationはデジタル署名された, またはMACを行ったコンテンツをコンパクトなURL-safe文字列として表現したものである.
           この文字列は, エンコード済JWSヘッダ, エンコード済JWSペイロード, およびエンコード済JWS署名を, この順序で2つのピリオド('.')文字を区切り文字として連結したものである.
           JWS Compact Serializationでサポートされる署名ないしMACはひとつだけである.
-	
+
 </p>
 <a name="JSONSerialization"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1058,21 +1058,21 @@ JWS JSON Serialization</h3>
 <p>
 	  JWS JSON Serializationははデジタル署名された, またはMACを行ったコンテンツをJSONオブジェクトとして表現したものである.
 	  JWS Compact Serializationとは違い, JWS JSON Serializationを使用したコンテンツは複数のデジタル署名および/またはMAC値で保護することができる.
-	
+
 </p>
 <p>
           JWS JSON Serializationの表現はJWS Compact Serializationで使われる表現と強く関連しており, 以下の点に違いがある:
-          
+
 	  </p>
 <ul class="text">
 <li>
 	      JWS JSON Serializationの中にある値は, ピリオド('.')文字を区切りとしたbase64url文字列としてではなく, JSONオブジェクトのメンバとして表現される.
               (ただし, バイナリ値および完全性を保護された値はbase64urlエンコードされる.)
-	    
+
 </li>
 <li>
 	      エンコード済JWSペイロード値は<tt>payload</tt>メンバに格納される.
-	    
+
 </li>
 <li>
               署名および/またはMAC値は, ひとつに限らず, 複数存在してもよい.
@@ -1080,20 +1080,20 @@ JWS JSON Serialization</h3>
               特定の署名またはMAC算出に使われる値を格納するために使われる.
               配列の1要素が署名/MACひとつに対応する.
               これらの要素はそれぞれJSONオブジェクトである.
-	    
+
 </li>
 <li>
               各エンコード済JWS署名値は, 空でない限り, <tt>signatures</tt>配列の要素であるJSONオブジェクトの<tt>signature</tt>メンバに格納される.
-	    
+
 </li>
 <li>
               各エンコード済JWSヘッダ値は, 署名/MAC算出に用いるヘッダパラメータ値の集合をbase64urlエンコードしたものであり, 空でない限り, <tt>signatures</tt>配列の対応する要素オブジェクトの<tt>protected</tt>メンバに格納される.
-	    
+
 </li>
 <li>
 	      JWS Compact Serializationとは違い, JWS JSON Serializationは署名/MAC算出に用いられないヘッダパラメータ値を含むこともできる.
               これらの保護されないヘッダパラメータ値は, 存在すれば, エンコードされないJSONテキストオブジェクトとして, <tt>signatures</tt>配列の対応する要素オブジェクトの<tt>header</tt>メンバに格納される.
-	    
+
 </li>
 <li>
               それぞれの署名またはMAC値の算出ないし検証に使用されるヘッダパラメータ値は, 以下の2つのヘッダパラメータ値の和集合である:
@@ -1101,14 +1101,14 @@ JWS JSON Serialization</h3>
               (2)完全な保護のなされていない署名/MACごとの値であり, 署名/MACに対応する配列要素の<tt>header</tt>メンバに格納されている,
               これらのヘッダパラメータ値の和集合がJWSヘッダとなる.
               2つの場所にあるヘッダパラメータ名は共通するものがあってはならない(MUST be disjoint).
-	    
+
 </li>
 </ul><p>
-	
+
 </p>
 <p>
 	    JWS JSON Serializationを用いたJWSの形式は以下の通りである:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {
    "payload":"&lt;ペイロードコンテンツ&gt;"
@@ -1129,23 +1129,23 @@ JWS JSON Serialization</h3>
 	  および<tt>signature</tt>は存在しなければならない(MUST).
 	  <tt>protected</tt>および
 	  <tt>header</tt>の少なくとも一方は存在しなければならず(MUST), 各署名/MAC算出に対応する<tt>alg</tt>ヘッダパラメータ値を含むものとする.
-	
+
 </p>
 <p>
           エンコード済JWSペイロード値およびエンコード済JWS署名値のコンテンツは, 正確に本仕様の他の部分で定義されるとおりである.
           これらの値は, 対応するエンコード済JWS署名およびヘッダパラメータ値の集合が生成・検証される場合と同じ方法で解釈・検証される.
           使用されるJWSヘッダ値は, 上述のとおり, 対応する<tt>protected</tt>および <tt>header</tt>メンバの和集合である.
-	
+
 </p>
 <p>
           各JWS署名値はJWS署名入力に対し, 対応するJWSヘッダ値をJWS Compact Serializationの場合と同様の方法で適用して算出する.
           これにより, <tt>signatures</tt>配列内のエンコード済JWS署名値が, JWS Compact Serializationにおいて同一のパラメータを用いた場合に得られるであろう値と一致するという望ましい特性が得られる.
           これはその署名/MACの算出に用いられるエンコード済JWSヘッダ値(つまり完全性を保護されたヘッダパラメータ値を表現したもの)が, JWS Compact Serializationで用いられるものと一致する限りにおいて正しい.
-	
+
 </p>
 <p>
           JWS JSON Serializationを用いたJWSの算出例については <a class='info' href='#JSONSerializationExample'>Appendix&nbsp;A.6<span> (</span><span class='info'>Example JWS Using JWS JSON Serialization</span><span>)</span></a> を参照.
-	
+
 </p>
 <a name="IANA"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1154,26 +1154,26 @@ IANA Considerations</h3>
 
 <p>
       以下の登録手順は, この仕様によって定められる全てのレジストリで利用される.
-      
+
 </p>
 <p>
       値は1名以上の Designated Experts の勧告に従い, [TBD]@ietf.orgのメーリングリストで2週間のレビュー期間の後にSpecification Required <a class='info' href='#RFC5226'>[RFC5226]<span> (</span><span class='info'>Narten, T. and H. Alvestrand, &ldquo;Guidelines for Writing an IANA Considerations Section in RFCs,&rdquo; May&nbsp;2008.</span><span>)</span></a> な状態で登録される.
       しかしながら, 発行に先立ちそれらの値を割り当てることができるように Designated Expert(s) はそれらの値が公開できる状態になった時点で登録を許可することもありうる.
-      
+
 </p>
 <p>
       登録要請は, 適切な件名 (例: "Request for access token type: example") で [TBD]@ietf.org のメーリングリストに通知しなければならず, そこでレビューとコメントが行われる.
       [[ RFC-EDITORへの注意: メーリングリストの名前は, IESGとIANAと協議の上, 決定されるべきである. 提案される名前: jose-reg-review ]]
-      
+
 </p>
 <p>
       Designated Expert(s) はレビュー期間内に登録申請を承認または拒否し, レビューが行われるメーリングリストおよび IANA へその決定を告げる.
       要請が拒否された場合は, その理由が通知され, 可能な場合は申請の成功に向けた提案が行われるべきである.
-      
+
 </p>
 <p>
       IANA は Designated Expert(s) からのレジストリ更新のみを受け付けなければならず, 登録のために全ての申請をレビューが行われるメーリングリストに送られるべきである.
-      
+
 </p>
 <a name="HdrReg"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1185,7 +1185,7 @@ JSON Web Signature and Encryption Header Parameters Registry</h3>
     レジストリは, 予約されるヘッダパラメータ名とそれを定める仕様への参照を登録する.
     パラメータの利用が仕様間で互換性を持つならば, 同じヘッダパラメータ名は複数回登録されても良い (MAY).
     同じヘッダパラメータ名の異なる登録は, 利用箇所が異なるのが一般的である.
-	
+
 </p>
 <a name="HdrTemplate"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1197,35 +1197,35 @@ Registration Template</h3>
 <blockquote class="text"><dl>
 <dt>Header Parameter Name:</dt>
 <dd>
-                
+
                 申請される名前 (例: "example").
                 この名前は大文字・小文字を区別する.
                 大文字・小文字を同一視すると, 他に登録されている名前と一致するものは受け入れられるべきではない (SHOULD NOT).
-              
+
 </dd>
 <dt>Header Parameter Usage Location(s):</dt>
 <dd>
-                
+
                 ヘッダパラメータの使用箇所は <tt>JWS</tt> もしくは <tt>JWE</tt> のうちの1つ以上であるべき.
-              
+
 </dd>
 <dt>Change Controller:</dt>
 <dd>
-                
+
                 標準化過程のRFCについては, "IETF"とする.
                 その他については, 責任を追う団体の名前を与える.
                 その他の詳細情報 (例: 郵便番号, メールアドレス, ホームページURI) も含まれても良い.
-              
+
 </dd>
 <dt>Specification Document(s):</dt>
 <dd>
-                
+
                 パラメータを規定するドキュメントの参照であり, そのドキュメントの複製を取得するために利用可能なURIを含むことが望ましい.
                 関連する節の表示も含まれて良いが, 必須ではない.
-              
+
 </dd>
 </dl></blockquote><p>
-          
+
 </p>
 <a name="HdrContents"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1234,227 +1234,227 @@ Initial Registry Contents</h3>
 
 <p>
       本仕様はこのレジストリに <a class='info' href='#ReservedHeaderParameterName'>Section&nbsp;4.1<span> (</span><span class='info'>Reserved Header Parameter Names</span><span>)</span></a> にて定義されているヘッダパラメータ名を登録する.
-	  
+
 </p>
-<p> 
+<p>
             </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>alg</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#algDef'>Section&nbsp;4.1.1<span> (</span><span class='info'>&quot;alg&quot; (Algorithm) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>jku</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#jkuDef'>Section&nbsp;4.1.2<span> (</span><span class='info'>&quot;jku&quot; (JWK Set URL) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>jwk</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification document(s): <a class='info' href='#jwkDef'>Section&nbsp;4.1.3<span> (</span><span class='info'>&quot;jwk&quot; (JSON Web Key) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>x5u</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#x5uDef'>Section&nbsp;4.1.4<span> (</span><span class='info'>&quot;x5u&quot; (X.509 URL) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>x5t</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#x5tDef'>Section&nbsp;4.1.5<span> (</span><span class='info'>&quot;x5t&quot; (X.509 Certificate Thumbprint) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>x5c</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#x5cDef'>Section&nbsp;4.1.6<span> (</span><span class='info'>&quot;x5c&quot; (X.509 Certificate Chain) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>kid</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#kidDef'>Section&nbsp;4.1.7<span> (</span><span class='info'>&quot;kid&quot; (Key ID) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>typ</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#typDef'>Section&nbsp;4.1.8<span> (</span><span class='info'>&quot;typ&quot; (Type) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>cty</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#ctyDef'>Section&nbsp;4.1.9<span> (</span><span class='info'>&quot;cty&quot; (Content Type) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
                 Header Parameter Name: <tt>crit</tt>
-              
+
 </li>
 <li>
 		Header Parameter Usage Location(s): JWS
-	      
+
 </li>
 <li>
                 Change Controller: IETF
-              
+
 </li>
 <li>
                 Specification Document(s): <a class='info' href='#critDef'>Section&nbsp;4.1.10<span> (</span><span class='info'>&quot;crit&quot; (Critical) Header Parameter</span><span>)</span></a> of [[ this document ]]
-              
+
 </li>
 </ul><p>
-          
+
 </p>
 <a name="TypReg"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1465,12 +1465,12 @@ JSON Web Signature and Encryption Type Values Registry</h3>
     この仕様は, JWSとJWEの <tt>typ</tt> (type) ヘッダパラメータ値の予約ために IANA JSON Web Signature and Encryption Type Values レジストリを定める.
     全ての登録される <tt>typ</tt> の値は, それが短い名前として表すMIME Media Type <a class='info' href='#RFC2046'>[RFC2046]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types,&rdquo; November&nbsp;1996.</span><span>)</span></a> の値を含むことを推奨する (RECOMMENDED).
     レジストリは, <tt>typ</tt> の値, それが省略形となる(ものがあれば) MIME type の値とそれを定める仕様への参照を登録する.
-	
+
 </p>
 <p>
 	MIME Media Type <a class='info' href='#RFC2046'>[RFC2046]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types,&rdquo; November&nbsp;1996.</span><span>)</span></a> の値は新しい <tt>typ</tt> の値としてそのまま登録されてはならない (MUST NOT);
     むしろ, 新しい <tt>typ</tt> の値は MIME Typesを短縮した名前として登録されても良い (MAY).
-	
+
 </p>
 <a name="TypTemplate"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1482,35 +1482,35 @@ Registration Template</h3>
 <blockquote class="text"><dl>
 <dt>"typ" Header Parameter Value:</dt>
 <dd>
-                
+
                 申請される名前 (例: "example").
                 この名前は大文字・小文字を区別する.
                 大文字・小文字を同一視すると, 他に登録されている名前と一致するものは受け入れられるべきではない (SHOULD NOT).
-              
+
 </dd>
 <dt>Abbreviation for MIME Type:</dt>
 <dd>
-                
+
                 この名前が省略形となるMIME Type (例: "application/example").
-              
+
 </dd>
 <dt>Change Controller:</dt>
 <dd>
-                
+
                 標準化過程のRFCについては, "IETF"とする.
                 その他については, 責任を追う団体の名前を与える.
                 その他の詳細情報 (例: 郵便番号, メールアドレス, ホームページURI) も含まれても良い.
-              
+
 </dd>
 <dt>Specification Document(s):</dt>
 <dd>
-                
+
                 パラメータを規定するドキュメントの参照であり, そのドキュメントの複製を取得するために利用可能なURIを含むことが望ましい.
                 関連する節の表示も含まれて良いが, 必須ではない.
-              
+
 </dd>
 </dl></blockquote><p>
-          
+
 </p>
 <a name="TypContents"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1519,51 +1519,51 @@ Initial Registry Contents</h3>
 
 <p>
       本仕様はこのレジストリで <tt>JOSE</tt> と <tt>JOSE+JSON</tt> というtype値を登録する.
-	  
+
 </p>
-<p> 
+<p>
 	    </p>
 <ul class="text">
 <li>
 		"typ" Header Parameter Value: <tt>JOSE</tt>
-	      
+
 </li>
 <li>
 		Abbreviation for MIME type: application/jose
-	      
+
 </li>
 <li>
 		Change Controller: IETF
-	      
+
 </li>
 <li>
 		Specification Document(s): <a class='info' href='#typDef'>Section&nbsp;4.1.8<span> (</span><span class='info'>&quot;typ&quot; (Type) Header Parameter</span><span>)</span></a> of [[ this document ]]
-	      
+
 </li>
 </ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
 		"typ" Header Parameter Value: <tt>JOSE+JSON</tt>
-	      
+
 </li>
 <li>
 		Abbreviation for MIME type: application/jose+json
-	      
+
 </li>
 <li>
 		Change Controller: IETF
-	      
+
 </li>
 <li>
 		Specification Document(s): <a class='info' href='#typDef'>Section&nbsp;4.1.8<span> (</span><span class='info'>&quot;typ&quot; (Type) Header Parameter</span><span>)</span></a> of [[ this document ]]
-	      
+
 </li>
 </ul><p>
-	  
+
 </p>
 <a name="MediaReg"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1577,152 +1577,152 @@ Registry Contents</h3>
 
 <p>
       本仕様は, コンテンツがJWS Compact Serializationを利用するJWS もしくはJWE Compact Serializationを利用するJWEであることを示すために用いられる <tt>application/jose</tt> というMedia Type <a class='info' href='#RFC2046'>[RFC2046]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types,&rdquo; November&nbsp;1996.</span><span>)</span></a> をMIME Media Typeレジストリ <a class='info' href='#RFC4288'>[RFC4288]<span> (</span><span class='info'>Freed, N. and J. Klensin, &ldquo;Media Type Specifications and Registration Procedures,&rdquo; December&nbsp;2005.</span><span>)</span></a> に登録し, コンテンツがJWS JSON Serializationを利用するJWSもしくはJWE JSON Serializationを利用するJWEであることを示すために用いられる <tt>application/jose+json</tt> というMedia TypeをMIME Media Typeレジストリに登録する.
-	  
-</p>
-<p> 
-	    </p>
-<ul class="text">
-<li>
-		Type name: application
-	      
-</li>
-<li>
-		Subtype name: jose
-	      
-</li>
-<li>
-		Required parameters: n/a
-	      
-</li>
-<li>
-		Optional parameters: n/a
-	      
-</li>
-<li>
-		Encoding considerations:
-        application/joseの値は, ピリオド('.')文字により分割された(空の文字列であることもありうる)Base64 URLエンコードされた一連の文字列としてエンコードされる.
-	      
-</li>
-<li>
-		Security considerations: See the Security Considerations section of [[ this document ]]
-	      
-</li>
-<li>
-		Interoperability considerations: n/a
-	      
-</li>
-<li>
-		Published specification: [[ this document ]]
-	      
-</li>
-<li>
-		Applications that use this media type:
-		OpenID Connect, Mozilla Persona, Salesforce, Google, numerous others that use signed JWTs
-	      
-</li>
-<li>
-		Additional information:
-		Magic number(s): n/a,
-		File extension(s): n/a,
-		Macintosh file type code(s): n/a
-	      
-</li>
-<li>
-		Person &amp; email address to contact for further information:
-		Michael B. Jones, mbj@microsoft.com
-	      
-</li>
-<li>
-		Intended usage: COMMON
-	      
-</li>
-<li>
-		Restrictions on usage: none
-	      
-</li>
-<li>
-		Author: Michael B. Jones, mbj@microsoft.com
-	      
-</li>
-<li>
-		Change Controller: IETF
-	      
-</li>
-</ul><p>
-	  
+
 </p>
 <p>
 	    </p>
 <ul class="text">
 <li>
 		Type name: application
-	      
+
 </li>
 <li>
-		Subtype name: jose+json
-	      
+		Subtype name: jose
+
 </li>
 <li>
 		Required parameters: n/a
-	      
+
 </li>
 <li>
 		Optional parameters: n/a
-	      
+
 </li>
 <li>
 		Encoding considerations:
-        application/jose+jsonの値は, JSONオブジェクトとして表現される;
-        そのJSONオブジェクトのためにUTF-8エンコードが用いられるべき (SHOULD).
-	      
+        application/joseの値は, ピリオド('.')文字により分割された(空の文字列であることもありうる)Base64 URLエンコードされた一連の文字列としてエンコードされる.
+
 </li>
 <li>
 		Security considerations: See the Security Considerations section of [[ this document ]]
-	      
+
 </li>
 <li>
 		Interoperability considerations: n/a
-	      
+
 </li>
 <li>
 		Published specification: [[ this document ]]
-	      
+
 </li>
 <li>
 		Applications that use this media type:
-		TBD
-	      
+		OpenID Connect, Mozilla Persona, Salesforce, Google, numerous others that use signed JWTs
+
 </li>
 <li>
 		Additional information:
 		Magic number(s): n/a,
 		File extension(s): n/a,
 		Macintosh file type code(s): n/a
-	      
+
 </li>
 <li>
 		Person &amp; email address to contact for further information:
 		Michael B. Jones, mbj@microsoft.com
-	      
+
 </li>
 <li>
 		Intended usage: COMMON
-	      
+
 </li>
 <li>
 		Restrictions on usage: none
-	      
+
 </li>
 <li>
 		Author: Michael B. Jones, mbj@microsoft.com
-	      
+
 </li>
 <li>
 		Change Controller: IETF
-	      
+
 </li>
 </ul><p>
-	  
+
+</p>
+<p>
+	    </p>
+<ul class="text">
+<li>
+		Type name: application
+
+</li>
+<li>
+		Subtype name: jose+json
+
+</li>
+<li>
+		Required parameters: n/a
+
+</li>
+<li>
+		Optional parameters: n/a
+
+</li>
+<li>
+		Encoding considerations:
+        application/jose+jsonの値は, JSONオブジェクトとして表現される;
+        そのJSONオブジェクトのためにUTF-8エンコードが用いられるべき (SHOULD).
+
+</li>
+<li>
+		Security considerations: See the Security Considerations section of [[ this document ]]
+
+</li>
+<li>
+		Interoperability considerations: n/a
+
+</li>
+<li>
+		Published specification: [[ this document ]]
+
+</li>
+<li>
+		Applications that use this media type:
+		TBD
+
+</li>
+<li>
+		Additional information:
+		Magic number(s): n/a,
+		File extension(s): n/a,
+		Macintosh file type code(s): n/a
+
+</li>
+<li>
+		Person &amp; email address to contact for further information:
+		Michael B. Jones, mbj@microsoft.com
+
+</li>
+<li>
+		Intended usage: COMMON
+
+</li>
+<li>
+		Restrictions on usage: none
+
+</li>
+<li>
+		Author: Michael B. Jones, mbj@microsoft.com
+
+</li>
+<li>
+		Change Controller: IETF
+
+</li>
+</ul><p>
+
 </p>
 <a name="Security"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1736,40 +1736,40 @@ Cryptographic Security Considerations</h3>
 
 <p>
 	  どんな暗号化アプリケーションも直面するセキュリティ上の課題すべてに, JWS/JWE/JWKエージェントも立ち向かわなければならない. なかでもユーザの秘密鍵と共通鍵を保護すること, さまざま攻撃を阻止すること, そして不注意で間違った受信者へのメッセージを暗号化するような誤操作を避ける手助けをすることが課題である. セキュティ上の考慮事項の完全なリスト化は本ドキュメントの範囲外がであるが, ここにいくつかの重要な事項を列挙する.
-	
+
 </p>
 <p>
 	  <a class='info' href='#W3C.CR-xmldsig-core2-20120124'>XML DSIG 2.0<span> (</span><span class='info'>Eastlake, D., Reagle, J., Yiu, K., Solo, D., Datta, P., Hirsch, F., Cantor, S., and T. Roessler, &ldquo;XML Signature Syntax and Processing Version 2.0,&rdquo; January&nbsp;2012.</span><span>)</span></a> [W3C.CR&#8209;xmldsig&#8209;core2&#8209;20120124]にあるすべてのセキュリティ上考慮すべき事項は, XMLに特化したもの以外はすべて本仕様にも当てはまる. 同様に<a class='info' href='#W3C.WD-xmldsig-bestpractices-20110809'>XML Signature Best Practices<span> (</span><span class='info'>Datta, P. and F. Hirsch, &ldquo;XML Signature Best Practices,&rdquo; August&nbsp;2011.</span><span>)</span></a> [W3C.WD&#8209;xmldsig&#8209;bestpractices&#8209;20110809]に記載されているベストプラクティスの多くも, XMLに特化したもの以外は本仕様に適用できる.
-	
+
 </p>
 <p>
 	  鍵は生成するために使われるエントロピー量と同じ強度にしかならない. 最低128ビットのエントロピーがすべての鍵に利用されるべきである. アプリケーションコンテクストによってはもっと多くのエントロピーが必要になるかもしれない. 特にいくつかのブラウザやアプリケーション環境では十分ランダムな数値を生成するのが難しいかもしれない.
-	
+
 </p>
 <p>
 	  JWSの作成者は, 第三者によって制御されないエントロピーを追加することをせずに第三者が任意のコンテンツをメッセージに挿入することを許すべきではない.
-	
+
 </p>
 <p>
 	  情報取得のためにTLSを利用する場合には, リソースを提供する機関は本物であることを証明されなければならない(MUST).
 	  そして取得される情報は改変不能でなければならない(MUST).
-	
+
 </p>
 <p>
 	  暗号化アルゴリズムが成功時と失敗時で処理時間に差があるように実装されている場合, 攻撃者は処理時間の差を利用して利用されている鍵についての情報を取得することができかもしれない. 故にそのような処理時間の差は避けなければならない.
-	
+
 </p>
 <p>
 	  互換性の理由からSHA-1ハッシュが <tt>x5t</tt> (x.509証明書のフィンガープリント) の値を算出するのに利用される.
 	  SHA-1ハッシュ値の衝突を引き起こす効率的な方法が開発され, 攻撃者が任意のシステムの既知の証明書の利用を妨害したい場合,
 	  SHA-1ハッシュの値が同じ証明書をもう一つ作成し, それを狙われた被害者の証明書ストアに加えることで妨害は実現される可能性がある.
       この攻撃の前提は攻撃者が狙われた被害者の証明書ストアへの書き込み権限をもつことである.
-	
+
 </p>
 <p>
 	  将来, 証明書のフィンガープリントをSHA-1以外のハッシュ関数で算出する必要が出てきた場合, そのために追加の関連ヘッダパラメータを定義することが推奨される. 例えば,
 	  新しい <tt>x5t#S256</tt> (SHA-256を使ったX.509証明書のフィンガープリント)というヘッダパラメータを定義して利用することが推奨される.
-	
+
 </p>
 <a name="JSONSecCon"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1780,19 +1780,19 @@ JSON Security Considerations</h3>
       厳密なJSONの検証はセキュリティ上必要である.
       不正な形式のJSONを受け取った場合, 送信者の意図を確実に識別することは不可能である.
       使用されるJSONパーサーが不正な構文のJSONを拒否しない場合, 不明瞭かつ潜在的に悪用可能な状況が起こりうる.
-	
+
 </p>
 <p>
       本仕様では"オブジェクト内のヘッダパラメータ名はユニークでなければならない(MUST). つまり, 受信者はヘッダパラメータ名が重複したJWSを拒否するか, ECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a>のSection 15.12で規定されているように, 重複したメンバ名から字面上で最後のもののみを返すJSONパーサーを使うかのどちらかをしなければならない(MUST)"と述べているのに対し, JavaScript Object Notation (JSON) 仕様書 <a class='info' href='#RFC4627'>[RFC4627]<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a>のSection 2.2では"オブジェクト内の名前はユニークであるべき (SHOULD)"と述べられている.
       したがって, 本仕様では, Section 2.2内の"SHOULD"は送信者により"MUST"として扱われ, 受信者により"MUST"として扱われるか, もしくはECMAScript 5.1で規定されている方法で扱われることを必要としている.
       使用されるJSONパーサーがメンバ名のユニーク性を強制しない, もしくは重複したメンバ名から予測不可能な値を返す場合, 不明瞭かつ潜在的に悪用可能な状況が起こりうる.
-	
+
 </p>
 <p>
       一部のJSONパーサーは有効な入力の後に意味のある文字が余分に含まれている入力を拒否しないかもしれない.
       例えば, <tt>{"tag":"value"}ABCD</tt>という入力は有効なJSONオブジェクトの後に余分な文字である<tt>ABCD</tt>を含んでいる.
       このような入力は全体が拒否されないければならない(MUST).
-	
+
 </p>
 <a name="UnicodeSecCon"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1803,14 +1803,14 @@ Unicode Comparison Security Considerations</h3>
           ヘッダパラメータ名とアルゴリズム名はUnicode文字列である.
           セキュリティ上の理由から, これらの名前の表現は任意のエスケープ処理(<a class='info' href='#RFC4627'>RFC 4627<span> (</span><span class='info'>Crockford, D., &ldquo;The application/json Media Type for JavaScript Object Notation (JSON),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4627]のSection 2.5に従う)を行った後, そのまま比較されなければならない.
           つまり, 例えばJSON文字列("sig", "\u0073ig")は等しいものとして比較されなければならない一方, ("SIG", "Sig", "si\u0047")は前述のセットと, またお互いにも等しくないものとして比較されなければならない.
-	
+
 </p>
 <p>
       JSON文字列はUnicodeの基本多言語面外の文字を含むことが出来る.
       例えば, ト音記号 (U+1D11E)はJSON文字列中に"\uD834\uDD1E"として表すことが出来る.
       理想的には, JWSの実装は基本多言語面外の文字が正確に保存され比較されることを保証するべき(SHOULD)である.
       しかし一方で, これらの文字のせいで基礎となるJSONの実装に存在する制限を実行出来ない場合は, これらの文字を含む入力は拒否されなければならない(MUST).
-	
+
 </p>
 <a name="TLS_requirements"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1821,15 +1821,15 @@ TLS Requirements</h3>
       実装はTLSをサポートしなければならない(MUST).
       実装されるべきバージョンは導入の普及状況や, 実装時点で既知のセキュリティの脆弱性に依存し, 時間とともに変化する.
       TLS version 1.0 <a class='info' href='#RFC2246'>[RFC2246]<span> (</span><span class='info'>Dierks, T. and C. Allen, &ldquo;The TLS Protocol Version 1.0,&rdquo; January&nbsp;1999.</span><span>)</span></a>はもっとも広く導入されているバージョンであり, 広範な相互運用性を提供する.
-	
+
 </p>
 <p>
       情報取得や改ざんから保護するために, 機密保護にはTLSを使用して機密性と完全性保護を提供するciphersuiteが適用されなければならない(MUST).
-	
+
 </p>
 <p>
       TLSが使用されるときは常に<a class='info' href='#RFC6125'>RFC 6125<span> (</span><span class='info'>Saint-Andre, P. and J. Hodges, &ldquo;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS),&rdquo; March&nbsp;2011.</span><span>)</span></a> [RFC6125]に従いTLSサーバー証明書のチェックが実行されなければならない(MUST).
-	
+
 </p>
 <a name="rfc.references"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1924,7 +1924,7 @@ JWS Examples</h3>
 <p>
       本節では, いくつかのJWSの例を提供する.
       はじめの3例はJSON Web Token (JWT) <a class='info' href='#JWT'>[JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; July&nbsp;2013.</span><span>)</span></a> を表しているが, <a class='info' href='#ES512Example'>Appendix&nbsp;A.4<span> (</span><span class='info'>Example JWS using ECDSA P-521 SHA-512</span><span>)</span></a> に見られるように, ペイロードは任意のオクテット列を含むことが出来る.
-      
+
 </p>
 <a name="HS256Example"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1938,31 +1938,31 @@ Encoding</h3>
 
 <p>
       以下に示すJWSヘッダの例では, データ構造がJSON Web Token (JWT) <a class='info' href='#JWT'>[JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; July&nbsp;2013.</span><span>)</span></a> であり, JWS署名入力はHMAC SHA-256アルゴリズムにより保護されていることを示している.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"typ":"JWT",
    "alg":"HS256"}
 </pre></div>
 <p>
       以下に示すオクテット列は, JWSヘッダのUTF-8表現を含む:
-	  
+
 </p>
 <p>
 
 [123, 34, 116, 121, 112, 34, 58, 34, 74, 87, 84, 34, 44, 13, 10, 32, 34, 97, 108, 103, 34, 58, 34, 72, 83, 50, 53, 54, 34, 125]
 
-	  
+
 </p>
 <p>
       これらのオクテット列をBase64 URLエンコードすることで, エンコード済JWSヘッダの値が生成される:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
 </pre></div>
 <p>
       この例で使用されるJWSペイロードは以下のJSONオブジェクトでUTF-8で表現したオクテット列である.
       (このペイロードはBase64 URL エンコードされたJSONオブジェクトである必要はなく, 任意のBase64URLエンコードされたオクテット列でもよいことに注意)
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
    "exp":1300819380,
@@ -1970,18 +1970,18 @@ Encoding</h3>
 </pre></div>
 <p>
       以下に示すオクテット列は上記のJSONオブジェクトのUTF-8表現であり, これがJWSペイロードである:
-	  
+
 </p>
 <p>
 
 [123, 34, 105, 115, 115, 34, 58, 34, 106, 111, 101, 34, 44, 13, 10, 32, 34, 101, 120, 112, 34, 58, 49, 51, 48, 48, 56, 49, 57, 51, 56, 48, 44, 13, 10, 32, 34, 104, 116, 116, 112, 58, 47, 47, 101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109, 47, 105, 115, 95, 114, 111, 111, 116, 34, 58, 116, 114, 117, 101, 125]
 
-	  
+
 </p>
 <p>
       JWSペイロードをBase64 URLエンコードすることで, エンコード済JWSペイロードの値が生成される
       (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
   cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
@@ -1989,7 +1989,7 @@ Encoding</h3>
 <p>
       エンコード済JWSヘッダとエンコード済JWSペイロードをピリオド('.')文字で連結することで, JWS 署名入力値が生成される
       (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
   .
@@ -1998,19 +1998,19 @@ Encoding</h3>
 </pre></div>
 <p>
       JWS署名入力のASCII表現が以下に示すオクテット列となる:
-	  
+
 </p>
 <p>
 
 [101, 121, 74, 48, 101, 88, 65, 105, 79, 105, 74, 75, 86, 49, 81, 105, 76, 65, 48, 75, 73, 67, 74, 104, 98, 71, 99, 105, 79, 105, 74, 73, 85, 122, 73, 49, 78, 105, 74, 57, 46, 101, 121, 74, 112, 99, 51, 77, 105, 79, 105, 74, 113, 98, 50, 85, 105, 76, 65, 48, 75, 73, 67, 74, 108, 101, 72, 65, 105, 79, 106, 69, 122, 77, 68, 65, 52, 77, 84, 107, 122, 79, 68, 65, 115, 68, 81, 111, 103, 73, 109, 104, 48, 100, 72, 65, 54, 76, 121, 57, 108, 101, 71, 70, 116, 99, 71, 120, 108, 76, 109, 78, 118, 98, 83, 57, 112, 99, 49, 57, 121, 98, 50, 57, 48, 73, 106, 112, 48, 99, 110, 86, 108, 102, 81]
 
-	  
+
 </p>
 <p>
       HMACは鍵を用いて生成される.
       この例では次のようなJSON Web Key <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a> フォーマットで表現される対象鍵を用いる
       (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kty":"oct",
    "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75
@@ -2019,24 +2019,24 @@ Encoding</h3>
 </pre></div>
 <p>
       JWS署名入力のASCII表現であるオクテット列にこの鍵を用いてHMAC SHA-256アルゴリズムを実行することで, オクテット列が生成される.
-	  
+
 </p>
 <p>
 
 [116, 24, 223, 180, 151, 153, 224, 37, 79, 250, 96, 125, 216, 173, 187, 186, 22, 212, 37, 77, 105, 214, 191, 240, 91, 88, 5, 88, 83, 132, 141, 121]
 
-	  
+
 </p>
 <p>
       上記のオクテット列をBase64 URLエンコードすることで, エンコード済JWS署名の値が生成される.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
 </pre></div>
 <p>
     ピリオド('.')文字をパーツ間の区切りとしてこれらの値をヘッダ.ペイロード.署名の順番で連結することで, JSON Compact Serialiation形式の完全なJWS表現が生成される.
     (改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9
   .
@@ -2053,7 +2053,7 @@ Decoding</h3>
 <p>
       JWSのデコードは, JWSヘッダ, JWSペイロード, JWS署名のオクテット列を生成するためにエンコード済JWSヘッダ, エンコード済JWSペイロード, エンコード済JWS署名のBase64 URLデコードを必要とする.
       JWSヘッダのUTF-8表現を含むオクテット列がJWSヘッダ文字列にデコードされる.
-	  
+
 </p>
 <a name="HS256Validating"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2064,16 +2064,16 @@ Validating</h3>
       次にデコード結果を検証する.
 	  ヘッダ中の <tt>alg</tt> パラメータが"HS256"であるため, JWS署名に含まれるHMAC SHA-256の値を検証する.
       検証に失敗した場合, このJWSは拒否されなければならない (MUST).
-	  
+
 </p>
 <p>
       初めに, JWSヘッダ文字列が正しいJSONであることを検証する.
-	  
+
 </p>
 <p>
           HMAC値を検証するために, 正しい鍵を用いてJWS署名入力のASCII表現をHMAC SHA-256アルゴリズムの入力として上記のプロセスを繰りかえし, 出力されたものがJWS署名と一致するかが決定される.
           もしそれが正確に一致していた場合, HMACの検証は完了する.
-	  
+
 </p>
 <a name="RS256Example"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2090,30 +2090,30 @@ Encoding</h3>
         まず, 異なるアルゴリズムが使われているため, <tt>alg</tt>の値が異なっている.
         次に, 例示の都合により, 任意の"typ"パラメータは使用されていない(この違いは用いられるアルゴリズムに関連するものではない).
         使用されるJWSヘッダは以下の通り:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"RS256"}
 </pre></div>
 <p>
         以下のオクテット列はJWSヘッダのUTF-8表現である:
-	  
+
 </p>
 <p>
 
 [123, 34, 97, 108, 103, 34, 58, 34, 82, 83, 50, 53, 54, 34, 125]
 
-	  
+
 </p>
 <p>
         これらのオクテット列をBase64urlエンコードすることで, エンコード済JWS署名の値が生成される:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJSUzI1NiJ9
 </pre></div>
 <p>
         以下の, この例で使用されるJWSペイロードは前述の例と同じである.
         エンコード済JWSペイロードは同じになるので, 計算はここで繰り返し行わない.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
    "exp":1300819380,
@@ -2122,7 +2122,7 @@ Encoding</h3>
 <p>
         エンコード済JWSヘッダとエンコード済JWSペイロードをピリオド('.')文字で連結することで, JWS署名入力値が生成される
         (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJSUzI1NiJ9
   .
@@ -2131,18 +2131,18 @@ Encoding</h3>
 </pre></div>
 <p>
         JWS署名入力のASCII表現が以下のオクテット列となる:
-	  
+
 </p>
 <p>
 
 [101, 121, 74, 104, 98, 71, 99, 105, 79, 105, 74, 83, 85, 122, 73, 49, 78, 105, 74, 57, 46, 101, 121, 74, 112, 99, 51, 77, 105, 79, 105, 74, 113, 98, 50, 85, 105, 76, 65, 48, 75, 73, 67, 74, 108, 101, 72, 65, 105, 79, 106, 69, 122, 77, 68, 65, 52, 77, 84, 107, 122, 79, 68, 65, 115, 68, 81, 111, 103, 73, 109, 104, 48, 100, 72, 65, 54, 76, 121, 57, 108, 101, 71, 70, 116, 99, 71, 120, 108, 76, 109, 78, 118, 98, 83, 57, 112, 99, 49, 57, 121, 98, 50, 57, 48, 73, 106, 112, 48, 99, 110, 86, 108, 102, 81]
 
-	  
+
 </p>
 <p>
         この例では次のようなJSON Web Key <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a> フォーマットで表現されるRSA鍵を用いる
         (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kty":"RSA",
    "n":"ofgWCuLjybRlzo0tZWJjNiuSfb4p4fAkd_wWJcyQoTbji9k0l8W26mPddx
@@ -2164,16 +2164,16 @@ Encoding</h3>
         RSAの秘密鍵, ハッシュタイプ SHA-256, およびJWS署名入力のASCII表現であるオクテット列が入力としてRSAの署名関数に渡される.
         デジタル署名の結果はビッグエンディアン整数として表現されるオクテット列である.
         以下がこの例である:
-	  
+
 </p>
 <p>
 [112, 46, 33, 137, 67, 232, 143, 209, 30, 181, 216, 45, 191, 120, 69, 243, 65, 6, 174, 27, 129, 255, 247, 115, 17, 22, 173, 209, 113, 125, 131, 101, 109, 66, 10, 253, 60, 150, 238, 221, 115, 162, 102, 62, 81, 102, 104, 123, 0, 11, 135, 34, 110, 1, 135, 237, 16, 115, 249, 69, 229, 130, 173, 252, 239, 22, 216, 90, 121, 142, 232, 198, 109, 219, 61, 184, 151, 91, 23, 208, 148, 2, 190, 237, 213, 217, 217, 112, 7, 16, 141, 178, 129, 96, 213, 248, 4, 12, 167, 68, 87, 98, 184, 31, 190, 127, 249, 217, 46, 10, 231, 111, 36, 242, 91, 51, 187, 230, 244, 74, 230, 30, 177, 4, 10, 203, 32, 4, 77, 62, 249, 18, 142, 212, 1, 48, 121, 91, 212, 189, 59, 65, 238, 202, 208, 102, 171, 101, 25, 129, 253, 228, 141, 247, 127, 55, 45, 195, 139, 159, 175, 221, 59, 239, 177, 139, 93, 163, 204, 60, 46, 176, 47, 158, 58, 65, 214, 18, 202, 173, 21, 145, 18, 115, 160, 95, 35, 185, 232, 56, 250, 175, 132, 157, 105, 132, 41, 239, 90, 30, 136, 121, 130, 54, 195, 212, 14, 96, 69, 34, 165, 68, 200, 242, 122, 122, 45, 184, 6, 99, 209, 108, 247, 202, 234, 86, 222, 64, 92, 178, 33, 90, 69, 178, 194, 85, 102, 181, 90, 193, 167, 72, 160, 112, 223, 200, 163, 42, 70, 149, 67, 208, 25, 238, 251, 71]
-	  
+
 </p>
 <p>
         デジタル署名をbase64urlでエンコードすることで以下のエンコード済JWS署名が生成される.
         (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   cC4hiUPoj9Eetdgtv3hF80EGrhuB__dzERat0XF9g2VtQgr9PJbu3XOiZj5RZmh7
   AAuHIm4Bh-0Qc_lF5YKt_O8W2Fp5jujGbds9uJdbF9CUAr7t1dnZcAcQjbKBYNX4
@@ -2185,7 +2185,7 @@ Encoding</h3>
 <p>
       これらの値をヘッダ.ペイロード.署名の順番で, パーツの間をピリオド('.')で連結することでJWS Compact Serializationを用いた完全なJWS表現が生成される.
     (改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJSUzI1NiJ9
   .
@@ -2207,7 +2207,7 @@ Decoding</h3>
 <p>
         JWSのデコードはJWSヘッダ, JWSペイロード, およびJWS署名のオクテット列を生成するために, エンコード済JWSヘッダ, エンコード済JWSペイロード, エンコード済JWS署名をBase64urlデコードする必要がある.
         JWSヘッダのUTF-8表現を含むオクテット列はJWSヘッダ文字列にデコードされる.
-	  
+
 </p>
 <a name="RS256Validating"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2217,17 +2217,17 @@ Validating</h3>
 <p>
         ヘッダ中の<tt>alg</tt>パラメータが"RS256"であるため, JWS署名に含まれるRSASSA-PKCS-v1_5 SHA-256のデジタル署名を検証する.
         いずれかの検証ステップに失敗した場合, JWSは拒否されなければならない.
-	  
+
 </p>
 <p>
         まず, JWSヘッダ文字列が正しいJSONであるか検証する.
-	  
+
 </p>
 <p>
         JWS署名の検証は直前の例と少し異なる.
         まず, デジタル署名 Sを生成してチェックするためにエンコード済JWS署名をbase64urlデコードする.
         (n, e), S, 及びJWS署名入力のASCII表現であるオクテット列をSHA-256ハッシュ関数を使うよう設定されたRSASSA-PKCS-v1_5 署名検証器に渡す.
-	  
+
 </p>
 <a name="ES256Example"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2242,30 +2242,30 @@ Encoding</h3>
 <p>
       異なるアルゴリズムが利用されているため, この例のJWSヘッダは前の例と異なる.
       利用されるJWSヘッダ:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES256"}
 </pre></div>
 <p>
       以下に示すオクテット列はJWSヘッダのUTF-8表現である:
-	  
+
 </p>
 <p>
 
 [123, 34, 97, 108, 103, 34, 58, 34, 69, 83, 50, 53, 54, 34, 125]
 
-	  
+
 </p>
 <p>
       これらのオクテット列をBase64 URLエンコードするとこのようなエンコード済JWSヘッダの値が生成される.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzI1NiJ9
 </pre></div>
 <p>
       以下に示す, この例で用いられるJWSペイロードは前の例のものと同一である.
       したがって, エンコード済JWSペイロードもまた同一であるため, ここではその計算を繰りかえさない.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
    "exp":1300819380,
@@ -2274,7 +2274,7 @@ Encoding</h3>
 <p>
       エンコード済JWSヘッダとエンコード済JWSペイロードをピリオド('.')文字で連結することで, JWS 署名入力値が生成される
       (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzI1NiJ9
   .
@@ -2283,17 +2283,17 @@ Encoding</h3>
 </pre></div>
 <p>
       JWS署名入力のASCII表現が以下に示すオクテット列となる:
-	  
+
 </p>
 <p>
 
 [101, 121, 74, 104, 98, 71, 99, 105, 79, 105, 74, 70, 85, 122, 73, 49, 78, 105, 74, 57, 46, 101, 121, 74, 112, 99, 51, 77, 105, 79, 105, 74, 113, 98, 50, 85, 105, 76, 65, 48, 75, 73, 67, 74, 108, 101, 72, 65, 105, 79, 106, 69, 122, 77, 68, 65, 52, 77, 84, 107, 122, 79, 68, 65, 115, 68, 81, 111, 103, 73, 109, 104, 48, 100, 72, 65, 54, 76, 121, 57, 108, 101, 71, 70, 116, 99, 71, 120, 108, 76, 109, 78, 118, 98, 83, 57, 112, 99, 49, 57, 121, 98, 50, 57, 48, 73, 106, 112, 48, 99, 110, 86, 108, 102, 81]
 
-	  
+
 </p>
 <p>
       この例は以下のJSON Web Key <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a> フォーマットで表現された楕円曲線鍵を用いる:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kty":"EC",
    "crv":"P-256",
@@ -2306,7 +2306,7 @@ Encoding</h3>
       ECDSA秘密部 d, 曲線タイプ P-521, ハッシュタイプ SHA-512, およびJWS署名入力のASCII表現のオクテット列が, 入力としてECDSA署名関数に渡される.
       デジタル署名結果はEC点 (R, S)であり, ここで R および S は符号なし整数である.
       この例では, R と S の値をビッグエンディアン整数として表現するオクテット列となる:
-	  
+
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="left"><col align="left">
 <tr><th align="left">結果名</th><th align="left">値</th></tr>
@@ -2332,7 +2332,7 @@ Encoding</h3>
 <p>
       S配列をR配列の末尾に連結し, Base64 URLエンコーディングを施すことで, 以下のエンコード済JWS署名が生成される
       (改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   DtEhU3ljbEg8L38VWAfUAqOyKAM6-Xx-F4GawxaepmXFCgfTjDxw5djxLa8ISlSA
   pmWQxfKTUJqPP3-Kg6NU1Q
@@ -2340,7 +2340,7 @@ Encoding</h3>
 <p>
     ピリオド('.')文字をパーツ間の区切りとしてこれらの値をヘッダ.ペイロード.署名の順番で連結することで, JSON Compact Serialiation形式の完全なJWS表現が生成される.
     (改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzI1NiJ9
   .
@@ -2358,7 +2358,7 @@ Decoding</h3>
 <p>
       JWSのデコードはJWSヘッダ, JWSペイロード, およびJWS署名のオクテット列を生成するために, エンコード済JWSヘッダ, エンコード済JWSペイロード, エンコード済JWS署名をBase64urlデコードする必要がある.
       JWSヘッダのUTF-8表現を含むオクテット列はJWSヘッダ文字列にデコードされる.
-	  
+
 </p>
 <a name="ES256Validating"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2368,22 +2368,22 @@ Validating</h3>
 <p>
 	  ヘッダ中の <tt>alg</tt> パラメータが"ES256"であるため, JWS署名に含まれるECDSA P-256 SHA-256デジタル署名を検証する.
       もし検証に失敗した場合, このJWSは拒否されなければならない (MUST).
-	  
+
 </p>
 <p>
         まず, JWSヘッダ文字列が正しいJSONであるか検証する.
-	  
+
 </p>
 <p>
             JWS署名の検証は最初の例と少し異なる.
       初めにエンコード済JWS署名を前の例のようにBase64 URLデコード, それから長さ64のオクテット列を長さ32の2つのオクテット列に分割し, はじめがR, 次がSとなる.
       そして, (x, y), (R, S)およびJWS署名入力のASCII表現であるオクテットを, P-256 曲線とSHA-256ハッシュ関数が設定されたECDSA署名検証器に入力として与える.
-	  
+
 </p>
 <p>
       JSON Web Algorithms (JWA) <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a> 仕様の3.4節で説明されているように, ECDSAのKの値の利用は, HMACの妥当性確認と同じ方法でデジタル署名の妥当性を検証することができないことを意味する.
       その代わり, 実装はデジタル署名を検証するためにECDSA検証機を利用しなければならない (MUST).
-	  
+
 </p>
 <a name="ES512Example"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2397,55 +2397,55 @@ Encoding</h3>
 
 <p>
             この例のJWSヘッダは直前の例と異なり, ECDSA曲線とハッシュ関数を使っている. 使用されるJWSヘッダは以下の通り:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES512"}
 </pre></div>
 <p>
             以下のオクテット列はJWSヘッダのUTF-8表現である:
-	  
+
 </p>
 <p>
 [123, 34, 97, 108, 103, 34, 58, 34, 69, 83, 53, 49, 50, 34, 125]
-	  
+
 </p>
 <p>
             これらのオクテットをbase64urlエンコードすると, 以下のエンコード済JWSヘッダ値を得る:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzUxMiJ9
 </pre></div>
 <p>
             この例のJWSペイロードは, ASCII文字列の "Payload" である. この文字列の表現は以下のオクテット列である:
-	  
+
 </p>
 <p>
 [80, 97, 121, 108, 111, 97, 100]
-	  
+
 </p>
 <p>
             これらのオクテットをbase64urlエンコードすると, 以下のエンコード済JWSペイロード値を得る:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   UGF5bG9hZA
 </pre></div>
 <p>
             エンコード済JWSヘッダ, ピリオド文字('.'), エンコード済JWSペイロードを連結することにより, 以下のJWS署名入力値を得る:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzUxMiJ9.UGF5bG9hZA
 </pre></div>
 <p>
             このJWS署名入力値のASCII表現は以下のオクテット列である:
-	  
+
 </p>
 <p>
 [101, 121, 74, 104, 98, 71, 99, 105, 79, 105, 74, 70, 85, 122, 85, 120, 77, 105, 74, 57, 46, 85, 71, 70, 53, 98, 71, 57, 104, 90, 65]
-	  
+
 </p>
 <p>
             この例では, 以下のJSON Web Key <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; July&nbsp;2013.</span><span>)</span></a>フォーマットで表現された楕円曲線を使う(改行は掲載上の都合による):
-          
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kty":"EC",
    "crv":"P-521",
@@ -2459,7 +2459,7 @@ Encoding</h3>
 </pre></div>
 <p>
             ECDSA秘密部 d , 曲線タイプ P-521, ハッシュタイプ SHA-512, およびJWS署名入力のASCII表現オクテット列が, 入力としてECDSA署名関数に渡される. デジタル署名結果はEC点 (R, S)であり, ここで R および S は符号なし整数である. この例では, R と S の値をビッグエンディアン整数として表現するオクテット列となる:
-	  
+
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="left"><col align="left">
 <tr><th align="left">結果名</th><th align="left">値</th></tr>
@@ -2488,7 +2488,7 @@ Encoding</h3>
 
 <p>
             S配列をR配列の末尾に連結し base64urlエンコーディングを施すとと以下のエンコード済JWS署名を得る(改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   AdwMgeerwtHoh-l192l60hp9wAHZFVJbLfD_UxMi70cwnZOYaRI1bKPWROc-mZZq
   wqT2SI-KGDKB34XO0aw_7XdtAG8GaSwFKdCAPZgoXD2YBJZCPEX3xKpRwcdOO8Kp
@@ -2496,7 +2496,7 @@ Encoding</h3>
 </pre></div>
 <p>
 	  これらの値を ヘッダ, ペイロード, 署名 の順でピリオド文字 ('.') を区切りとして連結することで, 以下のJWS Compact Serialization形式を用いた完全なJWS表現を得る(改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzUxMiJ9
   .
@@ -2514,7 +2514,7 @@ Decoding</h3>
 
 <p>
             JWSのデコードは, エンコード済JWSヘッダ, エンコード済JWSペイロード, エンコード済JWS署名をbase64urlデコードし, JWSヘッダ, JWSペイロード, およびJWS署名のオクテット列を得る必要がある. JWSヘッダのUTF-8表現を含むオクテット列をデコードし, JWSヘッダ文字列を得る.
-	  
+
 </p>
 <a name="ES512Validating"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2523,19 +2523,19 @@ Validating</h3>
 
 <p>
 	    ヘッダの<tt>alg</tt>パラメータが "ES512" であることから, JWS署名に格納されている ECDSA P-521 SHA-512 デジタル署名を検証する. いずれかの検証ステップに失敗した場合は, JWSは拒否されなければならない (MUST).
-	  
+
 </p>
 <p>
             最初に, JWSヘッダ文字列が正しいJSONであるか検証する.
-	  
+
 </p>
 <p>
             JWS署名の検証は直前の例と同様である. まず, 直前の例と同じく, エンコード済JWS署名をbase64urlデコードする. 次に132オクテットある列を2つの長さ66オクテットの列に分割する必要がある. 最初がRであり次がSである. そして, (x, y), (R, S)およびJWS署名入力のASCII表現オクテットを, ECDSA署名検証器に入力として与える. この検証器はP-521曲線およびSHA-512ハッシュ関数として設定されたものである.
-	  
+
 </p>
 <p>
             JSON Web Algorithms (JWA)<a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; July&nbsp;2013.</span><span>)</span></a>仕様の3.4節で説明されているとおり, ECDSAにおいてK値を用いるということは, HMACの正当性検証と同じ方法ではデジタル署名の正しさを検証できないことを意味する. 実装はECDSA検証器を使ってデジタル署名を検証しなければならない(MUST).
-	  
+
 </p>
 <a name="ExamplePlaintextJWS"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2544,20 +2544,20 @@ Example Plaintext JWS</h3>
 
 <p>
 	  以下のJWSヘッダの例はエンコード済みのオブジェクトが平文のJWSである例を示している:
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"none"}
 </pre></div>
 <p>
 	  このJWSヘッダのUTF-8表現のオクテット列をbase64urlエンコーディングすると以下のエンコード済みJWSヘッダが生成される:
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJub25lIn0
 </pre></div>
 <p>
 	  以下に示されるこの例の中で使われているJWSペイロードは, 前の例のものと同じである.
 	  それゆえエンコード済みJWSペイロードは同じであるため, ここでは再度算出は行わない.
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"iss":"joe",
    "exp":1300819380,
@@ -2565,11 +2565,11 @@ Example Plaintext JWS</h3>
 </pre></div>
 <p>
 	  エンコード済みJWS署名は空文字となる.
-	
+
 </p>
 <p>
 	  ヘッダ.ペイロードPayload.署名の順でそれぞれの部分をピリオド('.')で連結すると完全なJWSが生成される(改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJub25lIn0
   .
@@ -2585,11 +2585,11 @@ Example JWS Using JWS JSON Serialization</h3>
 <p>
 	  このセクションはJWS JSON Serializationを利用した場合の例を含む.
 	  この例では同一のペイロードについて複数の電子署名, および/またはMAC値を伝送できることを示す.
-	
+
 </p>
 <p>
 	  この例で利用されているエンコード済みJWSペイロードは <a class='info' href='#RS256Example'>Appendix&nbsp;A.2<span> (</span><span class='info'>Example JWS using RSASSA-PKCS-v1_5 SHA-256</span><span>)</span></a>と <a class='info' href='#ES256Example'>Appendix&nbsp;A.3<span> (</span><span class='info'>Example JWS using ECDSA P-256 SHA-256</span><span>)</span></a>の例で利用されているものと同じである(改行は掲載上の都合による):
-	
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt
   cGxlLmNvbS9pc19yb290Ijp0cnVlfQ
@@ -2601,7 +2601,7 @@ Example JWS Using JWS JSON Serialization</h3>
       それゆえここでは再度算出は行わない.
 	  2つ目のJWSプロテクトヘッダと鍵は <a class='info' href='#ES256Example'>Appendix&nbsp;A.3<span> (</span><span class='info'>Example JWS using ECDSA P-256 SHA-256</span><span>)</span></a>のものと同じになり, 結果として得られるJWS署名が同じ値になる;
 	  それゆえここでは再度算出は行わない.
-	
+
 </p>
 <a name="JSProtectedHeader"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2610,25 +2610,25 @@ JWS Per-Signature Protected Headers</h3>
 
 <p>
 	    1つ目の署名に利用されるJWSプロテクトヘッダ値は以下となる:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"RS256"}
 </pre></div>
 <p>
 	    これらのオクテット列をbase64urlエンコーディングすると以下のエンコード済みJWSヘッダ値が生成される:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJSUzI1NiJ9
 </pre></div>
 <p>
 	    2つ目の署名に利用されるJWSプロテクトヘッダ値は以下となる:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES256"}
 </pre></div>
 <p>
 	    これらのオクテット列をbase64urlエンコーディングすると以下のエンコード済みJWSヘッダ値が生成される:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJFUzI1NiJ9
 </pre></div>
@@ -2640,13 +2640,13 @@ JWS Per-Signature Unprotected Headers</h3>
 <p>
 	    Key ID の値は, 署名毎のヘッダパラメータを利用して両方の鍵に対して与えられる.
 	    これらのKey IDを表す2つの値は以下となる:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kid":"2010-12-29"}
 </pre></div>
 <p>
 	    と:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"kid":"e9bc097a-ce51-4036-9562-d2ade882db0d"}
 </pre></div>
@@ -2657,14 +2657,14 @@ Complete JWS Header Values</h3>
 
 <p>
 	    与えられたプロテクトヘッダとプロテクトされていないヘッダの値を合わせて, 1つ目の署名と2つ目の署名それぞれに利用されるJWSヘッダ値は以下のようになる:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"RS256",
    "kid":"2010-12-29"}
 </pre></div>
 <p>
 	    と:
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"ES256",
    "kid":"e9bc097a-ce51-4036-9562-d2ade882db0d"}
@@ -2676,7 +2676,7 @@ Complete JWS JSON Serialization Representation</h3>
 
 <p>
 	    これらの値の完全なJSON Web Signature JSON Serializationは以下のようになる(改行は掲載上の都合による):
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"payload":
     "eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGF
@@ -2708,7 +2708,7 @@ Complete JWS JSON Serialization Representation</h3>
 <p>
       	以下の JSON array は, <a class='info' href='#x5cDef'>Section&nbsp;4.1.6<span> (</span><span class='info'>&quot;x5c&quot; (X.509 Certificate Chain) Header Parameter</span><span>)</span></a> にあるように, <tt>x5c</tt> ヘッダパラメータとして指定される証明書チェーンの例である.
       	ここでは Base64URL エンコードではなく Base64 エンコードが用いられるため, 空白と改行が許可されていることに注意すること.
-      
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   ["MIIE3jCCA8agAwIBAgICAwEwDQYJKoZIhvcNAQEFBQAwYzELMAkGA1UEBhMCVVM
     xITAfBgNVBAoTGFRoZSBHbyBEYWRkeSBHcm91cCwgSW5jLjExMC8GA1UECxMoR2
@@ -2789,12 +2789,12 @@ Notes on implementing base64url encoding without padding</h3>
 
 <p>
       	ここではパディング無し Base64URL エンコード/デコードを, 標準のパディング付き Base64 エンコード/デコードを元に実装する方法について述べる.
-      
+
 </p>
 <p>
 	  	具体例として, 以下に C# での実装例を挙げる.
 	  	他の言語でも実装方法は同様である.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   static string base64urlencode(byte [] arg)
   {
@@ -2824,12 +2824,12 @@ Notes on implementing base64url encoding without padding</h3>
 <p>
 	  	上記コードの通り, パディング無しBase64URL エンコード文字列をパディング付きに変換する為に付与すべきパディング "=" の文字数は, エンコード文字列長から求められる.
 	  	"length mod 4 = 0" の時, パディングは必要なく, "length mod 4 = 2" の時は2つの "=" を追加, "length mod 4 = 3" の時は1つ, "length mod 4 = 1" の時はその入力が不正である.
-	  
+
 </p>
 <p>
 	  	エンコードあり/なしの値の対応例を以下に示す.
 	  	以下のオクテット列はその下の文字列にエンコードされ, デコードすると元のオクテット列が導出される.
-	  
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>3 236 255 224 193</pre></div><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>A-z_4ME</pre></div>
 <a name="critTest"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2840,13 +2840,13 @@ Negative Test Case for "crit" Header Parameter</h3>
       	適切な実装は, 理解不能もしくは処理不能なクリティカル拡張を含む入力を拒否しなければならない.
       	以下に示す JWS は, <tt>http://example.invalid/UNDEFINED</tt> という理解不能な拡張ヘッダパラメータを利用しているため, いかなる実装もこの JWS を拒否しなければならない.
       	<tt>http://example.invalid/UNDEFINED</tt> に変わるなんらかの理解不能なヘッダパラメータが含まれる場合にも, 同様に実装はそれらを拒否しなければならない.
-      	
 
-	
+
+
 <p>
 	  	JWS ヘッダ
-	  	
-	  
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"alg":"none",
    "crit":["http://example.invalid/UNDEFINED"],
@@ -2854,17 +2854,17 @@ Negative Test Case for "crit" Header Parameter</h3>
   }
 </pre></div>
 
-	
+
 <p>
 	  	JWS 全体 (改行は表示の都合による)
-	  	
-	  
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   eyJhbGciOiJub25lIiwNCiAiY3JpdCI6WyJodHRwOi8vZXhhbXBsZS5jb20vVU5ERU
   ZJTkVEIl0sDQogImh0dHA6Ly9leGFtcGxlLmNvbS9VTkRFRklORUQiOnRydWUNCn0.
   RkFJTA.
 </pre></div>
-      
+
 
 <a name="Acknowledgements"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2875,19 +2875,19 @@ Acknowledgements</h3>
 	Solutions for signing JSON content were previously explored by
 	<a class='info' href='#MagicSignatures'>Magic Signatures<span> (</span><span class='info'>Panzer (editor), J., Laurie, B., and D. Balfanz, &ldquo;Magic Signatures,&rdquo; January&nbsp;2011.</span><span>)</span></a> [MagicSignatures], <a class='info' href='#JSS'>JSON Simple Sign<span> (</span><span class='info'>Bradley, J. and N. Sakimura (editor), &ldquo;JSON Simple Sign,&rdquo; September&nbsp;2010.</span><span>)</span></a> [JSS], and <a class='info' href='#CanvasApp'>Canvas Applications<span> (</span><span class='info'>Facebook, &ldquo;Canvas Applications,&rdquo; 2010.</span><span>)</span></a> [CanvasApp], all of which
 	influenced this draft.
-      
+
 </p>
 <p>
 	Thanks to Axel Nennker for his early implementation
 	and feedback on the JWS and JWE specifications.
-      
+
 </p>
 <p>
         This specification is the work of the JOSE Working Group,
 	which includes dozens of active and dedicated participants.
 	In particular, the following individuals contributed ideas,
         feedback, and wording that influenced this specification:
-      
+
 </p>
 <p>
 	Dirk Balfanz,
@@ -2911,13 +2911,13 @@ Acknowledgements</h3>
 	Paul Tarjan,
 	Hannes Tschofenig,
 	and Sean Turner.
-      
+
 </p>
 <p>
 	Jim Schaad and Karen O'Donoghue chaired the JOSE working group and
 	Sean Turner and Stephen Farrell served as Security area directors
 	during the creation of this specification.
-      
+
 </p>
 <a name="History"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2926,7 +2926,7 @@ Document History</h3>
 
 <p>
 	[[ to be removed by the RFC editor before publication as an RFC ]]
-      
+
 </p>
 <p>
 	-14
@@ -2937,10 +2937,10 @@ Document History</h3>
 	    is to be omitted in the JWS JSON Serialization
 	    when its value would be empty
 	    (which is only the case for a Plaintext JWS).
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-13
@@ -2949,10 +2949,10 @@ Document History</h3>
 <li>
 	    Made all header parameter values be per-signature/MAC,
 	    addressing issue #24.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-12
@@ -2963,7 +2963,7 @@ Document History</h3>
 	    <tt>cty</tt> header parameters are used
 	    in an application-specific manner
 	    and have no effect upon the JWS processing.
-	  
+
 </li>
 <li>
 	    Replaced the MIME types
@@ -2971,14 +2971,14 @@ Document History</h3>
 	    <tt>application/jws</tt> with
 	    <tt>application/jose+json</tt> and
 	    <tt>application/jose</tt>.
-	  
+
 </li>
 <li>
 	    Stated that recipients MUST either reject JWSs with
 	    duplicate Header Parameter Names
 	    or use a JSON parser that returns only
 	    the lexically last duplicate member name.
-	  
+
 </li>
 <li>
 	    Added a Serializations section with parallel treatment of the
@@ -2986,10 +2986,10 @@ Document History</h3>
 	    and the
 	    JWS JSON Serialization
 	    and also moved the former Implementation Considerations content there.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-11
@@ -2997,7 +2997,7 @@ Document History</h3>
 <ul class="text">
 <li>
 	    Added Key Identification section.
-	  
+
 </li>
 <li>
 	    For the JWS JSON Serialization, enable header parameter values
@@ -3010,31 +3010,31 @@ Document History</h3>
 	    not integrity protected and specific to a particular recipient.
 	    (This does not affect the JWS Compact Serialization, in which all
 	    header parameter values are in a single integrity protected JWE Header value.)
-	  
+
 </li>
 <li>
 	    Removed suggested compact serialization for multiple
 	    digital signatures and/or MACs.
-	  
+
 </li>
 <li>
 	    Changed the MIME type name <tt>application/jws-js</tt>
 	    to <tt>application/jws+json</tt>,
 	    addressing issue #22.
-	  
+
 </li>
 <li>
 	    Tightened the description of the
 	    <tt>crit</tt> (critical) header parameter.
-	  
+
 </li>
 <li>
 	    Added a negative test case for the
 	    <tt>crit</tt> header parameter
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-10
@@ -3043,10 +3043,10 @@ Document History</h3>
 <li>
 	    Added an appendix suggesting a possible compact serialization
 	    for JWSs with multiple digital signatures and/or MACs.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-09
@@ -3055,12 +3055,12 @@ Document History</h3>
 <li>
 	    Added JWS JSON Serialization, as specified by
 	    draft-jones-jose-jws-json-serialization-04.
-	  
+
 </li>
 <li>
 	    Registered <tt>application/jws-js</tt> MIME type
 	    and <tt>JWS-JS</tt> typ header parameter value.
-	  
+
 </li>
 <li>
 	    Defined that the default action for header parameters that
@@ -3068,28 +3068,28 @@ Document History</h3>
 	    designated as "MUST be understood" or included in the new
 	    <tt>crit</tt> (critical) header parameter list.
 	    This addressed issue #6.
-	  
+
 </li>
 <li>
 	    Changed term "JWS Secured Input" to "JWS Signing Input".
-	  
+
 </li>
 <li>
 	    Changed from using the term "byte" to "octet" when referring to 8 bit values.
-	  
+
 </li>
 <li>
 	    Changed member name from <tt>recipients</tt> to
 	    <tt>signatures</tt> in the JWS JSON Serialization.
-	  
+
 </li>
 <li>
 	    Added complete values using the JWS Compact Serialization
 	    for all examples.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-08
@@ -3099,24 +3099,24 @@ Document History</h3>
 	    Applied editorial improvements suggested by
 	    Jeff Hodges and Hannes Tschofenig.
 	    Many of these simplified the terminology used.
-	  
+
 </li>
 <li>
 	    Clarified statements of the form "This header parameter is OPTIONAL"
 	    to "Use of this header parameter is OPTIONAL".
-	  
+
 </li>
 <li>
 	    Added a Header Parameter Usage Location(s) field to the
 	    IANA JSON Web Signature and Encryption Header Parameters registry.
-	  
+
 </li>
 <li>
 	    Added seriesInfo information to Internet Draft references.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-07
@@ -3124,10 +3124,10 @@ Document History</h3>
 <ul class="text">
 <li>
 	    Updated references.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-06
@@ -3138,15 +3138,15 @@ Document History</h3>
 	    representation from being a single string to being an array of strings,
 	    each containing a single base64 encoded DER certificate value,
 	    representing elements of the certificate chain.
-	  
+
 </li>
 <li>
 	    Applied changes made by the RFC Editor to RFC 6749's registry language
 	    to this specification.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-05
@@ -3156,14 +3156,14 @@ Document History</h3>
 	    Added statement that
 	    "StringOrURI values are compared as case-sensitive strings
 	    with no transformations or canonicalizations applied".
-	  
+
 </li>
 <li>
 	    Indented artwork elements to better distinguish them from the body text.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
 	-04
@@ -3172,46 +3172,46 @@ Document History</h3>
 <li>
 	    Completed JSON Security Considerations section, including
 	    considerations about rejecting input with duplicate member names.
-	  
+
 </li>
 <li>
 	    Completed security considerations on the use of a SHA-1 hash when computing
 	    <tt>x5t</tt> (x.509 certificate thumbprint) values.
-	  
+
 </li>
 <li>
 	    Refer to the registries as the primary sources of defined
 	    values and then secondarily reference the sections
 	    defining the initial contents of the registries.
-	  
+
 </li>
 <li>
 	    Normatively reference
 	    <a class='info' href='#W3C.CR-xmldsig-core2-20120124'>XML DSIG 2.0<span> (</span><span class='info'>Eastlake, D., Reagle, J., Yiu, K., Solo, D., Datta, P., Hirsch, F., Cantor, S., and T. Roessler, &ldquo;XML Signature Syntax and Processing Version 2.0,&rdquo; January&nbsp;2012.</span><span>)</span></a> [W3C.CR&#8209;xmldsig&#8209;core2&#8209;20120124]
 	    for its security considerations.
-	  
+
 </li>
 <li>
 	    Added this language to Registration Templates:
 	    "This name is case sensitive.  Names that match other registered names
 	    in a case insensitive manner SHOULD NOT be accepted."
-	  
+
 </li>
 <li>
 	    Reference draft-jones-jose-jws-json-serialization
 	    instead of draft-jones-json-web-signature-json-serialization.
-	  
+
 </li>
 <li>
 	    Described additional open issues.
-	  
+
 </li>
 <li>
 	    Applied editorial suggestions.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -03
@@ -3222,15 +3222,15 @@ Document History</h3>
 	    for declaring type information about the secured content,
 	    as opposed to the <tt>typ</tt> (type) header parameter,
 	    which declares type information about this object.
-	  
+
 </li>
 <li>
 	    Added "Collision Resistant Namespace" to the terminology section.
-	  
+
 </li>
 <li>
 	    Reference ITU.X690.1994 for DER encoding.
-	  
+
 </li>
 <li>
 	    Added an example JWS using ECDSA P-521 SHA-512.  This has particular
@@ -3238,46 +3238,46 @@ Document History</h3>
 	    in the key and signature values.
 	    This is also an example in which the payload is not a base64url
 	    encoded JSON object.
-	  
+
 </li>
 <li>
 	    Added an example <tt>x5c</tt> value.
-	  
+
 </li>
 <li>
 	    No longer say "the UTF-8 representation of the JWS Secured Input
 	    (which is the same as the ASCII representation)".  Just call it
 	    "the ASCII representation of the JWS Secured Input".
-	  
+
 </li>
 <li>
 	    Added Registration Template sections for defined registries.
-	  
+
 </li>
 <li>
 	    Added Registry Contents sections to populate registry values.
-	  
+
 </li>
 <li>
 	    Changed name of the JSON Web Signature and Encryption "typ" Values registry
 	    to be the JSON Web Signature and Encryption Type Values registry, since
 	    it is used for more than just values of the
 	    <tt>typ</tt> parameter.
-	  
+
 </li>
 <li>
 	    Moved registries
 	    JSON Web Signature and Encryption Header Parameters and
 	    JSON Web Signature and Encryption Type Values
 	    to the JWS specification.
-	  
+
 </li>
 <li>
 	    Numerous editorial improvements.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -02
@@ -3286,27 +3286,27 @@ Document History</h3>
 <li>
 	    Clarified that it is an error when a <tt>kid</tt>
 	    value is included and no matching key is found.
-	  
+
 </li>
 <li>
 	    Removed assumption that <tt>kid</tt> (key ID)
 	    can only refer to an asymmetric key.
-	  
+
 </li>
 <li>
 	    Clarified that JWSs with duplicate Header Parameter Names
 	    MUST be rejected.
-	  
+
 </li>
 <li>
 	    Clarified the relationship between
 	    <tt>typ</tt> header parameter values
 	    and MIME types.
-	  
+
 </li>
 <li>
 	    Registered application/jws MIME type and "JWS" typ header parameter value.
-	  
+
 </li>
 <li>
 	    Simplified JWK terminology to get replace the "JWK Key Object" and
@@ -3317,32 +3317,32 @@ Document History</h3>
 	    public key value was changed from
 	    <tt>jpk</tt> (JSON Public Key) to
 	    <tt>jwk</tt> (JSON Web Key).
-	  
+
 </li>
 <li>
 	    Added suggestion on defining additional header parameters
 	    such as <tt>x5t#S256</tt> in the future
 	    for certificate thumbprints using hash algorithms other
 	    than SHA-1.
-	  
+
 </li>
 <li>
 	    Specify RFC 2818 server identity validation, rather than
 	    RFC 6125 (paralleling the same decision in the OAuth specs).
-	  
+
 </li>
 <li>
 	    Generalized language to refer to Message Authentication Codes (MACs)
 	    rather than Hash-based Message Authentication Codes (HMACs)
 	    unless in a context specific to HMAC algorithms.
-	  
+
 </li>
 <li>
             Reformatted to give each header parameter its own section heading.
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -01
@@ -3352,48 +3352,48 @@ Document History</h3>
 	    Moved definition of Plaintext JWSs (using "alg":"none")
 	    here from the JWT specification since this functionality is
 	    likely to be useful in more contexts that just for JWTs.
-          
+
 </li>
 <li>
 	    Added <tt>jpk</tt> and <tt>x5c</tt> header parameters for including
 	    JWK public keys and X.509 certificate chains directly in
 	    the header.
-	  
+
 </li>
 <li>
 	    Clarified that this specification is defining the JWS
 	    Compact Serialization.  Referenced the new JWS-JS spec,
 	    which defines the JWS JSON Serialization.
-	  
+
 </li>
 <li>
 	    Added text "New header parameters should be introduced
 	    sparingly since an implementation that does not understand
 	    a parameter MUST reject the JWS".
-	  
+
 </li>
 <li>
 	    Clarified that the order of the creation and validation
 	    steps is not significant in cases where there are no
 	    dependencies between the inputs and outputs of the steps.
-	  
+
 </li>
 <li>
 	    Changed "no canonicalization is performed" to "no
 	    canonicalization need be performed".
-	  
+
 </li>
 <li>
 	    Corrected the Magic Signatures reference.
-          
+
 </li>
 <li>
 	    Made other editorial improvements suggested by JOSE
 	    working group participants.
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <p>
         -00
@@ -3403,15 +3403,15 @@ Document History</h3>
             Created the initial IETF draft based upon
             draft-jones-json-web-signature-04 with no normative
             changes.
-          
+
 </li>
 <li>
 	    Changed terminology to no longer call both digital
 	    signatures and HMACs "signatures".
-	  
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="Translator"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3421,29 +3421,29 @@ Document History</h3>
 <p>
         本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
         質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
-      
+
 </p>
 <p>
         </p>
 <ul class="text">
 <li>
             Kaoru Maeda
-          
+
 </li>
 <li>
             Ryo Ito (mixi, Inc.)
-          
+
 </li>
 <li>
             Yutaka Obuchi (Hitachi Solutions)
-          
+
 </li>
 <li>
             Yuya Ito
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="rfc.authors"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -3472,4 +3472,14 @@ Document History</h3>
 <tr><td class="author" align="right">Email:&nbsp;</td>
 <td class="author-text"><a href="mailto:n-sakimura@nri.co.jp">n-sakimura@nri.co.jp</a></td></tr>
 </table>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15411889-1', 'github.com');
+  ga('send', 'pageview');
+
+</script>
 </body></html>

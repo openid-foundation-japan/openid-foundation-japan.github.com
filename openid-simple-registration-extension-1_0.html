@@ -199,7 +199,7 @@ Authors' Addresses<br />
 <dd>"IdP" または "Server" とも呼ばれる。主張識別情報がエンドユーザのものであるという暗号理論に基づいた証明を得るために、コンシューマが問い合せる OpenID 認証サーバを指す。
 </dd>
 </dl></blockquote><p>
-      
+
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -215,17 +215,17 @@ Authors' Addresses<br />
 <blockquote class="text"><dl>
 <dt>openid.sreg.required:</dt>
 <dd>フィールド名のコンマ区切りのリスト。応答に存在していない場合、コンシューマは、エンドユーザとの対話を行なわずに登録を完了することができない。フィールド名は、<a class='info' href='#response_format'>応答書式 (Response Format)<span> (</span><span class='info'>応答書式 (Response Format) </span><span>)</span></a> の項において指定するフィールド名から、"openid.sreg." プリフィックスを除いたものとする。
- 
+
 </dd>
 <dt>openid.sreg.optional:</dt>
 <dd>フィールド名のコンマ区切りのリスト。コンシューマによって使用され、存在していなくても、登録完了の妨げにはならない。フィールド名は、<a class='info' href='#response_format'>応答書式 (Response Format)<span> (</span><span class='info'>応答書式 (Response Format) </span><span>)</span></a> の項において指定するフィールド名から、"openid.sreg." プリフィックスを除いたものとする。
- 
+
 </dd>
 <dt>openid.sreg.policy_url:</dt>
 <dd>プロファイルデータがどのように使用されるのかをエンドユーザが知りたい場合に、どこを見れば良いのかがわかるように、コンシューマからエンドユーザに提示される URL 。アイデンティティプロバイダは、この URL が指定された場合、エンドユーザに対してこのURLを表示すべきである (SHOULD)。
 </dd>
 </dl></blockquote><p>
-      
+
 </p>
 <a name="response_format"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -283,7 +283,7 @@ Authors' Addresses<br />
 例えば、"Europe/Paris" あるいは "America/Los_Angeles"。
 </dd>
 </dl></blockquote><p>
-      
+
 </p>
 <a name="anchor4"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -352,14 +352,15 @@ Recordon</td></tr>
 <tr><td class="author" align="right">Email:&nbsp;</td>
 <td class="author-text"><a href="mailto:drecordon@verisign.com">drecordon@verisign.com</a></td></tr>
 </table>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15411889-1', 'github.com');
+  ga('send', 'pageview');
+
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15411889-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
 </body></html>
 

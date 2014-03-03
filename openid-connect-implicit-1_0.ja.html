@@ -2173,7 +2173,7 @@ Self-Issued OpenID Provider Request</h3>
 <dd>
 
             任意 (OPTIONAL).
-            このパラメータは通常 <a class='info' href='#RegistrationParameter'>Section&nbsp;3.2.1<span> (</span><span class='info'>Providing Information with the &quot;registration&quot; Request Parameter</span><span>)</span></a> で定義されているように, Dynamic Client Registration の間に Client が自身の情報を Self-Issued OP に提供する際に利用される.
+            このパラメータは, 通常 Dynamic Client Registration (<a class='info' href='#RegistrationParameter'>Section&nbsp;3.2.1<span> (</span><span class='info'>Providing Information with the &quot;registration&quot; Request Parameter</span><span>)</span></a> 参照) を通じて提供される Client 自身に関する情報を, Client が Self-Issued OP に提供する際に利用される.
 
 </dd>
 </dl></blockquote><p>
@@ -2269,7 +2269,7 @@ Self-Issued ID Token Validation</h3>
 <li>
               Client は, JWT ヘッダ <a class='info' href='#JWT'>[JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> の <tt>alg</tt> パラメータに指定されたアルゴリズムを使い <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] に沿って ID Token の署名を検証しなければならない (MUST).
               その際, <tt>sub_jwk</tt> Claim の中の鍵を使用する;
-              鍵は <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; November&nbsp;2013.</span><span>)</span></a> フォーマットの鍵である (X.509 証明書ではない).
+              鍵は JWK <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; November&nbsp;2013.</span><span>)</span></a> フォーマットの鍵である (X.509 証明書ではない).
 
 </li>
 <li>

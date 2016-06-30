@@ -1,0 +1,698 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>OAuth 2.0 Token Revocation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="OAuth 2.0 Token Revocation">
+<meta name="keywords" content="token revocation, oauth2">
+<meta name="generator" content="xml2rfc v1.37pre1 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">OAuth Working Group</td><td class="header">T. Lodderstedt, Ed.</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">Deutsche Telekom AG</td></tr>
+<tr><td class="header">Intended status: Standards Track</td><td class="header">S. Dronia</td></tr>
+<tr><td class="header">Expires: February 2, 2014</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">M. Scurtescu </td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">Google</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">August 2013</td></tr>
+</table></td></tr></table>
+<h1><br />OAuth 2.0 Token Revocation<br />draft-ietf-oauth-revocation-11</h1>
+
+<h3>Abstract</h3>
+
+<p>
+        このドキュメントは、OAuth 認可サーバのための追加エンドポイントを提案する。
+        そのエンドポイントは事前に取得されているリフレッシュトークンあるいはアクセストークンが不要になったことを認可サーバへ通知することをクライアントに許可する。
+        これは認可サーバにセキュリティクレデンシャルを削除させる。
+        無効化リクエストは実際のトークンと、もし該当するものがあれば同じ認可に基づく他のトークンを無効にする。
+
+</p>
+<h3>Status of this Memo</h3>
+<p>
+This Internet-Draft is submitted  in full
+conformance with the provisions of BCP&nbsp;78 and BCP&nbsp;79.</p>
+<p>
+Internet-Drafts are working documents of the Internet Engineering
+Task Force (IETF).  Note that other groups may also distribute
+working documents as Internet-Drafts.  The list of current
+Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>
+Internet-Drafts are draft documents valid for a maximum of six months
+and may be updated, replaced, or obsoleted by other documents at any time.
+It is inappropriate to use Internet-Drafts as reference material or to cite
+them other than as &ldquo;work in progress.&rdquo;</p>
+<p>
+This Internet-Draft will expire on February 2, 2014.</p>
+
+<h3>Copyright Notice</h3>
+<p>
+Copyright (c) 2013 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#Introduction">1.</a>&nbsp;
+はじめに<br />
+<a href="#anchor1">2.</a>&nbsp;
+表記規約<br />
+<a href="#Revocation">3.</a>&nbsp;
+Token Revocation<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">3.1.</a>&nbsp;
+Revocation Request<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">3.2.</a>&nbsp;
+Revocation Response<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">3.2.1.</a>&nbsp;
+Error Response<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cross-orgin">3.3.</a>&nbsp;
+Cross-Origin Support<br />
+<a href="#impl">4.</a>&nbsp;
+Implementation Note<br />
+<a href="#IANA">5.</a>&nbsp;
+IANA Considerations<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">5.1.</a>&nbsp;
+OAuth Extensions Error Registration<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">5.1.1.</a>&nbsp;
+The &quot;unsupported_token_type&quot; Error Value<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#hint-reg">5.1.2.</a>&nbsp;
+OAuth Token Type Hint Registry<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">5.1.2.1.</a>&nbsp;
+Registration Template<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">5.1.2.2.</a>&nbsp;
+Initial Registry Contents<br />
+<a href="#Security">6.</a>&nbsp;
+Security Considerations<br />
+<a href="#Acknowledgements">7.</a>&nbsp;
+Acknowledgements<br />
+<a href="#Translator">8.</a>&nbsp;
+翻訳者<br />
+<a href="#rfc.references1">9.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">9.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">9.2.</a>&nbsp;
+Informative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references3">9.3.</a>&nbsp;
+翻訳プロジェクト<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Authors' Addresses<br />
+</p>
+<br clear="all" />
+
+<a name="Introduction"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+はじめに</h3>
+
+<p>
+        OAuth 2.0 core specification <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> はクライアントがリフレッシュトークンとアクセストークンを取得するためにいくつかの方法が定義している。
+        この仕様書は両タイプのトークンを取り消すための仕組みによって core specification を補足する。
+        トークンはリソースオーナーによってクライアントに発行された認可を表している文字列である。
+        無効化リクエストは、実際のトークンと、もし該当するものがあれば同じ認可に基づくその他のトークンとその認可自体を無効にする。
+
+</p>
+<p>
+        エンドユーザの視点から、OAuth はしばしばあるサイトやアプリケーションへのログインのために用いられる。
+        この無効化の仕組みは、エンドユーザがログアウト、アイデンティティの切り替え、あるいは各アプリケーションがアンインストールされた場合に、クライアントにそのトークンを無効にさせる。
+        トークンが不要になったという認可サーバへの通知は、認可サーバにトークン（例えば、セッションデータ）と認可に関連したデータを取り消させる。
+        この振る舞いは、エンドユーザが気づいていない特定のクライアントのまだ有効な認可があるという状況を防ぐ。
+        この方法で、トークンの無効化は放棄されているトークンの乱用を防ぎ、認可サーバがエンドユーザに送ったかもしれない認可の一覧で、無効になった認可をみつける必要がないので、より良いエンドユーザの体験を促進する。
+
+</p>
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+表記規約</h3>
+
+<p>
+        このドキュメントで用いられているキーワード「MUST（しなければならない）」、「MUST NOT（してはいけない）」、「REQUIRED（必須である）」、「SHALL（するものとする）」、「SHALL NOT（しないものとする）」、「SHOULD（すべきである）」、「SHOULD NOT（すべきではない）」、「RECOMMENDED（推奨される）」、「MAY（してもよい）」、「OPTIONAL（任意である）」は <a class='info' href='#RFC2119'>RFC 2119<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> [RFC2119] に述べられている通りに解釈する。
+
+</p>
+<a name="Revocation"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+Token Revocation</h3>
+
+<p>
+        実装はリフレッシュトークンの無効化はサポートしなければならなく（MUST）、アクセストークンの無効化はサポートすべきである（SHOULD）(<a class='info' href='#impl'>Implementation Note<span> (</span><span class='info'>Implementation Note</span><span>)</span></a> を参照)。
+
+</p>
+<p>
+        クライアントは、トークン無効化エンドポイント URL に HTTP POST リクエストすることによって特定のトークンを取り消しを要請する。
+        この URL は Section 3.1 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> に与えられた規則に従わなければならない（SHOULD）。クライアントはその URL が HTTPS URL であることを検証しなければならない（MUST）。
+
+</p>
+<p>
+        無効化エンドポイントの場所を得るための方法はこの仕様書の範囲外である。
+        例えば、クライアント開発者はサーバのドキュメントを調べてもよく、もしくは自動検出を使ってもよい。
+        このエンドポイントはセキュリティクレデンシャルを取り扱っている際には、エンドポイントの場所は信頼できる資料から得られる必要がある。
+
+</p>
+<p>
+        トークン無効化エンドポイントへのリクエストは、HTTP リクエスト中に平文クレデンシャルの伝達を生じるため、トークン無効化エンドポイントのための URL は HTTPS でなければならない（MUST）。
+        認可サーバは、Section 1.6 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> のバージョンに準拠した Transport Layer Security（TLS）を利用しなければならない（MUST）。
+        実装のセキュリティ要求に合った追加の transport-layer security 機構もサポートしてもよい（MAY）。
+
+</p>
+<p>
+        トークン無効化エンドポイントのホストが HTTP 経由で到達可能ならば、HTTP でも無効化サービスも提供すべきである（SHOULD）が、トークン無効化エンドポイントとしてこの URI を明示してはいけない（MUST NOT）。
+        HTTP 経由でのトークン無効化エンドポイントの提供は、誤って HTTP 経由で送信されたトークンも期待通り無効化されることを保証する。
+
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
+Revocation Request</h3>
+
+<p>
+          クライアントは HTTP リクエストエンティティボディに "application/x-www-form-urlencoded" 形式を使った以下のパラメータを含んでいるリクエストを構成する：
+
+</p>
+<p></p>
+<blockquote class="text"><dl>
+<dt>token</dt>
+<dd>必須（REQUIRED）。クライアントが無効化したいトークン。
+
+</dd>
+<dt>token_type_hint</dt>
+<dd>任意である（OPTIONAL）。無効化のために送信されるトークンのタイプについてのヒント。
+              クライアントは認可サーバがトークンを効率的に発見するための補助としてこのパラメータを送ってもよい（MAY）。
+              サーバが与えられたヒントを使っているトークンが特定できない場合、サポートしているトークンタイプ全てにおける検索を施さなければならない（MUST）。
+              認可サーバが自動的にトークンタイプをみつけることができるならば、このパラメータを無視してもよい（MAY）。
+              この仕様は2つの値を定義している：
+
+<ul class="text">
+<li>access_token： Section 1.4 の <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> にアクセストークンとして定義されている。
+
+</li>
+<li>refresh_token： Section 1.5 の <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> にリフレッシュトークンとして定義されている。
+
+</li>
+</ul>
+              特定の実装、プロファイル、この仕様の拡張機能は <a class='info' href='#hint-reg'>Section&nbsp;5.1.2<span> (</span><span class='info'>OAuth Token Type Hint Registry</span><span>)</span></a> で定義されているレジストリを利用してこのパラメータの他の値を定義してもよい（MAY）。
+
+</dd>
+</dl></blockquote>
+
+<p>
+          クライアントは <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> の Section 2.3 に説明されている認証クレデンシャルも含んでもよい。
+
+</p>
+<p>
+          例えば、クライアントは以下のようなリクエストでリフレッシュトークンの無効化を要求してもよい。
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  POST /revoke HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+  Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+
+  token=45ghiukldjahdnhzdauz&amp;token_type_hint=refresh_token</pre></div>
+<p>
+          認可サーバは始めに（非公開なクライアントの場合）クライアントクレデンシャルの有効性を確認してから無効化を要求したクライアントに発行されたトークンかどうかを検証する。
+          この有効性の確認に失敗した場合、そのリクエストは拒否され、そのクライアントは後述の認可サーバによってエラーが通知される。
+
+</p>
+<p>
+          次に、認可サーバはそのトークを無効にする。その無効はただちにおこなわれ、そのトークンは無効化後は再び利用できなくなる。
+          実際には、例えば、数台のサーバがその無効化について認知しているが、他のサーバが認知してない間、実際には通信遅延してもよい。
+          実装者は受け口を最小限にすべきであり、クライアントはサーバから HTTP 200 レスポンスの受信後にトークンを利用しようとしてはいけない。
+
+</p>
+<p>
+          認可サーバの無効化ポリシーによって、特定のトークンの無効化は関連したトークンとその元となる認可の無効化を行ってもよい。
+          特定のトークンがリフレッシュトークンで認可サーバがアクセストークンの無効化をサポートする場合には、認可サーバはその同じ認可のもととなる全てのアクセストークンを無効にすべきでる（SHOULD）（ <a class='info' href='#impl'>Implementation Note<span> (</span><span class='info'>Implementation Note</span><span>)</span></a> を参照）。
+          要求を満たしたトークンがアクセストークンであった場合には、サーバは同様に各リフレッシュトークンを無効化してもよい（MAY）。
+
+</p>
+<p>
+          参考：<a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> に遵守したクライアントは随時予期せぬトークンの無効化を扱うための準備をしなければならない。
+          このドキュメントに明記されている無効化の仕組みとは別に、リソースオーナーは認可を無効化してもよく、あるいは認可サーバはセキュリティ上の脅威を軽減するためにトークンを無効にしてもよい。
+          このようなトークンの無効化を段階的に行うことに関して異なるサーバポリシーを持つことによって互換性の問題を提起すべきではない。
+
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.2"></a><h3>3.2.&nbsp;
+Revocation Response</h3>
+
+<p>
+          トークンが正常に無効化されるもしくはクライアントが無効なトークンを送信した場合、認可サーバは HTTP ステータスコード 200 を返却する。
+
+</p>
+<p>
+          参考：エラーを返してもクライアントは特に適切はエラー処理はできないため、無効なトークンが送られてきてもエラーレスポンスを返してはいけない。
+          さらに、無効化リクエストの目的は、当該トークンが無効であれば、成功しているといえる。
+
+</p>
+<p>
+          レスポンスコードが必要な情報を全て示しているため、クライアントはレスポンスボディーの内容を無視すること。
+
+</p>
+<p>
+          無効なトークンタイプのヒントの値は認可サーバによって無視され、無効化レポンスに影響してはいけない。
+
+</p>
+<a name="anchor4"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.2.1"></a><h3>3.2.1.&nbsp;
+Error Response</h3>
+
+<p>
+            エラーの説明は <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> の Section 5.2 の定義に従う。
+            以下の追加エラーコードはトークン無効化エンドポイントのために定義されている。
+            </p>
+<blockquote class="text"><dl>
+<dt>unsupported_token_type</dt>
+<dd>: 認可サーバは提示されたトークンタイプの無効化はサポートしてはいけない。
+                 つまり、クライアントはこの機能をサポートしていないサーバ上でアクセストークンの無効化を試したということである。
+
+</dd>
+</dl></blockquote><p>
+
+</p>
+<p>
+            サーバが HTTP ステータスコード 503 で応答した場合、クライアントはそのトークンがまだ存在しているとみなし、適切な遅延の後再び試してもよい。
+            サーバは、サービスがどのくらいの間利用できないと想定されているかを示す "Retry-After" ヘッダーを含んでもよい。
+
+</p>
+<a name="cross-orgin"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
+Cross-Origin Support</h3>
+
+<p>
+          ユーザエージェントベースアプリケーションとの組み合わせで使用することを目的とする場合、無効化エンドポイントは <a class='info' href='#W3C.WD-cors-20120403'>Cross-Origin Resource Sharing(CORS)<span> (</span><span class='info'>Kesteren, A., &ldquo;Cross-Origin Resource Sharing,&rdquo; April&nbsp;2012.</span><span>)</span></a> をサポートしてもよい。（MAY）。
+
+</p>
+<p>
+          加えて、レガシーなユーザエージェントとの互換性のために、以下のパラメータをつかった GET リクエストを許可することによって <a class='info' href='#jsonp'>JSONP<span> (</span><span class='info'>Ippolito, B., &ldquo;Remote JSON - JSONP,&rdquo; December&nbsp;2005.</span><span>)</span></a> をサポートしてもよい（MAY）:
+          </p>
+<blockquote class="text"><dl>
+<dt>callback</dt>
+<dd>任意である（OPTIONAL）。JavaScript 関数の修飾名。
+</dd>
+</dl></blockquote><p>
+
+</p>
+<p>
+          例えば、クライアントは以下のリクエスト（改行は表記のためである）でアクセストークンの無効化をリクエストできる:
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  https://example.com/revoke?token=agabcdefddddafdd&amp;
+  callback=package.myCallback
+</pre></div>
+<p>Successful response:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  package.myCallback();
+</pre></div>
+<p>Error response:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  package.myCallback({"error":"unsupported_token_type"});
+</pre></div>
+<p>
+          クライアントは、JSONP を利用する場合、悪意のある無効化エンドポイントがクライアントへ悪意あるコードの注入を試みるかもしれないということを認識すべきである。
+
+</p>
+<a name="impl"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+Implementation Note</h3>
+
+<p>
+        OAuth 2.0 はアクセストークンの形式を柔軟に実装可能にしている。
+        アクセストークンは、リソースサーバが認可サーバとのインタラクションなしにトークンの有効性を検証できるよう、self-contained であってもよい。
+        また、アクセストークンを参照 (handle) として、アクセストークンに紐づく認可情報を認可サーバーに問い合わせるように設計することもできる。
+        この結果リソースサーバは、クライアントがアクセストークンを提供するたびにアクセストークンの内容を取り出すためそれぞれの認可サーバへのリクエストを発行する必要がある。
+
+</p>
+<p>
+        選択肢はこれらに限ったものではないが、この2つの違いはトークン無効化の仕組みにも影響する。
+        後者の場合、認可サーバは、リソースサーバが当該トークンを認可サーバに問い合わせたタイミングで、発行済トークンが無効であることを伝えることができる。
+        前者はの場合、即時のアクセストークンの無効化が望まれるとき、認可サーバとリソースサーバとの間でいくつかの（現在は標準化されていない）エンドポイントのインタラクションが使用されるかもしれない。
+        また、そういったインタラクションを行う代わりに、有効期限の短いアクセストークンを発行し、適宜リフレッシュトークンを用いてリフレッシュさせるようにすることもできる。
+        そうすることで、認可サーバはトークンが無効化された際に発行済アクセストークンの残り有効期限が切れた時点でトークン無効化を完了することができるようになる。
+
+</p>
+<p>
+        どういったトークン無効化手法を採用するかは、全体のシステム設計とアプリケーションサーバ提供者のリスク分析に依存するだろう。
+        ステート管理とコミュニケーションオーバーヘッドといったトークン無効化にかかるコストは、結局のところ必要なセキュリティプロパティの結果である。
+
+</p>
+<a name="IANA"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+IANA Considerations</h3>
+
+<p>この仕様は "OAuth Extensions Error Registry" にエラー値を登録し、 "OAuth Token Type Hints" レジストリを確立する。
+</p>
+<a name="anchor5"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+OAuth Extensions Error Registration</h3>
+
+<p>この仕様は <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> に定義されている "OAuth Extensions Error Registry" に以下のエラー値を登録する。
+</p>
+<a name="anchor6"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.1"></a><h3>5.1.1.&nbsp;
+The &quot;unsupported_token_type&quot; Error Value</h3>
+
+<p></p>
+<blockquote class="text"><dl>
+<dt>Error name</dt>
+<dd>: unsupported_token_type
+</dd>
+<dt>Error Usage Location</dt>
+<dd>: Revocation エンドポイントエラーレスポンス
+</dd>
+<dt>Related Protocol Extension</dt>
+<dd>: Token Revocation エンドポイント
+</dd>
+<dt>Change controller</dt>
+<dd>: IETF
+</dd>
+<dt>Specification document(s)</dt>
+<dd>[RFC7009]
+</dd>
+</dl></blockquote>
+
+<a name="hint-reg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2"></a><h3>5.1.2.&nbsp;
+OAuth Token Type Hint Registry</h3>
+
+<p>この仕様は "OAuth Token Type Hints" レジストリを確立する。 パラメーター "token_type_hint" (Section 2.1 を参照) の値の候補は 1名以上の Designated Experts の勧告に従い、 oauth-ext-review@ietf.org のメーリングリストで2週間の審査を経て、 Specification Required <a class='info' href='#RFC5226'>[RFC5226]<span> (</span><span class='info'>Narten, T. and H. Alvestrand, &ldquo;Guidelines for Writing an IANA Considerations Section in RFCs,&rdquo; May&nbsp;2008.</span><span>)</span></a> な状態で登録される。しかしながら、発行に先立ってそれらの値を用いることができるように、Designated Experts はそれらの値が公開できる状態になった時点で登録を許可することもありうる。登録要請は審査とコメントのために、適切な件名 (例: "Request for parameter: example") で oauth-ext-review@ietf.org メーリングリストに通知しなければならない。審査期間内に、 Designated Expert(s) は登録を承認または拒否し、レビューが行われるメーリングリストおよび IANA へその決定を告げる。要請が拒否された場合は、その理由が通知され、可能な場合は承認に向けた提案が行われるべきである。 IANA は Designated Expert(s) からのレジストリ更新のみを受け付けなければならず、すべての登録要請をレビューメーリングリストに送信しなければならない。
+</p>
+<a name="anchor7"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2.1"></a><h3>5.1.2.1.&nbsp;
+Registration Template</h3>
+
+<p></p>
+<blockquote class="text"><dl>
+<dt>Hint Value:</dt>
+<dd>追加する値、認可サーバーへ信頼のあるトークンタイプを指し示すために使用できる。
+</dd>
+<dt>Change controller:</dt>
+<dd>Standards Track RFCs に従う際には、 "IETF" と記載する。それ以外の場合には、責任ある団体の名称を記載する。その他の詳細 (例えば, 郵便番号, メールアドレス, ホームページの URL) も記載してもよい。
+</dd>
+<dt>Specification document(s):</dt>
+<dd>タイプ仕様を記載したドキュメントへの参照を記載する。ドキュメントを取得することのできる URI が記載されていることがことが望ましい。明確な記載箇所への参照が含まれることが望ましいが必須ではない。
+</dd>
+</dl></blockquote>
+
+<a name="anchor8"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1.2.2"></a><h3>5.1.2.2.&nbsp;
+Initial Registry Contents</h3>
+
+<p>OAuth Token Type Hint レジストリの初期の項目は以下の通りである。
+</p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
+<col align="center"><col align="center"><col align="center">
+<tr><th align="center">Hint Value</th><th align="center">Change Controller</th><th align="center">Reference</th></tr>
+<tr>
+<td align="center">access_token</td>
+<td align="center">IETF</td>
+<td align="center">[RFC7009]</td>
+</tr>
+<tr>
+<td align="center">refresh_token</td>
+<td align="center">IETF</td>
+<td align="center">[RFC7009]</td>
+</tr>
+</table>
+<br clear="all" />
+
+<p>Table 1: OAuth Token Type Hints initial registry contents
+</p>
+<a name="Security"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+Security Considerations</h3>
+
+<p>認可サーバーがアクセストークンの無効化をサポートしない場合、関連するリフレッシュトークンを無効化してもアクセストークンは直ちに無効化されないであろう。それらのセキュリティリスクの分析を行う際、実装はこのことを考慮しなければならない。
+</p>
+<p>トークンを適切に無効化すると、不要になったトークンの乱用の可能性を低減させ、全般的なセキュリティとプライバシーの向上につながる。一般的にこの仕様は、トークンの窃取と乱用に対する対策を提供するわけではない。それぞれの脅威と対策の議論について、 OAuth core specification <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> の Section 10 と OAuth threat model document <a class='info' href='#RFC6819'>[RFC6819]<span> (</span><span class='info'>Lodderstedt, T., Ed., McGloin, M., and P. Hunt, &ldquo;OAuth 2.0 Threat Model and Security Considerations,&rdquo; January&nbsp;2013.</span><span>)</span></a> で与えられているセキュリティ考慮事項を参照すること。
+</p>
+<p>悪意のあるクライアントは認可サーバー上で DoS 攻撃を目的としてこの新しいエンドポイントを使用する可能性がある。DoS 攻撃に対する適切な対策 (これはトークンエンドポイントにも適用されるべき (SHOULD) であり) が、無効化エンドポイントに適用されなければいけない (MUST) (<a class='info' href='#RFC6819'>[RFC6819]<span> (</span><span class='info'>Lodderstedt, T., Ed., McGloin, M., and P. Hunt, &ldquo;OAuth 2.0 Threat Model and Security Considerations,&rdquo; January&nbsp;2013.</span><span>)</span></a> の Section 4.4.1.11 を参照) 。特に、無効なトークンタイプのヒントは認可サーバーを誤認させ、余計なデータベース検索を引き起こす。悪意のあるクライアントが DoS 攻撃を起動するためにこの機能を使用することを防がなければならない。(MUST)
+</p>
+<p>悪意のあるクライアントは任意のトークン文字列に対して無効化を要求することによって、このエンドポイントで有効なトークンを推測しようとするかもしれない。この仕様によると、パブリッククライアントの場合、クライアントは有効な client_id を、あるいはコンフィデンシャルクライアントの場合、有効なクライアントクレデンシャルを含まなければいけない。また、無効化されているトークンは要求しているクライアントに属していなければならない。攻撃者が公開されているクライアントの client_id とそれらのトークンのひとつ、あるいは非公開のクライアントクレデンシャルとそれらのトークンのひとつを正常に推測できる場合、トークンを無効化することより他の場所でトークンを使用することによってはるかに悪い損害を与える可能性がある。彼らがトークンを無効化する選択をする場合、正当なクライアントはその認可を失い、ユーザー認証を再び必要とするだろう。それ以上の損害は行われず、推測されたトークンはその時点で価値はない。
+</p>
+<p>無効化エンドポイントはセキュリティクレデンシャルを取り扱っているため、クライアントは信頼できるリソースのみから位置を取得する必要がある。そうしなければ、攻撃者が偽の無効化エンドポイントを利用することによって有効なセキュリティトークンを読み取れてしまう。さらに、偽の無効化エンドポイントを見つけるために、クライアントはその無効化エンドポイントを認証しなければならない (証明書の検証など) 。
+</p>
+<a name="Acknowledgements"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+Acknowledgements</h3>
+
+<p>We would like to thank Peter Mauritius, Amanda Anganes, Mark Wubben,
+      Hannes Tschofenig, Michiel de Jong, Doug Foiles, Paul Madsen, George
+      Fletcher, Sebastian Ebling, Christian St&uuml;bner, Brian Campbell, Igor
+      Faynberg, Lukas Rosenstock, and Justin Richer for their valuable
+      feedback.
+</p>
+<a name="Translator"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+翻訳者</h3>
+
+<p>
+        本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
+        質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
+
+</p>
+<p>
+        </p>
+<ul class="text">
+<li>
+            Masaru Kurahayashi (Yahoo! Japan)
+
+</li>
+<li>
+            Nov Matake (YAuth.jp)
+
+</li>
+</ul><p>
+
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text">Bradner, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, DOI&nbsp;10.17487/RFC2119, March&nbsp;1997.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5226">[RFC5226]</a></td>
+<td class="author-text">Narten, T. and H. Alvestrand, &ldquo;<a href="http://www.rfc-editor.org/info/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>,&rdquo; BCP&nbsp;26, RFC&nbsp;5226, DOI&nbsp;10.17487/RFC5226, May&nbsp;2008.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
+<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://www.rfc-editor.org/info/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, DOI&nbsp;10.17487/RFC5246, August&nbsp;2008.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6749">[RFC6749]</a></td>
+<td class="author-text">Hardt, D., Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc6749">The OAuth 2.0 Authorization Framework</a>,&rdquo; RFC&nbsp;6749, DOI&nbsp;10.17487/RFC6749, October&nbsp;2012.</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.2.&nbsp;Informative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC6819">[RFC6819]</a></td>
+<td class="author-text">Lodderstedt, T., Ed., McGloin, M., and P. Hunt, &ldquo;<a href="http://www.rfc-editor.org/info/rfc6819">OAuth 2.0 Threat Model and Security Considerations</a>,&rdquo; RFC&nbsp;6819, DOI&nbsp;10.17487/RFC6819, January&nbsp;2013.</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.WD-cors-20120403">[W3C.WD-cors-20120403]</a></td>
+<td class="author-text">Kesteren, A., &ldquo;<a href="http://www.w3.org/TR/2012/WD-cors-20120403">Cross-Origin Resource Sharing</a>,&rdquo; World Wide Web Consortium LastCall&nbsp;WD-cors-20120403, April&nbsp;2012 (<a href="http://www.w3.org/TR/2012/WD-cors-20120403">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="jsonp">[jsonp]</a></td>
+<td class="author-text">Ippolito, B., &ldquo;<a href="http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp">Remote JSON - JSONP</a>,&rdquo; December&nbsp;2005 (<a href="http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp">HTML</a>).</td></tr>
+</table>
+
+<a name="rfc.references3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.3.&nbsp;翻訳プロジェクト</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="oidfj">[oidfj]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://www.openid.or.jp/">OpenIDファウンデーションジャパン</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-github">[oidfj-github]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="https://github.com/openid-foundation-japan">Githubレポジトリー</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-trans">[oidfj-trans]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://openid-foundation-japan.github.com/">翻訳・教育ワーキンググループ</a>.&rdquo;</td></tr>
+</table>
+
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Authors' Addresses</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Torsten Lodderstedt (editor)</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Deutsche Telekom AG</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:torsten@lodderstedt.net">torsten@lodderstedt.net</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Stefanie Dronia</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:sdronia@gmx.de">sdronia@gmx.de</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Marius Scurtescu</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Google</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:mscurtescu@google.com">mscurtescu@google.com</a></td></tr>
+</table>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15411889-1', 'github.com');
+  ga('send', 'pageview');
+
+</script>
+</body></html>

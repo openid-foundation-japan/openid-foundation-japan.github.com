@@ -1,0 +1,2918 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>JSON Web Key (JWK)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="JSON Web Key (JWK)">
+<meta name="keywords" content="JavaScript Object Notation, JSON, JSON Object Signing and Encryption, JOSE, JSON Web Signature, JWS, JSON Web Encryption, JWE, JSON Web Key, JWK, JSON Web Algorithms, JWA">
+<meta name="generator" content="xml2rfc v1.37pre1 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+
+<table border="0" cellpadding="0" cellspacing="2" width="30" align="right">
+    <tr>
+        <td class="RFCbug">
+                <span class="RFC">&nbsp;RFC&nbsp;</span><br /><span class="hotText">&nbsp;7517&nbsp;</span>
+        </td>
+    </tr>
+    <tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a><br /></td></tr>
+</table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">Internet Engineering Task Force (IETF)</td><td class="header">M. Jones</td></tr>
+<tr><td class="header">Request for Comments: 7517</td><td class="header">Microsoft</td></tr>
+<tr><td class="header">Category: Standards Track</td><td class="header">May 2015</td></tr>
+<tr><td class="header">ISSN: 2070-1721</td><td class="header">&nbsp;</td></tr>
+</table></td></tr></table>
+<h1><br />JSON Web Key (JWK)</h1>
+
+<h3>Abstract</h3>
+
+<p>
+        JSON Web Key (JWK)　とは, 暗号鍵を表現するための Javascript Object Notation (JSON) データ構造である.
+        本仕様では, 複数の JWK のセットである JWK Set JSON データ構造も定義する.
+        本仕様で用いる暗号アルゴリズムおよびその識別子は, 別途 JSON Web Algorithms (JWA) 仕様に記載されており, JWA 仕様にて IANA レジストリが設立されている.
+
+
+</p>
+<h3>Status of This Memo</h3>
+<p>
+This is an Internet Standards Track document.</p>
+<p>
+This document is a product of the Internet Engineering Task Force (IETF). It represents the consensus of the IETF community. It has received public review and has been approved for publication by the Internet Engineering Steering Group (IESG). Further information on Internet Standards is available in Section 2 of RFC 5741.</p>
+<p>
+Information about the current status of this document, any errata, and how to provide feedback on it may be obtained at http://www.rfc-editor.org/info/rfc7517.</p>
+
+<h3>Copyright Notice</h3>
+<p>
+Copyright (c) 2015 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<a name="toc"></a><hr />
+
+<table border="0" cellpadding="0" cellspacing="2" width="30" align="right">
+    <tr>
+        <td class="RFCbug">
+                <span class="RFC">&nbsp;RFC&nbsp;</span><br /><span class="hotText">&nbsp;7517&nbsp;</span>
+        </td>
+    </tr>
+    <tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a><br /></td></tr>
+</table>
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#Introduction">1.</a>&nbsp;
+Introduction<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#NotationalConventions">1.1.</a>&nbsp;
+Notational Conventions<br />
+<a href="#Terminology">2.</a>&nbsp;
+Terminology<br />
+<a href="#ExampleJWK">3.</a>&nbsp;
+Example JWK<br />
+<a href="#JWKFormat">4.</a>&nbsp;
+JSON Web Key (JWK) Format<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ktyDef">4.1.</a>&nbsp;
+"kty" (Key Type) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#useDef">4.2.</a>&nbsp;
+"use" (Public Key Use) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#key_opsDef">4.3.</a>&nbsp;
+"key_ops" (Key Operations) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#algDef">4.4.</a>&nbsp;
+"alg" (Algorithm) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#kidDef">4.5.</a>&nbsp;
+"kid" (Key ID) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#x5uDef">4.6.</a>&nbsp;
+"x5u" (X.509 URL) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#x5cDef">4.7.</a>&nbsp;
+"x5c" (X.509 Certificate Chain) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#x5tDef">4.8.</a>&nbsp;
+"x5t" (X.509 Certificate SHA-1 Thumbprint) Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#x5tS256Def">4.9.</a>&nbsp;
+"x5t#S256" (X.509 Certificate SHA-256 Thumbprint) Parameter<br />
+<a href="#JWKSet">5.</a>&nbsp;
+JWK Set Format<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#keysDef">5.1.</a>&nbsp;
+"keys" Parameter<br />
+<a href="#StringComparison">6.</a>&nbsp;
+String Comparison Rules<br />
+<a href="#EncryptedJWK">7.</a>&nbsp;
+Encrypted JWK and Encrypted JWK Set Formats<br />
+<a href="#IANA">8.</a>&nbsp;
+IANA Considerations<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#JWKParamReg">8.1.</a>&nbsp;
+JSON Web Key Parameters Registry<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#JWKTemplate">8.1.1.</a>&nbsp;
+Registration Template<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#JWKContents">8.1.2.</a>&nbsp;
+Initial Registry Contents<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#UseReg">8.2.</a>&nbsp;
+JSON Web Key Use Registry<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#UseTemplate">8.2.1.</a>&nbsp;
+Registration Template<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#UseContents">8.2.2.</a>&nbsp;
+Initial Registry Contents<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#KeyOpsReg">8.3.</a>&nbsp;
+JSON Web Key Operations Registry<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#KeyOpsTemplate">8.3.1.</a>&nbsp;
+Registration Template<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#KeyOpsContents">8.3.2.</a>&nbsp;
+Initial Registry Contents<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#JWKSetParamReg">8.4.</a>&nbsp;
+JSON Web Key Set Parameters Registry<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#SetTemplate">8.4.1.</a>&nbsp;
+Registration Template<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#SetContents">8.4.2.</a>&nbsp;
+Initial Registry Contents<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MediaReg">8.5.</a>&nbsp;
+Media Type Registration<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#MediaContents">8.5.1.</a>&nbsp;
+Registry Contents<br />
+<a href="#Security">9.</a>&nbsp;
+Security Considerations<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#KeyTrust">9.1.</a>&nbsp;
+Key Provenance and Trust<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PreventingDisclosure">9.2.</a>&nbsp;
+Preventing Disclosure of Non-public Key Information<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#RSABlinding">9.3.</a>&nbsp;
+RSA Private Key Representations and Blinding<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#KeyEntropy">9.4.</a>&nbsp;
+Key Entropy and Random Values<br />
+<a href="#rfc.references1">10.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">10.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">10.2.</a>&nbsp;
+Informative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references3">10.3.</a>&nbsp;
+翻訳プロジェクト<br />
+<a href="#ExampleJWKSets">Appendix&nbsp;A.</a>&nbsp;
+Example JSON Web Key Sets<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PublicExample">A.1.</a>&nbsp;
+Example Public Keys<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PrivateExample">A.2.</a>&nbsp;
+Example Private Keys<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#SymmetricExample">A.3.</a>&nbsp;
+Example Symmetric Keys<br />
+<a href="#x5cExample">Appendix&nbsp;B.</a>&nbsp;
+Example Use of "x5c" (X.509 Certificate Chain) Parameter<br />
+<a href="#example-encrypted-jwk">Appendix&nbsp;C.</a>&nbsp;
+Example Encrypted RSA Private Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-plaintext">C.1.</a>&nbsp;
+Plaintext RSA Private Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-header">C.2.</a>&nbsp;
+JOSE Header<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-cek">C.3.</a>&nbsp;
+Content Encryption Key (CEK)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-keyderivation">C.4.</a>&nbsp;
+Key Derivation<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-keyencrypt">C.5.</a>&nbsp;
+Key Encryption<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-iv">C.6.</a>&nbsp;
+Initialization Vector<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-adata">C.7.</a>&nbsp;
+Additional Authenticated Data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-contentencrypt">C.8.</a>&nbsp;
+Content Encryption<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#example-privkey-complete">C.9.</a>&nbsp;
+Complete Representation<br />
+<a href="#Acknowledgements">Appendix&nbsp;D.</a>&nbsp;
+Acknowledgements<br />
+<a href="#Translator">Appendix&nbsp;E.</a>&nbsp;
+翻訳者<br />
+</p>
+<br clear="all" />
+
+<a name="Introduction"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+Introduction</h3>
+
+<p>
+        JSON Web Key (JWK)　とは, 暗号鍵を表現するための Javascript Object Notation (JSON) <a class='info' href='#RFC7159'>[RFC7159]<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The JavaScript Object Notation (JSON) Data Interchange Format,&rdquo; March&nbsp;2014.</span><span>)</span></a> データ構造である.
+        本仕様では, 複数の JWK のセットである JWK Set JSON データ構造も定義する.
+        本仕様で用いる暗号アルゴリズムおよびその識別子は, 別途 JSON Web Algorithms (JWA) <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> 仕様に記載されており, JWA 仕様にて IANA レジストリが設立されている.
+
+
+</p>
+<p>
+        本仕様の目的は, 新種の Certificate Chain や　Certified Key を表現することではなく, X.509 Certificate を置き換えるものでもない.
+
+
+</p>
+<p>
+        JWK および JWK Set は, JSON Web Signature <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> や JSON Web Encryption <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M. and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; May&nbsp;2015.</span><span>)</span></a> といった仕様の中で用いられるものである.
+
+
+</p>
+<p>
+        本仕様で定義される名称等は, 短縮された形式のものがおおい.
+        これにはデータをなるべくコンパクトにするという目的がある.
+
+
+</p>
+<a name="NotationalConventions"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1.1"></a><h3>1.1.&nbsp;
+Notational Conventions</h3>
+
+<p>
+          本仕様で用いられる各キーワード「MUST (しなければならない)」, 「MUST NOT (してはならない)」, 「REQUIRED (必須である)」, 「SHALL (するものとする)」, 「SHALL NOT (しないものとする)」, 「SHOULD (すべきである)」, 「SHOULD NOT (すべきではない)」, 「RECOMMENDED (推奨される)」, 「MAY (してもよい)」, 「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> で述べられている通りに解釈されるべきものである.
+
+
+</p>
+<p>
+          BASE64URL (OCTETS) は, <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> の Section 2 に定義される通り, OCTETS の Base64url エンコーディングを意味する.
+
+
+</p>
+<p>
+          UTF8 (STRING) は STRING の UTF-8 <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a> 表現を意味する.
+          ここでは　STRING はゼロ以上の Unicode <a class='info' href='#UNICODE'>[UNICODE]<span> (</span><span class='info'>The Unicode Consortium, &ldquo;The Unicode Standard,&rdquo; .</span><span>)</span></a> 文字の配列である.
+
+
+</p>
+<p>
+          ASCII (STRING) は STRING の ASCII <a class='info' href='#RFC20'>[RFC20]<span> (</span><span class='info'>Cerf, V., &ldquo;ASCII format for Network Interchange,&rdquo; October&nbsp;1969.</span><span>)</span></a> 表現を意味する.
+          ここでは　STRING はゼロ以上の ASCII 文字の配列である.
+
+
+</p>
+<p>
+          2つの値 A と B の連結は, A&nbsp;||&nbsp;B と表現する.
+
+
+</p>
+<a name="Terminology"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+Terminology</h3>
+
+<p>
+        "JSON Web Signature (JWS)",
+        "Base64url Encoding",
+        "Collision-Resistant Name",
+        "Header Parameter",
+        および "JOSE Header" という各用語は,
+        JWS 仕様 <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> で定義されている.
+
+
+</p>
+<p>
+        "JSON Web Encryption (JWE)",
+        "Additional Authenticated Data (AAD)",
+        "JWE Authentication Tag",
+        "JWE Ciphertext",
+        "JWE Compact Serialization",
+        "JWE Encrypted Key",
+        "JWE Initialization Vector",
+        および "JWE Protected Header" という各用語は,
+        JWE 仕様 <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M. and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; May&nbsp;2015.</span><span>)</span></a> で定義されている.
+
+
+</p>
+<p>
+        "Ciphertext",
+        "Digital Signature",
+        "Message Authentication Code (MAC)",
+        および "Plaintext" という各用語は,
+        <a class='info' href='#RFC4949'>"Internet Security Glossary, Version 2"<span> (</span><span class='info'>Shirey, R., &ldquo;Internet Security Glossary, Version 2,&rdquo; August&nbsp;2007.</span><span>)</span></a> [RFC4949] で定義されている.
+
+
+</p>
+<p>
+        本仕様では以下の用語を定義する.
+
+
+</p>
+<p>
+        </p>
+<blockquote class="text"><dl>
+<dt>JSON Web Key (JWK)</dt>
+<dd>
+
+            暗号鍵を表現する JSON オブジェクト.
+            このオブジェクトの各要素は, 鍵の各プロパティを表現する.
+
+
+</dd>
+<dt>JWK Set</dt>
+<dd>
+
+            1セットの JWK の集合を表現する JSON オブジェクト.
+            この JSON オブジェクトは必ず <tt>keys</tt> という要素を含み (MUST), その要素は JWK の配列となる.
+
+
+</dd>
+</dl></blockquote><p>
+
+</p>
+<a name="ExampleJWK"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+Example JWK</h3>
+
+<p>
+        本 Section では JWK の例を示す.
+        以下の JWK サンプルは, P-256 Elliptic Curve の Elliptic Curve　<a class='info' href='#DSS'>[DSS]<span> (</span><span class='info'>National Institute of Standards and             Technology (NIST), &ldquo;Digital Signature Standard (DSS),&rdquo; July&nbsp;2013.</span><span>)</span></a> 鍵を示し, x 座標と y 座標はそれぞれ base64url エンコードされている.
+        またこの鍵自身の識別子 (kid) も含まれる.
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"kty":"EC",
+   "crv":"P-256",
+   "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
+   "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
+   "kid":"Public key used in JWS spec Appendix A.3 example"
+  }
+</pre></div>
+<p>
+        他にも <a class='info' href='#ExampleJWKSets'>Appendix&nbsp;A<span> (</span><span class='info'>Example JSON Web Key Sets</span><span>)</span></a> に JWK サンプルが示されている.
+
+
+</p>
+<a name="JWKFormat"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+JSON Web Key (JWK) Format</h3>
+
+<p>
+        JWK は暗号鍵を表現する JSON オブジェクトである.
+        JWK の要素は鍵のプロパティを表現する.
+        この JSON オブジェクトは, <a class='info' href='#RFC7159'>RFC 7159<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The JavaScript Object Notation (JSON) Data Interchange Format,&rdquo; March&nbsp;2014.</span><span>)</span></a> [RFC7159] の Section 2 に従って, 任意の JSON バリューや構造文字の前後に空白スペースや改行を含むことができる.
+        本仕様では, 暗号化アルゴリズムに依存しない鍵パラメータを定義する.
+
+
+</p>
+<p>
+        共通パラメータに加え, JWK は鍵タイプ固有の要素を含む.
+        これらの要素は鍵のパラメータを示す.
+        JSON Web Algorithm (JWA) <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> 仕様の Section 6 では, 複数種類の暗号鍵およびそれに紐付いた要素を定義する.
+
+
+</p>
+<p>
+        JWK の要素名はユニークでなければならない (MUST).
+        JWK パーサーは要素名の重複をリジェクトするか, ECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a> Section 15.12 (The JSON Object) に従い辞書順で最後の重複要素名のみを返す JSON パーサーを利用しなければならない (MUST).
+
+
+</p>
+<p>
+        JSK にはその他の要素も含むことができる.
+        もし JWK 実装が理解できない要素に出くわした場合は, その要素を無視する事 (MUST).
+        異なる鍵タイプの鍵パラメータを示す要素名は, 重複を許す.
+        新しい要素名は, <a class='info' href='#JWKParamReg'>Section&nbsp;8.1<span> (</span><span class='info'>JSON Web Key Parameters Registry</span><span>)</span></a> により設立される IANA "JSON Web Key Parameters" レジストリに登録するか, Collision-Resistant Name を含むようにすること.
+
+
+</p>
+<a name="ktyDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1"></a><h3>4.1.&nbsp;
+"kty" (Key Type) Parameter</h3>
+
+<p>
+          <tt>kty</tt> (key type) パラメータは, <tt>RSA</tt> や <tt>EC</tt> といった暗号アルゴリズムファミリーを示す.
+          <tt>kty</tt> 値は, <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> で設立される IANA "JSON Web Key Types" レジストリに登録するか, Collision-Resistant Name を含むようにすること.
+          <tt>kty</tt> 値は大文字小文字を区別する.
+          JWK はこの要素を含まなければならない (MUST).
+
+
+</p>
+<p>
+          定義済みの <tt>kty</tt> 値は, <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> で設立される IANA "JSON Web Key Types" レジストリに登録されている.
+          当該レジストリの初期登録値は <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> Section 6.1 にある.
+
+
+</p>
+<p>
+          鍵タイプの定義はその鍵タイプで用いられる要素の定義も含む.
+          特定の <tt>kty</tt> に紐づく要素は, <a class='info' href='#JWKParamReg'>Section&nbsp;8.1<span> (</span><span class='info'>JSON Web Key Parameters Registry</span><span>)</span></a> で設立する IANA "JSON Web Key Parameters" レジストリに登録されている.
+
+
+</p>
+<a name="useDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.2"></a><h3>4.2.&nbsp;
+"use" (Public Key Use) Parameter</h3>
+
+<p>
+          <tt>use</tt> (public key use) パラメータは当該公開鍵の用途を示す.
+          <tt>use</tt> パラメータは, その鍵が暗号化目的で提供されるのか, 署名検証目的で提供されるのかを示すために利用される.
+
+
+</p>
+<p>
+          本仕様で定義される値は以下の通りである.
+
+
+</p>
+<p>
+
+          </p>
+<ul class="text">
+<li><tt>sig</tt> (signature)
+</li>
+<li><tt>enc</tt> (encryption)
+</li>
+</ul><p>
+
+
+</p>
+<p>
+          上記以外の値も利用可能である (MAY).
+          <tt>use</tt> 値は大文字小文字を区別する文字列である.
+          <tt>use</tt> の利用は, アプリケーションが必須としない限りは OPTIONAL である.
+
+
+</p>
+<p>
+          ある鍵が他の鍵をラップするために用いられ, 最初の鍵に対する公開鍵用途の指定を行いたい場合は, <tt>enc</tt> (encryption) を指定すること.
+          鍵ラッピングは暗号化の一種である.
+          <tt>enc</tt> 値は鍵交換オペレーションのためにも利用可能である.
+
+
+</p>
+<p>
+          その他の <tt>use</tt> (public key use) 値も <a class='info' href='#UseReg'>Section&nbsp;8.2<span> (</span><span class='info'>JSON Web Key Use Registry</span><span>)</span></a> で設立する "JSON Web Key Use" レジストリに登録することができる.
+          本仕様をオープンな環境で利用する場合, そこで利用される拡張値の登録を強く推奨する.
+          そういった環境では, 複数の組織がそこで利用される拡張に対して共通理解を持つ事が重要である.
+          クローズドな環境では, 未登録な拡張値を利用してもよい.
+
+
+</p>
+<a name="key_opsDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.3"></a><h3>4.3.&nbsp;
+"key_ops" (Key Operations) Parameter</h3>
+
+<p>
+          <tt>key_ops</tt> (key operations) パラメータは鍵の利用が想定されるオペレーションを示す.
+          <tt>key_ops</tt> は, 公開鍵, 暗号鍵, 共通鍵のいずれのユースケースをも想定して定義されている.
+
+
+</p>
+<p>
+          この値は鍵オペレーションを示す値の配列である.
+          本仕様で定義される値は以下の通りである.
+
+
+</p>
+<p>
+
+          </p>
+<ul class="text">
+<li><tt>sign</tt> (compute digital signature or MAC)
+</li>
+<li><tt>verify</tt> (verify digital signature or MAC)
+</li>
+<li><tt>encrypt</tt> (encrypt content)
+</li>
+<li><tt>decrypt</tt> (decrypt content and validate decryption, if applicable)
+</li>
+<li><tt>wrapKey</tt> (encrypt key)
+</li>
+<li><tt>unwrapKey</tt> (decrypt key and validate decryption, if applicable)
+</li>
+<li><tt>deriveKey</tt> (derive key)
+</li>
+<li><tt>deriveBits</tt> (derive bits not to be used as a key)
+</li>
+</ul><p>
+
+
+</p>
+<p>
+          (注: <tt>key_ops</tt> 値は <a class='info' href='#W3C.CR-WebCryptoAPI-20141211'>Web Cryptography API<span> (</span><span class='info'>Sleevi, R. and M. Watson, &ldquo;Web Cryptography API,&rdquo; December&nbsp;2014.</span><span>)</span></a> [W3C.CR&#8209;WebCryptoAPI&#8209;20141211] 仕様で定義される <tt>KeyUsage</tt> 値と意図的に一致させてある.)
+
+
+</p>
+<p>
+          その他の値も利用可能である.
+          鍵オペレーション値は大文字小文字を区別する文字列である.
+          重複した鍵オペレーション値を同時に1つの配列に含めることはできない (MUST NOT).
+          <tt>key_ops</tt>　の利用は, アプリケーションが必須としない限りは OPTIONAL である.
+
+
+</p>
+<p>
+          関連性のない複数の鍵オペレーションを1つの鍵に指定することは推奨しない (SHOULD NOT).
+          そういった行為は, 同じ鍵を複数のアルゴリズムで利用することに起因する, 潜在的な脆弱性につながる.
+          <tt>sign</tt> と <tt>verify</tt>,
+          <tt>encrypt</tt> と <tt>decrypt</tt>,
+          <tt>wrapKey</tt> と <tt>unwrapKey</tt>
+          といった組み合わせは許容されるが, その他の組み合わせは推奨しない (SHOULD NOT).
+
+
+</p>
+<p>
+          その他の <tt>key_ops</tt> (key operations) 値も <a class='info' href='#KeyOpsReg'>Section&nbsp;8.3<span> (</span><span class='info'>JSON Web Key Operations Registry</span><span>)</span></a> で設立する IANA "JSON Web Key Operations" レジストリに登録することができる.
+          <tt>use</tt> のレジストリ登録時の考慮点を, <tt>key_ops</tt> のレジストリ登録時にも同様に考慮すること.
+
+
+</p>
+<p>
+          <tt>use</tt> と <tt>key_ops</tt> は同時に利用すべきではない (SHOULD NOT).
+          もし両者を同時に利用する場合は, 両者が矛盾しないようにすること.
+          どちらかの要素を利用する場合には, 当該アプリケーションでどちらが利用されるかをあらかじめ明示すべきである.
+
+
+</p>
+<a name="algDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.4"></a><h3>4.4.&nbsp;
+"alg" (Algorithm) Parameter</h3>
+
+<p>
+          <tt>alg</tt> (algorithm) パラメータはその鍵で利用されるアルゴリズムを示す.
+          この値は, <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> の設立する IANA "JSON Web Signature and Encryption Algorithms" レジストリに登録するか, Collision-Resistant Name を含めること.
+          <tt>alg</tt> 値は大文字小文字を区別する ASCII 文字列である.
+          この要素の利用は OPTIONAL である.
+
+
+</p>
+<a name="kidDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.5"></a><h3>4.5.&nbsp;
+"kid" (Key ID) Parameter</h3>
+
+<p>
+          <tt>kid</tt> (key ID) パラメータは特定の鍵を識別するために用いられる.
+          例えば, 鍵のロールオーバー時に JWK Set の中から必要な鍵を特定する, などの用途が考えられる.
+          <tt>kid</tt> 値の構造は未定義である.
+          <tt>kid</tt> を JWK Set 内で用いる場合, JWK Set 内の異なる鍵は異なる <tt>kid</tt> 値を持つべきである (SHOULD).
+          (異なる鍵が同じ <tt>kid</tt> 値を持つ例としては, <tt>kty</tt> (key type) は異なるが, アプリケーションからはそれらが互いに等価な代替手段であると考えられている場合などがあげられる.)
+          <tt>kid</tt> 値は大文字小文字を区別する文字列である.
+          この要素の利用は OPTIONAL である.
+
+
+</p>
+<p>
+          JWS や JWE とともに利用する場合, JWK の <tt>kid</tt> 値は JWS Header や JWE Header に含まれる <tt>kid</tt> 値と一致するようにすること.
+
+
+</p>
+<a name="x5uDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.6"></a><h3>4.6.&nbsp;
+"x5u" (X.509 URL) Parameter</h3>
+
+<p>
+          <tt>x5u</tt> (X.509 URL) パラメータは X.509 公開鍵証明書や証明書チェーン <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> といったリソースを指し示す URI <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> である.
+          当該リソースは <a class='info' href='#RFC5280'>RFC 5280<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> [RFC5280] を満たす PEM エンコード形式の証明書や証明書チェーンでなければならない (MUST).
+          各証明書は <a class='info' href='#RFC4945'>RFC 4945<span> (</span><span class='info'>Korver, B., &ldquo;The Internet IP Security PKI Profile of IKEv1/ISAKMP, IKEv2, and PKIX,&rdquo; August&nbsp;2007.</span><span>)</span></a> [RFC4945] Section 6.1 に従い区切ること.
+          先頭の証明書に含まれる鍵は当該 JWK の示す公開鍵と一致すること (MUST).
+          当該リソースは完全性が保護された状態で提供されなければならない (MUST).
+          当該証明書への HTTP GET リクエストは TLS <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a> の利用が必須である (MUST).
+          サーバー証明書の検証も <a class='info' href='#RFC6125'>RFC 6125<span> (</span><span class='info'>Saint-Andre, P. and J. Hodges, &ldquo;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS),&rdquo; March&nbsp;2011.</span><span>)</span></a> [RFC6125] Section 6 に従って行うこと (MUST).
+          この要素の利用は OPTIONAL である.
+
+
+</p>
+<p>
+          <tt>x5u</tt> を利用する場合, 鍵の利用用途やアルゴリズムなどの情報を示すその他の OPTIONAL な JWK 要素は必須ではないが, そういった要素を利用したほうが PKIX 証明書 <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> を扱わないアプリケーションに対する相互運用性向上につながるであろう.
+          そういったその他の要素を利用する場合は, その指し示すコンテンツは先頭の証明書の関連するフィールドと整合性を保つこと (MUST).
+          例えば <tt>use</tt> 要素を用いる場合, その値は証明書に含まれるその証明書の用途と一致しなければならない (MUST).
+          同様に <tt>alg</tt> 要素を用いる場合, その値は証明書に含まれるアルゴリズムと一致すること (MUST).
+
+
+</p>
+<a name="x5cDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.7"></a><h3>4.7.&nbsp;
+"x5c" (X.509 Certificate Chain) Parameter</h3>
+
+<p>
+          <tt>x5c</tt> (X.509 certificate chain) パラメータは, 1つ以上の PKIX 証明書 <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> からなるチェーンを示す.
+          証明書チェーンは証明書文字列の JSON 配列として表現される.
+          それぞれの証明書文字列は base64 エンコード (<a class='info' href='#RFC4648'>[RFC4648]<span> (</span><span class='info'>Josefsson, S., &ldquo;The Base16, Base32, and Base64 Data Encodings,&rdquo; October&nbsp;2006.</span><span>)</span></a> Section 4 参照, base64url エンコードではない) された DER 形式の <a class='info' href='#ITU.X690.1994'>[ITU.X690.1994]<span> (</span><span class='info'>International Telecommunications Union, &ldquo;Information Technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER),&rdquo; 1994.</span><span>)</span></a> PKIX 証明書である.
+          当該 JWK の鍵を含む PKIX 証明書は先頭の証明書でなければならない (MUST).
+          その後には証明書を続けることもでき (MAY), その場合, 各証明書はその一つ前の証明書を証明する.
+          先頭の証明書に含まれる鍵は当該 JWK の示す公開鍵と一致すること (MUST).
+          この要素の利用は OPTIONAL である.
+
+
+</p>
+<p>
+          <tt>x5u</tt> 同様, <tt>x5c</tt> とともに鍵用途やアルゴリズムといったその他の情報も同じ JWK に含める事ができる (MAY).
+          他の要素が含まれる場合, それらは先頭の証明書との整合性をとること.
+          詳細は <a class='info' href='#x5uDef'>Section&nbsp;4.6<span> (</span><span class='info'>&quot;x5u&quot; (X.509 URL) Parameter</span><span>)</span></a> の最後の一文を参照.
+
+
+</p>
+<a name="x5tDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.8"></a><h3>4.8.&nbsp;
+"x5t" (X.509 Certificate SHA-1 Thumbprint) Parameter</h3>
+
+<p>
+          <tt>x5t</tt> (X.509 certificate SHA-1 thumbprint) パラメータは, DER エンコードされた X.509 証明書 <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> の SHA-1 thumbprint (a.k.a. digest) の base64url エンコード値を示す.
+          証明書 thumbprint は証明書 fingerprint と呼ばれることもある.
+          当該証明書に含まれる鍵は当該 JWK の示す公開鍵と一致すること (MUST).
+          この要素の利用は OPTIONAL である.
+
+
+</p>
+<p>
+          <tt>x5u</tt> 同様, <tt>x5t</tt> とともに鍵用途やアルゴリズムといったその他の情報も同じ JWK に含める事ができる (MAY).
+          他の要素が含まれる場合, それらは当該証明書との整合性をとること.
+          詳細は <a class='info' href='#x5uDef'>Section&nbsp;4.6<span> (</span><span class='info'>&quot;x5u&quot; (X.509 URL) Parameter</span><span>)</span></a> の最後の一文を参照.
+
+
+</p>
+<a name="x5tS256Def"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.9"></a><h3>4.9.&nbsp;
+"x5t#S256" (X.509 Certificate SHA-256 Thumbprint) Parameter</h3>
+
+<p>
+          <tt>x5t#S256</tt> (X.509 certificate SHA-256 thumbprint) パラメータは, DER エンコードされた X.509 証明書 <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> の SHA-256 thumbprint (a.k.a. digest) の base64url エンコード値を示す.
+          証明書 thumbprint は証明書 fingerprint と呼ばれることもある.
+          当該証明書に含まれる鍵は当該 JWK の示す公開鍵と一致すること (MUST).
+          この要素の利用は OPTIONAL である.
+
+
+</p>
+<p>
+          <tt>x5u</tt> 同様, <tt>x5t#S256</tt> とともに鍵用途やアルゴリズムといったその他の情報も同じ JWK に含める事ができる (MAY).
+          他の要素が含まれる場合, それらは当該証明書との整合性をとること.
+          詳細は <a class='info' href='#x5uDef'>Section&nbsp;4.6<span> (</span><span class='info'>&quot;x5u&quot; (X.509 URL) Parameter</span><span>)</span></a> の最後の一文を参照.
+
+
+</p>
+<a name="JWKSet"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+JWK Set Format</h3>
+
+<p>
+        JWK Set は JWK のセットを表す JSON オブジェクトである.
+        この JSON オブジェクトは, その値が JWK 配列となる <tt>keys</tt> メンバを持たなければならない (MUST).
+        この JSON オブジェクトは空白および, または改行を含んでも良い (MAY).
+
+
+</p>
+<p>
+        単一の JWK Set の中においてメンバ名はユニークでなければならない (MUST);
+        JWK Set パーサーは重複するメンバ名を持つ JWK Set を拒否するか,
+        ECMAScript 5.1 <a class='info' href='#ECMAScript'>[ECMAScript]<span> (</span><span class='info'>Ecma International, &ldquo;ECMAScript Language Specification, 5.1 Edition,&rdquo; June&nbsp;2011.</span><span>)</span></a> の Section 15.12 ("The JSON Object") で定義されている,
+        重複するメンバ名の最後の語彙のみを返却する JSON パーサーを使用しなければならない (MUST).
+
+
+</p>
+<p>
+        追加のメンバを JWK Set の中に表現することも可能である;
+        もし実装がそれらを解釈できない場合, それらは無視されなければならない (MUST).
+        JWK Set の追加プロパティを表すパラメータは <a class='info' href='#JWKSetParamReg'>Section&nbsp;8.4<span> (</span><span class='info'>JSON Web Key Set Parameters Registry</span><span>)</span></a> に設立される
+        IANA "JSON Web Key Set Parameters" レジストリへ登録, もしくは衝突に耐えられる名称を含む値であるべきである.
+
+
+</p>
+<p>
+        実装は, JWK Set に含まれる JWK のうち, 解釈できない <tt>kty</tt> (key type) 値であったり,
+        必要なメンバが存在しなかったり, サポートされる範囲外のメンバー値を持つ JWK を無視するべきである (SHOULD).
+
+
+</p>
+<a name="keysDef"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5.1"></a><h3>5.1.&nbsp;
+"keys" Parameter</h3>
+
+<p>
+          <tt>keys</tt> パラメータの値は JWK の値の配列である.
+          既定では, 配列の中の JWK の値の順序は優先順位を示さないが, 必要であれば
+          JWK Set の利用者は目的に沿って順序に意味を持たせることも可能である.
+
+
+</p>
+<a name="StringComparison"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+String Comparison Rules</h3>
+
+<p>
+        本仕様における文字列比較に関するルールは <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> の
+        Section 5.3 で定義されているものと同一である.
+
+
+</p>
+<a name="EncryptedJWK"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+Encrypted JWK and Encrypted JWK Set Formats</h3>
+
+<p>
+        非公開の鍵要素を含む JWK の, 非公開情報へのアクセスするための合理的な理由がないアクセスは防止されなくてはならない (MUST).
+        これは, そのような相手からの参照される可能性がある時,
+        秘密鍵もしくは対象鍵の値が公開されることを防ぐために,
+        JWK を暗号化することにより達成される.
+        この目的には, 暗号化された JWK (UTF-8 エンコードされた JWK をプレーンテキストの値として持つ JWE) の利用が推奨される.
+        暗号化された JWK の処理は, その他の JWE の処理と同一である.
+        <tt>jwk+json</tt> の <tt>cty</tt> (content type)
+        ヘッダパラメータの値は, アプリケーションがその暗号化されたコンテンツが別の意味合いや決まりにより JWK であることを知っていて,
+        <tt>cty</tt> の値が省略されている場合を除き, JWE のコンテンツが JWK であることを示さなければならない (MUST).
+
+
+</p>
+<p>
+        非公開の鍵情報を含む JWK Set もまた, 同様の事情により暗号化される必要がある.
+        この目的には, 暗号化された JWK Set (UTF-8 エンコードされた JWK Set をプレーンテキストの値として持つ JWE) の利用が推奨される.
+        暗号化された JWK Set の処理は, その他の JWE の処理と同一である.
+        <tt>jwk-set+json</tt> の <tt>cty</tt> (content type)
+        ヘッダ パラメータの値は, アプリケーションがその暗号化されたコンテンツが別の意味合いや決まりにより JWK Set であることを知っていて,
+        <tt>cty</tt> の値が省略されている場合を除き, JWE のコンテンツが JWK Set であることを示さなければならない (MUST).
+
+
+</p>
+<p>
+        暗号化された JWK のサンプルは <a class='info' href='#example-encrypted-jwk'>Appendix&nbsp;C<span> (</span><span class='info'>Example Encrypted RSA Private Key</span><span>)</span></a> を参照すること.
+
+
+</p>
+<a name="IANA"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+IANA Considerations</h3>
+
+<p>
+        以下の登録手続きは本仕様により確立されるすべてのレジストリに使用される.
+
+
+</p>
+<p>
+        値は, 1名以上の Designated Experts の勧告に従い, jose&#8209;reg&#8209;review@ietf.org
+        のメーリングリストで2週間の審査期間を経て, Specification Required <a class='info' href='#RFC5226'>[RFC5226]<span> (</span><span class='info'>Narten, T. and H. Alvestrand, &ldquo;Guidelines for Writing an IANA Considerations Section in RFCs,&rdquo; May&nbsp;2008.</span><span>)</span></a>
+        な状態で登録される. しかしながら, 発行に先立ってそれらの値を用いることができるように,
+        Designated Experts はそれらの値が公開できる状態になった時点で登録を許可することもありうる.
+
+
+</p>
+<p>
+        登録要請は, 適切な件名 (例: "Request to register JWK parameter: example") でメーリングリストに通知しなければならない.
+
+
+</p>
+<p>
+        Designated Experts は審査期間内に登録を承認または拒否し, レビューが行われるメーリングリストおよび IANA へその決定を告げる.
+        要請が拒否された場合は, その理由が通知され, 可能な場合は承認に向けた提案が行われるべきである.
+        21日以上の期間にわたり未決定な登録要請は, 解決に向け (iesg@ietf.org メーリングリストを用い) IESG の留意事項へ持ち込むことが出来る.
+
+
+</p>
+<p>
+        審査は提案された登録が, 既存の機能と重複がないことや, 一般的な適用性があるのか, それとも特定のアプリケーションにとってのみ有用なのか,
+        登録の説明は明確なのかどうか, について検証を含め Designated Experts により承認されるべきである.
+
+
+</p>
+<p>
+        IANA は, Designated Experts からのレジストリ更新のみを受け付けなければならず, すべての登録要請をレビューメーリングリストに送信しなければならない.
+
+
+</p>
+<p>
+        本仕様を使用する異なるアプリケーションの視点を代表することのできる複数の Designated
+        Experts を指名することを提案する. これは登録決定のレビューを広く告知するためである.
+        登録決定が特定の Expert の興味分野に対して論争を起こす場合は, 当該の Expert は他の
+        Experts の決定に従うべきである.
+
+
+</p>
+<a name="JWKParamReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1"></a><h3>8.1.&nbsp;
+JSON Web Key Parameters Registry</h3>
+
+<p>
+          本セクションは JWK パラメータ名のための IANA "JSON Web Key Parameters" レジストリを確立する.
+          レジストリはパラメータの名前, パラメータと共に使われる key type, 自身が定義される仕様への参照を記録する.
+          同様にレジストリは当該のパラメータが公開もしくは非公開の情報を伝えるかどうかについても記録する.
+          本セクションは <a class='info' href='#JWKFormat'>Section&nbsp;4<span> (</span><span class='info'>JSON Web Key (JWK) Format</span><span>)</span></a> で定義されているパラメータ名を登録する.
+          同一の JWK パラメータ名を複数回登録しても良く, 重複するパラメータ登録は
+          key type に特化した JWK パラメータに限った目的のものである. この場合, 重複するパラメータ名の意味は JWK に含まれる
+          <tt>kty</tt> の値により曖昧さをなくされる.
+
+
+</p>
+<a name="JWKTemplate"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1.1"></a><h3>8.1.1.&nbsp;
+Registration Template</h3>
+
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt>Parameter Name:</dt>
+<dd>
+
+                要求された名前 (例, "kid").
+                本仕様の中核となる目標は表現の結果をコンパクトにすることであるため,
+                名前は短くすることを推奨する (RECOMMENDED). -- 特別な理由がない限り 8 文字を超えるべきではない.
+                名前は大文字, 小文字を区別する.
+                名前は Designated Experts が例外を許可する特別な理由があることを宣言した場合を除き,
+                他の登録された名前と大文字, 小文字の違いで重複させるべきではない.
+                しかしながら, パラメータ名が一緒に使用される <tt>kty</tt>
+                の値の付随セットが異なる場合においては, 同一の名前を登録してもよい.
+                <tt>kty</tt>の値のマッチングのため, "*" は全ての値にマッチする.
+
+
+</dd>
+<dt>Parameter Description:</dt>
+<dd>
+
+                パラメータの簡単な説明 (例, "Key ID").
+
+
+</dd>
+<dt>Used with "kty" Value(s):</dt>
+<dd>
+
+                パラメータの名前が一緒に利用する key type パラメータの値, もしくはパラメータの値がすべての key type で利用される場合は "*".
+                値は, 登録済みのパラメータ名が同一の際, 他の登録済みの <tt>kty</tt> の値と大文字,
+                小文字の区別をせずにマッチするべきではない (パラメータ名が大文字, 小文字の区別をせずにマッチしている場合を含む).
+                ただし, Designated Experts が例外を許可する特別な理由があることを宣言した場合を除く.
+
+
+</dd>
+<dt>Parameter Information Class:</dt>
+<dd>
+
+                パラメータが公開もしくは非公開の情報を含むかどうかを登録する.
+                値は Public もしくは Private のどちらかでなければならない.
+
+
+</dd>
+<dt>Change Controller:</dt>
+<dd>
+
+                RFC の標準に従う際は, "IETF" と記載する. それ以外の場合は, 責任ある団体の名称を記載する.
+                その他の詳細 (例えば, 郵便番号, メールアドレス, ホームページの URL) も記載してもよい.
+
+
+</dd>
+<dt>Specification Document(s):</dt>
+<dd>
+
+                パラメータ仕様を記載したドキュメントへの参照を記載する. ドキュメントを取得することのできる URI が記載されていることが望ましい.
+                明確な記載箇所への参照が含まれることが望ましいが必須ではない.
+
+
+</dd>
+</dl></blockquote><p>
+
+</p>
+<a name="JWKContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.1.2"></a><h3>8.1.2.&nbsp;
+Initial Registry Contents</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>kty</tt>
+
+
+</li>
+<li>
+                パラメータ説明: Key の型
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#ktyDef'>Section&nbsp;4.1<span> (</span><span class='info'>&quot;kty&quot; (Key Type) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>use</tt>
+
+
+</li>
+<li>
+                パラメータ説明: 公開鍵の利用方法
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#useDef'>Section&nbsp;4.2<span> (</span><span class='info'>&quot;use&quot; (Public Key Use) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>key_ops</tt>
+
+
+</li>
+<li>
+                パラメータ説明: Key の利用が想定されるオペレーション
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>alg</tt>
+
+
+</li>
+<li>
+                パラメータ説明: アルゴリズム
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#algDef'>Section&nbsp;4.4<span> (</span><span class='info'>&quot;alg&quot; (Algorithm) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>kid</tt>
+
+
+</li>
+<li>
+                パラメータ説明: Key 識別子
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#kidDef'>Section&nbsp;4.5<span> (</span><span class='info'>&quot;kid&quot; (Key ID) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>x5u</tt>
+
+
+</li>
+<li>
+                パラメータ説明: X.509 URL
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#x5uDef'>Section&nbsp;4.6<span> (</span><span class='info'>&quot;x5u&quot; (X.509 URL) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>x5c</tt>
+
+
+</li>
+<li>
+                パラメータ説明: X.509 証明書チェイン
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#x5cDef'>Section&nbsp;4.7<span> (</span><span class='info'>&quot;x5c&quot; (X.509 Certificate Chain) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>x5t</tt>
+
+
+</li>
+<li>
+                パラメータ説明: X.509 証明書の SHA-1 拇印
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#x5tDef'>Section&nbsp;4.8<span> (</span><span class='info'>&quot;x5t&quot; (X.509 Certificate SHA-1 Thumbprint) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>x5t#S256</tt>
+
+
+</li>
+<li>
+                パラメータ説明: X.509 証明書の SHA-256 拇印
+
+
+</li>
+<li>
+                "kty" に使われる値: *
+
+
+</li>
+<li>
+                パラメータ情報クラス: 公開
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#x5tS256Def'>Section&nbsp;4.9<span> (</span><span class='info'>&quot;x5t#S256&quot; (X.509 Certificate SHA-256 Thumbprint) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<a name="UseReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2"></a><h3>8.2.&nbsp;
+JSON Web Key Use Registry</h3>
+
+<p>
+          本セクションは JWK <tt>use</tt> (公開鍵の利用) メンバの値のための
+          IANA "JSON Web Key Use" レジストリを確立する.
+          レジストリは公開鍵の利用の値と, 定義している仕様への参照を記録する.
+          本セクションは <a class='info' href='#useDef'>Section&nbsp;4.2<span> (</span><span class='info'>&quot;use&quot; (Public Key Use) Parameter</span><span>)</span></a> で定義されているパラメータ名を登録する.
+
+
+</p>
+<a name="UseTemplate"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2.1"></a><h3>8.2.1.&nbsp;
+Registration Template</h3>
+
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt>Use Member Value:</dt>
+<dd>
+
+                要求された名前 (例, "sig").
+                本仕様の中核となる目標は表現の結果をコンパクトにすることであるため,
+                名前は短くすることを推奨する (RECOMMENDED). -- 特別な理由がない限り 8 文字を超えるべきではない.
+                名前は大文字, 小文字を区別する.
+                名前は Designated Experts が例外を許可する特別な理由があることを宣言した場合を除き,
+                他の登録された名前と大文字, 小文字の違いで重複させるべきではない.
+
+
+</dd>
+<dt>Use Description:</dt>
+<dd>
+
+                簡単な使用方法 (e.g., "デジタル署名もしくは MAC").
+
+
+</dd>
+<dt>Change Controller:</dt>
+<dd>
+
+                RFC の標準に従う際は, "IETF" と記載する. それ以外の場合は, 責任ある団体の名称を記載する.
+                その他の詳細 (例えば, 郵便番号, メールアドレス, ホームページの URL) も記載してもよい.
+
+
+</dd>
+<dt>Specification Document(s):</dt>
+<dd>
+
+                パラメータ仕様を記載したドキュメントへの参照を記載する.
+                ドキュメントを取得することのできる URI が記載されていることが望ましい.
+                明確な記載箇所への参照が含まれることが望ましいが必須ではない.
+
+
+</dd>
+</dl></blockquote><p>
+
+</p>
+<a name="UseContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.2.2"></a><h3>8.2.2.&nbsp;
+Initial Registry Contents</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                利用メンバ値: <tt>sig</tt>
+
+
+</li>
+<li>
+                利用説明: デジタル署名もしくは MAC
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#useDef'>Section&nbsp;4.2<span> (</span><span class='info'>&quot;use&quot; (Public Key Use) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                利用メンバ値: <tt>enc</tt>
+
+
+</li>
+<li>
+                利用説明: 暗号化
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#useDef'>Section&nbsp;4.2<span> (</span><span class='info'>&quot;use&quot; (Public Key Use) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<a name="KeyOpsReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.3"></a><h3>8.3.&nbsp;
+JSON Web Key Operations Registry</h3>
+
+<p>
+          本セクションは JWK <tt>key_ops</tt> 配列要素の値のための
+          IANA "JSON Web Key Operations" レジストリを確立する.
+          レジストリは鍵運用の値と定義されている仕様への参照を記録する.
+          本セクションは <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a> で定義されているパラメータ名を登録する.
+
+
+</p>
+<a name="KeyOpsTemplate"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.3.1"></a><h3>8.3.1.&nbsp;
+Registration Template</h3>
+
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt>Key Operation Value:</dt>
+<dd>
+
+                要求された名前 (例, "sign").
+                本仕様の中核となる目標は表現の結果をコンパクトにすることであるため,
+                名前は短くすることを推奨する (RECOMMENDED). -- 特別な理由がない限り 8 文字を超えるべきではない.
+                名前は大文字, 小文字を区別する.
+                名前は Designated Experts が例外を許可する特別な理由があることを宣言した場合を除き,
+                他の登録された名前と大文字, 小文字の違いで重複させるべきではない.
+
+
+</dd>
+<dt>Key Operation Description:</dt>
+<dd>
+
+                鍵運用の簡単な説明 (e.g., "デジタル署名もしくは MAC を計算する").
+
+
+</dd>
+<dt>Change Controller:</dt>
+<dd>
+
+                RFC の標準に従う際は, "IETF" と記載する. それ以外の場合は, 責任ある団体の名称を記載する.
+                その他の詳細 (例えば, 郵便番号, メールアドレス, ホームページの URL) も記載してもよい.
+
+
+</dd>
+<dt>Specification Document(s):</dt>
+<dd>
+
+                パラメータ仕様を記載したドキュメントへの参照を記載する.
+                ドキュメントを取得することのできる URI が記載されていることが望ましい.
+                明確な記載箇所への参照が含まれることが望ましいが必須ではない.
+
+
+</dd>
+</dl></blockquote><p>
+
+</p>
+<a name="KeyOpsContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.3.2"></a><h3>8.3.2.&nbsp;
+Initial Registry Contents</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーション値: <tt>sign</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: デジタル署名もしくは MAC を計算する
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーション値: <tt>verify</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: デジタル署名もしくは MAC を検証する
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーションの値: <tt>encrypt</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: コンテンツを暗号化する
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーションの値: <tt>decrypt</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: コンテンツの復号, および適用可能であれば復号の検証
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーションの値: <tt>wrapKey</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: 鍵の暗号化
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーションの値: <tt>unwrapKey</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: 鍵の復号, および適用可能であれば復号の検証
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーションの値: <tt>deriveKey</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: 鍵を派生する
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                鍵の想定利用オペレーションの値: <tt>deriveBits</tt>
+
+
+</li>
+<li>
+                鍵の想定利用オペレーションの説明: 鍵としての利用用途ではなく派生する
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#key_opsDef'>Section&nbsp;4.3<span> (</span><span class='info'>&quot;key_ops&quot; (Key Operations) Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<a name="JWKSetParamReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.4"></a><h3>8.4.&nbsp;
+JSON Web Key Set Parameters Registry</h3>
+
+<p>
+          本セクションは JWK Set パラメータ名のための IANA "JSON Web Key Set Parameters"
+          レジストリを確立する.
+          レジストリはパラメータの名前と定義されている仕様への参照を記録する.
+          本セクションは <a class='info' href='#JWKSet'>Section&nbsp;5<span> (</span><span class='info'>JWK Set Format</span><span>)</span></a> で定義されているパラメータ名を登録する.
+
+
+</p>
+<a name="SetTemplate"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.4.1"></a><h3>8.4.1.&nbsp;
+Registration Template</h3>
+
+<p>
+            </p>
+<blockquote class="text"><dl>
+<dt>Parameter Name:</dt>
+<dd>
+
+                要求された名前 (例, "keys").
+                本仕様の中核となる目標は表現の結果をコンパクトにすることであるため,
+                名前は短くすることを推奨する (RECOMMENDED). -- 特別な理由がない限り 8 文字を超えるべきではない.
+                名前は大文字, 小文字を区別する.
+                名前は Designated Experts が例外を許可する特別な理由があることを宣言した場合を除き,
+                他の登録された名前と大文字, 小文字の違いで重複させるべきではない.
+
+
+</dd>
+<dt>Parameter Description:</dt>
+<dd>
+
+                パラメータの簡単な説明 (例, "JWK の値の配列").
+
+
+</dd>
+<dt>Change Controller:</dt>
+<dd>
+
+                RFC の標準に従う際は, "IETF" と記載する. それ以外の場合は, 責任ある団体の名称を記載する.
+                その他の詳細 (例えば, 郵便番号, メールアドレス, ホームページの URL) も記載してもよい.
+
+
+</dd>
+<dt>Specification Document(s):</dt>
+<dd>
+
+                パラメータ仕様を記載したドキュメントへの参照を記載する.
+                ドキュメントを取得することのできる URI が記載されていることが望ましい.
+                明確な記載箇所への参照が含まれることが望ましいが必須ではない.
+
+
+</dd>
+</dl></blockquote><p>
+
+</p>
+<a name="SetContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.4.2"></a><h3>8.4.2.&nbsp;
+Initial Registry Contents</h3>
+
+<p>
+            </p>
+<ul class="text">
+<li>
+                パラメータ名: <tt>keys</tt>
+
+
+</li>
+<li>
+                パラメータ説明: JWK の値の配列
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仕様ドキュメント: RFC 7517 の <a class='info' href='#keysDef'>Section&nbsp;5.1<span> (</span><span class='info'>&quot;keys&quot; Parameter</span><span>)</span></a>
+
+
+</li>
+</ul><p>
+
+</p>
+<a name="MediaReg"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.5"></a><h3>8.5.&nbsp;
+Media Type Registration</h3>
+
+<a name="MediaContents"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8.5.1"></a><h3>8.5.1.&nbsp;
+Registry Contents</h3>
+
+<p>
+            本セクションは <a class='info' href='#RFC6838'>RFC 6838<span> (</span><span class='info'>Freed, N., Klensin, J., and T. Hansen, &ldquo;Media Type Specifications and Registration Procedures,&rdquo; January&nbsp;2013.</span><span>)</span></a> [RFC6838] に記載される様式に従い,
+            "Media タイプ" レジストリ <a class='info' href='#IANA.MediaTypes'>[IANA.MediaTypes]<span> (</span><span class='info'>Internet Assigned Numbers Authority (IANA), &ldquo;Media Types,&rdquo; .</span><span>)</span></a> に
+            <tt>application/jwk+json</tt> と
+            <tt>application/jwk-set+json</tt>
+            Media タイプを登録する.
+            そしてそれは, コンテンツがそれぞれ JWK もしくは JWK Set であることを示すために利用することができる.
+
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                タイプ名: application
+
+
+</li>
+<li>
+                サブタイプ名: jwk+json
+
+
+</li>
+<li>
+                必須パラメータ: n/a
+
+
+</li>
+<li>
+                オプションパラメータ: n/a
+
+
+</li>
+<li>
+                エンコーディングの考慮事項: 8ビット;
+                application/jwk+json の値は JSON オブジェクトとして表現される.
+                JSON オブジェクトは UTF-8 エンコードされているべきである (SHOULD).
+
+
+</li>
+<li>
+                セキュリティ上の考慮事項: RFC 7517 のセキュリティ上の考慮事項のセクションを参照すること.
+
+
+</li>
+<li>
+                相互運用性の考慮事項: n/a
+
+
+</li>
+<li>
+                公開された仕様: RFC 7517
+
+
+</li>
+<li>
+                このメディアタイプを利用するアプリケーション:
+                OpenID Connect, Salesforce, Google, Android,
+                Windows Azure, W3C WebCrypto API, その他多数
+
+
+</li>
+<li>
+                断片化された識別子の考慮事項: n/a
+
+
+</li>
+<li>
+                追加情報:
+<blockquote class="text">
+<p>マジックナンバー: n/a
+</p>
+<p>ファイル拡張子: n/a
+</p>
+<p>マッキントッシュのファイル型コード: n/a
+</p>
+</blockquote>
+
+<br />
+
+
+</li>
+<li>
+                追加情報が必要な場合の連絡先:
+
+<br />
+
+                Michael B. Jones, mbj@microsoft.com
+
+</li>
+<li>
+                意図された用途: COMMON
+
+
+</li>
+<li>
+                用途の制限: none
+
+
+</li>
+<li>
+                著者: Michael B. Jones, mbj@microsoft.com
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仮登録か? No
+
+
+</li>
+</ul><p>
+
+</p>
+<p>
+            </p>
+<ul class="text">
+<li>
+                タイプ名: application
+
+
+</li>
+<li>
+                サブタイプ名: jwk-set+json
+
+
+</li>
+<li>
+                必須パラメータ: n/a
+
+
+</li>
+<li>
+                オプションパラメータ: n/a
+
+
+</li>
+<li>
+                エンコーディングの考慮事項: 8ビット;
+                application/jwk-set+json の値は JSON オブジェクトとして表現される.
+                JSON オブジェクトは UTF-8 エンコードされているべきである (SHOULD).
+
+
+</li>
+<li>
+                セキュリティ上の考慮事項: RFC 7517 のセキュリティ上の考慮事項のセクションを参照すること.
+
+
+</li>
+<li>
+                相互運用性の考慮事項: n/a
+
+
+</li>
+<li>
+                公開された仕様: RFC 7517
+
+
+</li>
+<li>
+                このメディアタイプを利用するアプリケーション:
+                OpenID Connect, Salesforce, Google, Android,
+                Windows Azure, W3C WebCrypto API, その他多数
+
+
+</li>
+<li>
+                断片化された識別子の考慮事項: n/a
+
+
+</li>
+<li>
+                追加情報:
+<blockquote class="text">
+<p>マジックナンバー: n/a
+</p>
+<p>ファイル拡張子: n/a
+</p>
+<p>マッキントッシュのファイル型コード: n/a
+</p>
+</blockquote>
+
+<br />
+
+
+</li>
+<li>
+                追加情報が必要な場合の連絡先:
+
+<br />
+
+                Michael B. Jones, mbj@microsoft.com
+
+</li>
+<li>
+                意図された用途: COMMON
+
+
+</li>
+<li>
+                用途の制限: none
+
+
+</li>
+<li>
+                著者: Michael B. Jones, mbj@microsoft.com
+
+
+</li>
+<li>
+                変更管理: IESG
+
+
+</li>
+<li>
+                仮登録か? No
+
+
+</li>
+</ul><p>
+
+</p>
+<a name="Security"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+Security Considerations</h3>
+
+<p>
+        JWS/JWE/JWKエージェントは, 暗号化アプリケーションが直面したあらゆるセキュリティ問題に対応しなければならない.
+        これらの問題の中には, ユーザのプライベート鍵および対称鍵を保護し, 様々な攻撃を防ぎ,
+        ユーザが不正な受信者のためにメッセージを不注意に暗号化するような間違いを避けることを助けることが含まれる.
+
+
+</p>
+<a name="KeyTrust"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.1"></a><h3>9.1.&nbsp;
+Key Provenance and Trust</h3>
+
+<p>
+          信頼できる方法で取得された鍵と関連づけられていない限り, 鍵による暗号化により保護されたデータに信頼を置くべきではない.
+          信頼できない方法で取得された鍵と関連付けられたどんなデータも懐疑的に取り扱うべきである.
+          鍵の発行元の認証に関するセキュリティ上の考慮事項については <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a>
+          のセクション 10.3 を参照すること.
+
+
+</p>
+<p>
+          多くの場合において, アプリケーションは鍵を信頼するかどうかを鍵自身よりも鍵に関連付けられた名前やロールや発行元といった属性に基づき決定する.
+          アプリケーソンが鍵を信頼するかどうかを決定する際, JWK に属性をバインドする複数の方法が存在する.
+          メカニズムの2つの例は PKIX <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> と JSON Web Token (JWT) <a class='info' href='#JWT'>[JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; May&nbsp;2015.</span><span>)</span></a> である.
+
+
+</p>
+<p>
+          例えば, JWK の作成者は PKIX 証明書を JWK の <tt>x5c</tt>
+          メンバとして含めることが出来る.
+          もしアプリケーションが証明書を確認し, JWK が証明書の中のサブジェクト公開鍵と一致していることの検証を行う場合,
+          サブジェクト名や代替名や拡張用途や署名チェインといった証明書の中の属性と JWK を紐づけることが出来る.
+
+
+</p>
+<p>
+          他の例として, JWT は, JWK を JWT の中のクレームとして参照することにより
+          JWK と属性を関連付けて使用することが出来る.
+          JWK はクレームの値として直接含める もしくは JWK 値を取得するための TLS で保護された URI を JWT に含めることが出来る.
+          どちらの方法でも, JWT クレームを経由して JWK を取得するアプリケーションは
+          JWT の暗号化プロパティと追加のクレームを鍵を信頼するかどうかを決めるために関連づけることが出来る.
+
+
+</p>
+<p>
+          セキュリティチェインのすべてのリンクに依存するデジタル署名の強度に関する
+          <a class='info' href='#W3C.NOTE-xmldsig-core2-20130411'>XML DSIG 2.0<span> (</span><span class='info'>Eastlake, D., Reagle, J., Solo, D., Hirsch, F., Roessler, T., Yiu, K., Datta, P., and S. Cantor, &ldquo;XML Signature Syntax and Processing Version 2.0,&rdquo; April&nbsp;2013.</span><span>)</span></a> [W3C.NOTE&#8209;xmldsig&#8209;core2&#8209;20130411] の セクション
+          12.3 のセキュリティ上の考慮事項は本仕様にも適用される.
+
+
+</p>
+<p>
+          <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> のセクション 8 の TLS に関する要求事項は本仕様にも適用される.
+          例外として <tt>x5u</tt> JWK メンバが本仕様で定義される中で TLS を使用する唯一の機能である場合を除く.
+
+
+</p>
+<a name="PreventingDisclosure"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.2"></a><h3>9.2.&nbsp;
+Preventing Disclosure of Non-public Key Information</h3>
+
+<p>
+          秘密鍵と対象鍵は意図しない相手へ公開されないように保護されなければならない (MUST).
+          このために推奨される手段の一つは, JWE のプレーンテキストとして JWK もしくは JWK
+          セットの値を使い, それらを含む JWK もしくは JWK セットを暗号化することである.
+          もちろん, 意図した相手が非公開鍵の情報を暗号化するため鍵を安全に取得する手段と,
+          その相手が対応する復号鍵を取得するための安全な手段が存在する必要がある.
+
+
+</p>
+<p>
+          秘密鍵と対象鍵, 鍵の利用, 情報漏えいに対する保護に関する
+          <a class='info' href='#RFC3447'>RFC 3447<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> [RFC3447] と <a class='info' href='#RFC6030'>RFC 6030<span> (</span><span class='info'>Hoyer, P., Pei, M., and S. Machani, &ldquo;Portable Symmetric Key Container (PSKC),&rdquo; October&nbsp;2010.</span><span>)</span></a> [RFC6030]
+          のセキュリティ上の考慮点は本仕様に対しても適用される.
+
+
+</p>
+<a name="RSABlinding"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.3"></a><h3>9.3.&nbsp;
+RSA Private Key Representations and Blinding</h3>
+
+<p>
+          タイミング攻撃に対する防御手法である, RSA 鍵の blinding 操作 <a class='info' href='#Kocher'>[Kocher]<span> (</span><span class='info'>Kocher, P., &ldquo;Timing Attacks on Implementations of Diffe-Hellman, RSA, DSS,           and Other Systems,&rdquo; 1996.</span><span>)</span></a>
+          は RSA 鍵のすべての値 <tt>n</tt>, <tt>e</tt>,
+          そして <tt>d</tt> を必要とする.
+          しかしながら, いくつかの RSA 秘密鍵の表現は公開指数 <tt>e</tt>
+          を含んでおらず, 係数 <tt>n</tt> と 秘密指数 <tt>d</tt>
+          のみを含んでいる.
+          これは真実である, 例えば, Java の RSAPrivateKeySpec API は公開指数 <tt>e</tt>
+          をパラメータとして含んでいない.
+          そのため RSA 鍵の blinding を有効にするには, それらの表現は避けるべきである.
+          Java では RSAPrivateCrtKeySpec API を代替手段として使用することが出来る.
+          適用された暗号 <a class='info' href='#HAC'>[HAC]<span> (</span><span class='info'>Menezes, A., van Oorschot, P., and S. Vanstone, &ldquo;Handbook of Applied Cryptography,&rdquo; October&nbsp;1996.</span><span>)</span></a> のハンドブックのセクション 8.2.2(i) は残る RSA 秘密鍵のパラメータを計算するかについて議論しており, 必要であれば
+          <tt>n</tt>, <tt>e</tt>, と <tt>d</tt>
+          のみを使うように指定する.
+
+
+</p>
+<a name="KeyEntropy"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9.4"></a><h3>9.4.&nbsp;
+Key Entropy and Random Values</h3>
+
+<p>
+          キーエントロピーとランダム値に関するセキュリティ上の考慮点については
+          <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> のセクション 10.1 を参照すること.
+
+
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10"></a><h3>10.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>10.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="ECMAScript">[ECMAScript]</a></td>
+<td class="author-text">Ecma International, &ldquo;<a href="http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf">ECMAScript Language Specification, 5.1 Edition</a>,&rdquo; ECMA Standard&nbsp;262, June&nbsp;2011.</td></tr>
+<tr><td class="author-text" valign="top"><a name="IANA.MediaTypes">[IANA.MediaTypes]</a></td>
+<td class="author-text">Internet Assigned Numbers Authority (IANA), &ldquo;<a href="http://www.iana.org/assignments/media-types">Media Types</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="ITU.X690.1994">[ITU.X690.1994]</a></td>
+<td class="author-text">International Telecommunications Union, &ldquo;Information Technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER),&rdquo; ITU-T&nbsp;Recommendation X.690, 1994.</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWA">[JWA]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, &ldquo;<a href="http://www.rfc-editor.org/info/rfc7518">JSON Web Algorithms (JWA)</a>,&rdquo; RFC&nbsp;7518, May&nbsp;2015.</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWE">[JWE]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a> and <a href="mailto:jhildebr@cisco.com">J. Hildebrand</a>, &ldquo;<a href="http://www.rfc-editor.org/info/rfc7516">JSON Web Encryption (JWE)</a>,&rdquo; RFC&nbsp;7516, May&nbsp;2015.</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWS">[JWS]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, <a href="mailto:ve7jtb@ve7jtb.com">Bradley, J.</a>, and <a href="mailto:n-sakimura@nri.co.jp">N. Sakimura</a>, &ldquo;<a href="http://www.rfc-editor.org/info/rfc7515">JSON Web Signature (JWS)</a>,&rdquo; RFC&nbsp;7515, May&nbsp;2015.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC20">[RFC20]</a></td>
+<td class="author-text">Cerf, V., &ldquo;<a href="http://www.rfc-editor.org/info/rfc20">ASCII format for Network Interchange</a>,&rdquo; STD&nbsp;80, RFC&nbsp;20, October&nbsp;1969.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2046">[RFC2046]</a></td>
+<td class="author-text">Freed, N. and N. Borenstein, &ldquo;<a href="http://www.rfc-editor.org/info/rfc2046">Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</a>,&rdquo; RFC&nbsp;2046, DOI&nbsp;10.17487/RFC2046, November&nbsp;1996.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
+<td class="author-text">Bradner, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, DOI&nbsp;10.17487/RFC2119, March&nbsp;1997.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC2818">[RFC2818]</a></td>
+<td class="author-text">Rescorla, E., &ldquo;<a href="http://www.rfc-editor.org/info/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, DOI&nbsp;10.17487/RFC2818, May&nbsp;2000.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://www.rfc-editor.org/info/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, DOI&nbsp;10.17487/RFC3629, November&nbsp;2003.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
+<td class="author-text">Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;<a href="http://www.rfc-editor.org/info/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, DOI&nbsp;10.17487/RFC3986, January&nbsp;2005.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4648">[RFC4648]</a></td>
+<td class="author-text">Josefsson, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>,&rdquo; RFC&nbsp;4648, DOI&nbsp;10.17487/RFC4648, October&nbsp;2006.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4945">[RFC4945]</a></td>
+<td class="author-text">Korver, B., &ldquo;<a href="http://www.rfc-editor.org/info/rfc4945">The Internet IP Security PKI Profile of IKEv1/ISAKMP, IKEv2, and PKIX</a>,&rdquo; RFC&nbsp;4945, DOI&nbsp;10.17487/RFC4945, August&nbsp;2007.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4949">[RFC4949]</a></td>
+<td class="author-text">Shirey, R., &ldquo;<a href="http://www.rfc-editor.org/info/rfc4949">Internet Security Glossary, Version 2</a>,&rdquo; FYI&nbsp;36, RFC&nbsp;4949, DOI&nbsp;10.17487/RFC4949, August&nbsp;2007.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
+<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://www.rfc-editor.org/info/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, DOI&nbsp;10.17487/RFC5246, August&nbsp;2008.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5280">[RFC5280]</a></td>
+<td class="author-text">Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;<a href="http://www.rfc-editor.org/info/rfc5280">Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</a>,&rdquo; RFC&nbsp;5280, DOI&nbsp;10.17487/RFC5280, May&nbsp;2008.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6125">[RFC6125]</a></td>
+<td class="author-text">Saint-Andre, P. and J. Hodges, &ldquo;<a href="http://www.rfc-editor.org/info/rfc6125">Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)</a>,&rdquo; RFC&nbsp;6125, DOI&nbsp;10.17487/RFC6125, March&nbsp;2011.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC7159">[RFC7159]</a></td>
+<td class="author-text">Bray, T., Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>,&rdquo; RFC&nbsp;7159, DOI&nbsp;10.17487/RFC7159, March&nbsp;2014.</td></tr>
+<tr><td class="author-text" valign="top"><a name="UNICODE">[UNICODE]</a></td>
+<td class="author-text">The Unicode Consortium, &ldquo;<a href="http://www.unicode.org/versions/latest/">The Unicode Standard</a>.&rdquo;</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>10.2.&nbsp;Informative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="DSS">[DSS]</a></td>
+<td class="author-text">National Institute of Standards and
+            Technology (NIST), &ldquo;<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">Digital Signature Standard (DSS)</a>,&rdquo; FIPS&nbsp;PUB 186-4, July&nbsp;2013.</td></tr>
+<tr><td class="author-text" valign="top"><a name="HAC">[HAC]</a></td>
+<td class="author-text">Menezes, A., van Oorschot, P., and S. Vanstone, &ldquo;<a href="http://cacr.uwaterloo.ca/hac/">Handbook of Applied Cryptography</a>,&rdquo; CRC&nbsp;Press, October&nbsp;1996.</td></tr>
+<tr><td class="author-text" valign="top"><a name="JWT">[JWT]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a>, <a href="mailto:ve7jtb@ve7jtb.com">Bradley, J.</a>, and <a href="mailto:n-sakimura@nri.co.jp">N. Sakimura</a>, &ldquo;<a href="http://www.rfc-editor.org/info/rfc7519">JSON Web Token (JWT)</a>,&rdquo; RFC&nbsp;7519, May&nbsp;2015.</td></tr>
+<tr><td class="author-text" valign="top"><a name="Kocher">[Kocher]</a></td>
+<td class="author-text">Kocher, P., &ldquo;Timing Attacks on Implementations of Diffe-Hellman, RSA, DSS,
+          and Other Systems,&rdquo; In Proceedings of the 16th Annual International Cryptology
+                          Conference Advances in Cryptology, Springer-Verlag,&nbsp;pp. 104-113, 1996.</td></tr>
+<tr><td class="author-text" valign="top"><a name="MagicSignatures">[MagicSignatures]</a></td>
+<td class="author-text">Panzer, J., Ed., Laurie, B., and D. Balfanz, &ldquo;<a href="http://salmon&nbsp;protocol.googlecode.com/svn/trunk/draft-panzer-magicsig-01.html">Magic Signatures</a>,&rdquo; January&nbsp;2011.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3447">[RFC3447]</a></td>
+<td class="author-text">Jonsson, J. and B. Kaliski, &ldquo;<a href="http://www.rfc-editor.org/info/rfc3447">Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1</a>,&rdquo; RFC&nbsp;3447, DOI&nbsp;10.17487/RFC3447, February&nbsp;2003.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5226">[RFC5226]</a></td>
+<td class="author-text">Narten, T. and H. Alvestrand, &ldquo;<a href="http://www.rfc-editor.org/info/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>,&rdquo; BCP&nbsp;26, RFC&nbsp;5226, DOI&nbsp;10.17487/RFC5226, May&nbsp;2008.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6030">[RFC6030]</a></td>
+<td class="author-text">Hoyer, P., Pei, M., and S. Machani, &ldquo;<a href="http://www.rfc-editor.org/info/rfc6030">Portable Symmetric Key Container (PSKC)</a>,&rdquo; RFC&nbsp;6030, DOI&nbsp;10.17487/RFC6030, October&nbsp;2010.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC6838">[RFC6838]</a></td>
+<td class="author-text">Freed, N., Klensin, J., and T. Hansen, &ldquo;<a href="http://www.rfc-editor.org/info/rfc6838">Media Type Specifications and Registration Procedures</a>,&rdquo; BCP&nbsp;13, RFC&nbsp;6838, DOI&nbsp;10.17487/RFC6838, January&nbsp;2013.</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.CR-WebCryptoAPI-20141211">[W3C.CR-WebCryptoAPI-20141211]</a></td>
+<td class="author-text">Sleevi, R. and M. Watson, &ldquo;<a href="http://www.w3.org/TR/2014/CR-WebCryptoAPI-20141211/">Web Cryptography API</a>,&rdquo; World Wide Web Consortium&nbsp;Candidate Recommendation CR-WebCryptoAPI-20141211, December&nbsp;2014 (<a href="http://www.w3.org/TR/2014/CR-WebCryptoAPI-20141211/">HTML</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="W3C.NOTE-xmldsig-core2-20130411">[W3C.NOTE-xmldsig-core2-20130411]</a></td>
+<td class="author-text">Eastlake, D., Reagle, J., Solo, D., Hirsch, F., Roessler, T., Yiu, K., Datta, P., and S. Cantor, &ldquo;<a href="http://www.w3.org/TR/2013/NOTE-xmldsig-core2-20130411/">XML Signature Syntax and Processing Version 2.0</a>,&rdquo; World Wide Web Consortium Note&nbsp;NOTE-xmldsig-core2-20130411, April&nbsp;2013.</td></tr>
+</table>
+
+<a name="rfc.references3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>10.3.&nbsp;翻訳プロジェクト</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="oidfj">[oidfj]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://www.openid.or.jp/">OpenIDファウンデーションジャパン</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-github">[oidfj-github]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="https://github.com/openid-foundation-japan">Githubレポジトリー</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="oidfj-trans">[oidfj-trans]</a></td>
+<td class="author-text">OpenIDファウンデーションジャパン, &ldquo;<a href="http://openid-foundation-japan.github.com/">翻訳・教育ワーキンググループ</a>.&rdquo;</td></tr>
+</table>
+
+<a name="ExampleJWKSets"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A"></a><h3>Appendix A.&nbsp;
+Example JSON Web Key Sets</h3>
+
+<a name="PublicExample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.1"></a><h3>A.1.&nbsp;
+Example Public Keys</h3>
+
+<p>
+          下記例の JWK Set は JWK として表現される2つの公開鍵を含む:
+          1つ目は Elliptic Curve アルゴリズムを使用し, 2つ目は RSA アルゴリズムを使用している. 前者は鍵が暗号化のために使用されていることを記している.
+          後者は鍵が <tt>RS256</tt> アルゴリズムで使用されていることを記している.
+          両者は鍵のマッチングの目的のために key ID を提供する. どちらの場合も, 整数は big-endian 表現の base64url エンコーディングを使用して表現されている.
+          (改行は掲載上の都合による.)
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"keys":
+    [
+      {"kty":"EC",
+       "crv":"P-256",
+       "x":"MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+       "y":"4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM",
+       "use":"enc",
+       "kid":"1"},
+
+      {"kty":"RSA",
+       "n": "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx
+  4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMs
+  tn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2
+  QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbI
+  SD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqb
+  w0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw",
+       "e":"AQAB",
+       "alg":"RS256",
+       "kid":"2011-04-29"}
+    ]
+  }
+</pre></div>
+<a name="PrivateExample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.2"></a><h3>A.2.&nbsp;
+Example Private Keys</h3>
+
+<p>
+          下記例の JWK Set は JWK として表現されている2つの鍵を含む. それぞれの JWK は公開鍵と秘密鍵の値の両方を含んでいる.:
+          1つ目は Elliptic Curve アルゴリズムを使用し, 2つ目は RSA アルゴリズムを使用している.
+          この例は, 秘密鍵の値を追加し, 前のセクションの例を拡張している.
+          (改行は掲載上の都合による.)
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"keys":
+    [
+      {"kty":"EC",
+       "crv":"P-256",
+       "x":"MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+       "y":"4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM",
+       "d":"870MB6gfuTJ4HtUnUvYMyJpr5eUZNP4Bk43bVdj3eAE",
+       "use":"enc",
+       "kid":"1"},
+
+      {"kty":"RSA",
+       "n":"0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4
+  cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMst
+  n64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2Q
+  vzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS
+  D08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw
+  0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw",
+       "e":"AQAB",
+       "d":"X4cTteJY_gn4FYPsXB8rdXix5vwsg1FLN5E3EaG6RJoVH-HLLKD9
+  M7dx5oo7GURknchnrRweUkC7hT5fJLM0WbFAKNLWY2vv7B6NqXSzUvxT0_YSfqij
+  wp3RTzlBaCxWp4doFk5N2o8Gy_nHNKroADIkJ46pRUohsXywbReAdYaMwFs9tv8d
+  _cPVY3i07a3t8MN6TNwm0dSawm9v47UiCl3Sk5ZiG7xojPLu4sbg1U2jx4IBTNBz
+  nbJSzFHK66jT8bgkuqsk0GjskDJk19Z4qwjwbsnn4j2WBii3RL-Us2lGVkY8fkFz
+  me1z0HbIkfz0Y6mqnOYtqc0X4jfcKoAC8Q",
+       "p":"83i-7IvMGXoMXCskv73TKr8637FiO7Z27zv8oj6pbWUQyLPQBQxtPV
+  nwD20R-60eTDmD2ujnMt5PoqMrm8RfmNhVWDtjjMmCMjOpSXicFHj7XOuVIYQyqV
+  WlWEh6dN36GVZYk93N8Bc9vY41xy8B9RzzOGVQzXvNEvn7O0nVbfs",
+       "q":"3dfOR9cuYq-0S-mkFLzgItgMEfFzB2q3hWehMuG0oCuqnb3vobLyum
+  qjVZQO1dIrdwgTnCdpYzBcOfW5r370AFXjiWft_NGEiovonizhKpo9VVS78TzFgx
+  kIdrecRezsZ-1kYd_s1qDbxtkDEgfAITAG9LUnADun4vIcb6yelxk",
+       "dp":"G4sPXkc6Ya9y8oJW9_ILj4xuppu0lzi_H7VTkS8xj5SdX3coE0oim
+  YwxIi2emTAue0UOa5dpgFGyBJ4c8tQ2VF402XRugKDTP8akYhFo5tAA77Qe_Nmtu
+  YZc3C3m3I24G2GvR5sSDxUyAN2zq8Lfn9EUms6rY3Ob8YeiKkTiBj0",
+       "dq":"s9lAH9fggBsoFR8Oac2R_E2gw282rT2kGOAhvIllETE1efrA6huUU
+  vMfBcMpn8lqeW6vzznYY5SSQF7pMdC_agI3nG8Ibp1BUb0JUiraRNqUfLhcQb_d9
+  GF4Dh7e74WbRsobRonujTYN1xCaP6TO61jvWrX-L18txXw494Q_cgk",
+       "qi":"GyM_p6JrXySiz1toFgKbWV-JdI3jQ4ypu9rbMWx3rQJBfmt0FoYzg
+  UIZEVFEcOqwemRN81zoDAaa-Bk0KWNGDjJHZDdDmFhW3AN7lI-puxk_mHZGJ11rx
+  yR8O55XLSe3SPmRfKwZI6yU24ZxvQKFYItdldUKGzO6Ia6zTKhAVRU",
+       "alg":"RS256",
+       "kid":"2011-04-29"}
+    ]
+  }
+</pre></div>
+<a name="SymmetricExample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.A.3"></a><h3>A.3.&nbsp;
+Example Symmetric Keys</h3>
+
+<p>
+          下記例の JWK Set は JWK として表現された2つの対象鍵を含む:
+          1つ目は AES Key Wrap アルゴリズムで使用されるためのものとして指定され, 2つ目は HMAC key である.
+          (改行は掲載上の都合による.)
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"keys":
+    [
+      {"kty":"oct",
+       "alg":"A128KW",
+       "k":"GawgguFyGrWKav7AX4VKUg"},
+
+      {"kty":"oct",
+       "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75
+  aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow",
+       "kid":"HMAC key used in JWS spec Appendix A.1 example"}
+    ]
+  }
+</pre></div>
+<a name="x5cExample"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
+Example Use of "x5c" (X.509 Certificate Chain) Parameter</h3>
+
+<p>
+
+<p>
+          下記は RSA 公開鍵と <tt>x5c</tt> に指定された X.509 証明書の両者で表現される RSA 署名鍵の JWK 表現の例である (改行は掲載上の都合による):
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {"kty":"RSA",
+   "use":"sig",
+   "kid":"1b94c",
+   "n":"vrjOfz9Ccdgx5nQudyhdoR17V-IubWMeOZCwX_jj0hgAsz2J_pqYW08
+   PLbK_PdiVGKPrqzmDIsLI7sA25VEnHU1uCLNwBuUiCO11_-7dYbsr4iJmG0Q
+   u2j8DsVyT1azpJC_NG84Ty5KKthuCaPod7iI7w0LK9orSMhBEwwZDCxTWq4a
+   YWAchc8t-emd9qOvWtVMDC2BXksRngh6X5bUYLy6AyHKvj-nUy1wgzjYQDwH
+   MTplCoLtU-o-8SNnZ1tmRoGE9uJkBLdh5gFENabWnU5m1ZqZPdwS-qo-meMv
+   VfJb6jJVWRpl2SUtCnYG2C32qvbWbjZ_jBPD5eunqsIo1vQ",
+   "e":"AQAB",
+   "x5c":
+    ["MIIDQjCCAiqgAwIBAgIGATz/FuLiMA0GCSqGSIb3DQEBBQUAMGIxCzAJB
+    gNVBAYTAlVTMQswCQYDVQQIEwJDTzEPMA0GA1UEBxMGRGVudmVyMRwwGgYD
+    VQQKExNQaW5nIElkZW50aXR5IENvcnAuMRcwFQYDVQQDEw5CcmlhbiBDYW1
+    wYmVsbDAeFw0xMzAyMjEyMzI5MTVaFw0xODA4MTQyMjI5MTVaMGIxCzAJBg
+    NVBAYTAlVTMQswCQYDVQQIEwJDTzEPMA0GA1UEBxMGRGVudmVyMRwwGgYDV
+    QQKExNQaW5nIElkZW50aXR5IENvcnAuMRcwFQYDVQQDEw5CcmlhbiBDYW1w
+    YmVsbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL64zn8/QnH
+    YMeZ0LncoXaEde1fiLm1jHjmQsF/449IYALM9if6amFtPDy2yvz3YlRij66
+    s5gyLCyO7ANuVRJx1NbgizcAblIgjtdf/u3WG7K+IiZhtELto/A7Fck9Ws6
+    SQvzRvOE8uSirYbgmj6He4iO8NCyvaK0jIQRMMGQwsU1quGmFgHIXPLfnpn
+    fajr1rVTAwtgV5LEZ4Iel+W1GC8ugMhyr4/p1MtcIM42EA8BzE6ZQqC7VPq
+    PvEjZ2dbZkaBhPbiZAS3YeYBRDWm1p1OZtWamT3cEvqqPpnjL1XyW+oyVVk
+    aZdklLQp2Btgt9qr21m42f4wTw+Xrp6rCKNb0CAwEAATANBgkqhkiG9w0BA
+    QUFAAOCAQEAh8zGlfSlcI0o3rYDPBB07aXNswb4ECNIKG0CETTUxmXl9KUL
+    +9gGlqCz5iWLOgWsnrcKcY0vXPG9J1r9AqBNTqNgHq2G03X09266X5CpOe1
+    zFo+Owb1zxtp3PehFdfQJ610CDLEaS9V9Rqp17hCyybEpOGVwe8fnk+fbEL
+    2Bo3UPGrpsHzUoaGpDftmWssZkhpBJKVMJyf/RuP2SmmaIzmnw9JiSlYhzo
+    4tpzd5rFXhjRbg4zW9C+2qok+2+qDM1iJ684gPHMIY8aLWrdgQTxkumGmTq
+    gawR+N5MDtdPTEQ0XfIBc2cJEUyMTY5MPvACWpkA6SdS4xSvdXK3IVfOWA=="]
+  }
+</pre></div>
+
+
+<a name="example-encrypted-jwk"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C"></a><h3>Appendix C.&nbsp;
+Example Encrypted RSA Private Key</h3>
+
+<p>
+        この例では <tt>PBES2-HS256+A128KW</tt> を鍵の暗号化に, <tt>A128CBC+HS256</tt> をコンテンツの暗号化に用いて RSA 秘密鍵を暗号化する.
+
+
+</p>
+<p>
+        注意: 特に断りのない限り, すべての改行は単に読みやすくするために挿入されている.
+
+
+</p>
+<a name="example-privkey-plaintext"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.1"></a><h3>C.1.&nbsp;
+Plaintext RSA Private Key</h3>
+
+<p>
+          下記の RSA 鍵は JWK として整形された, 認証付き暗号化オペレーションのための平文入力 (プレーンテキスト) である (改行は掲載上の都合による).
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {
+   "kty":"RSA",
+   "kid":"juliet@capulet.lit",
+   "use":"enc",
+   "n":"t6Q8PWSi1dkJj9hTP8hNYFlvadM7DflW9mWepOJhJ66w7nyoK1gPNqFMSQRy
+        O125Gp-TEkodhWr0iujjHVx7BcV0llS4w5ACGgPrcAd6ZcSR0-Iqom-QFcNP
+        8Sjg086MwoqQU_LYywlAGZ21WSdS_PERyGFiNnj3QQlO8Yns5jCtLCRwLHL0
+        Pb1fEv45AuRIuUfVcPySBWYnDyGxvjYGDSM-AqWS9zIQ2ZilgT-GqUmipg0X
+        OC0Cc20rgLe2ymLHjpHciCKVAbY5-L32-lSeZO-Os6U15_aXrk9Gw8cPUaX1
+        _I8sLGuSiVdt3C_Fn2PZ3Z8i744FPFGGcG1qs2Wz-Q",
+   "e":"AQAB",
+   "d":"GRtbIQmhOZtyszfgKdg4u_N-R_mZGU_9k7JQ_jn1DnfTuMdSNprTeaSTyWfS
+        NkuaAwnOEbIQVy1IQbWVV25NY3ybc_IhUJtfri7bAXYEReWaCl3hdlPKXy9U
+        vqPYGR0kIXTQRqns-dVJ7jahlI7LyckrpTmrM8dWBo4_PMaenNnPiQgO0xnu
+        ToxutRZJfJvG4Ox4ka3GORQd9CsCZ2vsUDmsXOfUENOyMqADC6p1M3h33tsu
+        rY15k9qMSpG9OX_IJAXmxzAh_tWiZOwk2K4yxH9tS3Lq1yX8C1EWmeRDkK2a
+        hecG85-oLKQt5VEpWHKmjOi_gJSdSgqcN96X52esAQ",
+   "p":"2rnSOV4hKSN8sS4CgcQHFbs08XboFDqKum3sc4h3GRxrTmQdl1ZK9uw-PIHf
+        QP0FkxXVrx-WE-ZEbrqivH_2iCLUS7wAl6XvARt1KkIaUxPPSYB9yk31s0Q8
+        UK96E3_OrADAYtAJs-M3JxCLfNgqh56HDnETTQhH3rCT5T3yJws",
+   "q":"1u_RiFDP7LBYh3N4GXLT9OpSKYP0uQZyiaZwBtOCBNJgQxaj10RWjsZu0c6I
+        edis4S7B_coSKB0Kj9PaPaBzg-IySRvvcQuPamQu66riMhjVtG6TlV8CLCYK
+        rYl52ziqK0E_ym2QnkwsUX7eYTB7LbAHRK9GqocDE5B0f808I4s",
+   "dp":"KkMTWqBUefVwZ2_Dbj1pPQqyHSHjj90L5x_MOzqYAJMcLMZtbUtwKqvVDq3
+        tbEo3ZIcohbDtt6SbfmWzggabpQxNxuBpoOOf_a_HgMXK_lhqigI4y_kqS1w
+        Y52IwjUn5rgRrJ-yYo1h41KR-vz2pYhEAeYrhttWtxVqLCRViD6c",
+   "dq":"AvfS0-gRxvn0bwJoMSnFxYcK1WnuEjQFluMGfwGitQBWtfZ1Er7t1xDkbN9
+        GQTB9yqpDoYaN06H7CFtrkxhJIBQaj6nkF5KKS3TQtQ5qCzkOkmxIe3KRbBy
+        mXxkb5qwUpX5ELD5xFc6FeiafWYY63TmmEAu_lRFCOJ3xDea-ots",
+   "qi":"lSQi-w9CpyUReMErP1RsBLk7wNtOvs5EQpPqmuMvqW57NBUczScEoPwmUqq
+        abu9V0-Py4dQ57_bapoKRu1R90bvuFnU63SHWEFglZQvJDMeAvmj4sm-Fp0o
+        Yu_neotgQ0hzbI5gry7ajdYy9-2lNx_76aBZoOUu9HCJ-UsfSOI8"
+  }
+</pre></div>
+<p>
+            この例 (JSON 配列表記を用いている) で使用されるプレーンテキストを表すオクテット列は以下の通りである.
+
+
+</p>
+<p>
+[123, 34, 107, 116, 121, 34, 58, 34, 82, 83, 65, 34, 44, 34, 107, 105, 100, 34, 58, 34, 106, 117, 108, 105, 101, 116, 64, 99, 97, 112, 117, 108, 101, 116, 46, 108, 105, 116, 34, 44, 34, 117, 115, 101, 34, 58, 34, 101, 110, 99, 34, 44, 34, 110, 34, 58, 34, 116, 54, 81, 56, 80, 87, 83, 105, 49, 100, 107, 74, 106, 57, 104, 84, 80, 56, 104, 78, 89, 70, 108, 118, 97, 100, 77, 55, 68, 102, 108, 87, 57, 109, 87, 101, 112, 79, 74, 104, 74, 54, 54, 119, 55, 110, 121, 111, 75, 49, 103, 80, 78, 113, 70, 77, 83, 81, 82, 121, 79, 49, 50, 53, 71, 112, 45, 84, 69, 107, 111, 100, 104, 87, 114, 48, 105, 117, 106, 106, 72, 86, 120, 55, 66, 99, 86, 48, 108, 108, 83, 52, 119, 53, 65, 67, 71, 103, 80, 114, 99, 65, 100, 54, 90, 99, 83, 82, 48, 45, 73, 113, 111, 109, 45, 81, 70, 99, 78, 80, 56, 83, 106, 103, 48, 56, 54, 77, 119, 111, 113, 81, 85, 95, 76, 89, 121, 119, 108, 65, 71, 90, 50, 49, 87, 83, 100, 83, 95, 80, 69, 82, 121, 71, 70, 105, 78, 110, 106, 51, 81, 81, 108, 79, 56, 89, 110, 115, 53, 106, 67, 116, 76, 67, 82, 119, 76, 72, 76, 48, 80, 98, 49, 102, 69, 118, 52, 53, 65, 117, 82, 73, 117, 85, 102, 86, 99, 80, 121, 83, 66, 87, 89, 110, 68, 121, 71, 120, 118, 106, 89, 71, 68, 83, 77, 45, 65, 113, 87, 83, 57, 122, 73, 81, 50, 90, 105, 108, 103, 84, 45, 71, 113, 85, 109, 105, 112, 103, 48, 88, 79, 67, 48, 67, 99, 50, 48, 114, 103, 76, 101, 50, 121, 109, 76, 72, 106, 112, 72, 99, 105, 67, 75, 86, 65, 98, 89, 53, 45, 76, 51, 50, 45, 108, 83, 101, 90, 79, 45, 79, 115, 54, 85, 49, 53, 95, 97, 88, 114, 107, 57, 71, 119, 56, 99, 80, 85, 97, 88, 49, 95, 73, 56, 115, 76, 71, 117, 83, 105, 86, 100, 116, 51, 67, 95, 70, 110, 50, 80, 90, 51, 90, 56, 105, 55, 52, 52, 70, 80, 70, 71, 71, 99, 71, 49, 113, 115, 50, 87, 122, 45, 81, 34, 44, 34, 101, 34, 58, 34, 65, 81, 65, 66, 34, 44, 34, 100, 34, 58, 34, 71, 82, 116, 98, 73, 81, 109, 104, 79, 90, 116, 121, 115, 122, 102, 103, 75, 100, 103, 52, 117, 95, 78, 45, 82, 95, 109, 90, 71, 85, 95, 57, 107, 55, 74, 81, 95, 106, 110, 49, 68, 110, 102, 84, 117, 77, 100, 83, 78, 112, 114, 84, 101, 97, 83, 84, 121, 87, 102, 83, 78, 107, 117, 97, 65, 119, 110, 79, 69, 98, 73, 81, 86, 121, 49, 73, 81, 98, 87, 86, 86, 50, 53, 78, 89, 51, 121, 98, 99, 95, 73, 104, 85, 74, 116, 102, 114, 105, 55, 98, 65, 88, 89, 69, 82, 101, 87, 97, 67, 108, 51, 104, 100, 108, 80, 75, 88, 121, 57, 85, 118, 113, 80, 89, 71, 82, 48, 107, 73, 88, 84, 81, 82, 113, 110, 115, 45, 100, 86, 74, 55, 106, 97, 104, 108, 73, 55, 76, 121, 99, 107, 114, 112, 84, 109, 114, 77, 56, 100, 87, 66, 111, 52, 95, 80, 77, 97, 101, 110, 78, 110, 80, 105, 81, 103, 79, 48, 120, 110, 117, 84, 111, 120, 117, 116, 82, 90, 74, 102, 74, 118, 71, 52, 79, 120, 52, 107, 97, 51, 71, 79, 82, 81, 100, 57, 67, 115, 67, 90, 50, 118, 115, 85, 68, 109, 115, 88, 79, 102, 85, 69, 78, 79, 121, 77, 113, 65, 68, 67, 54, 112, 49, 77, 51, 104, 51, 51, 116, 115, 117, 114, 89, 49, 53, 107, 57, 113, 77, 83, 112, 71, 57, 79, 88, 95, 73, 74, 65, 88, 109, 120, 122, 65, 104, 95, 116, 87, 105, 90, 79, 119, 107, 50, 75, 52, 121, 120, 72, 57, 116, 83, 51, 76, 113, 49, 121, 88, 56, 67, 49, 69, 87, 109, 101, 82, 68, 107, 75, 50, 97, 104, 101, 99, 71, 56, 53, 45, 111, 76, 75, 81, 116, 53, 86, 69, 112, 87, 72, 75, 109, 106, 79, 105, 95, 103, 74, 83, 100, 83, 103, 113, 99, 78, 57, 54, 88, 53, 50, 101, 115, 65, 81, 34, 44, 34, 112, 34, 58, 34, 50, 114, 110, 83, 79, 86, 52, 104, 75, 83, 78, 56, 115, 83, 52, 67, 103, 99, 81, 72, 70, 98, 115, 48, 56, 88, 98, 111, 70, 68, 113, 75, 117, 109, 51, 115, 99, 52, 104, 51, 71, 82, 120, 114, 84, 109, 81, 100, 108, 49, 90, 75, 57, 117, 119, 45, 80, 73, 72, 102, 81, 80, 48, 70, 107, 120, 88, 86, 114, 120, 45, 87, 69, 45, 90, 69, 98, 114, 113, 105, 118, 72, 95, 50, 105, 67, 76, 85, 83, 55, 119, 65, 108, 54, 88, 118, 65, 82, 116, 49, 75, 107, 73, 97, 85, 120, 80, 80, 83, 89, 66, 57, 121, 107, 51, 49, 115, 48, 81, 56, 85, 75, 57, 54, 69, 51, 95, 79, 114, 65, 68, 65, 89, 116, 65, 74, 115, 45, 77, 51, 74, 120, 67, 76, 102, 78, 103, 113, 104, 53, 54, 72, 68, 110, 69, 84, 84, 81, 104, 72, 51, 114, 67, 84, 53, 84, 51, 121, 74, 119, 115, 34, 44, 34, 113, 34, 58, 34, 49, 117, 95, 82, 105, 70, 68, 80, 55, 76, 66, 89, 104, 51, 78, 52, 71, 88, 76, 84, 57, 79, 112, 83, 75, 89, 80, 48, 117, 81, 90, 121, 105, 97, 90, 119, 66, 116, 79, 67, 66, 78, 74, 103, 81, 120, 97, 106, 49, 48, 82, 87, 106, 115, 90, 117, 48, 99, 54, 73, 101, 100, 105, 115, 52, 83, 55, 66, 95, 99, 111, 83, 75, 66, 48, 75, 106, 57, 80, 97, 80, 97, 66, 122, 103, 45, 73, 121, 83, 82, 118, 118, 99, 81, 117, 80, 97, 109, 81, 117, 54, 54, 114, 105, 77, 104, 106, 86, 116, 71, 54, 84, 108, 86, 56, 67, 76, 67, 89, 75, 114, 89, 108, 53, 50, 122, 105, 113, 75, 48, 69, 95, 121, 109, 50, 81, 110, 107, 119, 115, 85, 88, 55, 101, 89, 84, 66, 55, 76, 98, 65, 72, 82, 75, 57, 71, 113, 111, 99, 68, 69, 53, 66, 48, 102, 56, 48, 56, 73, 52, 115, 34, 44, 34, 100, 112, 34, 58, 34, 75, 107, 77, 84, 87, 113, 66, 85, 101, 102, 86, 119, 90, 50, 95, 68, 98, 106, 49, 112, 80, 81, 113, 121, 72, 83, 72, 106, 106, 57, 48, 76, 53, 120, 95, 77, 79, 122, 113, 89, 65, 74, 77, 99, 76, 77, 90, 116, 98, 85, 116, 119, 75, 113, 118, 86, 68, 113, 51, 116, 98, 69, 111, 51, 90, 73, 99, 111, 104, 98, 68, 116, 116, 54, 83, 98, 102, 109, 87, 122, 103, 103, 97, 98, 112, 81, 120, 78, 120, 117, 66, 112, 111, 79, 79, 102, 95, 97, 95, 72, 103, 77, 88, 75, 95, 108, 104, 113, 105, 103, 73, 52, 121, 95, 107, 113, 83, 49, 119, 89, 53, 50, 73, 119, 106, 85, 110, 53, 114, 103, 82, 114, 74, 45, 121, 89, 111, 49, 104, 52, 49, 75, 82, 45, 118, 122, 50, 112, 89, 104, 69, 65, 101, 89, 114, 104, 116, 116, 87, 116, 120, 86, 113, 76, 67, 82, 86, 105, 68, 54, 99, 34, 44, 34, 100, 113, 34, 58, 34, 65, 118, 102, 83, 48, 45, 103, 82, 120, 118, 110, 48, 98, 119, 74, 111, 77, 83, 110, 70, 120, 89, 99, 75, 49, 87, 110, 117, 69, 106, 81, 70, 108, 117, 77, 71, 102, 119, 71, 105, 116, 81, 66, 87, 116, 102, 90, 49, 69, 114, 55, 116, 49, 120, 68, 107, 98, 78, 57, 71, 81, 84, 66, 57, 121, 113, 112, 68, 111, 89, 97, 78, 48, 54, 72, 55, 67, 70, 116, 114, 107, 120, 104, 74, 73, 66, 81, 97, 106, 54, 110, 107, 70, 53, 75, 75, 83, 51, 84, 81, 116, 81, 53, 113, 67, 122, 107, 79, 107, 109, 120, 73, 101, 51, 75, 82, 98, 66, 121, 109, 88, 120, 107, 98, 53, 113, 119, 85, 112, 88, 53, 69, 76, 68, 53, 120, 70, 99, 54, 70, 101, 105, 97, 102, 87, 89, 89, 54, 51, 84, 109, 109, 69, 65, 117, 95, 108, 82, 70, 67, 79, 74, 51, 120, 68, 101, 97, 45, 111, 116, 115, 34, 44, 34, 113, 105, 34, 58, 34, 108, 83, 81, 105, 45, 119, 57, 67, 112, 121, 85, 82, 101, 77, 69, 114, 80, 49, 82, 115, 66, 76, 107, 55, 119, 78, 116, 79, 118, 115, 53, 69, 81, 112, 80, 113, 109, 117, 77, 118, 113, 87, 53, 55, 78, 66, 85, 99, 122, 83, 99, 69, 111, 80, 119, 109, 85, 113, 113, 97, 98, 117, 57, 86, 48, 45, 80, 121, 52, 100, 81, 53, 55, 95, 98, 97, 112, 111, 75, 82, 117, 49, 82, 57, 48, 98, 118, 117, 70, 110, 85, 54, 51, 83, 72, 87, 69, 70, 103, 108, 90, 81, 118, 74, 68, 77, 101, 65, 118, 109, 106, 52, 115, 109, 45, 70, 112, 48, 111, 89, 117, 95, 110, 101, 111, 116, 103, 81, 48, 104, 122, 98, 73, 53, 103, 114, 121, 55, 97, 106, 100, 89, 121, 57, 45, 50, 108, 78, 120, 95, 55, 54, 97, 66, 90, 111, 79, 85, 117, 57, 72, 67, 74, 45, 85, 115, 102, 83, 79, 73, 56, 34, 125]
+
+</p>
+<a name="example-privkey-header"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.2"></a><h3>C.2.&nbsp;
+JOSE Header</h3>
+
+<p>
+          下記の JWE Protected Header の例は以下の内容を宣言している.
+
+
+</p>
+<p>
+          </p>
+<ul class="text">
+<li>
+              JWE Encrypted Key 生成のため, Content Encryption Key を PSE2-HS256+A128KW アルゴリズムを用いて暗号化する.
+
+
+</li>
+<li>
+              Salt Input (<tt>p2s</tt>) の値は [217, 96, 147, 112, 150, 117, 70, 247, 127, 8, 155, 137, 174, 42, 80, 215] である.
+
+
+</li>
+<li>
+              イテレーション回数 (<tt>p2c</tt>) は 4096 である.
+
+
+</li>
+<li>
+              暗号文と Authentication Tag を生成するため, プレーンテキストに対して AES_128_CBC_HMAC_SHA_256 アルゴリズムを用いて認証付き暗号化を行う.
+
+
+</li>
+<li>
+              content type は application/jwk+json である.
+
+
+</li>
+</ul><p>
+          </p>
+<div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  {
+   "alg":"PBES2-HS256+A128KW",
+   "p2s":"2WCTcJZ1Rvd_CJuJripQ1w",
+   "p2c":4096,
+   "enc":"A128CBC-HS256",
+   "cty":"jwk+json"
+  }
+</pre></div><p>
+
+
+</p>
+<p>
+          BASE64URL(UTF8(JWE Protected Header)) として JWE Protected Header をエンコードすると以下の値となる (改行は掲載上の都合による).
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJwMnMiOiIyV0NUY0paMVJ2ZF9DSn
+  VKcmlwUTF3IiwicDJjIjo0MDk2LCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5Ijoi
+  andrK2pzb24ifQ
+</pre></div>
+<a name="example-privkey-cek"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.3"></a><h3>C.3.&nbsp;
+Content Encryption Key (CEK)</h3>
+
+<p>
+          256-bit のランダムな Content Encryption Key (CEK) を生成する.
+          この例では以下の通りである (JSON 配列表記を用いている).
+
+
+</p>
+<p>
+[111, 27, 25, 52, 66, 29, 20, 78, 92, 176, 56, 240, 65, 208, 82, 112, 161, 131, 36, 55, 202, 236, 185, 172, 129, 23, 153, 194, 195, 48, 253, 182]
+
+</p>
+<a name="example-privkey-keyderivation"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.4"></a><h3>C.4.&nbsp;
+Key Derivation</h3>
+
+<p>
+          HMAC-SHA-256, 指定されたソルトとイテレーション回数, 128-bit の要求されたキーサイズを用いて PBKDF2 アルゴリズムを適用し, 共有されたパスフレーズから PBKDF2 Derived Key を導出する.
+          この例では下記のパスフレーズを用いる.
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  Thus from my lips, by yours, my sin is purged.
+</pre></div>
+<p>
+          パスフレーズのオクテット表現は以下の通りである.
+
+
+</p>
+<p>
+[84, 104, 117, 115, 32, 102, 114, 111, 109, 32, 109, 121, 32, 108, 105, 112, 115, 44, 32, 98, 121, 32, 121, 111, 117, 114, 115, 44, 32, 109, 121, 32, 115, 105, 110, 32, 105, 115, 32, 112, 117, 114, 103, 101, 100, 46]
+
+</p>
+<p>
+          ソルトの値(UTF8(Alg) || 0x00 || Salt Input)は以下の通りである.
+
+
+</p>
+<p>
+[80, 66, 69, 83, 50, 45, 72, 83, 50, 53, 54, 43, 65, 49, 50, 56, 75, 87,
+ 0,
+ 217, 96, 147, 112, 150, 117, 70, 247, 127, 8, 155, 137, 174, 42, 80, 215].
+
+</p>
+<p>
+          結果として得られる PBKDF2 Derived Key の値は以下の通りである.
+
+
+</p>
+<p>
+[110, 171, 169, 92, 129, 92, 109, 117, 233, 242, 116, 233, 170, 14, 24, 75]
+
+</p>
+<a name="example-privkey-keyencrypt"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.5"></a><h3>C.5.&nbsp;
+Key Encryption</h3>
+
+<p>
+          PBKDF2 Derived Key を用いた <tt>A128KW</tt> アルゴリズムで CEK を暗号化する.
+          結果として得られる JWE Encrypted Key の値は以下の通りである.
+
+
+</p>
+<p>
+[78, 186, 151, 59, 11, 141, 81, 240, 213, 245, 83, 211, 53, 188, 134, 188, 66, 125, 36, 200, 222, 124, 5, 103, 249, 52, 117, 184, 140, 81, 246, 158, 161, 177, 20, 33, 245, 57, 59, 4]
+
+</p>
+<p>
+          BASE64URL(JWE Encrypted Key) として JWE Encrypted Key をエンコードすると以下の値となる.
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  TrqXOwuNUfDV9VPTNbyGvEJ9JMjefAVn-TR1uIxR9p6hsRQh9Tk7BA
+</pre></div>
+<a name="example-privkey-iv"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.6"></a><h3>C.6.&nbsp;
+Initialization Vector</h3>
+
+<p>
+          ランダムな 128-bit の JWE Initialization Vector を生成する.
+          この例では以下の通りである.
+
+
+</p>
+<p>
+[97, 239, 99, 214, 171, 54, 216, 57, 145, 72, 7, 93, 34, 31, 149, 156]
+
+</p>
+<p>
+          BASE64URL(JWE Initialization Vector) として JWE Initialization Vector をエンコードすると以下の値となる.
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  Ye9j1qs22DmRSAddIh-VnA
+</pre></div>
+<a name="example-privkey-adata"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.7"></a><h3>C.7.&nbsp;
+Additional Authenticated Data</h3>
+
+<p>
+          Additional Authenticated Data の暗号化パラメータは ASCII(BASE64URL(UTF8(JWE Protected Header))) とする.
+          この値は以下の通りである.
+
+
+</p>
+<p>
+[123, 34, 97, 108, 103, 34, 58, 34, 80, 66, 69, 83, 50, 45, 72, 83, 50, 53, 54, 43, 65, 49, 50, 56, 75, 87, 34, 44, 34, 112, 50, 115, 34, 58, 34, 50, 87, 67, 84, 99, 74, 90, 49, 82, 118, 100, 95, 67, 74, 117, 74, 114, 105, 112, 81, 49, 119, 34, 44, 34, 112, 50, 99, 34, 58, 52, 48, 57, 54, 44, 34, 101, 110, 99, 34, 58, 34, 65, 49, 50, 56, 67, 66, 67, 45, 72, 83, 50, 53, 54, 34, 44, 34, 99, 116, 121, 34, 58, 34, 106, 119, 107, 43, 106, 115, 111, 110, 34, 125]
+
+</p>
+<a name="example-privkey-contentencrypt"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.8"></a><h3>C.8.&nbsp;
+Content Encryption</h3>
+
+<p>
+          暗号鍵 CEK, JWE Initialization Vector 及び上記の Additional Authenticated Data を用いて, AES_128_CBC_HMAC_SHA_256 アルゴリズムでプレーンテキストに対して認証付き暗号化を実行する.
+          結果として得られる暗号文は以下の通りである.
+
+
+</p>
+<p>
+[3, 8, 65, 242, 92, 107, 148, 168, 197, 159, 77, 139, 25, 97, 42, 131, 110, 199, 225, 56, 61, 127, 38, 64, 108, 91, 247, 167, 150, 98, 112, 122, 99, 235, 132, 50, 28, 46, 56, 170, 169, 89, 220, 145, 38, 157, 148, 224, 66, 140, 8, 169, 146, 117, 222, 54, 242, 28, 31, 11, 129, 227, 226, 169, 66, 117, 133, 254, 140, 216, 115, 203, 131, 60, 60, 47, 233, 132, 121, 13, 35, 188, 53, 19, 172, 77, 59, 54, 211, 158, 172, 25, 60, 111, 0, 80, 201, 158, 160, 210, 68, 55, 12, 67, 136, 130, 87, 216, 197, 95, 62, 20, 155, 205, 5, 140, 27, 168, 221, 65, 114, 78, 157, 254, 46, 206, 182, 52, 135, 87, 239, 3, 34, 186, 126, 220, 151, 17, 33, 237, 57, 96, 172, 183, 58, 45, 248, 103, 241, 142, 136, 7, 53, 16, 173, 181, 7, 93, 92, 252, 1, 53, 212, 242, 8, 255, 11, 239, 181, 24, 148, 136, 111, 24, 161, 244, 23, 106, 69, 157, 215, 243, 189, 240, 166, 169, 249, 72, 38, 201, 99, 223, 173, 229, 9, 222, 82, 79, 157, 176, 248, 85, 239, 121, 163, 1, 31, 48, 98, 206, 61, 249, 104, 216, 201, 227, 105, 48, 194, 193, 10, 36, 160, 159, 241, 166, 84, 54, 188, 211, 243, 242, 40, 46, 45, 193, 193, 160, 169, 101, 201, 1, 73, 47, 105, 142, 88, 28, 42, 132, 26, 61, 58, 63, 142, 243, 77, 26, 179, 153, 166, 46, 203, 208, 49, 55, 229, 34, 178, 4, 109, 180, 204, 204, 115, 1, 103, 193, 5, 91, 215, 214, 195, 1, 110, 208, 53, 144, 36, 105, 12, 54, 25, 129, 101, 15, 183, 150, 250, 147, 115, 227, 58, 250, 5, 128, 232, 63, 15, 14, 19, 141, 124, 253, 142, 137, 189, 135, 26, 44, 240, 27, 88, 132, 105, 127, 6, 71, 37, 41, 124, 187, 165, 140, 34, 200, 123, 80, 228, 24, 231, 176, 132, 171, 138, 145, 152, 116, 224, 50, 141, 51, 147, 91, 186, 7, 246, 106, 217, 148, 244, 227, 244, 45, 220, 121, 165, 224, 148, 181, 17, 181, 128, 197, 101, 237, 11, 169, 229, 149, 199, 78, 56, 15, 14, 190, 91, 216, 222, 247, 213, 74, 40, 8, 96, 20, 168, 119, 96, 26, 24, 52, 37, 82, 127, 57, 176, 147, 118, 59, 7, 224, 33, 117, 72, 155, 29, 82, 26, 215, 189, 140, 119, 28, 152, 118, 93, 222, 194, 192, 148, 115, 83, 253, 216, 212, 108, 88, 83, 175, 172, 220, 97, 79, 110, 42, 223, 170, 161, 34, 164, 144, 193, 76, 122, 92, 160, 41, 178, 175, 6, 35, 96, 113, 96, 158, 90, 129, 101, 26, 45, 70, 180, 189, 230, 15, 5, 247, 150, 209, 94, 171, 26, 13, 142, 212, 129, 1, 176, 5, 0, 112, 203, 174, 185, 119, 76, 233, 189, 54, 172, 189, 245, 223, 253, 205, 12, 88, 9, 126, 157, 225, 90, 40, 229, 191, 63, 30, 160, 224, 69, 3, 140, 109, 70, 89, 37, 213, 245, 194, 210, 180, 188, 63, 210, 139, 221, 2, 144, 200, 20, 177, 216, 29, 227, 242, 106, 12, 135, 142, 139, 144, 82, 225, 162, 171, 176, 108, 99, 6, 43, 193, 161, 116, 234, 216, 1, 242, 21, 124, 162, 98, 205, 124, 193, 38, 12, 242, 90, 101, 76, 204, 184, 124, 58, 180, 16, 240, 26, 76, 195, 250, 212, 191, 185, 191, 97, 198, 186, 73, 225, 75, 14, 90, 123, 121, 172, 101, 50, 160, 221, 141, 253, 205, 126, 77, 9, 87, 198, 110, 104, 182, 141, 120, 51, 25, 232, 3, 32, 80, 6, 156, 8, 18, 4, 135, 221, 142, 25, 135, 2, 129, 132, 115, 227, 74, 141, 28, 119, 11, 141, 117, 134, 198, 62, 150, 254, 97, 75, 197, 251, 99, 89, 204, 224, 226, 67, 83, 175, 89, 0, 81, 29, 38, 207, 89, 140, 255, 197, 177, 164, 128, 62, 116, 224, 180, 109, 169, 28, 2, 59, 176, 130, 252, 44, 178, 81, 24, 181, 176, 75, 44, 61, 91, 12, 37, 21, 255, 83, 130, 197, 16, 231, 60, 217, 56, 131, 118, 168, 202, 58, 52, 84, 124, 162, 185, 174, 162, 226, 242, 112, 68, 246, 202, 16, 208, 52, 154, 58, 129, 80, 102, 33, 171, 6, 186, 177, 14, 195, 88, 136, 6, 0, 155, 28, 100, 162, 207, 162, 222, 117, 248, 170, 208, 114, 87, 31, 57, 176, 33, 57, 83, 253, 12, 168, 110, 194, 59, 22, 86, 48, 227, 196, 22, 176, 218, 122, 149, 21, 249, 195, 178, 174, 250, 20, 34, 120, 60, 139, 201, 99, 40, 18, 177, 17, 54, 54, 6, 3, 222, 128, 160, 88, 11, 27, 0, 81, 192, 36, 41, 169, 146, 8, 47, 64, 136, 28, 64, 209, 67, 135, 202, 20, 234, 182, 91, 204, 146, 195, 187, 0, 72, 77, 11, 111, 152, 204, 252, 177, 212, 89, 33, 50, 132, 184, 44, 183, 186, 19, 250, 69, 176, 201, 102, 140, 14, 143, 212, 212, 160, 123, 208, 185, 27, 155, 68, 77, 133, 198, 2, 126, 155, 215, 22, 91, 30, 217, 176, 172, 244, 156, 174, 143, 75, 90, 21, 102, 1, 160, 59, 253, 188, 88, 57, 185, 197, 83, 24, 22, 180, 174, 47, 207, 52, 1, 141, 146, 119, 233, 68, 228, 224, 228, 193, 248, 155, 202, 90, 7, 213, 88, 33, 108, 107, 14, 86, 8, 120, 250, 58, 142, 35, 164, 238, 221, 219, 35, 123, 88, 199, 192, 143, 104, 83, 17, 166, 243, 247, 11, 166, 67, 68, 204, 132, 23, 110, 103, 228, 14, 55, 122, 88, 57, 180, 178, 237, 52, 130, 214, 245, 102, 123, 67, 73, 175, 1, 127, 112, 148, 94, 132, 164, 197, 153, 217, 87, 25, 89, 93, 63, 22, 66, 166, 90, 251, 101, 10, 145, 66, 17, 124, 36, 255, 165, 226, 97, 16, 86, 112, 154, 88, 105, 253, 56, 209, 229, 122, 103, 51, 24, 228, 190, 3, 236, 48, 182, 121, 176, 140, 128, 117, 87, 251, 224, 37, 23, 248, 21, 218, 85, 251, 136, 84, 147, 143, 144, 46, 155, 183, 251, 89, 86, 23, 26, 237, 100, 167, 32, 130, 173, 237, 89, 55, 110, 70, 142, 127, 65, 230, 208, 109, 69, 19, 253, 84, 130, 130, 193, 92, 58, 108, 150, 42, 136, 249, 234, 86, 241, 182, 19, 117, 246, 26, 181, 92, 101, 155, 44, 103, 235, 173, 30, 140, 90, 29, 183, 190, 77, 53, 206, 127, 5, 87, 8, 187, 184, 92, 4, 157, 22, 18, 105, 251, 39, 88, 182, 181, 103, 148, 233, 6, 63, 70, 188, 7, 101, 216, 127, 77, 31, 12, 233, 7, 147, 106, 30, 150, 77, 145, 13, 205, 48, 56, 245, 220, 89, 252, 127, 51, 180, 36, 31, 55, 18, 214, 230, 254, 217, 197, 65, 247, 27, 215, 117, 247, 108, 157, 121, 11, 63, 150, 195, 83, 6, 134, 242, 41, 24, 105, 204, 5, 63, 192, 14, 159, 113, 72, 140, 128, 51, 215, 80, 215, 39, 149, 94, 79, 128, 34, 5, 129, 82, 83, 121, 187, 37, 146, 27, 32, 177, 167, 71, 9, 195, 30, 199, 196, 205, 252, 207, 69, 8, 120, 27, 190, 51, 43, 75, 249, 234, 167, 116, 206, 203, 199, 43, 108, 87, 48, 155, 140, 228, 210, 85, 25, 161, 96, 67, 8, 205, 64, 39, 75, 88, 44, 238, 227, 16, 0, 100, 93, 129, 18, 4, 149, 50, 68, 72, 99, 35, 111, 254, 27, 102, 175, 108, 233, 87, 181, 44, 169, 18, 139, 79, 208, 14, 202, 192, 5, 162, 222, 231, 149, 24, 211, 49, 120, 101, 39, 206, 87, 147, 204, 200, 251, 104, 115, 5, 127, 117, 195, 79, 151, 18, 224, 52, 0, 245, 4, 85, 255, 103, 217, 0, 116, 198, 80, 91, 167, 192, 154, 199, 197, 149, 237, 51, 2, 131, 30, 226, 95, 105, 48, 68, 135, 208, 144, 120, 176, 145, 157, 8, 171, 80, 94, 61, 92, 92, 220, 157, 13, 138, 51, 23, 185, 124, 31, 77, 1, 87, 241, 43, 239, 55, 122, 86, 210, 48, 208, 204, 112, 144, 80, 147, 106, 219, 47, 253, 31, 134, 176, 16, 135, 219, 95, 17, 129, 83, 236, 125, 136, 112, 86, 228, 252, 71, 129, 218, 174, 156, 236, 12, 27, 159, 11, 138, 252, 253, 207, 31, 115, 214, 118, 239, 203, 16, 211, 205, 99, 22, 51, 163, 107, 162, 246, 199, 67, 127, 34, 108, 197, 53, 117, 58, 199, 3, 190, 74, 70, 190, 65, 235, 175, 97, 157, 215, 252, 189, 245, 100, 229, 248, 46, 90, 126, 237, 4, 159, 128, 58, 7, 156, 236, 69, 191, 85, 240, 179, 224, 249, 152, 49, 195, 223, 60, 78, 186, 157, 155, 217, 58, 105, 116, 164, 217, 111, 215, 150, 218, 252, 84, 86, 248, 140, 240, 226, 61, 106, 208, 95, 60, 163, 6, 0, 235, 253, 162, 96, 62, 234, 251, 249, 35, 21, 7, 211, 233, 86, 50, 33, 203, 67, 248, 60, 190, 123, 48, 167, 226, 90, 191, 71, 56, 183, 165, 17, 85, 76, 238, 140, 211, 168, 53, 223, 194, 4, 97, 149, 156, 120, 137, 76, 33, 229, 243, 194, 208, 198, 202, 139, 28, 114, 46, 224, 92, 254, 83, 100, 134, 158, 92, 70, 78, 61, 62, 138, 24, 173, 216, 66, 198, 70, 254, 47, 59, 193, 53, 6, 139, 19, 153, 253, 28, 199, 122, 160, 27, 67, 234, 209, 227, 139, 4, 50, 7, 178, 183, 89, 252, 32, 128, 137, 55, 52, 29, 89, 12, 111, 42, 181, 51, 170, 132, 132, 207, 170, 228, 254, 178, 213, 0, 136, 175, 8]
+
+</p>
+<p>
+          結果として得られる Authentication Tag は以下の通りである.
+
+
+</p>
+<p>
+[208, 113, 102, 132, 236, 236, 67, 223, 39, 53, 98, 99, 32, 121, 17, 236]
+
+</p>
+<p>
+          BASE64URL(JWE Ciphertext) として JWE Ciphertext をエンコードすると以下の値となる (改行は掲載上の都合による).
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  AwhB8lxrlKjFn02LGWEqg27H4Tg9fyZAbFv3p5ZicHpj64QyHC44qqlZ3JEmnZTgQo
+  wIqZJ13jbyHB8LgePiqUJ1hf6M2HPLgzw8L-mEeQ0jvDUTrE07NtOerBk8bwBQyZ6g
+  0kQ3DEOIglfYxV8-FJvNBYwbqN1Bck6d_i7OtjSHV-8DIrp-3JcRIe05YKy3Oi34Z_
+  GOiAc1EK21B11c_AE11PII_wvvtRiUiG8YofQXakWd1_O98Kap-UgmyWPfreUJ3lJP
+  nbD4Ve95owEfMGLOPflo2MnjaTDCwQokoJ_xplQ2vNPz8iguLcHBoKllyQFJL2mOWB
+  wqhBo9Oj-O800as5mmLsvQMTflIrIEbbTMzHMBZ8EFW9fWwwFu0DWQJGkMNhmBZQ-3
+  lvqTc-M6-gWA6D8PDhONfP2Oib2HGizwG1iEaX8GRyUpfLuljCLIe1DkGOewhKuKkZ
+  h04DKNM5Nbugf2atmU9OP0Ldx5peCUtRG1gMVl7Qup5ZXHTjgPDr5b2N731UooCGAU
+  qHdgGhg0JVJ_ObCTdjsH4CF1SJsdUhrXvYx3HJh2Xd7CwJRzU_3Y1GxYU6-s3GFPbi
+  rfqqEipJDBTHpcoCmyrwYjYHFgnlqBZRotRrS95g8F95bRXqsaDY7UgQGwBQBwy665
+  d0zpvTasvfXf_c0MWAl-neFaKOW_Px6g4EUDjG1GWSXV9cLStLw_0ovdApDIFLHYHe
+  PyagyHjouQUuGiq7BsYwYrwaF06tgB8hV8omLNfMEmDPJaZUzMuHw6tBDwGkzD-tS_
+  ub9hxrpJ4UsOWnt5rGUyoN2N_c1-TQlXxm5oto14MxnoAyBQBpwIEgSH3Y4ZhwKBhH
+  PjSo0cdwuNdYbGPpb-YUvF-2NZzODiQ1OvWQBRHSbPWYz_xbGkgD504LRtqRwCO7CC
+  _CyyURi1sEssPVsMJRX_U4LFEOc82TiDdqjKOjRUfKK5rqLi8nBE9soQ0DSaOoFQZi
+  GrBrqxDsNYiAYAmxxkos-i3nX4qtByVx85sCE5U_0MqG7COxZWMOPEFrDaepUV-cOy
+  rvoUIng8i8ljKBKxETY2BgPegKBYCxsAUcAkKamSCC9AiBxA0UOHyhTqtlvMksO7AE
+  hNC2-YzPyx1FkhMoS4LLe6E_pFsMlmjA6P1NSge9C5G5tETYXGAn6b1xZbHtmwrPSc
+  ro9LWhVmAaA7_bxYObnFUxgWtK4vzzQBjZJ36UTk4OTB-JvKWgfVWCFsaw5WCHj6Oo
+  4jpO7d2yN7WMfAj2hTEabz9wumQ0TMhBduZ-QON3pYObSy7TSC1vVme0NJrwF_cJRe
+  hKTFmdlXGVldPxZCplr7ZQqRQhF8JP-l4mEQVnCaWGn9ONHlemczGOS-A-wwtnmwjI
+  B1V_vgJRf4FdpV-4hUk4-QLpu3-1lWFxrtZKcggq3tWTduRo5_QebQbUUT_VSCgsFc
+  OmyWKoj56lbxthN19hq1XGWbLGfrrR6MWh23vk01zn8FVwi7uFwEnRYSafsnWLa1Z5
+  TpBj9GvAdl2H9NHwzpB5NqHpZNkQ3NMDj13Fn8fzO0JB83Etbm_tnFQfcb13X3bJ15
+  Cz-Ww1MGhvIpGGnMBT_ADp9xSIyAM9dQ1yeVXk-AIgWBUlN5uyWSGyCxp0cJwx7HxM
+  38z0UIeBu-MytL-eqndM7LxytsVzCbjOTSVRmhYEMIzUAnS1gs7uMQAGRdgRIElTJE
+  SGMjb_4bZq9s6Ve1LKkSi0_QDsrABaLe55UY0zF4ZSfOV5PMyPtocwV_dcNPlxLgNA
+  D1BFX_Z9kAdMZQW6fAmsfFle0zAoMe4l9pMESH0JB4sJGdCKtQXj1cXNydDYozF7l8
+  H00BV_Er7zd6VtIw0MxwkFCTatsv_R-GsBCH218RgVPsfYhwVuT8R4HarpzsDBufC4
+  r8_c8fc9Z278sQ081jFjOja6L2x0N_ImzFNXU6xwO-Ska-QeuvYZ3X_L31ZOX4Llp-
+  7QSfgDoHnOxFv1Xws-D5mDHD3zxOup2b2TppdKTZb9eW2vxUVviM8OI9atBfPKMGAO
+  v9omA-6vv5IxUH0-lWMiHLQ_g8vnswp-Jav0c4t6URVUzujNOoNd_CBGGVnHiJTCHl
+  88LQxsqLHHIu4Fz-U2SGnlxGTj0-ihit2ELGRv4vO8E1BosTmf0cx3qgG0Pq0eOLBD
+  IHsrdZ_CCAiTc0HVkMbyq1M6qEhM-q5P6y1QCIrwg
+</pre></div>
+<p>
+          BASE64URL(JWE Authentication Tag) として JWE Authentication Tag をエンコードすると以下の値となる.
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  0HFmhOzsQ98nNWJjIHkR7A
+</pre></div>
+<a name="example-privkey-complete"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.C.9"></a><h3>C.9.&nbsp;
+Complete Representation</h3>
+
+<p>
+          最終的な表現を組み立てる:
+          <a class='info' href='#JWE'>[JWE]<span> (</span><span class='info'>Jones, M. and J. Hildebrand, &ldquo;JSON Web Encryption (JWE),&rdquo; May&nbsp;2015.</span><span>)</span></a> のセクション 7.1 で定義されているように, この結果の JWE Compact Serialization は
+          BASE64URL(UTF8(JWE Protected Header))
+          || '.' || BASE64URL(JWE Encrypted Key)
+          || '.' || BASE64URL(JWE Initialization Vector)
+          || '.' || BASE64URL(JWE Ciphertext)
+          || '.' || BASE64URL(JWE Authentication Tag)
+          という文字列である.
+
+
+</p>
+<p>
+          この例での最終的な結果は以下の通りである (改行は掲載上の都合による).
+
+
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+  eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJwMnMiOiIyV0NUY0paMVJ2ZF9DSn
+  VKcmlwUTF3IiwicDJjIjo0MDk2LCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5Ijoi
+  andrK2pzb24ifQ.
+  TrqXOwuNUfDV9VPTNbyGvEJ9JMjefAVn-TR1uIxR9p6hsRQh9Tk7BA.
+  Ye9j1qs22DmRSAddIh-VnA.
+  AwhB8lxrlKjFn02LGWEqg27H4Tg9fyZAbFv3p5ZicHpj64QyHC44qqlZ3JEmnZTgQo
+  wIqZJ13jbyHB8LgePiqUJ1hf6M2HPLgzw8L-mEeQ0jvDUTrE07NtOerBk8bwBQyZ6g
+  0kQ3DEOIglfYxV8-FJvNBYwbqN1Bck6d_i7OtjSHV-8DIrp-3JcRIe05YKy3Oi34Z_
+  GOiAc1EK21B11c_AE11PII_wvvtRiUiG8YofQXakWd1_O98Kap-UgmyWPfreUJ3lJP
+  nbD4Ve95owEfMGLOPflo2MnjaTDCwQokoJ_xplQ2vNPz8iguLcHBoKllyQFJL2mOWB
+  wqhBo9Oj-O800as5mmLsvQMTflIrIEbbTMzHMBZ8EFW9fWwwFu0DWQJGkMNhmBZQ-3
+  lvqTc-M6-gWA6D8PDhONfP2Oib2HGizwG1iEaX8GRyUpfLuljCLIe1DkGOewhKuKkZ
+  h04DKNM5Nbugf2atmU9OP0Ldx5peCUtRG1gMVl7Qup5ZXHTjgPDr5b2N731UooCGAU
+  qHdgGhg0JVJ_ObCTdjsH4CF1SJsdUhrXvYx3HJh2Xd7CwJRzU_3Y1GxYU6-s3GFPbi
+  rfqqEipJDBTHpcoCmyrwYjYHFgnlqBZRotRrS95g8F95bRXqsaDY7UgQGwBQBwy665
+  d0zpvTasvfXf_c0MWAl-neFaKOW_Px6g4EUDjG1GWSXV9cLStLw_0ovdApDIFLHYHe
+  PyagyHjouQUuGiq7BsYwYrwaF06tgB8hV8omLNfMEmDPJaZUzMuHw6tBDwGkzD-tS_
+  ub9hxrpJ4UsOWnt5rGUyoN2N_c1-TQlXxm5oto14MxnoAyBQBpwIEgSH3Y4ZhwKBhH
+  PjSo0cdwuNdYbGPpb-YUvF-2NZzODiQ1OvWQBRHSbPWYz_xbGkgD504LRtqRwCO7CC
+  _CyyURi1sEssPVsMJRX_U4LFEOc82TiDdqjKOjRUfKK5rqLi8nBE9soQ0DSaOoFQZi
+  GrBrqxDsNYiAYAmxxkos-i3nX4qtByVx85sCE5U_0MqG7COxZWMOPEFrDaepUV-cOy
+  rvoUIng8i8ljKBKxETY2BgPegKBYCxsAUcAkKamSCC9AiBxA0UOHyhTqtlvMksO7AE
+  hNC2-YzPyx1FkhMoS4LLe6E_pFsMlmjA6P1NSge9C5G5tETYXGAn6b1xZbHtmwrPSc
+  ro9LWhVmAaA7_bxYObnFUxgWtK4vzzQBjZJ36UTk4OTB-JvKWgfVWCFsaw5WCHj6Oo
+  4jpO7d2yN7WMfAj2hTEabz9wumQ0TMhBduZ-QON3pYObSy7TSC1vVme0NJrwF_cJRe
+  hKTFmdlXGVldPxZCplr7ZQqRQhF8JP-l4mEQVnCaWGn9ONHlemczGOS-A-wwtnmwjI
+  B1V_vgJRf4FdpV-4hUk4-QLpu3-1lWFxrtZKcggq3tWTduRo5_QebQbUUT_VSCgsFc
+  OmyWKoj56lbxthN19hq1XGWbLGfrrR6MWh23vk01zn8FVwi7uFwEnRYSafsnWLa1Z5
+  TpBj9GvAdl2H9NHwzpB5NqHpZNkQ3NMDj13Fn8fzO0JB83Etbm_tnFQfcb13X3bJ15
+  Cz-Ww1MGhvIpGGnMBT_ADp9xSIyAM9dQ1yeVXk-AIgWBUlN5uyWSGyCxp0cJwx7HxM
+  38z0UIeBu-MytL-eqndM7LxytsVzCbjOTSVRmhYEMIzUAnS1gs7uMQAGRdgRIElTJE
+  SGMjb_4bZq9s6Ve1LKkSi0_QDsrABaLe55UY0zF4ZSfOV5PMyPtocwV_dcNPlxLgNA
+  D1BFX_Z9kAdMZQW6fAmsfFle0zAoMe4l9pMESH0JB4sJGdCKtQXj1cXNydDYozF7l8
+  H00BV_Er7zd6VtIw0MxwkFCTatsv_R-GsBCH218RgVPsfYhwVuT8R4HarpzsDBufC4
+  r8_c8fc9Z278sQ081jFjOja6L2x0N_ImzFNXU6xwO-Ska-QeuvYZ3X_L31ZOX4Llp-
+  7QSfgDoHnOxFv1Xws-D5mDHD3zxOup2b2TppdKTZb9eW2vxUVviM8OI9atBfPKMGAO
+  v9omA-6vv5IxUH0-lWMiHLQ_g8vnswp-Jav0c4t6URVUzujNOoNd_CBGGVnHiJTCHl
+  88LQxsqLHHIu4Fz-U2SGnlxGTj0-ihit2ELGRv4vO8E1BosTmf0cx3qgG0Pq0eOLBD
+  IHsrdZ_CCAiTc0HVkMbyq1M6qEhM-q5P6y1QCIrwg.
+  0HFmhOzsQ98nNWJjIHkR7A
+</pre></div>
+<a name="Acknowledgements"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.D"></a><h3>Appendix D.&nbsp;
+Acknowledgements</h3>
+
+<p>
+        A JSON representation for RSA public keys was previously
+        introduced by John Panzer, Ben Laurie, and Dirk Balfanz
+        in <a class='info' href='#MagicSignatures'>Magic Signatures<span> (</span><span class='info'>Panzer, J., Ed., Laurie, B., and D. Balfanz, &ldquo;Magic Signatures,&rdquo; January&nbsp;2011.</span><span>)</span></a> [MagicSignatures].
+
+</p>
+<p>
+        Thanks to Matt Miller for creating the encrypted key example
+        and to Edmund Jay and Brian Campbell for validating the example.
+
+</p>
+<p>
+        This specification is the work of the JOSE working group,
+        which includes dozens of active and dedicated participants.
+        In particular, the following individuals contributed ideas,
+        feedback, and wording that influenced this specification:
+
+</p>
+<p>
+        Dirk Balfanz,
+        Richard Barnes,
+        John Bradley,
+        Brian Campbell,
+        Breno de Medeiros,
+        Stephen Farrell,
+        Joe Hildebrand,
+        Edmund Jay,
+        Stephen Kent,
+        Ben Laurie,
+        James Manger,
+        Matt Miller,
+        Kathleen Moriarty,
+        Chuck Mortimore,
+        Tony Nadalin,
+        Axel Nennker,
+        John Panzer,
+        Eric Rescorla,
+        Pete Resnick,
+        Nat Sakimura,
+        Jim Schaad,
+        Ryan Sleevi,
+        Paul Tarjan,
+        Hannes Tschofenig,
+        and Sean Turner.
+
+</p>
+<p>
+        Jim Schaad and Karen O'Donoghue chaired the JOSE working group and
+        Sean Turner, Stephen Farrell, and Kathleen Moriarty served as Security Area Directors
+        during the creation of this specification.
+
+</p>
+<a name="Translator"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.E"></a><h3>Appendix E.&nbsp;
+翻訳者</h3>
+
+<p>
+        本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
+        質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
+
+</p>
+<p>
+        </p>
+<ul class="text">
+<li>
+            Masaru Kurahayashi (Yahoo! Japan)
+
+</li>
+<li>
+            Naohiro Fujie (Itochu Techno Solutions)
+
+</li>
+<li>
+            Nov Matake (YAuth.jp)
+
+</li>
+<li>
+            Yuya Ito (Yahoo! Japan)
+
+</li>
+</ul><p>
+
+</p>
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Author's Address</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Michael B. Jones</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Microsoft</td></tr>
+<tr><td class="author" align="right">EMail:&nbsp;</td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">mbj@microsoft.com</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://self-issued.info/">http://self-issued.info/</a></td></tr>
+</table>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15411889-1', 'github.com');
+  ga('send', 'pageview');
+
+</script>
+</body></html>

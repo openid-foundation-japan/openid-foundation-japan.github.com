@@ -164,8 +164,8 @@
         本仕様は JSON Web Key (JWK) のハッシュ値を計算する方法を定める.
         これには, JWK のどのフィールドをハッシュ計算に使うかや, それらのフィールドの正規化, そして正規化された Unicode 文字列をハッシュ化したバイト列に変換する方法などが含まれる.
         生成されたハッシュ値は, JWK の識別のために用いたり, 複数の JWK から適切な JWK を選択する際の手掛かりとして利用できる.
-        
-      
+
+
 </p>
 <h3>Status of this Memo</h3>
 <p>
@@ -258,8 +258,8 @@ Introduction</h3>
         これには, JWK のどのフィールドをハッシュ計算に使うかや, それらのフィールドの正規化, そして正規化された Unicode 文字列をハッシュ化したバイト列に変換する方法などが含まれる.
         生成されたハッシュ値は, JWK の識別のために用いたり, 複数の JWK から適切な JWK を選択する際の手掛かりとして利用できる.
         具体的には base64url-encode した JWK Thumbprint を <tt>kid</tt> (key ID) として用いるなどの方法があげられる.
-        
-      
+
+
 </p>
 <a name="NotationalConventions"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -268,8 +268,8 @@ Notational Conventions</h3>
 
 <p>
           本仕様で用いられる各キーワード「MUST (しなければならない)」, 「MUST NOT (してはならない)」, 「REQUIRED (必須である)」, 「SHALL (するものとする)」, 「SHALL NOT (しないものとする)」, 「SHOULD (すべきである)」, 「SHOULD NOT (すべきではない)」, 「RECOMMENDED (推奨される)」, 「MAY (してもよい)」, 「OPTIONAL (任意である)」は <a class='info' href='#RFC2119'>[RFC2119]<span> (</span><span class='info'>Bradner, S., &ldquo;Key words for use in RFCs to Indicate Requirement Levels,&rdquo; March&nbsp;1997.</span><span>)</span></a> で述べられている通りに解釈されるべきものである.
-          
-        
+
+
 </p>
 <a name="Terminology"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -282,26 +282,26 @@ Terminology</h3>
         "JSON Web Signature (JWS)" <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a>,
         "JSON Web Algorithms (JWA)" <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a>
         の各仕様の用語定義に従う.
-        
-      
+
+
 </p>
 <p>
         また本仕様は以下の用語を定義する.
-        
-      
+
+
 </p>
 <p>
         </p>
 <blockquote class="text"><dl>
 <dt>JWK Thumbprint</dt>
 <dd>
-            
+
             JWK の Digest 値.
-            
-          
+
+
 </dd>
 </dl></blockquote><p>
-      
+
 </p>
 <a name="jkt"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -310,27 +310,27 @@ JSON Web Key (JWK) Thumbprint</h3>
 
 <p>
         JSON Web Key (JWK) の Thumbprint 値の計算方法は以下通りである.
-        
+
         </p>
 <ol class="text">
 <li>
             必須の JWK メンバ要素のみを含み, 各要素間に一切の空白および改行を含まず, 各要素をメンバ名の Unicode <a class='info' href='#UNICODE'>[UNICODE]<span> (</span><span class='info'>The Unicode Consortium, &ldquo;The Unicode Standard,&rdquo; .</span><span>)</span></a> コードポイントの辞書順に並べた JSON Object <a class='info' href='#RFC7159'>[RFC7159]<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The JavaScript Object Notation (JSON) Data Interchange Format,&rdquo; March&nbsp;2014.</span><span>)</span></a> を生成する.
             (この JSON Object 自体も JWK 表現として valid である)
-            
-          
+
+
 </li>
 <li>
             上記の JSON Object の UTF-8 オクテットのハッシュ値を, ハッシュ関数 H によって計算する.
             H には SHA-256 <a class='info' href='#SHS'>[SHS]<span> (</span><span class='info'>National Institute of Standards and             Technology, &ldquo;Secure Hash Standard (SHS),&rdquo; March&nbsp;2012.</span><span>)</span></a> などのハッシュアルゴリズムが入る.
             ハッシュ関数の選定については <a class='info' href='#HashFunction'>Section&nbsp;3.4<span> (</span><span class='info'>Selection of Hash Function</span><span>)</span></a> を参照のこと.
-            
-          
+
+
 </li>
 </ol><p>
         上記の通り計算された値を, 当該 JWK のハッシュ関数 H による JWK Thumbprint とする.
         より詳細な手順は後述する.
-        
-      
+
+
 </p>
 <a name="Example"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -340,8 +340,8 @@ Example JWK Thumbprint Computation</h3>
 <p>
           本 Section では以下の JWK の JWK Thumbprint を計算する手順を示す.
           (改行やスペースは掲載上の都合による)
-          
-        
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {
    "kty": "RSA",
@@ -358,11 +358,11 @@ Example JWK Thumbprint Computation</h3>
 </pre></div>
 <p>
           "JSON Web Key (JWK)" <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; May&nbsp;2015.</span><span>)</span></a> および "JSON Web Algorithms (JWA)" <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> に定めるように, RSA 公開鍵の必須要素は以下のとおりである.
-          
-        
+
+
 </p>
 <p>
-          
+
           </p>
 <ul class="text">
 <li><tt>kty</tt>
@@ -372,21 +372,21 @@ Example JWK Thumbprint Computation</h3>
 <li><tt>e</tt>
 </li>
 </ul><p>
-          
-        
+
+
 </p>
 <p>
           従って, これらが Thumbprint 計算に使われるメンバ要素となる.
-          
-        
+
+
 </p>
 <p>
           これを <a class='info' href='#HashInput'>Section&nbsp;3.3<span> (</span><span class='info'>Order and Representation of Members in Hash Input</span><span>)</span></a> に従い辞書順に並べると, 以下の通りとなる.
-          
-        
+
+
 </p>
 <p>
-          
+
           </p>
 <ul class="text">
 <li><tt>e</tt>
@@ -396,14 +396,14 @@ Example JWK Thumbprint Computation</h3>
 <li><tt>n</tt>
 </li>
 </ul><p>
-          
-        
+
+
 </p>
 <p>
           よってまず以下のような JSON Object を生成することとなる.
           (改行は掲載上の都合による)
-          
-        
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {"e":"AQAB","kty":"RSA","n":"0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2
   aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCi
@@ -414,28 +414,28 @@ Example JWK Thumbprint Computation</h3>
 </pre></div>
 <p>
           上記の JSON Object を UTF-8 オクテット表現したものを以下に示す.
-          
-        
+
+
 </p>
 <p>
           [123, 34, 101, 34, 58, 34, 65, 81, 65, 66, 34, 44, 34, 107, 116, 121, 34, 58, 34, 82, 83, 65, 34, 44, 34, 110, 34, 58, 34, 48, 118, 120, 55, 97, 103, 111, 101, 98, 71, 99, 81, 83, 117, 117, 80, 105, 76, 74, 88, 90, 112, 116, 78, 57, 110, 110, 100, 114, 81, 109, 98, 88, 69, 112, 115, 50, 97, 105, 65, 70, 98, 87, 104, 77, 55, 56, 76, 104, 87, 120, 52, 99, 98, 98, 102, 65, 65, 116, 86, 84, 56, 54, 122, 119, 117, 49, 82, 75, 55, 97, 80, 70, 70, 120, 117, 104, 68, 82, 49, 76, 54, 116, 83, 111, 99, 95, 66, 74, 69, 67, 80, 101, 98, 87, 75, 82, 88, 106, 66, 90, 67, 105, 70, 86, 52, 110, 51, 111, 107, 110, 106, 104, 77, 115, 116, 110, 54, 52, 116, 90, 95, 50, 87, 45, 53, 74, 115, 71, 89, 52, 72, 99, 53, 110, 57, 121, 66, 88, 65, 114, 119, 108, 57, 51, 108, 113, 116, 55, 95, 82, 78, 53, 119, 54, 67, 102, 48, 104, 52, 81, 121, 81, 53, 118, 45, 54, 53, 89, 71, 106, 81, 82, 48, 95, 70, 68, 87, 50, 81, 118, 122, 113, 89, 51, 54, 56, 81, 81, 77, 105, 99, 65, 116, 97, 83, 113, 122, 115, 56, 75, 74, 90, 103, 110, 89, 98, 57, 99, 55, 100, 48, 122, 103, 100, 65, 90, 72, 122, 117, 54, 113, 77, 81, 118, 82, 76, 53, 104, 97, 106, 114, 110, 49, 110, 57, 49, 67, 98, 79, 112, 98, 73, 83, 68, 48, 56, 113, 78, 76, 121, 114, 100, 107, 116, 45, 98, 70, 84, 87, 104, 65, 73, 52, 118, 77, 81, 70, 104, 54, 87, 101, 90, 117, 48, 102, 77, 52, 108, 70, 100, 50, 78, 99, 82, 119, 114, 51, 88, 80, 107, 115, 73, 78, 72, 97, 81, 45, 71, 95, 120, 66, 110, 105, 73, 113, 98, 119, 48, 76, 115, 49, 106, 70, 52, 52, 45, 99, 115, 70, 67, 117, 114, 45, 107, 69, 103, 85, 56, 97, 119, 97, 112, 74, 122, 75, 110, 113, 68, 75, 103, 119, 34, 125]
-        
+
 </p>
 <p>
           この入力に対して SHA-256 <a class='info' href='#SHS'>[SHS]<span> (</span><span class='info'>National Institute of Standards and             Technology, &ldquo;Secure Hash Standard (SHS),&rdquo; March&nbsp;2012.</span><span>)</span></a> をハッシュ関数 H を適用し, JWK SHA-256 Thumbprint 値を計算すると, 以下のようなオクテットとなる.
-          
-        
+
+
 </p>
 <p>
 [55, 54, 203, 177, 120, 124, 184, 48, 156, 119, 238, 140, 55, 5, 197, 225,
  111, 251, 158, 133, 151, 21, 144, 31, 30, 76, 89, 177, 17, 130, 245, 123]
-        
+
 </p>
 <p>
           この JWK SHA-256 Thumbprint の base64url encoding <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> は以下の通りである.
           (この base64url encode 値は <tt>kid</tt> (key ID) などに用いられる)
-          
-        
+
+
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs
 </pre></div>
@@ -447,11 +447,11 @@ JWK Members Used in the Thumbprint Computation</h3>
 <p>
           JWK Thumbprint の計算には各鍵の必須メンバ要素のみを用いる.
           "JSON Web Key (JWK)" <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; May&nbsp;2015.</span><span>)</span></a> および "JSON Web Algorithms (JWA)" <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> に定めるように, RFC 7518 <a class='info' href='#JWA'>[JWA]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> の Section 6.2.1.1 に定められた曲線に対する EC 公開鍵の必須メンバは, 辞書順にすると以下の通りである.
-          
-        
+
+
 </p>
 <p>
-          
+
           </p>
 <ul class="text">
 <li><tt>crv</tt>
@@ -463,16 +463,16 @@ JWK Members Used in the Thumbprint Computation</h3>
 <li><tt>y</tt>
 </li>
 </ul><p>
-          
-        
+
+
 </p>
 <p>
           同様に RSA 鍵についての必須要素は辞書順に以下の通りである.
-          
-        
+
+
 </p>
 <p>
-          
+
           </p>
 <ul class="text">
 <li><tt>e</tt>
@@ -482,16 +482,16 @@ JWK Members Used in the Thumbprint Computation</h3>
 <li><tt>n</tt>
 </li>
 </ul><p>
-          
-        
+
+
 </p>
 <p>
           公開鍵についても以下の通りである.
-          
-        
+
+
 </p>
 <p>
-          
+
           </p>
 <ul class="text">
 <li><tt>k</tt>
@@ -499,13 +499,13 @@ JWK Members Used in the Thumbprint Computation</h3>
 <li><tt>kty</tt>
 </li>
 </ul><p>
-          
-        
+
+
 </p>
 <p>
           これ以外の <tt>kty</tt> (key type) を定義する場合は, その定義を行う仕様が <tt>kty</tt> の他にどのメンバ要素を必須とするかを定めるべきである.
-          
-        
+
+
 </p>
 <a name="Private"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -517,14 +517,14 @@ JWK Thumbprint of a Private Key</h3>
             これは意図的にペアとなる2つの鍵に同じ JWK Thumbprint を持たせ, それぞれの鍵を持つ2者が同じ JWK Thumbprint を計算できるようにということを狙ったものである.
             これにより, JWK Thumbprint はペアとなるどちらの鍵をも指し示すことができる.
             当該鍵が公開鍵なのか秘密鍵なのかの判定は, Application のコンテキストによって行うこと.
-            
-          
+
+
 </p>
 <p>
             本仕様は秘密鍵の JWK Thumbprint 計算方法を相互接続性を持つ形で定義した.
             よって異なる実装が同じ秘密鍵の JWK Thumbprint を導出できるはずである.
-            
-          
+
+
 </p>
 <a name="WhyNotOptional"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -535,22 +535,22 @@ Why Not Include Optional Members?</h3>
             オプショナルなメンバ要素はあえて JWK Thumbprint 計算対象としていない.
             これはオプショナルなメンバ要素の有無で同じ鍵の JWK Thumbprint が変わることのないように意図したものである.
             JWK Thumbprint は JWK の必須メンバの Digest であり, その他の付加的メンバの Digest ではないのである.
-            
-          
+
+
 </p>
 <p>
             オプショナルメンバが計算対象に含まれないことで, JWK Thumbprint はその鍵そのものの参照となる.
             アプリケーションコンテキストが変わり, オプショナルな属性が JWK に付与されたとしても, その鍵の JWK Thumbprint は不変である.
             これは鍵そのものを一意に識別するという目的のために役立つ.
-            
-          
+
+
 </p>
 <p>
             ユースケースによっては, 付加的な JWK メンバの一部もしくは全部を含んだ異なる種類の Thumbprint が有用なこともある.
             そういった Thumbprint が必要になれば, 本仕様以外の仕様が定めることとする.
             付加属性を暗号論的に鍵に紐付ける方法については, RFC 7517 <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; May&nbsp;2015.</span><span>)</span></a> の Section 9.1 を参照のこと.
-            
-          
+
+
 </p>
 <a name="HashInput"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -559,22 +559,22 @@ Order and Representation of Members in Hash Input</h3>
 
 <p>
           ハッシュ関数の入力値となる必須メンバは, メンバ名の Unicode コードポイントの辞書順に並べられる.
-          
-        
+
+
 </p>
 <p>
           メンバ名およびメンバ値に含まれる文字列は, エスケープなしで表現されていなければならない (MUST).
           そのようなエスケープが必要な文字を含む JWK の Thumbprint については, 本仕様では定義しない.
           (JWK は Unicode のみで表現されると期待されることから, これは特に本仕様の有用性を下げるものではないと思われる)
           <a class='info' href='#RFC7159'>[RFC7159]<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The JavaScript Object Notation (JSON) Data Interchange Format,&rdquo; March&nbsp;2014.</span><span>)</span></a> Section 7 にあるように, エスケープが必要な文字は, クォーテーションマークやバックスラッシュ, U+0000 や U+001F などのコントロール文字などである.
-          
-        
+
+
 </p>
 <p>
           もしメンバ値が JSON Object となるような Key Type が出てきた場合には, その JSON Object 内のメンバについても辞書順とすること (MUST).
           (本仕様執筆段階ではメンバ値が JSON Object となるような Key Type は存在しない)
-          
-        
+
+
 </p>
 <p>
           もしメンバ値が JSON Number となるような Key Type が出てきた場合には, 値が Integer の場合には <a class='info' href='#RFC7159'>[RFC7159]<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The JavaScript Object Notation (JSON) Data Interchange Format,&rdquo; March&nbsp;2014.</span><span>)</span></a> Section 6 に従い, 少数部や指数部を持たない形で表現すること (MUST).
@@ -582,13 +582,13 @@ Order and Representation of Members in Hash Input</h3>
           また値が Integer 以外の場合については本仕様では定義しない.
           また "The I-JSON Message Format" <a class='info' href='#RFC7493'>[RFC7493]<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The I-JSON Message Format,&rdquo; March&nbsp;2015.</span><span>)</span></a> に述べられているように, 実装は絶対値が 9007199254740991 ([-(2**53)+1, (2**53)-1] の範囲外) の Integer をその値通りに扱えるとは期待できない.
           (本仕様執筆段階ではメンバ値が JSON Number となるような Key Type は存在しない)
-          
-        
+
+
 </p>
 <p>
           ハッシュ入力の表現方法に関するより詳細な記述は <a class='info' href='#PracticalConsiderations'>Section&nbsp;4<span> (</span><span class='info'>Practical JSON and Unicode Considerations</span><span>)</span></a> を参照のこと.
-          
-        
+
+
 </p>
 <a name="HashFunction"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -599,21 +599,21 @@ Selection of Hash Function</h3>
           アプリケーションは特定のハッシュ関数を指定しなければならない.
           候補としては SHA-256 <a class='info' href='#SHS'>[SHS]<span> (</span><span class='info'>National Institute of Standards and             Technology, &ldquo;Secure Hash Standard (SHS),&rdquo; March&nbsp;2012.</span><span>)</span></a> などがあげられる.
           SHA-256 は本仕様執筆段階ではデフォルトとして良い選択であるが, 将来に渡ってそうとは限らない.
-          
-        
+
+
 </p>
 <p>
           多くの場合, 鍵生成を行う主体のみ, 利用すべきハッシュ関数を知る必要がある.
           <tt>kid</tt> (key ID) の生成などはその典型的な例である.
           鍵生成者は <tt>kid</tt> の計算にハッシュ関数を知る必要があるが, 鍵を受け取る側にとっては <tt>kid</tt> は単なる opaque 値であり, ハッシュ関数を知る必要はない.
-          
-        
+
+
 </p>
 <p>
           しかしながら, 複数の主体が JWK Thumbprint を計算する必要がある場合もある.
           その場合には両主体が同じハッシュ関数を使う必要がある.
-          
-        
+
+
 </p>
 <a name="AnyKeys"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -624,8 +624,8 @@ JWK Thumbprints of Keys Not in JWK Format</h3>
           JWK Thumbprint の計算のために, JWK 表現された鍵を使う必要はない.
           必要なのは, 当該鍵の JWK 表現方法が定義されていることと, JWK Thumbprint を計算する主体が必要な鍵要素を保持していることのみである.
           それが揃っていれば, <a class='info' href='#HashInput'>Section&nbsp;3.3<span> (</span><span class='info'>Order and Representation of Members in Hash Input</span><span>)</span></a> にしたがって当該鍵の JWK 表現を生成しハッシュ入力とすることができる.
-          
-        
+
+
 </p>
 <a name="PracticalConsiderations"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -638,42 +638,42 @@ Practical JSON and Unicode Considerations</h3>
         本仕様執筆時点では, 定義済 JWK メンバ名および値は印刷可能な ASCII 文字列に限定されており, 上記のような問題は起き得ない.
         しかしながら JSON.stringify() は JSON Object のメンバの辞書順ソートを保証しない.
         よってソート順の異なる出力が生成される可能性がある.
-        
-      
+
+
 </p>
 <p>
         特に Unicode コードポイントの辞書順ソートオペレーションは注意深く定義されているが, 異なるプラットフォームのソート関数は非 ASCII 文字に対して異なる結果を出力しうる.
         もし将来の仕様策定者が新たな Key Type を定義する場合, メンバ名と値を印刷可能 ASCII 文字に限定できるのであれば, 相互接続性に役立つであろう.
-        
-      
+
+
 </p>
 <p>
         しかしながら, もし非 ASCII 文字を含む新たな JWK メンバ名および値が定義された場合は, それらの仕様は厳密に Unicode コードポイントを使うよう指定すべきである.
         これは, Unicode 正規化によってある条件であるコードポイントが他の値に転換されるような場合に, 特に重要となる.
-        
-      
+
+
 </p>
 <p>
         JWK Thumbprint の計算対象となる JWK の中では, エスケープ文字の利用は避けるべきである.
         元の JWK から導出されるハッシュ入力となる JWK にエスケープ文字を含めることは禁止する.
-        
-      
+
+
 </p>
 <p>
         Integer の自然表現は存在するが, 本仕様は Integer 以外の Numeric 値の標準表現形式は定めない.
         通常 JWK の必須メンバは Integer のみになると思われるため, これは問題とならないであろう.
-        
-      
+
+
 </p>
 <p>
         JWK Thumbprint の計算対象となる JWK の中では, 少数部や指数部を持つ数値表現の利用は避けるべきである.
-        
-      
+
+
 </p>
 <p>
         上記のすべての実践的考慮点は, Jon Postel の原則である "Be liberal in what you accept, and conservative in what you send." による.
-        
-      
+
+
 </p>
 <a name="X.509Comparison"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -684,8 +684,8 @@ Relationship to Digests of X.509 Values</h3>
         JWK Thumbprint は JWK に含まれる全メンバに対してでなく, JWK の必須メンバに対して計算される.
         これは, X.509 証明書に対する <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> の <tt>x5t</tt> (X.509 certificate SHA-1 thumbprint) よりも, <a class='info' href='#RFC5280'>[RFC5280]<span> (</span><span class='info'>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., and W. Polk, &ldquo;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile,&rdquo; May&nbsp;2008.</span><span>)</span></a> Section 4.1.2.7 の X.509 Subject Public Key Info (SPKI) Digest 値に似ている.
         ただし ASN.1 表現に対して計算される SPKI と JSON 表現に対して計算される JWK Thumbprint は, 論理的には似ていても異なる値となる.
-        
-      
+
+
 </p>
 <a name="IANA"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -695,48 +695,48 @@ IANA Considerations</h3>
 <p>
         本仕様は以下の IANA レジストリに Designated Experts 向け注記を追加する.
         これらはすべて "JSON Object Signing and Encryption (JOSE)" レジストリ内にある.
-        
+
         <a class='info' href='#IANA.JOSE'>[IANA.JOSE]<span> (</span><span class='info'>IANA, &ldquo;JSON Object Signing and Encryption (JOSE),&rdquo; .</span><span>)</span></a>:
-        
+
         </p>
 <ul class="text">
 <li>
             JSON Web Key Types
-          
+
 </li>
 <li>
             JSON Web Key Elliptic Curve
-          
+
 </li>
 <li>
             JSON Web Key Parameters
-          
+
 </li>
 </ul><p>
-        
-      
+
+
 </p>
 <p>
         IANA は上記レジストリの Reference Section に本仕様へのリンクを追加済である.
-        
-      
+
+
 </p>
 <p>
         <a class='info' href='#PracticalConsiderations'>Section&nbsp;4<span> (</span><span class='info'>Practical JSON and Unicode Considerations</span><span>)</span></a> で述べたように, JSON と Unicode の実用上の注意点を考慮して, Designated Experts は以下のいずれかに従わなければならない.
-        
-      
+
+
 </p>
 <p>
         (a) JWK メンバ名と値を, ダブルクォート ('"') とバックスラッシュ ('\') を除いた印刷可能 ASCII 文字に制限する.
         (Unicode コードポインタでいうと, U+0021, U+0023 から U+005B, および U+005D から U+007E)
-        
-      
+
+
 </p>
 <p>
         (b) もし (a) 以外のコードポインタを利用する場合は, それらを表現する Unicode コードポイントを厳密に指定すること.
         さらに JSON 文字列中でエスケープされた文字としてしか表現できない Unicode コードポイントを利用するようなものは, レジストリへの登録を拒否されなければならない.
-        
-      
+
+
 </p>
 <a name="Security"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -745,23 +745,23 @@ Security Considerations</h3>
 
 <p>
         "JSON Web Signature (JWS)" <a class='info' href='#JWS'>[JWS]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> Section 10.12 および 10.13 にある JSON Security Considerations および Unicode Comparison Security Considerations は本仕様にも該当する.
-        
-      
+
+
 </p>
 <p>
         また <a class='info' href='#PracticalConsiderations'>Section&nbsp;4<span> (</span><span class='info'>Practical JSON and Unicode Considerations</span><span>)</span></a> で述べたように, 難解な文字やエスケープされた文字がメンバ名に利用されている場合, 実装によっては不正な結果を出力することもありうる.
         これはセキュリティ上は公開鍵の JWK Thumbprint にしか影響しないと思われる.
         実装は意図した鍵を識別することができないかもしれないが, 情報漏洩などはないであろう.
         公開鍵の各要素は, そもそも公開されているものである.
-        
-      
+
+
 </p>
 <p>
         対象鍵のハッシュはその鍵値に関する情報を漏洩しうる.
         したがって対象鍵の JWK Thumbprint は対象鍵を所有する主体以外に対しては秘匿されるべきである.
         ただし, アプリケーションコンテキストによっては, SHA-256 のような暗号論的ハッシュ関数の利用によって鍵値漏洩に対する十分な保護が期待できる場合は, この限りでは無い.
-        
-      
+
+
 </p>
 <p>
         JWK Thumbprint は明確に単一の JWK 表現方法が確立されている場合のみ, 特定の鍵をユニークに識別することができる.
@@ -769,16 +769,16 @@ Security Considerations</h3>
         例えば, ある RSA 鍵が "e":"AQAB" ([1, 0, 1] を示す) ではなく "e":"AAEAAQ" ([0, 1, 0, 1] を示す) を用いる場合, 実際には等価な鍵に対して異なる Thumbprint が生成される.
         (受け取った JWK を厳密に Validate している実装では, 上記の問題が発生しないこともありうる)
         したがってある鍵の JWK Thumbprint がユニークであるという前提は, 実装がその鍵の正しい表現を Validate していることが前提である.
-        
-      
+
+
 </p>
 <p>
         より狡猾な攻撃としては, 攻撃者が正規の鍵を異なる鍵と見せかけるよう変換することなどが考えられる.
         例えば, 正規の RSA 鍵が modules N である時に, 攻撃者が modulus 3*N の鍵を送ってきたとしよう.
         すると後者の鍵は 1/3 程の時間は有効に働くが, 異なる鍵に見える.
         よって Thumbprint は正規の鍵を識別するには役に立つが, Thumbprint を比較したからといって特定の鍵を排除する (ブラックリストに入れる) ような目的には有用ではない.
-        
-      
+
+
 </p>
 <a name="rfc.references"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -845,7 +845,7 @@ Acknowledgements</h3>
         Kathleen Moriarty,
         and Jim Schaad
         for their reviews of this specification.
-      
+
 </p>
 <a name="Translator"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -855,17 +855,17 @@ Acknowledgements</h3>
 <p>
         本仕様の翻訳は, <a class='info' href='#oidfj'>OpenIDファウンデーションジャパン<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;OpenIDファウンデーションジャパン,&rdquo; .</span><span>)</span></a> [oidfj] <a class='info' href='#oidfj-trans'>翻訳・教育ワーキンググループ<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;翻訳・教育ワーキンググループ,&rdquo; .</span><span>)</span></a> [oidfj&#8209;trans]を主体として, 有志のメンバーによって行われました.
         質問や修正依頼などについては, <a class='info' href='#oidfj-github'>Githubレポジトリー<span> (</span><span class='info'>OpenIDファウンデーションジャパン, &ldquo;Githubレポジトリー,&rdquo; .</span><span>)</span></a> [oidfj&#8209;github] にご連絡ください.
-      
+
 </p>
 <p>
         </p>
 <ul class="text">
 <li>
             Nov Matake (YAuth.jp)
-          
+
 </li>
 </ul><p>
-      
+
 </p>
 <a name="rfc.authors"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -889,4 +889,14 @@ Acknowledgements</h3>
 <tr><td class="author" align="right">URI:&nbsp;</td>
 <td class="author-text"><a href="http://nat.sakimura.org/">http://nat.sakimura.org/</a></td></tr>
 </table>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15411889-1', 'github.com');
+  ga('send', 'pageview');
+
+</script>
 </body></html>

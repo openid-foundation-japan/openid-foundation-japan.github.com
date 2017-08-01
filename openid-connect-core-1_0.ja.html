@@ -967,12 +967,12 @@ ID Token</h3>
 <p>
         End-User の認証を可能にするために OpenID Connect が OAuth 2.0 に追加する最大の拡張機能は ID トークンデータ構造である.
         ID Token は, ある Client を利用するというコンテキスト中での, Authorization Server による End-User 認証に関する Claim を含んだセキュリティトークンである.
-        潜在的にはその他の Cliam を含む可能性もある.
+        潜在的にはその他の Claim を含む可能性もある.
         ID Token は <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; July&nbsp;2014.</span><span>)</span></a> [JWT] である.
 
 </p>
 <p>
-        OpenID Connect で使用されている全ての OAuth 2.0 のフローで ID Token が利用され, その ID Token には以下の Cliam が含まれる.
+        OpenID Connect で使用されている全ての OAuth 2.0 のフローで ID Token が利用され, その ID Token には以下の Claim が含まれる.
 
 </p>
 <p>
@@ -1037,7 +1037,7 @@ ID Token</h3>
 
             End-User の認証が発生した時刻.
             この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
-            リクエストに <tt>max_age</tt> が含まれていた場合, この Cliam は必須である (REQUIRED).
+            リクエストに <tt>max_age</tt> が含まれていた場合, この Claim は必須である (REQUIRED).
             その他の場合は任意 (OPTIONAL).
             (<tt>auth_time</tt> Claim は, OpenID 2.0 <a class='info' href='#OpenID.PAPE'>PAPE<span> (</span><span class='info'>Recordon, D., Jones, M., Bufu, J., Ed., Daugherty, J., Ed., and N. Sakimura, &ldquo;OpenID Provider           Authentication Policy Extension 1.0,&rdquo; December&nbsp;2008.</span><span>)</span></a> [OpenID.PAPE] <tt>auth_time</tt> レスポンスパラメーターに相当する)
 
@@ -4176,7 +4176,7 @@ Claim Types</h3>
 <dt>Normal Claims</dt>
 <dd>
 
-              OpenID Provider によって直接アサートされた Cliam.
+              OpenID Provider によって直接アサートされた Claim.
 
 
 </dd>
@@ -4347,7 +4347,7 @@ Example of Aggregated Claims</h3>
 <p>
 
 <p>
-                  以下の Claim は Cliams Provider A によって発行された Jane Doe についての Claims である:
+                  以下の Claim は Claims Provider A によって発行された Jane Doe についての Claims である:
 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {
@@ -4363,7 +4363,7 @@ Example of Aggregated Claims</h3>
 
 
 <p>
-              Claims Provider A は JSON Cliams に署名し, Signed JWT でそれらを表現する:
+              Claims Provider A は JSON Claims に署名し, Signed JWT でそれらを表現する:
               jwt_header.jwt_part2.jwt_part3.
               この JWT は OpenID Provider によって使用される.
 
@@ -4405,7 +4405,7 @@ Example of Distributed Claims</h3>
 <p>
 
 <p>
-                  以下の Claim は Cliams Provider B (Jane Doe's bank) が保持する Jane Doe についての Claims である:
+                  以下の Claim は Claims Provider B (Jane Doe's bank) が保持する Jane Doe についての Claims である:
 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {

@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en"><head><title>Draft: OpenID Connect
-    Implicit Client Implementer's Guide 1.0 - draft 15</title>
+    Implicit Client Implementer's Guide 1.0 - draft 20</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="OpenID Connect
-    Implicit Client Implementer's Guide 1.0 - draft 15">
-<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
+    Implicit Client Implementer's Guide 1.0 - draft 20">
+<meta name="generator" content="xml2rfc v1.37pre1 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -153,10 +153,10 @@
 <tr><td class="header">&nbsp;</td><td class="header">Google</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">C. Mortimore</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">Salesforce</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">February 25, 2014</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">August 3, 2015</td></tr>
 </table></td></tr></table>
 <h1><br />OpenID Connect
-    Implicit Client Implementer's Guide 1.0 - draft 15</h1>
+    Implicit Client Implementer's Guide 1.0 - draft 20</h1>
 
 <h3>Abstract</h3>
 
@@ -171,7 +171,7 @@
         OpenID Connect Core 1.0 仕様のサブセットであり,
         OAuth 2.0 Implicit Flowを利用して Webベースの Relying Party
         を実装する際に読みやすいように構成されている.
-        本仕様は Core 仕様と重複したコンテンツを含んでいるが, それは実装者が本仕様を読むだけで OAuth Implicit Flow を利用した Relying Party を実装できるよう意図したものである.
+        本ドキュメントは Core 仕様と重複したコンテンツを含んでいるが, それは実装者が本仕様を読むだけで OAuth Implicit Flow を利用した Relying Party を実装できるよう意図したものである.
 
 </p>
 <p>
@@ -304,24 +304,24 @@ Introduction</h3>
 
 <p>
         本ドキュメント OpenID Connect Implicit Client Implementer's Guide 1.0 は,
-        <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Core] 仕様のサブセットであり,
-        OAuth 2.0 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Implicit Flowを利用して Webベースの Relying Party
+        <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Core] 仕様のサブセットであり,
+        OAuth 2.0 <a class='info' href='#RFC6749'>[RFC6749]<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> Implicit Flowを利用して Webベースの Relying Party
         を実装する際に読みやすいように構成されている.
-        本仕様は Core 仕様と重複したコンテンツを含んでいるが, それは実装者が本仕様を読むだけで OAuth Implicit Flow を利用した Relying Party を実装できるよう意図したものである.
+        本ドキュメントは Core 仕様と重複したコンテンツを含んでいるが, それは実装者が本ドキュメントを読むだけで OAuth Implicit Flow を利用した Relying Party を実装できるよう意図したものである.
         本実装者ガイドと OpenID Connect Core 仕様の間に齟齬がある場合は, Core 仕様を優先する.
 
 </p>
 <p>
         OAuth <tt>authorization_code</tt> grant typeを利用する
         Webベース Relying Partyを実装する場合には,
-        <a class='info' href='#OpenID.Basic'>OpenID Connect Basic Client Implementer's Guide 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Basic Client Implementer's Guide 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Basic]
+        <a class='info' href='#OpenID.Basic'>OpenID Connect Basic Client Implementer's Guide 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Basic Client Implementer's Guide 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Basic]
         を参照のこと.
         OpenID Provider および Web ベース以外のアプリケーションの実装者は, Core 仕様を参照のこと.
         本ガイドは OpenID Provider および Web ベース以外のアプリケーションに関する Implementation Considerations および Security Considerations を省略している.
 
 </p>
 <p>
-        OpenID Connect のベースとなる <a class='info' href='#RFC6749'>OAuth 2.0 Authorization Framework<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] と <a class='info' href='#RFC6750'>OAuth 2.0 Bearer Token Usage<span> (</span><span class='info'>Jones, M. and D. Hardt, &ldquo;The OAuth 2.0 Authorization Framework: Bearer Token Usage,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6750] は, 3rd-party アプリケーションが HTTP リソースへの限定的アクセス権を取得および行使するための全般的フレームワークを提供している.
+        OpenID Connect のベースとなる <a class='info' href='#RFC6749'>OAuth 2.0 Authorization Framework<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] と <a class='info' href='#RFC6750'>OAuth 2.0 Bearer Token Usage<span> (</span><span class='info'>Jones, M. and D. Hardt, &ldquo;The OAuth 2.0 Authorization Framework: Bearer Token Usage,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6750] は, 3rd-party アプリケーションが HTTP リソースへの限定的アクセス権を取得および行使するための全般的フレームワークを提供している.
         これらはリソースアクセスのための Access Token を取得および行使する方法は定義するが, アイデンティティ情報を提供するための標準的手段は定義しない.
         とりわけ, OAuth 2.0 のプロファイリングを行わずに End-User の認証に必要な情報を提供することは不可能である.
         本ドキュメント読者は上記2つの仕様を理解していることが期待される.
@@ -334,19 +334,19 @@ Introduction</h3>
 
 </p>
 <p>
-        認証結果は ID Token (<a class='info' href='#IDToken'>Section&nbsp;2.2<span> (</span><span class='info'>ID Token</span><span>)</span></a> 参照) と呼ばれる <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWT] として返される.
+        認証結果は ID Token (<a class='info' href='#IDToken'>Section&nbsp;2.2<span> (</span><span class='info'>ID Token</span><span>)</span></a> 参照) と呼ばれる <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWT] として返される.
         OpenID Connect をサポートする OAuth 2.0 Authentication Server は, OpenID Provider (OP) とも呼ばれる.
         OpenID Connect を利用する OAuth 2.0 Client は Relying Party (RP) とも呼ばれる.
 
 </p>
 <p>
         本ドキュメントでは, Relying Party は Authorization Endpoint, Token Endpoint 等を含む OpenID Provider の設定情報を既に得ているものとする.
-        これらの情報は通常 <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Discovery] にある Discovery を通じて得られるが, その他の手段で得られることもある.
+        これらの情報は通常 <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Discovery] にある Discovery を通じて得られるが, その他の手段で得られることもある.
 
 </p>
 <p>
         また同様に, Relying Party は OpenID Provider 利用に必要なクレデンシャルを取得し, OP 利用に必要な情報を登録しているものとする.
-        これの処理は通常 <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Registration] にある Dynamic Registration を通じて行われるが, その他の手段で行われることもある.
+        これの処理は通常 <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Registration] にある Dynamic Registration を通じて行われるが, その他の手段で行われることもある.
 
 </p>
 <a name="rnc"></a><br /><hr />
@@ -363,7 +363,7 @@ Requirements Notation and Conventions</h3>
 
 </p>
 <p>
-          <a class='info' href='#JWS'>JSON Web Signature (JWS)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] を用いる場合, シリアライゼーションには JWS Compact Serialization を用いる.
+          <a class='info' href='#JWS'>JSON Web Signature (JWS)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWS] を用いる場合, シリアライゼーションには JWS Compact Serialization を用いる.
           JWS JSON Serialization は利用しない.
 
 </p>
@@ -378,13 +378,14 @@ Terminology</h3>
 
 <p>
           本ドキュメントでは,
-          <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] で定義された "Access Token", "Authorization Code",
+          <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] で定義された "Access Token", "Authorization Code",
           "Authorization Endpoint", "Authorization Grant", "Authorization Server",
           "Client", "Client Identifier", "Client Secret",
           "Protected Resource", "Redirection URI", "Refresh Token",
-          "Resource Owner", "Resource Server", "Response Type", および "Token Endpoint",
-          <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWT] で定義された "Claim Name", "Claim Value", および "JSON Web Token (JWT)",
-          <a class='info' href='#RFC2616'>RFC 2616<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> [RFC2616] で定義された "User Agent" という用語を用いる.
+          "Resource Owner", "Resource Server", "Response Type", および "Token Endpoint"
+          <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWT] で定義された "Claim Name", "Claim Value", "JSON Web Token (JWT)" および "JWT Claims Set",
+          <a class='info' href='#JWS'>JSON Web Signature (JWS)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWS] で定義された "Header Parameter" および "JOSE Header",
+          <a class='info' href='#RFC7230'>RFC 7230<span> (</span><span class='info'>Fielding, R., Ed. and J. Reschke, Ed., &ldquo;Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing,&rdquo; June&nbsp;2014.</span><span>)</span></a> [RFC7230] で定義された "User Agent" という用語を用いる.
 
 </p>
 <p>
@@ -433,7 +434,7 @@ Terminology</h3>
 <dt>ID Token</dt>
 <dd>
 
-              Authentication イベントに関する Claim を含む <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWT].
+              Authentication イベントに関する Claim を含む <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWT].
               その他の Claim を含むこともある (MAY).
 
 </dd>
@@ -527,9 +528,9 @@ Terminology</h3>
 </p>
 <p>
           IMPORTANT NOTE TO READERS:
-          上記の用語定義は本仕様が定めるところであり, 本仕様の実装においてはこれらの定義に従うこと.
-          "Issuer Identifier" をはじめとして, 本仕様で大文字表記されている用語はすべて上記の定義に従う.
-          仕様書読者は必ずこれらの用語定義に従うこと.
+          上記の用語定義は本ドキュメントが定めるところであり, 本ドキュメントの実装においてはこれらの定義に従うこと.
+          "Issuer Identifier" をはじめとして, 本ドキュメントで大文字表記されている用語はすべて上記の定義に従う.
+          本ドキュメント読者は必ずこれらの用語定義に従うこと.
 
 </p>
 <a name="Overview"></a><br /><hr />
@@ -597,7 +598,7 @@ Overview</h3>
 Protocol Elements</h3>
 
 <p>
-        Authentication Requests は Authorization Code Flow, Implicit Flow および Hybrid Flow のいずれかのフローに従う.
+        Authentication Request は Authorization Code Flow, Implicit Flow および Hybrid Flow のいずれかのフローに従う.
         Authorization Code Flow は, Authorization Server と Client 自身との間でセキュアに Client Secret を管理できる Client 向けのフローである.
         それが不可能な Client は Implicit Flow を用いる.
         しかしながら, Client Secret をセキュアに保持できないにも関わらず, Refresh Token 取得のためにしばしば Native アプリケーションやその他の Client が Authorization Code flow を利用することもある.
@@ -660,7 +661,7 @@ Client Prepares Authentication Request</h3>
 
 </p>
 <p>
-            Client は <a class='info' href='#RFC2616'>RFC 2616<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> [RFC2616] に定義される HTTP <tt>GET</tt> もしくは HTTP <tt>POST</tt> を利用できる (MAY).
+            Client は <a class='info' href='#RFC7231'>RFC 7231<span> (</span><span class='info'>Fielding, R., Ed. and J. Reschke, Ed., &ldquo;Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content,&rdquo; June&nbsp;2014.</span><span>)</span></a> [RFC7231] に定義される HTTP <tt>GET</tt> もしくは HTTP <tt>POST</tt> を利用できる (MAY).
 
 </p>
 <p>
@@ -669,7 +670,7 @@ Client Prepares Authentication Request</h3>
 
 </p>
 <p>
-              以下は Authorization Request URL の一例である.
+              以下は Authentication Request URL の一例である.
               (改行は掲載上の都合による)
 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -748,7 +749,7 @@ Request Parameters</h3>
 
 </p>
 <p>
-              本仕様は上記に加えて以下のリクエストパラメータを定義する.
+              本ドキュメントは上記に加えて以下のリクエストパラメータを定義する.
 
 </p>
 <p>
@@ -769,7 +770,7 @@ Request Parameters</h3>
 <dd>
 
                   OPTIONAL.
-                  Authorization Server が認証および同意のためのユーザーインタフェースを End-User にどのように表示するかを指定するための ASCII 値.
+                  Authorization Server が認証および同意のためのユーザーインタフェースを End-User にどのように表示するかを指定するための ASCII　<a class='info' href='#RFC20'>[RFC20]<span> (</span><span class='info'>Cerf, V., &ldquo;ASCII format for Network Interchange,&rdquo; October&nbsp;1969.</span><span>)</span></a> 値.
                   以下の値が定義されている.
 
 
@@ -873,7 +874,7 @@ Request Parameters</h3>
 
                   OPTIONAL.
                   End-User の選好する UI の表示言語および文字種.
-                  スペース区切りの <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A. and M. Davis, &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ値のリストとして表現され, 順序は選好順となる.
+                  スペース区切りの <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A., Ed. and M. Davis, Ed., &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ値のリストとして表現され, 順序は選好順となる.
                   例えば "fr-CA fr en" という値が指定された場合, カナダで用いられるフランス語が第一選好となり, 次いで地域指定のないフランス語, そして英語と続く.
                   要求されたロケールがサポートされていない場合でも, OpenID Provider はエラーとするべきではない (SHOULD NOT).
 
@@ -883,7 +884,7 @@ Request Parameters</h3>
 
                   OPTIONAL.
                   End-User の選好する Claim の表示言語および文字種.
-                  スペース区切りの <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A. and M. Davis, &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ値のリストとして表現され, 順序は選好順となる.
+                  スペース区切りの <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A., Ed. and M. Davis, Ed., &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ値のリストとして表現され, 順序は選好順となる.
                   要求されたロケールがサポートされていない場合でも, OpenID Provider はエラーとするべきではない (SHOULD NOT).
 
 </dd>
@@ -916,7 +917,7 @@ Request Parameters</h3>
 
                   OPTIONAL.
                   Authentication Context Class Reference リクエスト値.
-                  Authorization Server が認可リクエストを処理する際に要求される <tt>acr</tt> の値をスペース区切りで示した文字列.
+                  Authorization Server が認証リクエストを処理する際に要求される <tt>acr</tt> の値をスペース区切りで示した文字列.
                   認証処理が満たした Authentication Context Class は, <a class='info' href='#IDToken'>Section&nbsp;2.2<span> (</span><span class='info'>ID Token</span><span>)</span></a> に示す <tt>acr</tt> Claim Value として返される.
                   <tt>acr</tt> Claim はこのパラメータを用いることで Voluntary Claim としてリクエストされることになる.
 
@@ -978,7 +979,7 @@ Authorization Server Authenticates End-User</h3>
 <p>
             Authorization Server は, リクエストパラメータ値に基づき, End-User をログインさせたり既にログイン済みであることを検証する.
             End-User とのインタラクションが HTTP で行われる場合は, <a class='info' href='#TLSRequirements'>Section&nbsp;8.1<span> (</span><span class='info'>TLS Requirements</span><span>)</span></a> に基づきTLS を用いること (MUST).
-            認証手段の詳細については, 本仕様の定めるところではない.
+            認証手段の詳細については, 本ドキュメントの定めるところではない.
 
 </p>
 <a name="Consent"></a><br /><hr />
@@ -1011,11 +1012,11 @@ Authorization Server Sends End-User Back to Client</h3>
 End-User Grants Authorization</h3>
 
 <p>
-              End-User がアクセス権要求を承認した場合, Authorization Server は Access Token を発行し, <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] の Section 4.2.2 および <a class='info' href='#OAuth.Responses'>OAuth 2.0 Multiple Response Type Encoding Practices<span> (</span><span class='info'>de Medeiros, B., Ed., Scurtescu, M., Tarjan, P., and M. Jones, &ldquo;OAuth 2.0 Multiple Response Type Encoding Practices,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OAuth.Responses] に従い, 以下のパラメータを Redirection URI のフラグメント部に <tt>application/x-www-form-urlencoded</tt> フォーマットで付与して Client に渡す.
+              End-User がアクセス権要求を承認した場合, Authorization Server は Access Token を発行し, <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] の Section 4.2.2 および <a class='info' href='#OAuth.Responses'>OAuth 2.0 Multiple Response Type Encoding Practices<span> (</span><span class='info'>de Medeiros, B., Ed., Scurtescu, M., Tarjan, P., and M. Jones, &ldquo;OAuth 2.0 Multiple Response Type Encoding Practices,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OAuth.Responses] に従い, 以下のパラメータを Redirection URI のフラグメント部に <tt>application/x-www-form-urlencoded</tt> フォーマットで付与して Client に渡す.
 
 </p>
 <p>
-              Implicit Flow では, <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] の Section 4.2.2 に従い, レスポンスの全体が Redirection URI のフラグメント部に返される.
+              Implicit Flow では, <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] の Section 4.2.2 に従い, レスポンスの全体が Redirection URI のフラグメント部に返される.
 
 </p>
 <p>
@@ -1084,7 +1085,7 @@ End-User Grants Authorization</h3>
 End-User Denies Authorization or Invalid Request</h3>
 
 <p>
-              End-User が認可を拒否したり, End-User の認証に失敗した場合, Authorization Server は <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] Section 4.2.2.1 に従ってエラーの Authorization Response を返さなければならない (MUST).
+              End-User が認可を拒否したり, End-User の認証に失敗した場合, Authorization Server は <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] Section 4.2.2.1 に従ってエラーの Authorization Response を返さなければならない (MUST).
               (RFC 6749 に関係のないエラーは, 適切な HTTP ステータスコードを用いて User Agent に返すこと)
 
 </p>
@@ -1164,12 +1165,12 @@ ID Token</h3>
 
 <p>
           ID Token は, ある Client を利用するというコンテキスト中での, Authorization Server による End-User 認証に関する Claim を含んだセキュリティトークンである.
-          潜在的にはその他の Cliam を含む可能性もある.
-          ID Token は <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWT] である.
+          潜在的にはその他の Claim を含む可能性もある.
+          ID Token は <a class='info' href='#JWT'>JSON Web Token (JWT)<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWT] である.
 
 </p>
 <p>
-          ID Token には以下の Cliam が含まれる.
+          ID Token には以下の Claim が含まれる.
 
 </p>
 <p>
@@ -1201,7 +1202,7 @@ ID Token</h3>
               ID Token の想定されるオーディエンス (Audience).
               この値は Relying Party の OAuth 2.0 <tt>client_id</tt> を含まなければならない (MUST).
               他のオーディエンスの識別子を含んでもよい (MAY).
-              一般的には <tt>aud</tt> は大文字小文字を区別した文字列の配列であるが, オーディエンスが単体の場合は <tt>aud</tt> 値を大文字小文字を区別した単一文字列としてもよい.
+              一般的には <tt>aud</tt> は大文字小文字を区別した文字列の配列であるが, オーディエンスが単体の場合は <tt>aud</tt> 値を大文字小文字を区別した単一文字列としてもよい (MAY).
 
 </dd>
 <dt>exp</dt>
@@ -1212,8 +1213,8 @@ ID Token</h3>
               この有効期限以降に該当 ID Token を受け入れたり処理してはならない (MUST NOT).
               ある ID Token が有効期限内であるためには, この値が示す時刻より現在時刻が前でなければならない (MUST).
               実装者は, 通常数分以内で, 時計のズレを考慮して多少の猶予期間を設けてもよい (MAY).
-              この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
-              詳細は <a class='info' href='#RFC3339'>RFC 3339<span> (</span><span class='info'>Klyne, G., Ed. and C. Newman, &ldquo;Date and Time on the Internet: Timestamps,&rdquo; July&nbsp;2002.</span><span>)</span></a> [RFC3339] を参照のこと.
+              この値は UTC 1970-01-01T00:00:00Z から該当時刻までの秒数を示す JSON <a class='info' href='#RFC7159'>[RFC7159]<span> (</span><span class='info'>Bray, T., Ed., &ldquo;The JavaScript Object Notation (JSON) Data Interchange Format,&rdquo; March&nbsp;2014.</span><span>)</span></a> 数値である.
+              詳細は <a class='info' href='#RFC3339'>RFC 3339<span> (</span><span class='info'>Klyne, G. and C. Newman, &ldquo;Date and Time on the Internet: Timestamps,&rdquo; July&nbsp;2002.</span><span>)</span></a> [RFC3339] を参照のこと.
 
 </dd>
 <dt>iat</dt>
@@ -1221,15 +1222,15 @@ ID Token</h3>
 
               REQUIRED.
               JWT 発行時刻.
-              この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
+              この値は UTC 1970-01-01T00:00:00Z から該当時刻までの秒数を示す JSON 数値である.
 
 </dd>
 <dt>auth_time</dt>
 <dd>
 
               End-User の認証が発生した時刻.
-              この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
-              リクエストに <tt>max_age</tt> が含まれていた場合, この Cliam は必須である (REQUIRED).
+              この値は UTC 1970-01-01T00:00:00Z から該当時刻までの秒数を示す JSON 数値である.
+              リクエストに <tt>max_age</tt> が含まれていた場合, この Claim は必須である (REQUIRED).
               その他の場合は任意 (OPTIONAL).
 
 </dd>
@@ -1240,7 +1241,7 @@ ID Token</h3>
               Client セッションと ID Token を紐づける文字列値.
               リプレイアタック防止のために用いられる.
               Authentication Request で指定されたままの値を ID Token に含める.
-              Client は Authentication Request に含めた <tt>nonce</tt> 値が ID Token に含まれる <tt>nonce</tt> Claim 値と一致することを検証しなければならない (MUST).
+              Client は Authentication Request に含めた <tt>nonce</tt> 値が ID Token に含まれる <tt>nonce</tt> Claim Value と一致することを検証しなければならない (MUST).
               Authentication Request に nonce が含まれていた場合, Authorization Server は ID Token にそのままの値で <tt>nonce</tt> Claim を含めねばならない (MUST).
               <tt>nonce</tt> は大文字小文字を区別する文字列である.
 
@@ -1251,7 +1252,7 @@ ID Token</h3>
               REQUIRED.
               Access Token のハッシュ値.
               Implicit Flow 内で ID Token が <tt>access_token</tt> とともに発行された場合 (この項で説明しているOpenID Connectのサブセットではこのケースに該当する), この Claim は必須である (REQUIRED).
-              この値は, <tt>access_token</tt> の ASCII バイト列のハッシュ値の左半分を Basd64URL エンコードしたものであり, ハッシュアルゴリズムは ID Token の <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] ヘッダーにある <tt>alg</tt> で用いられるハッシュアルゴリズムと同じものを用いる.
+              この値は, <tt>access_token</tt> の ASCII バイト列のハッシュ値の左半分を Basd64URL エンコードしたものであり, ハッシュアルゴリズムは ID Token の JOSE Header にある <tt>alg</tt> Header Parameter で用いられるハッシュアルゴリズムと同じものを用いる.
               例えば <tt>alg</tt> が <tt>RS256</tt> であれば, <tt>access_token</tt> の SHA-256 ハッシュ値を計算し, その左半分の128ビットを Base64URL エンコードする.
               <tt>at_hash</tt> は大文字小文字を区別する文字列である.
 
@@ -1278,7 +1279,7 @@ ID Token</h3>
               Authentication Methods References.
               認証時に用いられた認証方式を示す識別子文字列の JSON 配列.
               例として, パスワードと OTP 認証が両方行われたことを示すといったケースが考えられる.
-              <tt>amr</tt> Claim にどのような値を用いるかは本仕様の定めるところではない.
+              <tt>amr</tt> Claim にどのような値を用いるかは本ドキュメントの定めるところではない.
               この値の意味するところはコンテキストによって異なる可能性があるため, この Claim を利用する場合は, 関係者間で値の意味するところについて合意しておくこと.
               <tt>amr</tt> は大文字小文字を区別する文字列である.
 
@@ -1298,7 +1299,7 @@ ID Token</h3>
 <dd>
 
               <a class='info' href='#SelfIssued'>Section&nbsp;3<span> (</span><span class='info'>Self-Issued OpenID Provider</span><span>)</span></a> で定義されるとおり, Self-Issued OpenID Provider から発行された ID Token の署名検証に使われる公開鍵.
-              鍵は <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; November&nbsp;2013.</span><span>)</span></a> フォーマットのベア鍵である (X.509 証明書ではない).
+              鍵は <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; May&nbsp;2015.</span><span>)</span></a> フォーマットのベア鍵である (X.509 証明書ではない).
               <tt>sub_jwk</tt> Claim の使用は,
               OP が Self-Issued OP の場合は必須 (REQUIRED) であり,
               そうでない場合は推奨されない (NOT RECOMMENDED).
@@ -1314,7 +1315,7 @@ ID Token</h3>
 
 </p>
 <p>
-          ID Token は <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] を使って署名されなければならない (MUST).
+          ID Token は <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWS] を使って署名されなければならない (MUST).
           Client は ID Token を <a class='info' href='#IDTokenValidation'>Section&nbsp;2.2.1<span> (</span><span class='info'>ID Token Validation</span><span>)</span></a> に従って検証しなければならない (MUST).
 
 </p>
@@ -1329,7 +1330,7 @@ ID Token</h3>
 
 </p>
 <p>
-            以下は Base64URL デコードされた ID Token の例である.
+            以下は Base64URL デコードされた ID Token に含まれる Claims (the JWT Claims Set) の例である.
 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   {
@@ -1348,7 +1349,7 @@ ID Token</h3>
 ID Token Validation</h3>
 
 <p>
-            本仕様の定めるバリデーションが1つでも失敗した場合, バリデーションが失敗した情報を必要とする処理を全て中止し (MUST), バリデーションが失敗した情報を利用してはならない (MUST NOT).
+            本ドキュメントの定めるバリデーションが1つでも失敗した場合, バリデーションが失敗した情報を必要とする処理を全て中止し (MUST), バリデーションが失敗した情報を利用してはならない (MUST NOT).
 
 </p>
 <p>
@@ -1376,14 +1377,14 @@ ID Token Validation</h3>
 
 </li>
 <li>
-                Client は ID Token の署名を, JWT ヘッダ中の <tt>alg</tt> パラメータで指定されたアルゴリズムを使い, <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] に従って検証しなければならない (MUST).
+                Client は ID Token の署名を, JOSE Header 中の <tt>alg</tt> Header Parameter で指定されたアルゴリズムを使い, <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWS] に従って検証しなければならない (MUST).
                 Client は Issuer によって提供された鍵を使わなければならない (MUST).
 
 </li>
 <li>
                 <tt>alg</tt> の値は <tt>RS256</tt> であるべきである (SHOULD).
                 他の署名アルゴリズムを用いたトークン検証については
-                <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Core]
+                <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Core]
                 に記述されている.
 
 </li>
@@ -1407,7 +1408,7 @@ ID Token Validation</h3>
 </li>
 <li>
                 <tt>acr</tt> Claim が要求されたならば, Client は主張された Claim の値が適切かどうかをチェックすべきである (SHOULD).
-                <tt>acr</tt> Claim の値と意味はこの仕様の対象外である.
+                <tt>acr</tt> Claim の値と意味は本ドキュメントの対象外である.
 
 </li>
 <li>
@@ -1424,7 +1425,7 @@ ID Token Validation</h3>
 Access Token Validation</h3>
 
 <p>
-            Implicit Flow で ID Token とともに 発行された Access Token を検証するには、
+            Implicit Flow で ID Token とともに 発行された Access Token を検証するには,
             Client は以下を検証するべきである (SHOULD).
 
 </p>
@@ -1432,7 +1433,8 @@ Access Token Validation</h3>
             </p>
 <ol class="text">
 <li>
-                <tt>access_token</tt> の ASCII オクテット列のハッシュ値を求める。このとき用いるハッシュアルゴリズムは ID Token の <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] ヘッダーにある <tt>alg</tt> ヘッダーパラメータに対応する <a class='info' href='#JWA'>JWA<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWA] で定められたものである.
+                <tt>access_token</tt> の ASCII オクテット列のハッシュ値を求める.
+                このとき用いるハッシュアルゴリズムは ID Token の JOSE Header にある <tt>alg</tt> Header Parameter に対応する <a class='info' href='#JWA'>JWA<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Algorithms (JWA),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWA] で定められたものである.
                 例えば <tt>alg</tt> が <tt>RS256</tt> であれば, ハッシュアルゴリズムは SHA-256である.
 
 </li>
@@ -1471,7 +1473,7 @@ UserInfo Request</h3>
 
 <p>
             Client は, OpenID Connect Authentication で得られた Access Token を使って, UserInfo Endpoint に End-User の Claim をリクエストする.
-            UserInfo Endpoint は <a class='info' href='#RFC6750'>OAuth 2.0 Bearer Token Usage<span> (</span><span class='info'>Jones, M. and D. Hardt, &ldquo;The OAuth 2.0 Authorization Framework: Bearer Token Usage,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6750] に従った <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] Protected Resource である.
+            UserInfo Endpoint は <a class='info' href='#RFC6750'>OAuth 2.0 Bearer Token Usage<span> (</span><span class='info'>Jones, M. and D. Hardt, &ldquo;The OAuth 2.0 Authorization Framework: Bearer Token Usage,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6750] に従った <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] Protected Resource である.
             このリクエストは HTTP <tt>GET</tt> で行われるべきであり (SHOULD), Access Token は <tt>Authorization</tt> ヘッダー経由で渡されるべきである (SHOULD).
 
 </p>
@@ -1490,7 +1492,7 @@ Successful UserInfo Response</h3>
 
 <p>
             UserInfo Claim は JSON オブジェクトのメンバーとして返される (MUST).
-            レスポンスボディは UTF-8 エンコードされる (SHOULD).
+            レスポンスボディは UTF-8 <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a> エンコードされる (SHOULD).
             <a class='info' href='#StandardClaims'>Section&nbsp;2.5<span> (</span><span class='info'>Standard Claims</span><span>)</span></a> に定義されている Claim に加え, そこに明記されていない Claim も返却可能である.
 
 </p>
@@ -1527,10 +1529,10 @@ UserInfo Error Response</h3>
 Scope Values</h3>
 
 <p>
-          OpenID Connect Client は <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] Section 3.3 に従い, Access Token に要求されるアクセス権限を <tt>scope</tt> 値を通じて指定する.
+          OpenID Connect Client は <a class='info' href='#RFC6749'>OAuth 2.0<span> (</span><span class='info'>Hardt, D., Ed., &ldquo;The OAuth 2.0 Authorization Framework,&rdquo; October&nbsp;2012.</span><span>)</span></a> [RFC6749] Section 3.3 に従い, Access Token に要求されるアクセス権限を <tt>scope</tt> 値を通じて指定する.
           Access Tokens に紐づく scope は, そのトークンを使って OAuth 2.0 で保護されたエンドポイントにアクセスした際にどのようなリソースが得られるかを規定する.
           OpenID Connect では, scope は Claim Value として取得可能な情報セットを指定する為に利用できる.
-          本仕様では OpenID Connect で用いられる scope についてのみ述べる.
+          本ドキュメントでは OpenID Connect で用いられる scope についてのみ述べる.
 
 </p>
 <p>
@@ -1605,7 +1607,7 @@ Scope Values</h3>
 <dd>
 
               この scope 値は OpenID Connect Implicit Client Implementer's Guide 1.0 では使用してはならない (MUST NOT).
-              Basic Client での使用については <a class='info' href='#OpenID.Basic'>OpenID Connect Basic Client Implementer's Guide 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Basic Client Implementer's Guide 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Basic] を参照のこと.
+              Basic Client での使用については <a class='info' href='#OpenID.Basic'>OpenID Connect Basic Client Implementer's Guide 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Basic Client Implementer's Guide 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Basic] を参照のこと.
 
 </dd>
 </dl></blockquote><p>
@@ -1762,7 +1764,7 @@ Standard Claims</h3>
 <td align="left">string</td>
 <td align="left">
             End-User の性別.
-            本仕様では <tt>female</tt>, <tt>male</tt> を定義する.
+            本ドキュメントでは <tt>female</tt>, <tt>male</tt> を定義する.
             定義済の値に適切なものがない場合, その他の値を利用してもよい (MAY).
           </td>
 </tr>
@@ -1790,7 +1792,7 @@ Standard Claims</h3>
 <td align="left">string</td>
 <td align="left">
             End-User の locale.
-            <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A. and M. Davis, &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ表現.
+            <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A., Ed. and M. Davis, Ed., &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグ表現.
             これは通常 <a class='info' href='#ISO639-1'>ISO 639-1 Alpha-2<span> (</span><span class='info'>International Organization for             Standardization, &ldquo;ISO 639-1:2002. Codes for the representation of names of           languages -- Part 1: Alpha-2 code,&rdquo; 2002.</span><span>)</span></a> [ISO639&#8209;1] 言語コードを小文字表記, <a class='info' href='#ISO3166-1'>ISO 3166-1 Alpha-2<span> (</span><span class='info'>International Organization for             Standardization, &ldquo;ISO 3166-1:1997. Codes for the representation of names of           countries and their subdivisions -- Part 1: Country codes,&rdquo; 1997.</span><span>)</span></a> [ISO3166&#8209;1] 国コードを大文字表記し, ダッシュでつなげたものである.
             (<tt>en-US</tt>, <tt>fr-CA</tt> 等)
             実装によってはダッシュの代わりにアンダースコアを区切り文字に用いる場合もあるため, 互換性の観点からは注意すること.
@@ -1832,7 +1834,7 @@ Standard Claims</h3>
 <td align="left">number</td>
 <td align="left">
             End-User に関する情報の最終更新日時.
-            この値は UTC 1970-01-01T0:0:0Z から該当時刻までの秒数を示す JSON 数値である.
+            この値は UTC 1970-01-01T00:00:00Z から該当時刻までの秒数を示す JSON 数値である.
           </td>
 </tr>
 </table>
@@ -1854,7 +1856,7 @@ Standard Claims</h3>
   }
 </pre></div>
 <p>
-          Registration <a class='info' href='#OpenID.Registration'>[OpenID.Registration]<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> において特に他フォーマットを指定されない限り, UserInfo Endpoint では Claim を JSON 形式で返し (MUST), Content-Type ヘッダーを用いてフォーマットを示すこと (MUST).
+          Registration <a class='info' href='#OpenID.Registration'>[OpenID.Registration]<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> において特に他フォーマットを指定されない限り, UserInfo Endpoint では Claim を JSON 形式で返し (MUST), Content-Type ヘッダーを用いてフォーマットを示すこと (MUST).
           以下に許可されたコンテンツタイプを示す.
 
 </p><table class="all" align="center" border="0" cellpadding="2" cellspacing="2">
@@ -1949,14 +1951,14 @@ Claims Languages and Scripts</h3>
 
 <p>
             Human-readable な Claim Value およびそれらへの参照は, 複数言語および複数文字種で表現することができる (MAY).
-            言語および文字種の指定には <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A. and M. Davis, &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグを <tt>#</tt> を区切り文字としてメンバー名に付与する.
+            言語および文字種の指定には <a class='info' href='#RFC5646'>BCP47<span> (</span><span class='info'>Phillips, A., Ed. and M. Davis, Ed., &ldquo;Tags for Identifying Languages,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5646] 言語タグを <tt>#</tt> を区切り文字としてメンバー名に付与する.
             例えば <tt>family_name#ja-Kana-JP</tt> は日本語のカタカナ表記の Family Name を示す.
             カタカナ表記の氏名は, 漢字表記 (<tt>family_name#ja-Hani-JP</tt>) の氏名の発音を示したりインデックス目的等で用いられることが多い.
             他にも <tt>website</tt> が言語指定のない Web サイト, <tt>website#de</tt> がドイツ語の Web サイトを参照していることを示すといった例も挙げられる.
 
 </p>
 <p>
-            Claim Name は大文字小文字を区別するため, Claim Name 内の言語タグは <a class='info' href='#IANA.Language'>IANA Language Subtag Registry<span> (</span><span class='info'>Internet Assigned Numbers Authority (IANA), &ldquo;Language Subtag Registry,&rdquo; 2005.</span><span>)</span></a> [IANA.Language] に登録されたままの表記とすることを強く推奨する (RECOMMENDED).
+            Claim Name は大文字小文字を区別するため, Claim Name 内の言語タグは <a class='info' href='#IANA.Language'>IANA Language Subtag Registry<span> (</span><span class='info'>IANA, &ldquo;Language Subtag Registry,&rdquo; .</span><span>)</span></a> [IANA.Language] に登録されたままの表記とすることを強く推奨する (RECOMMENDED).
             一般的に言語名は小文字, 地域名は大文字, 文字種は大文字小文字混合で表記されることが多い.
             しかしながら BCP47 言語タグ値は大文字小文字を区別しないため, 実装は言語タグを大文字小文字区別なく処理できるべきである (SHOULD).
 
@@ -2102,7 +2104,7 @@ Providing Information with the "registration" Request Parameter</h3>
                 任意 (OPTIONAL).
                 このパラメータは通常, Dynamic Client Registration の間に Client が自身の情報を Self-Issued OP に提供する際に利用される.
                 この値は
-                <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Registration]
+                <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Registration]
                 仕様の Section 2.1 で定義されている Client メタデータの値を含む JSON オブジェクトである.
                 <tt>registration</tt> パラメータは OP が Self-Issued OP ではないときは利用すべきではない (SHOULD NOT).
 
@@ -2210,38 +2212,42 @@ Self-Issued OpenID Provider Response</h3>
 <p>Self-Issued OpenID プロバイダーのレスポンスは, 通常の Implicit フローのレスポンスに以下の改変をしたものと同じである. Implicit フローのレスポンスなので, レスポンスパラメータは URL フラグメントコンポーネントの中で返される.
 
 </p>
-<p></p>
+<p>
+          </p>
 <ol class="text">
 <li>
-            <tt>iss</tt> (issuer) Claim の値が
-            <tt>https://self-issued.me</tt> である.
+              <tt>iss</tt> (issuer) Claim の値が
+              <tt>https://self-issued.me</tt> である.
 
 </li>
 <li>
-            <tt>sub_jwk</tt> Claim が存在し, その値が ID Token の署名を検証するための公開鍵となっている.
+              <tt>sub_jwk</tt> Claim が存在し, その値が ID Token の署名を検証するための公開鍵となっている.
 
 </li>
 <li>
-            <tt>sub</tt> (subject) Claim の値は
-            <tt>sub_jwk</tt> Claim の中の Base64URL エンコードされたキー値の UTF-8 表現のオクテットを結合したものの SHA-256 ハッシュを Base64URL エンコードしたものである.
-            <tt>kty</tt> の値が
-            <tt>RSA</tt> である時, キーの値は
-            <tt>n</tt> と,
-            <tt>e</tt> が順に結合されたものである.
-            <tt>kty</tt> の値が
-            <tt>EC</tt> である時, キーの値は
-            <tt>crv</tt> と,
-            <tt>x</tt> と,
-            <tt>y</tt> が順に結合されたものである.
+              <tt>sub</tt> (subject) Claim の値は
+              <tt>sub_jwk</tt> Claim に含まれる鍵の Thumbprint の Base64URL エンコード値である.
+              この Thumbprint は, JWK のメンバーのうち REQUIRED なもののみをそのメンバー名の辞書順にソートし, 空白や改行なしで結合した UTF-8 表現のオクテットを生成し, その SHA-256 ハッシュを計算することで求める.
+              <tt>kty</tt> の値が
+              <tt>RSA</tt> である時, キーの値は
+              <tt>n</tt> と,
+              <tt>e</tt> が順に結合されたものである.
+              <tt>kty</tt> の値が
+              <tt>EC</tt> である時, キーの値は
+              <tt>crv</tt> と,
+              <tt>x</tt> と,
+              <tt>y</tt> が順に結合されたものである.
+              これは JWK Thumbprint <a class='info' href='#JWK.Thumbprint'>[JWK.Thumbprint]<span> (</span><span class='info'>Jones, M. and N. Sakimura, &ldquo;JSON Web Key (JWK) Thumbprint,&rdquo; July&nbsp;2015.</span><span>)</span></a> に定義されている.
 
 </li>
 <li>
-            UserInfo エンドポイントへアクセスするための Access Token は返されないため,
-            すべての Claim は ID Token の中で返されなければならない (MUST).
+              UserInfo エンドポイントへアクセスするための Access Token は返されないため,
+              すべての Claim は ID Token の中で返されなければならない (MUST).
 
 </li>
-</ol>
+</ol><p>
 
+</p>
 <a name="SelfIssuedValidation"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.5"></a><h3>3.5.&nbsp;
@@ -2255,7 +2261,7 @@ Self-Issued ID Token Validation</h3>
           </p>
 <ol class="text">
 <li>
-              Client は, <tt>iss</tt> (issuer) Claim の値が <tt>https://self-isued.me</tt> であることを検証しなければならない (MUST).
+              Client は, <tt>iss</tt> (issuer) Claim の値が <tt>https://self-issued.me</tt> であることを検証しなければならない (MUST).
               もし <tt>iss</tt> が別の値を含んでいた場合,
               その ID Token は Self-Issued ではないので,
               <a class='info' href='#IDTokenValidation'>Section&nbsp;2.2.1<span> (</span><span class='info'>ID Token Validation</span><span>)</span></a>
@@ -2267,9 +2273,9 @@ Self-Issued ID Token Validation</h3>
 
 </li>
 <li>
-              Client は, JWT ヘッダ <a class='info' href='#JWT'>[JWT]<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Token (JWT),&rdquo; November&nbsp;2013.</span><span>)</span></a> の <tt>alg</tt> パラメータに指定されたアルゴリズムを使い <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; November&nbsp;2013.</span><span>)</span></a> [JWS] に沿って ID Token の署名を検証しなければならない (MUST).
+              Client は, JOSE Header の <tt>alg</tt> Header Parameter に指定されたアルゴリズムを使い <a class='info' href='#JWS'>JWS<span> (</span><span class='info'>Jones, M., Bradley, J., and N. Sakimura, &ldquo;JSON Web Signature (JWS),&rdquo; May&nbsp;2015.</span><span>)</span></a> [JWS] に沿って ID Token の署名を検証しなければならない (MUST).
               その際, <tt>sub_jwk</tt> Claim の中の鍵を使用する;
-              鍵は JWK <a class='info' href='#JWK'>[JWK]<span> (</span><span class='info'>Jones, M., &ldquo;JSON Web Key (JWK),&rdquo; November&nbsp;2013.</span><span>)</span></a> フォーマットの鍵である (X.509 証明書ではない).
+              鍵は JWK フォーマットの鍵である (X.509 証明書ではない).
 
 </li>
 <li>
@@ -2278,17 +2284,8 @@ Self-Issued ID Token Validation</h3>
 
 </li>
 <li>
-              Client は <tt>sub</tt> (subject) Claim の値が
-              Base64URL エンコードされた <tt>sub_jwk</tt> Claim の中のキーの値が Base64URL エンコードされた UTF-8 表現のオクテットを結合したものの SHA-256 ハッシュであることを検証しなくてはならない (MUST).
-              <tt>kty</tt> の値が
-              <tt>RSA</tt> である時, キーの値は
-              <tt>n</tt> と
-              <tt>e</tt> が順に結合されたものである.
-              <tt>kty</tt> の値が
-              <tt>EC</tt> である時, キーの値は
-              <tt>crv</tt> と,
-              <tt>x</tt> と,
-              <tt>y</tt> が順に結合されたものである.
+              Client は <tt>sub</tt> Claim が <tt>sub_jwk</tt> Claim に含まれる鍵の Thumbprint の Base64URL エンコード値であることを検証しなければならない (MUST).
+              <a class='info' href='#SelfIssuedResponse'>Section&nbsp;3.4<span> (</span><span class='info'>Self-Issued OpenID Provider Response</span><span>)</span></a> 参照.
 
 </li>
 <li>
@@ -2409,7 +2406,7 @@ String Operations</h3>
 <p>
         いくつかの OpenID Connect メッセージを処理する際にはメッセージの中の値を既知の値を比較することが求められる.
         例えば, UserInfo エンドポイントから返された Claim Name は <tt>sub</tt> などの特定の Claim Name と比較される.
-        よって Unicode 文字列比較処理はセキュリティ上重要な意味を持つ.
+        よって Unicode <a class='info' href='#UNICODE'>[UNICODE]<span> (</span><span class='info'>The Unicode Consortium, &ldquo;The Unicode Standard,&rdquo; .</span><span>)</span></a> 文字列比較処理はセキュリティ上重要な意味を持つ.
 
 </p>
 <p>
@@ -2422,7 +2419,7 @@ String Operations</h3>
 
 </li>
 <li>
-            Unicode Normalization <a class='info' href='#USA15'>[USA15]<span> (</span><span class='info'>Davis, M., Whistler, K., and M. D&uuml;rst, &ldquo;Unicode Normalization Forms,&rdquo; 09&nbsp;2009.</span><span>)</span></a> を JSON 文字列, もしくは比較対象文字列に対していかなる時点であっても適用してはならない (MUST NOT).
+            Unicode Normalization <a class='info' href='#USA15'>[USA15]<span> (</span><span class='info'>Davis, M. and K. Whistler, &ldquo;Unicode Normalization Forms,&rdquo; 06&nbsp;2015.</span><span>)</span></a> を JSON 文字列, もしくは比較対象文字列に対していかなる時点であっても適用してはならない (MUST NOT).
 
 </li>
 <li>
@@ -2433,7 +2430,7 @@ String Operations</h3>
 
 </p>
 <p>
-        いくつかの箇所において, 本仕様はスペースで区切られた文字列のリストを使用している.
+        いくつかの箇所において, 本ドキュメントはスペースで区切られた文字列のリストを使用している.
         そのようないかなる場合においても, この目的では ASCII のスペース文字 (0x20)
         のみを使用しなければならない (MUST).
 
@@ -2444,8 +2441,8 @@ String Operations</h3>
 TLS Version</h3>
 
 <p>
-        本仕様では Transport Layer Security (TLS) が用いられるが, 実際に広く使われているかどうかや既知のセキュリティ脆弱性に依存して, TLS の適切なバージョンはその時々で異なりうる.
-        本仕様執筆時には, TLS バージョン 1.2 <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a>　が最新であるが, 実装が限定されており, すぐに各実装で利用可能とはいえないかもしれない.
+        本ドキュメントでは Transport Layer Security (TLS) が用いられるが, 実際に広く使われているかどうかや既知のセキュリティ脆弱性に依存して, TLS の適切なバージョンはその時々で異なりうる.
+        本ドキュメント執筆時には, TLS バージョン 1.2 <a class='info' href='#RFC5246'>[RFC5246]<span> (</span><span class='info'>Dierks, T. and E. Rescorla, &ldquo;The Transport Layer Security (TLS) Protocol Version 1.2,&rdquo; August&nbsp;2008.</span><span>)</span></a>　が最新であるが, 実装が限定されており, すぐに各実装で利用可能とはいえないかもしれない.
         TLS バージョン 1.0 <a class='info' href='#RFC2246'>[RFC2246]<span> (</span><span class='info'>Dierks, T. and C. Allen, &ldquo;The TLS Protocol Version 1.0,&rdquo; January&nbsp;1999.</span><span>)</span></a> は現在もっとも広く利用されているバージョンで, 最も広範な相互運用性を提供するであろう.
 
 </p>
@@ -2455,8 +2452,8 @@ TLS Version</h3>
 Implementation Considerations</h3>
 
 <p>
-        本仕様書では Relying Party が, OAuth Implicit Flow で利用する機能を定義する.
-        Relying Parties は本仕様書内で "REQUIRED" であると記載されている, もしくは "MUST" 付きで説明されている機能を実装しなければならない (MUST).
+        本ドキュメントでは Relying Party が, OAuth Implicit Flow で利用する機能を定義する.
+        Relying Parties は本ドキュメント内で "REQUIRED" であると記載されている, もしくは "MUST" 付きで説明されている機能を実装しなければならない (MUST).
 
 </p>
 <a name="DiscoReg"></a><br /><hr />
@@ -2470,7 +2467,7 @@ Discovery and Registration</h3>
 
 </p>
 <p>
-          しかしながら, 事前の信頼構築を前提とせず, Relying Party と OpenID Provider の間での事前予測不可能な形でのインタラクションをサポートする場合には, <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Discovery] と <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Registration] によってこれを実現すべきである (SHOULD).
+          しかしながら, 事前の信頼構築を前提とせず, Relying Party と OpenID Provider の間での事前予測不可能な形でのインタラクションをサポートする場合には, <a class='info' href='#OpenID.Discovery'>OpenID Connect Discovery 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;OpenID Connect Discovery 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Discovery] と <a class='info' href='#OpenID.Registration'>OpenID Connect Dynamic Client Registration 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., and M. Jones, &ldquo;OpenID Connect Dynamic Client Registration 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Registration] によってこれを実現すべきである (SHOULD).
 
 </p>
 <a name="Security"></a><br /><hr />
@@ -2480,7 +2477,7 @@ Security Considerations</h3>
 
 <p>
         以下に挙げたもの以外のセキュリティ上の考慮点については,
-        <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; February&nbsp;2014.</span><span>)</span></a> [OpenID.Core] 仕様を参照すること.
+        <a class='info' href='#OpenID.Core'>OpenID Connect Core 1.0<span> (</span><span class='info'>Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;OpenID Connect Core 1.0,&rdquo; August&nbsp;2015.</span><span>)</span></a> [OpenID.Core] 仕様を参照すること.
 
 </p>
 <a name="TLSRequirements"></a><br /><hr />
@@ -2560,7 +2557,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="E.164">[E.164]</a></td>
 <td class="author-text">International Telecommunication Union, &ldquo;<a href="http://www.itu.int/rec/T-REC-E.164-201011-I/en">E.164: The international public telecommunication numbering plan</a>,&rdquo; 2010.</td></tr>
 <tr><td class="author-text" valign="top"><a name="IANA.Language">[IANA.Language]</a></td>
-<td class="author-text">Internet Assigned Numbers Authority (IANA), &ldquo;<a href="http://www.iana.org/assignments/language-subtag-registry">Language Subtag Registry</a>,&rdquo; 2005.</td></tr>
+<td class="author-text">IANA, &ldquo;<a href="http://www.iana.org/assignments/language-subtag-registry">Language Subtag Registry</a>.&rdquo;</td></tr>
 <tr><td class="author-text" valign="top"><a name="ISO29115">[ISO29115]</a></td>
 <td class="author-text">International Organization for Standardization, &ldquo;<a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=45138">ISO/IEC 29115:2013 --
           Information technology - Security techniques - Entity authentication
@@ -2571,58 +2568,68 @@ References</h3>
           countries and their subdivisions -- Part 1: Country codes</a>,&rdquo; 1997.</td></tr>
 <tr><td class="author-text" valign="top"><a name="ISO639-1">[ISO639-1]</a></td>
 <td class="author-text">International Organization for
-            Standardization, &ldquo;ISO 639-1:2002. Codes for the representation of names of
-          languages -- Part 1: Alpha-2 code,&rdquo; 2002.</td></tr>
+            Standardization, &ldquo;<a href="http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=22109">ISO 639-1:2002. Codes for the representation of names of
+          languages -- Part 1: Alpha-2 code</a>,&rdquo; 2002.</td></tr>
 <tr><td class="author-text" valign="top"><a name="ISO8601-2004">[ISO8601-2004]</a></td>
 <td class="author-text">International Organization for
-            Standardization, &ldquo;ISO 8601:2004. Data elements and interchange formats - Information interchange -
-          Representation of dates and times,&rdquo; 2004.</td></tr>
+            Standardization, &ldquo;<a href="http://www.iso.org/iso/catalogue_detail?csnumber=40874">ISO 8601:2004. Data elements and interchange formats - Information interchange -
+          Representation of dates and times</a>,&rdquo; 2004.</td></tr>
 <tr><td class="author-text" valign="top"><a name="JWA">[JWA]</a></td>
-<td class="author-text">Jones, M., &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms">JSON Web Algorithms (JWA)</a>,&rdquo; draft-ietf-jose-json-web-algorithms (work in progress), November&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-18">HTML</a>).</td></tr>
+<td class="author-text">Jones, M., &ldquo;<a href="http://tools.ietf.org/html/rfc7518">JSON Web Algorithms (JWA)</a>,&rdquo; RFC&nbsp;7518, DOI&nbsp;10.17487/RFC7518, May&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="JWK">[JWK]</a></td>
-<td class="author-text">Jones, M., &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-key">JSON Web Key (JWK)</a>,&rdquo; draft-ietf-jose-json-web-key (work in progress), November&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18">HTML</a>).</td></tr>
+<td class="author-text">Jones, M., &ldquo;<a href="http://tools.ietf.org/html/rfc7517">JSON Web Key (JWK)</a>,&rdquo; RFC&nbsp;7517, DOI&nbsp;10.17487/RFC7517, May&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="JWS">[JWS]</a></td>
-<td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature">JSON Web Signature (JWS)</a>,&rdquo; draft-ietf-jose-json-web-signature (work in progress), November&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-18">HTML</a>).</td></tr>
+<td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/rfc7515">JSON Web Signature (JWS)</a>,&rdquo; RFC&nbsp;7515, DOI&nbsp;10.17487/RFC7515, May&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="JWT">[JWT]</a></td>
-<td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token">JSON Web Token (JWT)</a>,&rdquo; draft-ietf-oauth-json-web-token (work in progress), November&nbsp;2013 (<a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-13">HTML</a>).</td></tr>
+<td class="author-text">Jones, M., Bradley, J., and N. Sakimura, &ldquo;<a href="http://tools.ietf.org/html/rfc7519">JSON Web Token (JWT)</a>,&rdquo; RFC&nbsp;7519, DOI&nbsp;10.17487/RFC7519, May&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OAuth.Responses">[OAuth.Responses]</a></td>
 <td class="author-text">de Medeiros, B., Ed., Scurtescu, M., Tarjan, P., and M. Jones, &ldquo;<a href="http://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</a>,&rdquo; February&nbsp;2014.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Core">[OpenID.Core]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>,&rdquo; August&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Discovery">[OpenID.Discovery]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;<a href="http://openid.net/specs/openid-connect-discovery-1_0.html">OpenID Connect Discovery 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., and E. Jay, &ldquo;<a href="http://openid.net/specs/openid-connect-discovery-1_0.html">OpenID Connect Discovery 1.0</a>,&rdquo; August&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Registration">[OpenID.Registration]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., and M. Jones, &ldquo;<a href="http://openid.net/specs/openid-connect-registration-1_0.html">OpenID Connect Dynamic Client Registration 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., and M. Jones, &ldquo;<a href="http://openid.net/specs/openid-connect-registration-1_0.html">OpenID Connect Dynamic Client Registration 1.0</a>,&rdquo; August&nbsp;2015.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC20">[RFC20]</a></td>
+<td class="author-text">Cerf, V., &ldquo;<a href="http://www.rfc-editor.org/info/rfc20">ASCII format for Network Interchange</a>,&rdquo; STD&nbsp;80, RFC&nbsp;20, DOI&nbsp;10.17487/RFC0020, October&nbsp;1969.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
-<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<td class="author-text">Bradner, S., &ldquo;<a href="http://www.rfc-editor.org/info/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, DOI&nbsp;10.17487/RFC2119, March&nbsp;1997.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2246">[RFC2246]</a></td>
-<td class="author-text"><a href="mailto:tdierks@certicom.com">Dierks, T.</a> and <a href="mailto:callen@certicom.com">C. Allen</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2246">The TLS Protocol Version 1.0</a>,&rdquo; RFC&nbsp;2246, January&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2246.txt">TXT</a>).</td></tr>
-<tr><td class="author-text" valign="top"><a name="RFC2616">[RFC2616]</a></td>
-<td class="author-text"><a href="mailto:fielding@ics.uci.edu">Fielding, R.</a>, <a href="mailto:jg@w3.org">Gettys, J.</a>, <a href="mailto:mogul@wrl.dec.com">Mogul, J.</a>, <a href="mailto:frystyk@w3.org">Frystyk, H.</a>, <a href="mailto:masinter@parc.xerox.com">Masinter, L.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, and <a href="mailto:timbl@w3.org">T. Berners-Lee</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2616.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.pdf">PDF</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2616.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2616.xml">XML</a>).</td></tr>
+<td class="author-text">Dierks, T. and C. Allen, &ldquo;<a href="http://www.rfc-editor.org/info/rfc2246">The TLS Protocol Version 1.0</a>,&rdquo; RFC&nbsp;2246, DOI&nbsp;10.17487/RFC2246, January&nbsp;1999.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3339">[RFC3339]</a></td>
-<td class="author-text"><a href="mailto:GK@ACM.ORG">Klyne, G., Ed.</a> and <a href="mailto:chris.newman@sun.com">C. Newman</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3339">Date and Time on the Internet: Timestamps</a>,&rdquo; RFC&nbsp;3339, July&nbsp;2002 (<a href="http://www.rfc-editor.org/rfc/rfc3339.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3339.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3339.xml">XML</a>).</td></tr>
+<td class="author-text">Klyne, G. and C. Newman, &ldquo;<a href="http://www.rfc-editor.org/info/rfc3339">Date and Time on the Internet: Timestamps</a>,&rdquo; RFC&nbsp;3339, DOI&nbsp;10.17487/RFC3339, July&nbsp;2002.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://www.rfc-editor.org/info/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, DOI&nbsp;10.17487/RFC3629, November&nbsp;2003.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3966">[RFC3966]</a></td>
-<td class="author-text">Schulzrinne, H., &ldquo;<a href="http://tools.ietf.org/html/rfc3966">The tel URI for Telephone Numbers</a>,&rdquo; RFC&nbsp;3966, December&nbsp;2004 (<a href="http://www.rfc-editor.org/rfc/rfc3966.txt">TXT</a>).</td></tr>
+<td class="author-text">Schulzrinne, H., &ldquo;<a href="http://www.rfc-editor.org/info/rfc3966">The tel URI for Telephone Numbers</a>,&rdquo; RFC&nbsp;3966, DOI&nbsp;10.17487/RFC3966, December&nbsp;2004.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
-<td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
+<td class="author-text">Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;<a href="http://www.rfc-editor.org/info/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, DOI&nbsp;10.17487/RFC3986, January&nbsp;2005.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC4627">[RFC4627]</a></td>
-<td class="author-text">Crockford, D., &ldquo;<a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, July&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4627.txt">TXT</a>).</td></tr>
+<td class="author-text">Crockford, D., &ldquo;<a href="http://www.rfc-editor.org/info/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, DOI&nbsp;10.17487/RFC4627, July&nbsp;2006.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
-<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, August&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5246.txt">TXT</a>).</td></tr>
+<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://www.rfc-editor.org/info/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, DOI&nbsp;10.17487/RFC5246, August&nbsp;2008.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5322">[RFC5322]</a></td>
-<td class="author-text"><a href="mailto:presnick@qualcomm.com">Resnick, P., Ed.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc5322">Internet Message Format</a>,&rdquo; RFC&nbsp;5322, October&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5322.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc5322.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc5322.xml">XML</a>).</td></tr>
+<td class="author-text">Resnick, P., Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc5322">Internet Message Format</a>,&rdquo; RFC&nbsp;5322, DOI&nbsp;10.17487/RFC5322, October&nbsp;2008.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5646">[RFC5646]</a></td>
-<td class="author-text">Phillips, A. and M. Davis, &ldquo;<a href="http://tools.ietf.org/html/rfc5646">Tags for Identifying Languages</a>,&rdquo; BCP&nbsp;47, RFC&nbsp;5646, September&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5646.txt">TXT</a>).</td></tr>
+<td class="author-text">Phillips, A., Ed. and M. Davis, Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc5646">Tags for Identifying Languages</a>,&rdquo; BCP&nbsp;47, RFC&nbsp;5646, DOI&nbsp;10.17487/RFC5646, September&nbsp;2009.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC6125">[RFC6125]</a></td>
-<td class="author-text">Saint-Andre, P. and J. Hodges, &ldquo;<a href="http://tools.ietf.org/html/rfc6125">Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)</a>,&rdquo; RFC&nbsp;6125, March&nbsp;2011 (<a href="http://www.rfc-editor.org/rfc/rfc6125.txt">TXT</a>).</td></tr>
+<td class="author-text">Saint-Andre, P. and J. Hodges, &ldquo;<a href="http://www.rfc-editor.org/info/rfc6125">Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)</a>,&rdquo; RFC&nbsp;6125, DOI&nbsp;10.17487/RFC6125, March&nbsp;2011.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC6711">[RFC6711]</a></td>
-<td class="author-text">Johansson, L., &ldquo;<a href="http://tools.ietf.org/html/rfc6711">An IANA Registry for Level of Assurance (LoA) Profiles</a>,&rdquo; RFC&nbsp;6711, August&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6711.txt">TXT</a>).</td></tr>
+<td class="author-text">Johansson, L., &ldquo;<a href="http://www.rfc-editor.org/info/rfc6711">An IANA Registry for Level of Assurance (LoA) Profiles</a>,&rdquo; RFC&nbsp;6711, DOI&nbsp;10.17487/RFC6711, August&nbsp;2012.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC6749">[RFC6749]</a></td>
-<td class="author-text">Hardt, D., &ldquo;<a href="http://tools.ietf.org/html/rfc6749">The OAuth 2.0 Authorization Framework</a>,&rdquo; RFC&nbsp;6749, October&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6749.txt">TXT</a>).</td></tr>
+<td class="author-text">Hardt, D., Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc6749">The OAuth 2.0 Authorization Framework</a>,&rdquo; RFC&nbsp;6749, DOI&nbsp;10.17487/RFC6749, October&nbsp;2012.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC6750">[RFC6750]</a></td>
-<td class="author-text">Jones, M. and D. Hardt, &ldquo;<a href="http://tools.ietf.org/html/rfc6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a>,&rdquo; RFC&nbsp;6750, October&nbsp;2012 (<a href="http://www.rfc-editor.org/rfc/rfc6750.txt">TXT</a>).</td></tr>
+<td class="author-text">Jones, M. and D. Hardt, &ldquo;<a href="http://www.rfc-editor.org/info/rfc6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a>,&rdquo; RFC&nbsp;6750, DOI&nbsp;10.17487/RFC6750, October&nbsp;2012.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC7159">[RFC7159]</a></td>
+<td class="author-text">Bray, T., Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>,&rdquo; RFC&nbsp;7159, DOI&nbsp;10.17487/RFC7159, March&nbsp;2014.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC7230">[RFC7230]</a></td>
+<td class="author-text">Fielding, R., Ed. and J. Reschke, Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc7230">Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</a>,&rdquo; RFC&nbsp;7230, DOI&nbsp;10.17487/RFC7230, June&nbsp;2014.</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC7231">[RFC7231]</a></td>
+<td class="author-text">Fielding, R., Ed. and J. Reschke, Ed., &ldquo;<a href="http://www.rfc-editor.org/info/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>,&rdquo; RFC&nbsp;7231, DOI&nbsp;10.17487/RFC7231, June&nbsp;2014.</td></tr>
+<tr><td class="author-text" valign="top"><a name="UNICODE">[UNICODE]</a></td>
+<td class="author-text">The Unicode Consortium, &ldquo;<a href="http://www.unicode.org/versions/latest/">The Unicode Standard</a>.&rdquo;</td></tr>
 <tr><td class="author-text" valign="top"><a name="USA15">[USA15]</a></td>
-<td class="author-text"><a href="mailto:markdavis@google.com">Davis, M.</a>, <a href="mailto:ken@unicode.org">Whistler, K.</a>, and M. D&uuml;rst, &ldquo;Unicode Normalization Forms,&rdquo; Unicode Standard Annex&nbsp;15, 09&nbsp;2009.</td></tr>
+<td class="author-text"><a href="mailto:markdavis@google.com">Davis, M.</a> and <a href="mailto:ken@unicode.org">K. Whistler</a>, &ldquo;<a href="http://www.unicode.org/reports/tr15/">Unicode Normalization Forms</a>,&rdquo; Unicode Standard Annex&nbsp;15, 06&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html401-19991224">[W3C.REC-html401-19991224]</a></td>
 <td class="author-text">Raggett, D., Hors, A., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML 4.01 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html401-19991224, December&nbsp;1999 (<a href="http://www.w3.org/TR/1999/REC-html401-19991224">HTML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="zoneinfo">[zoneinfo]</a></td>
@@ -2633,8 +2640,10 @@ References</h3>
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <h3>11.2.&nbsp;Informative References</h3>
 <table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="JWK.Thumbprint">[JWK.Thumbprint]</a></td>
+<td class="author-text"><a href="mailto:mbj@microsoft.com">Jones, M.</a> and <a href="mailto:n-sakimura@nri.co.jp">N. Sakimura</a>, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-jose-jwk-thumbprint-08">JSON Web Key (JWK) Thumbprint</a>,&rdquo; draft-ietf-jose-jwk-thumbprint (work in progress), July&nbsp;2015.</td></tr>
 <tr><td class="author-text" valign="top"><a name="OpenID.Basic">[OpenID.Basic]</a></td>
-<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-basic-1_0.html">OpenID Connect Basic Client Implementer's Guide 1.0</a>,&rdquo; February&nbsp;2014.</td></tr>
+<td class="author-text">Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and C. Mortimore, &ldquo;<a href="http://openid.net/specs/openid-connect-basic-1_0.html">OpenID Connect Basic Client Implementer's Guide 1.0</a>,&rdquo; August&nbsp;2015.</td></tr>
 </table>
 
 <a name="rfc.references3"></a><br /><hr />
@@ -2656,7 +2665,7 @@ Acknowledgements</h3>
 
 <p>
         The OpenID Community would like to thank the following people for
-        their contributions to this specification:
+        their contributions to this document:
 
 </p>
 <p>
@@ -2718,7 +2727,7 @@ Acknowledgements</h3>
 <a name="rfc.section.B"></a><h3>Appendix B.&nbsp;
 Notices</h3>
 
-<p>Copyright (c) 2014 The OpenID Foundation.
+<p>Copyright (c) 2015 The OpenID Foundation.
 </p>
 <p>
         The OpenID Foundation (OIDF) grants to any Contributor, developer,
@@ -2765,7 +2774,103 @@ Notices</h3>
 <a name="rfc.section.C"></a><h3>Appendix C.&nbsp;
 Document History</h3>
 
-<p>[[ To be removed from the final specification ]]
+<p>[[ To be removed from the final document ]]
+</p>
+<p>
+        -20
+        </p>
+<ul class="text">
+<li>
+            Referenced completed RFCs.
+
+</li>
+<li>
+            Added missing URLs in references.
+
+</li>
+<li>
+            Corrected a typo in the spelling of self-issued.me.
+
+</li>
+<li>
+            Tracked terminology changes made in the referenced IETF specs since errata set 1.
+
+</li>
+<li>
+            Updated the RFC 2616 references to RFC 7230 or RFC 7231, as appropriate.
+
+</li>
+</ul><p>
+
+</p>
+<p>
+        -19
+        </p>
+<ul class="text">
+<li>
+            Referenced specification versions incorporating errata set 1.
+
+</li>
+</ul><p>
+
+</p>
+<p>
+        -18
+        </p>
+<ul class="text">
+<li>
+            Fixed #947 - Added "kty":"EC" case back to Self-Issued OpenID Provider Response.
+
+</li>
+<li>
+            Fixed #954 - Added "NOT RECOMMENDED" to the list of RFC 2119 terms.
+
+</li>
+</ul><p>
+
+</p>
+<p>
+        -17
+        </p>
+<ul class="text">
+<li>
+            Changed the JWK Thumbprint reference from being normative to informative.
+
+</li>
+<li>
+            Updated dates for specs containing errata updates.
+
+</li>
+<li>
+            Updated references to pre-final IETF specs.
+
+</li>
+<li>
+            Replaced uses of the terms JWS Header, JWE Header, and JWT Header with
+            the JOSE Header term that replaced them in the JOSE and JWT specifications.
+
+</li>
+</ul><p>
+
+</p>
+<p>
+        -16
+        </p>
+<ul class="text">
+<li>
+            Fixed #926 - Typo in Self-Issued ID Token Validation.
+
+</li>
+<li>
+            Fixed #920 - Attack identified against self-issued "sub" values.
+
+</li>
+<li>
+            Changed uses of "this specification" to "this document".
+
+</li>
+</ul><p>
+
 </p>
 <p>
         -15
@@ -3401,7 +3506,7 @@ Document History</h3>
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-15411889-1', 'github.com');
+  ga('create', 'UA-15411889-1', 'auto');
   ga('send', 'pageview');
 
 </script>

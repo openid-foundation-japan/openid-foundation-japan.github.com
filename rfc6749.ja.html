@@ -2,7 +2,7 @@
 <html lang="en"><head><title>The OAuth 2.0 Authorization Framework</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="The OAuth 2.0 Authorization Framework">
-<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
+<meta name="generator" content="xml2rfc v1.37pre1 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -449,7 +449,7 @@ Acknowledgements<br />
 <ul class="text">
 <li>
             サードパーティーアプリケーションは, 後の利用のためにリソースオーナーのクレデンシャルを保存しておかなければならない.
-            特にパスワードは平文 (訳注: または複合可能な形) で保存されることになる.
+            特にパスワードは平文 (訳注: または復号可能な形) で保存されることになる.
 
 
 </li>
@@ -508,7 +508,7 @@ Acknowledgements<br />
 
 </p>
 <p>
-        Informationalドキュメントとして発行されたOAuth 1.0 (<a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a>) は, 小規模のアドホックなコミュニティにより作られた.
+        Informationalドキュメントとして発行されたOAuth 1.0 (<a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., Ed., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a>) は, 小規模のアドホックなコミュニティにより作られた.
         Standard Trackである本仕様は, OAuth 1.0で得られた経験を元に, IETFコミュニティから発生したさらなるユースケースや拡張性を加味して策定されている.
         OAuth 2.0はOAuth 1.0との互換性はない.
         2つのバージョンは共存可能であり, 実装者は両方をサポートすることも可能である.
@@ -948,9 +948,9 @@ HTTPリダイレクト</h3>
 
 </p>
 <p>
-          本仕様書は <a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a> における Augmented Backus-Naur Form (ABNF) 表記法を使用している.
+          本仕様書は <a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D., Ed. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a> における Augmented Backus-Naur Form (ABNF) 表記法を使用している.
           加えてURI-referenceの規則には "Uniform Resource Identifier (URI): Generic Syntax" <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> を用いる.
-          <a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a>.
+          <a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D., Ed. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a>.
 
 
 </p>
@@ -1343,7 +1343,7 @@ HTTPリダイレクト</h3>
 <p>
             拡張レスポンスタイプに空白文字 (%x20) 区切りのリスト値が含まれていてもよい (MAY).
             なお値の順序は問題としない (例：レスポンスタイプ <tt>a b</tt> と <tt>b a</tt> は同じである).
-            このような複合レスポンスタイプの意味は各々の仕様にて定義される.
+            このような復号レスポンスタイプの意味は各々の仕様にて定義される.
 
 </p>
 <p>
@@ -4556,31 +4556,31 @@ References</h3>
 <h3>12.1.&nbsp;Normative References</h3>
 <table width="99%" border="0">
 <tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
-<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<td class="author-text">Bradner, S., &ldquo;<a href="https://www.rfc-editor.org/info/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, DOI&nbsp;10.17487/RFC2119, March&nbsp;1997.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2246">[RFC2246]</a></td>
-<td class="author-text"><a href="mailto:tdierks@certicom.com">Dierks, T.</a> and <a href="mailto:callen@certicom.com">C. Allen</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2246">The TLS Protocol Version 1.0</a>,&rdquo; RFC&nbsp;2246, January&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2246.txt">TXT</a>).</td></tr>
+<td class="author-text">Dierks, T. and C. Allen, &ldquo;<a href="https://www.rfc-editor.org/info/rfc2246">The TLS Protocol Version 1.0</a>,&rdquo; RFC&nbsp;2246, DOI&nbsp;10.17487/RFC2246, January&nbsp;1999.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2616">[RFC2616]</a></td>
-<td class="author-text"><a href="mailto:fielding@ics.uci.edu">Fielding, R.</a>, <a href="mailto:jg@w3.org">Gettys, J.</a>, <a href="mailto:mogul@wrl.dec.com">Mogul, J.</a>, <a href="mailto:frystyk@w3.org">Frystyk, H.</a>, <a href="mailto:masinter@parc.xerox.com">Masinter, L.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, and <a href="mailto:timbl@w3.org">T. Berners-Lee</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2616.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.pdf">PDF</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2616.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2616.xml">XML</a>).</td></tr>
+<td class="author-text">Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;<a href="https://www.rfc-editor.org/info/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, DOI&nbsp;10.17487/RFC2616, June&nbsp;1999.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2617">[RFC2617]</a></td>
-<td class="author-text"><a href="mailto:john@math.nwu.edu">Franks, J.</a>, <a href="mailto:pbaker@verisign.com">Hallam-Baker, P.</a>, <a href="mailto:jeff@AbiSource.com">Hostetler, J.</a>, <a href="mailto:lawrence@agranat.com">Lawrence, S.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, Luotonen, A., and <a href="mailto:stewart@OpenMarket.com">L. Stewart</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2617">HTTP Authentication: Basic and Digest Access Authentication</a>,&rdquo; RFC&nbsp;2617, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2617.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2617.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2617.xml">XML</a>).</td></tr>
+<td class="author-text">Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;<a href="https://www.rfc-editor.org/info/rfc2617">HTTP Authentication: Basic and Digest Access Authentication</a>,&rdquo; RFC&nbsp;2617, DOI&nbsp;10.17487/RFC2617, June&nbsp;1999.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2818">[RFC2818]</a></td>
-<td class="author-text">Rescorla, E., &ldquo;<a href="http://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, May&nbsp;2000 (<a href="http://www.rfc-editor.org/rfc/rfc2818.txt">TXT</a>).</td></tr>
+<td class="author-text">Rescorla, E., &ldquo;<a href="https://www.rfc-editor.org/info/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, DOI&nbsp;10.17487/RFC2818, May&nbsp;2000.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
-<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, November&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3629.txt">TXT</a>).</td></tr>
+<td class="author-text">Yergeau, F., &ldquo;<a href="https://www.rfc-editor.org/info/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, DOI&nbsp;10.17487/RFC3629, November&nbsp;2003.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
-<td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
+<td class="author-text">Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;<a href="https://www.rfc-editor.org/info/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, DOI&nbsp;10.17487/RFC3986, January&nbsp;2005.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC4627">[RFC4627]</a></td>
-<td class="author-text">Crockford, D., &ldquo;<a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, July&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4627.txt">TXT</a>).</td></tr>
+<td class="author-text">Crockford, D., &ldquo;<a href="https://www.rfc-editor.org/info/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a>,&rdquo; RFC&nbsp;4627, DOI&nbsp;10.17487/RFC4627, July&nbsp;2006.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC4949">[RFC4949]</a></td>
-<td class="author-text">Shirey, R., &ldquo;<a href="http://tools.ietf.org/html/rfc4949">Internet Security Glossary, Version 2</a>,&rdquo; RFC&nbsp;4949, August&nbsp;2007 (<a href="http://www.rfc-editor.org/rfc/rfc4949.txt">TXT</a>).</td></tr>
+<td class="author-text">Shirey, R., &ldquo;<a href="https://www.rfc-editor.org/info/rfc4949">Internet Security Glossary, Version 2</a>,&rdquo; FYI&nbsp;36, RFC&nbsp;4949, DOI&nbsp;10.17487/RFC4949, August&nbsp;2007.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5226">[RFC5226]</a></td>
-<td class="author-text">Narten, T. and H. Alvestrand, &ldquo;<a href="http://tools.ietf.org/html/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>,&rdquo; BCP&nbsp;26, RFC&nbsp;5226, May&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5226.txt">TXT</a>).</td></tr>
+<td class="author-text">Narten, T. and H. Alvestrand, &ldquo;<a href="https://www.rfc-editor.org/info/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>,&rdquo; RFC&nbsp;5226, DOI&nbsp;10.17487/RFC5226, May&nbsp;2008.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5234">[RFC5234]</a></td>
-<td class="author-text">Crocker, D. and P. Overell, &ldquo;<a href="http://tools.ietf.org/html/rfc5234">Augmented BNF for Syntax Specifications: ABNF</a>,&rdquo; STD&nbsp;68, RFC&nbsp;5234, January&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5234.txt">TXT</a>).</td></tr>
+<td class="author-text">Crocker, D., Ed. and P. Overell, &ldquo;<a href="https://www.rfc-editor.org/info/rfc5234">Augmented BNF for Syntax Specifications: ABNF</a>,&rdquo; STD&nbsp;68, RFC&nbsp;5234, DOI&nbsp;10.17487/RFC5234, January&nbsp;2008.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5246">[RFC5246]</a></td>
-<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, August&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5246.txt">TXT</a>).</td></tr>
+<td class="author-text">Dierks, T. and E. Rescorla, &ldquo;<a href="https://www.rfc-editor.org/info/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>,&rdquo; RFC&nbsp;5246, DOI&nbsp;10.17487/RFC5246, August&nbsp;2008.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC6125">[RFC6125]</a></td>
-<td class="author-text">Saint-Andre, P. and J. Hodges, &ldquo;<a href="http://tools.ietf.org/html/rfc6125">Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)</a>,&rdquo; RFC&nbsp;6125, March&nbsp;2011 (<a href="http://www.rfc-editor.org/rfc/rfc6125.txt">TXT</a>).</td></tr>
+<td class="author-text">Saint-Andre, P. and J. Hodges, &ldquo;<a href="https://www.rfc-editor.org/info/rfc6125">Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)</a>,&rdquo; RFC&nbsp;6125, DOI&nbsp;10.17487/RFC6125, March&nbsp;2011.</td></tr>
 <tr><td class="author-text" valign="top"><a name="USASCII">[USASCII]</a></td>
 <td class="author-text">American National Standards Institute, &ldquo;Coded Character Set -- 7-bit American Standard Code for Information Interchange,&rdquo; ANSI&nbsp;X3.4, 1986.</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html401-19991224">[W3C.REC-html401-19991224]</a></td>
@@ -4602,7 +4602,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="OAuth-WRAP">[OAuth-WRAP]</a></td>
 <td class="author-text">Hardt, D., Ed., Tom, A., Eaton, B., and Y. Goland, &ldquo;OAuth Web Resource Authorization Profiles,&rdquo; Work in&nbsp;Progress, January&nbsp;2010.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5849">[RFC5849]</a></td>
-<td class="author-text">Hammer-Lahav, E., &ldquo;<a href="http://tools.ietf.org/html/rfc5849">The OAuth 1.0 Protocol</a>,&rdquo; RFC&nbsp;5849, April&nbsp;2010 (<a href="http://www.rfc-editor.org/rfc/rfc5849.txt">TXT</a>).</td></tr>
+<td class="author-text">Hammer-Lahav, E., Ed., &ldquo;<a href="https://www.rfc-editor.org/info/rfc5849">The OAuth 1.0 Protocol</a>,&rdquo; RFC&nbsp;5849, DOI&nbsp;10.17487/RFC5849, April&nbsp;2010.</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC6750">[RFC6750]</a></td>
 <td class="author-text">Jones, M. and D. Hardt, &ldquo;<a href="http://tools.ietf.org/html/rfc6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a>,&rdquo; RFC&nbsp;6750, October&nbsp;2012.</td></tr>
 </table>
@@ -4627,7 +4627,7 @@ Augmented Backus-Naur Form (ABNF) Syntax</h3>
 <p>
         This section provides Augmented Backus-Naur Form (ABNF) syntax
         descriptions for the elements defined in this specification
-        using the notation of <a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a>.
+        using the notation of <a class='info' href='#RFC5234'>[RFC5234]<span> (</span><span class='info'>Crocker, D., Ed. and P. Overell, &ldquo;Augmented BNF for Syntax Specifications: ABNF,&rdquo; January&nbsp;2008.</span><span>)</span></a>.
         The ABNF below is defined in terms of
         Unicode code points <a class='info' href='#W3C.REC-xml-20081126'>[W3C.REC&#8209;xml&#8209;20081126]<span> (</span><span class='info'>Bray, T., Paoli, J., Sperberg-McQueen, C., Maler, E., and F. Yergeau, &ldquo;Extensible Markup Language (XML) 1.0 (Fifth Edition),&rdquo; November&nbsp;2008.</span><span>)</span></a>;
         these characters are typically encoded in UTF-8.
@@ -4963,7 +4963,7 @@ Acknowledgements</h3>
 
 <p>
         The initial OAuth 2.0 protocol specification was edited by David Recordon, based on two
-        previous publications: the OAuth 1.0 community specification <a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a>, and
+        previous publications: the OAuth 1.0 community specification <a class='info' href='#RFC5849'>[RFC5849]<span> (</span><span class='info'>Hammer-Lahav, E., Ed., &ldquo;The OAuth 1.0 Protocol,&rdquo; April&nbsp;2010.</span><span>)</span></a>, and
         OAuth WRAP (OAuth Web Resource Authorization Profiles)
         <a class='info' href='#OAuth-WRAP'>[OAuth&#8209;WRAP]<span> (</span><span class='info'>Hardt, D., Ed., Tom, A., Eaton, B., and Y. Goland, &ldquo;OAuth Web Resource Authorization Profiles,&rdquo; January&nbsp;2010.</span><span>)</span></a>. Eran Hammer then
    edited many of the intermediate drafts that evolved into this RFC.

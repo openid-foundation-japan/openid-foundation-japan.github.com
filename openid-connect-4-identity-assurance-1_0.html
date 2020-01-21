@@ -1,0 +1,2011 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>OpenID Connect for Identity Assurance 1.0</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Terminology">
+<link href="#rfc.section.2" rel="Chapter" title="2 Scope and Requirements">
+<link href="#rfc.section.3" rel="Chapter" title="3 Claims">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Additional Claims about End-Users">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 txn Claim">
+<link href="#rfc.section.4" rel="Chapter" title="4 Verified Data Representation">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 verification Element">
+<link href="#rfc.section.4.1.1" rel="Chapter" title="4.1.1 Evidence">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 claims Element">
+<link href="#rfc.section.5" rel="Chapter" title="5 Requesting Verified Claims">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Requesting End-User Claims">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Requesting Verification Data">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Defining constraints on Verification Data">
+<link href="#rfc.section.6" rel="Chapter" title="6 Examples">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 id_document">
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 id_document + utility bill">
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Notified eID system (eIDAS)">
+<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Verified Claims in UserInfo Response">
+<link href="#rfc.section.6.4.1" rel="Chapter" title="6.4.1 Request">
+<link href="#rfc.section.6.4.2" rel="Chapter" title="6.4.2 UserInfo Response">
+<link href="#rfc.section.6.5" rel="Chapter" title="6.5 Verified Claims in ID Tokens">
+<link href="#rfc.section.6.5.1" rel="Chapter" title="6.5.1 Request">
+<link href="#rfc.section.6.5.2" rel="Chapter" title="6.5.2 ID Token">
+<link href="#rfc.section.6.6" rel="Chapter" title="6.6 Aggregated Claims">
+<link href="#rfc.section.6.7" rel="Chapter" title="6.7 Distributed Claims">
+<link href="#rfc.section.7" rel="Chapter" title="7 OP Metadata">
+<link href="#rfc.section.8" rel="Chapter" title="8 Transaction-specific Purpose">
+<link href="#rfc.section.9" rel="Chapter" title="9 Privacy Consideration">
+<link href="#rfc.section.10" rel="Chapter" title="10 Security Considerations">
+<link href="#rfc.section.11" rel="Chapter" title="11 Predefined Values">
+<link href="#rfc.section.11.1" rel="Chapter" title="11.1 Trust Frameworks">
+<link href="#rfc.section.11.2" rel="Chapter" title="11.2 Identity Documents">
+<link href="#rfc.section.11.3" rel="Chapter" title="11.3 Verification Methods">
+<link href="#rfc.section.12" rel="Chapter" title="12 JSON Schema">
+<link href="#rfc.references" rel="Chapter" title="13 References">
+<link href="#rfc.references.1" rel="Chapter" title="13.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="13.2 Informative References">
+<link href="#rfc.references.3" rel="Chapter" title="13.3 &#32763;&#35379;&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Notices">
+<link href="#rfc.appendix.C" rel="Chapter" title="C Document History">
+<link href="#rfc.appendix.D" rel="Chapter" title="D &#32763;&#35379;&#32773;">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.37.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Lodderstedt, T. and D. Fett" />
+  <meta name="dct.identifier" content="urn:ietf:id:openid-connect-4-identity-assurance-1_0-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-08-15" />
+  <meta name="dct.abstract" content="This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law." />
+  <meta name="description" content="This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">connect</td>
+<td class="right">T. Lodderstedt</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">D. Fett</td>
+</tr>
+<tr>
+<td class="left">Intended status: Standards Track</td>
+<td class="right">yes.com</td>
+</tr>
+<tr>
+<td class="left">Expires: February 16, 2020</td>
+<td class="right">August 15, 2019</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">OpenID Connect for Identity Assurance 1.0<br />
+  <span class="filename">openid-connect-4-identity-assurance-1_0-07</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on February 16, 2020.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Terminology</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">Scope and Requirements</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Claims</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Additional Claims about End-Users</a>
+</li>
+<li>3.2.   <a href="#rfc.section.3.2">txn Claim</a>
+</li>
+</ul><li>4.   <a href="#rfc.section.4">Verified Data Representation</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">verification Element</a>
+</li>
+<ul><li>4.1.1.   <a href="#rfc.section.4.1.1">Evidence</a>
+</li>
+</ul><li>4.2.   <a href="#rfc.section.4.2">claims Element</a>
+</li>
+</ul><li>5.   <a href="#rfc.section.5">Requesting Verified Claims</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Requesting End-User Claims</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">Requesting Verification Data</a>
+</li>
+<li>5.3.   <a href="#rfc.section.5.3">Defining constraints on Verification Data</a>
+</li>
+</ul><li>6.   <a href="#rfc.section.6">Examples</a>
+</li>
+<ul><li>6.1.   <a href="#rfc.section.6.1">id_document</a>
+</li>
+<li>6.2.   <a href="#rfc.section.6.2">id_document + utility bill</a>
+</li>
+<li>6.3.   <a href="#rfc.section.6.3">Notified eID system (eIDAS)</a>
+</li>
+<li>6.4.   <a href="#rfc.section.6.4">Verified Claims in UserInfo Response</a>
+</li>
+<ul><li>6.4.1.   <a href="#rfc.section.6.4.1">Request</a>
+</li>
+<li>6.4.2.   <a href="#rfc.section.6.4.2">UserInfo Response</a>
+</li>
+</ul><li>6.5.   <a href="#rfc.section.6.5">Verified Claims in ID Tokens</a>
+</li>
+<ul><li>6.5.1.   <a href="#rfc.section.6.5.1">Request</a>
+</li>
+<li>6.5.2.   <a href="#rfc.section.6.5.2">ID Token</a>
+</li>
+</ul><li>6.6.   <a href="#rfc.section.6.6">Aggregated Claims</a>
+</li>
+<li>6.7.   <a href="#rfc.section.6.7">Distributed Claims</a>
+</li>
+</ul><li>7.   <a href="#rfc.section.7">OP Metadata</a>
+</li>
+<li>8.   <a href="#rfc.section.8">Transaction-specific Purpose</a>
+</li>
+<li>9.   <a href="#rfc.section.9">Privacy Consideration</a>
+</li>
+<li>10.   <a href="#rfc.section.10">Security Considerations</a>
+</li>
+<li>11.   <a href="#rfc.section.11">Predefined Values</a>
+</li>
+<ul><li>11.1.   <a href="#rfc.section.11.1">Trust Frameworks</a>
+</li>
+<li>11.2.   <a href="#rfc.section.11.2">Identity Documents</a>
+</li>
+<li>11.3.   <a href="#rfc.section.11.3">Verification Methods</a>
+</li>
+</ul><li>12.   <a href="#rfc.section.12">JSON Schema</a>
+</li>
+<li>13.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>13.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>13.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+<li>13.3.   <a href="#rfc.references.3">&#32763;&#35379;&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
+</li>
+<li>Appendix B.   <a href="#rfc.appendix.B">Notices</a>
+</li>
+<li>Appendix C.   <a href="#rfc.appendix.C">Document History</a>
+</li>
+<li>Appendix D.   <a href="#rfc.appendix.D">&#32763;&#35379;&#32773;</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#Introduction" id="Introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">&#12371;&#12398;&#20181;&#27096;&#12391;&#12399;, OpenID Connect <a href="#OpenID" class="xref">[OpenID]</a> &#12398;&#25313;&#24373;&#27231;&#33021;&#12434;&#23450;&#32681;&#12375;&#12390;, &#29305;&#23450;&#12398;&#27861;&#24459;&#12395;&#24467;&#12387;&#12390;&#33258;&#28982;&#20154;&#12398;&#24375;&#21147;&#12394; identity verification &#12398;&#12518;&#12540;&#12473;&#12465;&#12540;&#12473;&#12395;&#23550;&#20966;&#12375;&#12390;&#12356;&#12427;. &#20363;&#12395;&#12399;, &#12510;&#12493;&#12540;&#12525;&#12531;&#12480;&#12522;&#12531;&#12464;&#38450;&#27490;&#27861;, &#38651;&#27671;&#36890;&#20449;&#27861;, &#12486;&#12525;&#23550;&#31574;&#27861;, eIDAS <a href="#eIDAS" class="xref">[eIDAS]</a> &#12394;&#12393;&#12398;&#20449;&#35351;&#12469;&#12540;&#12499;&#12473;&#12395;&#38306;&#12377;&#12427;&#35215;&#21046;&#12364;&#21547;&#12414;&#12428;&#12427;.</p>
+<p id="rfc.section.1.p.2">&#12381;&#12398;&#12424;&#12358;&#12394;&#12518;&#12540;&#12473;&#12465;&#12540;&#12473;&#12391;&#12399;, &#20381;&#25312;&#24403;&#20107;&#32773; (RPs) &#12399;, OpenID Connect &#12503;&#12525;&#12496;&#12452;&#12480;&#12540; (OPs) &#12414;&#12383;&#12399;&#12381;&#12398;&#20182;&#12398;&#20449;&#38972;&#12391;&#12365;&#12427;&#12477;&#12540;&#12473;&#12395;&#12424;&#12387;&#12390;&#35388;&#26126;&#12373;&#12428;&#12383;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12540;&#12395;&#38306;&#12377;&#12427; Claim &#12398;&#20445;&#35388;&#12524;&#12505;&#12523;&#12392;, identity verification &#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#36899;&#12377;&#12427;&#12456;&#12499;&#12487;&#12531;&#12473;&#12434;&#30693;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427;.</p>
+<p id="rfc.section.1.p.3">OpenID Connect &#20181;&#27096; <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 2 &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; <samp>acr</samp> Claim &#12399;, OpenID Connect &#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12391;&#23455;&#34892;&#12373;&#12428;&#12427;&#35469;&#35388;&#12395;&#38306;&#12377;&#12427;&#24773;&#22577;&#12434;&#35388;&#26126;&#12377;&#12427;&#12398;&#12395;&#36969;&#12375;&#12390;&#12356;&#12427;. &#12383;&#12384;&#12375;, identity assurance &#12395;&#12399;&#27425;&#12398;&#29702;&#30001;&#12391;&#30064;&#12394;&#12427;&#34920;&#29694;&#12364;&#24517;&#35201;&#12391;&#12354;&#12427;: &#35469;&#35388;&#12399; OpenID Connect &#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12398;&#20596;&#38754;&#12391;&#12354;&#12426;, identity assurance &#12399;&#29305;&#23450;&#12398; Claim &#12414;&#12383;&#12399; Claim &#12398;&#12464;&#12523;&#12540;&#12503;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;&#12391;&#12354;&#12426;, &#12381;&#12428;&#12425;&#12398;&#12356;&#12367;&#12388;&#12363;&#12399;&#36890;&#24120;, OpenID Connect &#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12398;&#32080;&#26524;&#12392;&#12375;&#12390; RP &#12395;&#20253;&#12360;&#12425;&#12428;&#12427;.</p>
+<p id="rfc.section.1.p.4">&#12383;&#12392;&#12360;&#12400;, &#36890;&#24120;, OP &#12364;&#38651;&#23376;&#12513;&#12540;&#12523;&#12450;&#12489;&#12524;&#12473;&#12434;&#35388;&#26126;&#12391;&#12365;&#12427;&#12392;&#12356;&#12358;&#20445;&#35388;&#12399;&#12300;&#33258;&#24049;&#34920;&#26126;&#12301;&#12414;&#12383;&#12399;&#12300;&#12458;&#12503;&#12488;&#12452;&#12531;&#12414;&#12383;&#12399;&#21516;&#27096;&#12398;&#12513;&#12459;&#12491;&#12474;&#12512;&#12395;&#12424;&#12387;&#12390;&#26908;&#35388;&#12301;&#12373;&#12428;&#12427;. &#23550;&#29031;&#30340;&#12395;&#12518;&#12540;&#12470;&#12540;&#12398;&#22995;&#12399;, OP &#12458;&#12506;&#12524;&#12540;&#12479;&#12540;&#12398;&#35347;&#32244;&#12434;&#21463;&#12369;&#12383;&#24467;&#26989;&#21729;&#12395; ID &#12459;&#12540;&#12489;&#12434;&#25552;&#31034;&#12377;&#12427;&#12371;&#12392;&#12395;&#12424;&#12426;, &#12381;&#12428;&#12382;&#12428;&#12398;&#12510;&#12493;&#12540;&#12525;&#12531;&#12480;&#12522;&#12531;&#12464;&#38450;&#27490;&#27861;&#12395;&#24467;&#12387;&#12390;&#26908;&#35388;&#12373;&#12428;&#12383;&#21487;&#33021;&#24615;&#12364;&#12354;&#12427;.</p>
+<p id="rfc.section.1.p.5">&#12375;&#12383;&#12364;&#12387;&#12390;, identity assurance &#12395;&#12399;, &#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12540;&#12395;&#38306;&#12377;&#12427;&#21508; Claim &#12392;&#12392;&#12418;&#12395;&#20445;&#35388;&#12487;&#12540;&#12479;&#12434;&#20253;&#36948;&#12377;&#12427;&#26041;&#27861;&#12364;&#24517;&#35201;&#12391;&#12354;&#12427;. &#12371;&#12398;&#20181;&#27096;&#12399;, RP &#12364;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12540;&#12395;&#38306;&#12377;&#12427;&#26908;&#35388;&#28168;&#12415; Claim &#12434; identity assurance &#12487;&#12540;&#12479;&#12392;&#12392;&#12418;&#12395;&#35201;&#27714;&#12375;, OP &#12364;&#12371;&#12428;&#12425;&#12398;&#26908;&#35388;&#28168;&#12415; Claim &#12392;&#20184;&#38543;&#12377;&#12427; identity assurance &#12487;&#12540;&#12479;&#12434;&#34920;&#12377;&#12383;&#12417;&#12395;&#21033;&#29992;&#12377;&#12427;&#36969;&#20999;&#12394;&#34920;&#29694;&#12392;&#12513;&#12459;&#12491;&#12474;&#12512;&#12434;&#25552;&#26696;&#12377;&#12427;.</p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
+<p id="rfc.section.1.1.p.1">&#12371;&#12398;&#12475;&#12463;&#12471;&#12519;&#12531;&#12391;&#12399;, NIST SP 800-63A <a href="#NIST-SP-800-63a" class="xref">[NIST-SP-800-63a]</a> &#12395;&#22823;&#12365;&#12394;&#24433;&#38911;&#12434;&#21463;&#12369;&#12383;, &#12371;&#12398;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12391;&#25201;&#12431;&#12428;&#12390;&#12356;&#12427;&#12488;&#12500;&#12483;&#12463;&#12395;&#38306;&#36899;&#12377;&#12427;&#12356;&#12367;&#12388;&#12363;&#12398;&#29992;&#35486;&#12434;&#23450;&#32681;&#12377;&#12427;.</p>
+<p></p>
+
+<ul><li>Identity Proofing - &#12518;&#12540;&#12470;&#12540;&#12364; OP &#12414;&#12383;&#12399;&#33258;&#20998;&#33258;&#36523;&#12434;&#30906;&#23455;&#12395;&#35672;&#21029;&#12377;&#12427; Claim &#12503;&#12525;&#12496;&#12452;&#12480;&#12540;&#12395;&#12456;&#12499;&#12487;&#12531;&#12473;&#12434;&#25552;&#20379;&#12377;&#12427;&#12371;&#12392;&#12395;&#12424;&#12426;, OP &#12364;&#26377;&#29992;&#12394; identity assurance &#12524;&#12505;&#12523;&#12391;&#35672;&#21029;&#12391;&#12365;&#12427;&#12424;&#12358;&#12395;&#12377;&#12427;&#12503;&#12525;&#12475;&#12473;.</li></ul>
+
+<p> </p>
+<p></p>
+
+<ul><li>Identify Verification - &#12518;&#12540;&#12470;&#12540;&#12398;&#36523;&#20803;&#12434;&#30906;&#35469;&#12377;&#12427;&#12383;&#12417;&#12395; OP &#12414;&#12383;&#12399; Claim &#12503;&#12525;&#12496;&#12452;&#12480;&#12540;&#12395;&#12424;&#12387;&#12390;&#23455;&#34892;&#12373;&#12428;&#12427;&#12503;&#12525;&#12475;&#12473;.</li></ul>
+
+<p> </p>
+<p></p>
+
+<ul><li>Identity Assurance - OP &#12414;&#12383;&#12399; Claim &#12503;&#12525;&#12496;&#12452;&#12480;&#12540;&#12364;, RP &#12395;&#23550;&#12375;&#12390;&#12354;&#12427;&#19968;&#23450;&#12398;&#30906;&#12363;&#12425;&#12375;&#12373;&#12434;&#12418;&#12387;&#12390;&#29305;&#23450;&#12398;&#12518;&#12540;&#12470;&#12540;&#12398; Identity &#12487;&#12540;&#12479;&#12434;&#35388;&#26126;&#12377;&#12427;&#12503;&#12525;&#12475;&#12473;.  &#36890;&#24120;&#12399; identity assurance &#12524;&#12505;&#12523;&#12391;&#34920;&#12373;&#12428;&#12427;. &#27861;&#30340;&#35201;&#20214;&#12395;&#24540;&#12376;&#12390;, OP &#12399; identity verification &#12503;&#12525;&#12475;&#12473;&#12398;&#12456;&#12499;&#12487;&#12531;&#12473;&#12434; RP &#12395;&#25552;&#20379;&#12377;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427;&#22580;&#21512;&#12418;&#12354;&#12427;.</li></ul>
+
+<p> </p>
+<p></p>
+
+<ul><li>Verified Claims - &#29305;&#23450;&#12398;&#12518;&#12540;&#12470;&#12540;&#12450;&#12459;&#12454;&#12531;&#12488;&#12408;&#12398;&#12496;&#12452;&#12531;&#12489;&#12364; identity verification &#12503;&#12525;&#12475;&#12473;&#12398;&#36942;&#31243;&#12391;&#26908;&#35388;&#12373;&#12428;&#12383;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12540; (&#36890;&#24120;&#12399;&#33258;&#28982;&#20154;) &#12395;&#38306;&#12377;&#12427; Claim.</li></ul>
+
+<p> </p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#scope-and-requirements" id="scope-and-requirements">Scope and Requirements</a>
+</h1>
+<p id="rfc.section.2.p.1">&#26412;&#20181;&#27096;&#12398;&#12473;&#12467;&#12540;&#12503;&#12399;, &#26908;&#35388;&#12373;&#12428;&#12383; Claim &#12434;&#12450;&#12469;&#12540;&#12488;&#12377;&#12427;&#12513;&#12459;&#12491;&#12474;&#12512;&#12434;&#23450;&#32681;&#12375;, identity assurance &#12473;&#12506;&#12540;&#12473;&#12391;&#24517;&#35201;&#12392;&#12373;&#12428;&#12427;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12395;&#38306;&#12377;&#12427;&#26032;&#12375;&#12356; Claim &#12434;&#23566;&#20837;&#12377;&#12427;&#12371;&#12392;&#12391;&#12354;&#12427;; &#20363;&#12398;&#19968;&#12388;&#12392;&#12375;&#12390;&#20986;&#29983;&#22320;&#12364;&#12354;&#12427;.</p>
+<p id="rfc.section.2.p.2">RP &#12399;&#24517;&#35201;&#12392;&#12377;&#12427;&#26368;&#23567;&#38480;&#12398;&#12487;&#12540;&#12479;&#12475;&#12483;&#12488;&#12434;&#35201;&#27714;&#12375; (&#12487;&#12540;&#12479;&#12398;&#26368;&#23567;&#21270;) , &#12371;&#12398;&#12487;&#12540;&#12479;&#12392; OP &#12391;&#21033;&#29992;&#12373;&#12428;&#12427;&#12456;&#12499;&#12487;&#12531;&#12473;, &#12362;&#12424;&#12403; identity verification &#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#12377;&#12427;&#35201;&#20214;&#12434;&#34920;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.3">&#12371;&#12398;&#25313;&#24373;&#27231;&#33021;&#12399;, eIDAS &#20844;&#35469; eID &#12471;&#12473;&#12486;&#12512;&#12394;&#12393;&#12398; identity assurance &#12395;&#38306;&#36899;&#12377;&#12427;&#29305;&#23450;&#12398;&#35215;&#21046;&#12398;&#19979;&#12391;&#21205;&#20316;&#12377;&#12427; OP, &#12362;&#12424;&#12403;&#20182;&#12398; OP &#12391;&#20351;&#29992;&#12391;&#12365;&#12427;. &#21427;&#23494;&#12395;&#35215;&#21046;&#12373;&#12428;&#12383; OP &#12399;, &#12399;&#12387;&#12365;&#12426;&#12392;&#23450;&#32681;&#12373;&#12428;&#12383;&#36012;&#20219;&#12434;&#20276;&#12358;&#26126;&#30906;&#12395;&#23450;&#32681;&#12373;&#12428;&#12383;&#12523;&#12540;&#12523;&#12395;&#24467;&#12387;&#12390;&#21205;&#20316;&#12377;&#12427;&#12371;&#12392;&#12434;&#25215;&#35469;&#12373;&#12428;&#12390;&#12356;&#12427;&#12383;&#12417;, &#12373;&#12425;&#12394;&#12427;&#12456;&#12499;&#12487;&#12531;&#12473;&#12434;&#25552;&#20986;&#12377;&#12427;&#12371;&#12392;&#12394;&#12367; identity &#12487;&#12540;&#12479;&#12434;&#35388;&#26126;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.4">&#20363;&#12360;&#12400; eIDAS &#12398;&#12465;&#12540;&#12473;&#12391;&#12399;, &#12500;&#12450;&#12524;&#12499;&#12517;&#12540;&#12364; eIDAS &#12398;&#12467;&#12531;&#12503;&#12521;&#12452;&#12450;&#12531;&#12473;&#12434;&#20445;&#35388;&#12375;, &#12381;&#12428;&#12382;&#12428;&#12398;&#12513;&#12531;&#12496;&#12540;&#22269;&#12399;&#20844;&#35469; eID &#12471;&#12473;&#12486;&#12512;&#12395;&#12424;&#12427; identity &#12398;&#20027;&#24373;&#12395;&#23550;&#12375;&#12390;&#36012;&#20219;&#12434;&#36000;&#12358;. &#12381;&#12398;&#12424;&#12358;&#12394;&#26126;&#30906;&#12395;&#23450;&#32681;&#12373;&#12428;&#12383;&#26465;&#20214;&#19979;&#12395;&#12394;&#12356;&#20182;&#12398;&#12377;&#12409;&#12390;&#12398; OP &#12399;, &#19968;&#33324;&#30340;&#12395;, RP &#12364;&#29420;&#33258;&#12398;&#12522;&#12473;&#12463;&#35413;&#20385;&#12434;&#23455;&#26045;&#12375;, OP &#12363;&#12425;&#21462;&#24471;&#12375;&#12383;&#12487;&#12540;&#12479;&#12434;&#20182;&#12398;&#27861;&#24459;&#12395;&#12510;&#12483;&#12500;&#12531;&#12464;&#12391;&#12365;&#12427;&#12424;&#12358;&#12395;, identity evidence &#12395;&#21152;&#12360;&#12390;, RP &#12395; identity verification &#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#12377;&#12427;&#12487;&#12540;&#12479;&#12434;&#25552;&#20379;&#12377;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427;. &#20363;&#12360;&#12400; eIDAS &#12391;&#23450;&#32681;&#12373;&#12428;&#12383;&#35201;&#20214;&#12434;&#28288;&#12383;&#12377;&#12383;&#12417;&#12395;, &#12510;&#12493;&#12540;&#12525;&#12531;&#12480;&#12522;&#12531;&#12464;&#38450;&#27490;&#27861;&#12395;&#24467;&#12387;&#12390;&#32173;&#25345;&#12373;&#12428;&#12390;&#12356;&#12427; identity &#12487;&#12540;&#12479;&#12434;&#20351;&#29992;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.5">&#25216;&#34899;&#30340;&#12394;&#35251;&#28857;&#12363;&#12425;, &#12371;&#12398;&#20181;&#27096;&#12399; OP &#12364;&#21508;&#12488;&#12521;&#12473;&#12488;&#12501;&#12524;&#12540;&#12512;&#12527;&#12540;&#12463;(&#12392; assurance &#12524;&#12505;&#12523;)&#12395;&#12388;&#12356;&#12390;&#12398;&#24773;&#22577;&#12395;&#21152;&#12360;&#12390;, &#26908;&#35388;&#28168;&#12415; Claim &#12398;&#35388;&#26126;&#12434;&#35377;&#21487;&#12377;&#12427;&#12371;&#12392;&#12434;&#24847;&#21619;&#12377;&#12427;&#12364;, identity verification &#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#12377;&#12427;&#24773;&#22577;&#12398;&#34920;&#20986;&#21270;&#12398;&#12469;&#12509;&#12540;&#12488;&#12418;&#34892;&#12358;.</p>
+<p id="rfc.section.2.p.6">&#12371;&#12398;&#20181;&#27096;&#12391;&#23450;&#32681;&#12373;&#12428;&#12383;&#34920;&#29694;&#26041;&#24335;&#12399;, &#36969;&#20999;&#12394;&#12481;&#12515;&#12493;&#12523;&#12434;&#20171;&#12375;&#12390;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12395;&#38306;&#12377;&#12427;&#26908;&#35388;&#28168; Claim &#12434; RP &#12395;&#25552;&#20379;&#12377;&#12427;&#12383;&#12417;&#12395;&#21033;&#29992;&#12391;&#12365;&#12427;. OpenID Connect &#12398;&#12467;&#12531;&#12486;&#12461;&#12473;&#12488;&#12391;&#12399;, &#26908;&#35388;&#28168; Claim &#12399; ID Token &#12363; UserInfo response &#12398;&#19968;&#37096;&#12392;&#12375;&#12390;&#35388;&#26126;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;. &#12414;&#12383; OAuth Token Introspection response (<a href="#RFC7662" class="xref">[RFC7662]</a> &#21450;&#12403; <a href="#I-D.ietf-oauth-jwt-introspection-response" class="xref">[I-D.ietf-oauth-jwt-introspection-response]</a> &#12434;&#21442;&#29031;)&#12391;&#35500;&#26126;&#12373;&#12428;&#12390;&#12356;&#12427;&#24418;&#24335;&#12434;&#21033;&#29992;&#12375;&#12390;, &#26908;&#35388;&#28168; Claim &#12434;&#12522;&#12477;&#12540;&#12473;&#12469;&#12540;&#12496;&#12395;&#25552;&#20379;&#12377;&#12427;&#12371;&#12392;&#12418;&#21487;&#33021;&#12391;&#12354;&#12427;.</p>
+<p id="rfc.section.2.p.7">&#12371;&#12398;&#25313;&#24373;&#12399;&#30495;&#12395;&#22269;&#38555;&#30340;&#12394;&#12418;&#12398;&#12391;&#12354;&#12426;, &#30064;&#12394;&#12427;&#31649;&#36676;&#12398; identity assurance &#12418;&#12469;&#12509;&#12540;&#12488;&#12373;&#12379;&#12427;&#20104;&#23450;&#12391;&#12354;&#12427;. &#12381;&#12398;&#12383;&#12417;&#12371;&#12398;&#25313;&#24373;&#27231;&#33021;&#12399;&#36861;&#21152;&#12398;&#12488;&#12521;&#12473;&#12488;&#12501;&#12524;&#12540;&#12512;&#12527;&#12540;&#12463;, &#26908;&#35388;&#12513;&#12477;&#12483;&#12489;, identity evidence&#12434;&#12469;&#12509;&#12540;&#12488;&#12377;&#12427;&#12383;&#12417;&#12395;&#25313;&#24373;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.8">&#23455;&#35013;&#32773;&#12395;&#21487;&#33021;&#12394;&#38480;&#12426;&#12398;&#26580;&#36575;&#24615;&#12434;&#19982;&#12360;&#12427;&#12383;&#12417;&#12395;, &#12371;&#12398;&#25313;&#24373;&#12399;&#26082;&#23384;&#12398; OpenID Connect &#12398; Claim &#12362;&#12424;&#12403;&#21516;&#12376; OpenID Connect &#12398;&#12450;&#12469;&#12540;&#12471;&#12519;&#12531;(&#20363;&#12360;&#12400;, ID Token &#12420; UserInfo)&#20869;&#12398;&#20182;&#12398;&#25313;&#24373;&#12392;&#32068;&#12415;&#21512;&#12431;&#12379;&#12390;&#20351;&#12358;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.9">&#20363;&#12360;&#12400;, OpenID Connect <a href="#OpenID" class="xref">[OpenID]</a> &#12399;&#26908;&#35388;&#12473;&#12486;&#12540;&#12479;&#12473;&#12398;&#12394;&#12356;&#12518;&#12540;&#12470;&#12398;&#22995;&#12392;&#21517;&#12434;&#34920;&#12377; Claim &#12434;&#23450;&#32681;&#12375;&#12390;&#12356;&#12427;. &#12371;&#12428;&#12425;&#12398; Claim &#12399;&#12371;&#12398;&#25313;&#24373;&#12395;&#24467;&#12387;&#12390;&#34920;&#29694;&#12373;&#12428;&#12427;&#26908;&#35388;&#28168;&#12415; Claim &#12392;&#12392;&#12418;&#12395;&#21516;&#12376; OpenID Connect &#12398;&#12450;&#12469;&#12540;&#12471;&#12519;&#12531;&#12391;&#20351;&#12358;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.10">&#21516;&#12376;&#12424;&#12358;&#12395;, RP &#12395; <samp>phone_number</samp> &#12392; <samp>email</samp> Claim &#12398;&#26908;&#35388;&#12473;&#12486;&#12540;&#12479;&#12473;&#12434;&#36890;&#30693;&#12377;&#12427;&#26082;&#23384; Claim &#12418;&#12371;&#12398;&#25313;&#24373;&#12392;&#12392;&#12418;&#12395;&#20351;&#12358;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.2.p.11">&#26908;&#35388;&#28168;&#12415; Claim &#12434;&#20027;&#24373;&#12377;&#12427;&#22580;&#21512;&#12391;&#12418;, &#12371;&#12398;&#25313;&#24373;&#12399;&#21487;&#33021;&#12363;&#12388;&#22949;&#24403;&#12391;&#12354;&#12428;&#12400;&#26082;&#23384;&#12398; OpenID Connect &#12398; Claim &#12434;&#21033;&#29992;&#12377;&#12427;. &#12375;&#12363;&#12375;&#12394;&#12364;&#12425;, &#25313;&#24373;&#12399; RP &#12364;&#26410;&#26908;&#35388; Claim &#12434;&#26908;&#35388;&#28168; Claim &#12392;&#12375;&#12390;(&#35492;&#12387;&#12390;)&#35299;&#37320;&#12391;&#12365;&#12394;&#12356;&#12424;&#12358;&#12395;&#12377;&#12427;.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#claims" id="claims">Claims</a>
+</h1>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#userclaims" id="userclaims">Additional Claims about End-Users</a>
+</h1>
+<p id="rfc.section.3.1.p.1">identity assurance &#12395;&#38306;&#12377;&#12427;&#19968;&#37096;&#12398;&#27177;&#38480;&#12398;&#35201;&#20214;&#12434;&#28288;&#12383;&#12377;&#12383;&#12417;&#12395;, &#12371;&#12398;&#20181;&#27096;&#12391;&#12399; OpenID&#20181;&#27096; <a href="#OpenID" class="xref">[OpenID]</a> &#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; Claim &#12395;&#12518;&#12540;&#12470;&#12487;&#12540;&#12479;&#12434;&#20253;&#36948;&#12377;&#12427;&#12383;&#12417;&#12398;&#20197;&#19979;&#12398;&#36861;&#21152;&#12398; Claim &#12434;&#23450;&#32681;&#12377;&#12427;:</p>
+<p></p>
+
+<ul>
+<li>
+<samp>place_of_birth</samp>: &#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12398;&#20986;&#29983;&#22320;&#12434;&#31034;&#12377;&#27083;&#36896;&#21270;&#12373;&#12428;&#12383; Claim. &#27425;&#12398;&#12501;&#12451;&#12540;&#12523;&#12489;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;: <ul>
+<li>
+<samp>country</samp>: &#24517;&#38920; (REQUIRED). <a href="#ISO3166-1" class="xref">[ISO3166-1]</a> Alpha-2 (&#20363;&#12360;&#12400;, DE) &#12414;&#12383;&#12399; <a href="#ISO3166-3" class="xref">[ISO3166-3]</a>
+</li>
+<li>
+<samp>region</samp>: State, province, prefecture, &#12414;&#12383;&#12399;&#20182;&#12398;&#22320;&#22495;&#12467;&#12531;&#12509;&#12540;&#12493;&#12531;&#12488;. &#19968;&#37096;&#12398;&#31649;&#36676;&#21306;&#22495;&#12391;&#12399;&#12371;&#12398;&#12501;&#12451;&#12540;&#12523;&#12489;&#12399;&#24517;&#38920;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356;.</li>
+<li>
+<samp>locality</samp>: &#24517;&#38920; (REQUIRED). city, &#12414;&#12383;&#12399;&#21029;&#12398;&#22320;&#22495;.</li>
+</ul>
+</li>
+<li>
+<samp>nationalities</samp>: &#12518;&#12540;&#12470;&#12398;&#22269;&#31821;&#12434;&#34920;&#12377; ICAO 2-letter codes <a href="#ICAO-Doc9303" class="xref">[ICAO-Doc9303]</a> &#12398;&#25991;&#23383;&#37197;&#21015;. &#20363;&#12360;&#12400; "US" &#12420; "DE". "EUE" &#12398;&#12424;&#12358;&#12395;&#23550;&#24540;&#12377;&#12427; 2-letter code &#12364;&#12394;&#12356;&#22580;&#21512;, 3-letter codes &#12434;&#21033;&#29992;&#12375;&#12390;&#12418;&#12424;&#12356; (MAY).</li>
+<li>
+<samp>birth_family_name</samp>: &#24444;&#12414;&#12383;&#12399;&#24444;&#22899;&#12364;&#29983;&#12414;&#12428;&#12383;&#12392;&#12365;, &#12354;&#12427;&#12356;&#12399;&#23569;&#12394;&#12367;&#12392;&#12418;&#23376;&#20379;&#12398;&#26178;&#12363;&#12425;&#25345;&#12387;&#12390;&#12356;&#12427;&#22995;. &#12371;&#12398;&#29992;&#35486;&#12399;&#20154;&#29983;&#12398;&#36884;&#20013;&#12395;&#20309;&#12425;&#12363;&#12398;&#29702;&#30001;&#12391;&#22995;&#12434;&#22793;&#26356;&#12375;&#12383;&#20154;&#12364;&#21033;&#29992;&#12391;&#12365;&#12427;.</li>
+<li>
+<samp>birth_given_name</samp>: &#24444;&#12414;&#12383;&#12399;&#24444;&#22899;&#12364;&#29983;&#12414;&#12428;&#12383;&#12392;&#12365;, &#12354;&#12427;&#12356;&#12399;&#23569;&#12394;&#12367;&#12392;&#12418;&#23376;&#20379;&#12398;&#26178;&#12363;&#12425;&#25345;&#12387;&#12390;&#12356;&#12427;&#21517;&#21069;. &#12371;&#12398;&#29992;&#35486;&#12399;&#20154;&#29983;&#12398;&#36884;&#20013;&#12395;&#20309;&#12425;&#12363;&#12398;&#29702;&#30001;&#12391;&#21517;&#21069;&#12434;&#22793;&#26356;&#12375;&#12383;&#20154;&#12364;&#21033;&#29992;&#12391;&#12365;&#12427;.</li>
+<li>
+<samp>birth_middle_name</samp>: &#24444;&#12414;&#12383;&#12399;&#24444;&#22899;&#12364;&#29983;&#12414;&#12428;&#12383;&#12392;&#12365;, &#12354;&#12427;&#12356;&#12399;&#23569;&#12394;&#12367;&#12392;&#12418;&#23376;&#20379;&#12398;&#26178;&#12363;&#12425;&#25345;&#12387;&#12390;&#12356;&#12427;&#12511;&#12489;&#12523;&#12493;&#12540;&#12512;. &#12371;&#12398;&#29992;&#35486;&#12399;&#20154;&#29983;&#12398;&#36884;&#20013;&#12395;&#20309;&#12425;&#12363;&#12398;&#29702;&#30001;&#12391;&#12511;&#12489;&#12523;&#12493;&#12540;&#12512;&#12434;&#22793;&#26356;&#12375;&#12383;&#20154;&#12364;&#21033;&#29992;&#12391;&#12365;&#12427;.</li>
+<li>
+<samp>salutation</samp>: &#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12398;&#25964;&#31216;, &#20363;&#12360;&#12400; &#8220;Mr.&#8221;</li>
+<li>
+<samp>title</samp>: &#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12398;&#32937;&#26360;, &#20363;&#12360;&#12400; &#8220;Dr.&#8221;</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> <a href="#txn-claim" id="txn-claim">txn Claim</a>
+</h1>
+<p id="rfc.section.3.2.p.1">&#19968;&#33324;&#30340;&#12395;, &#24375;&#22266;&#12394; identity verification &#12399;&#21442;&#21152;&#32773;&#12364;&#12503;&#12525;&#12475;&#12473;&#20840;&#20307;&#12398;&#30435;&#26619;&#35388;&#36321;&#12434;&#20445;&#25345;&#12377;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427;.</p>
+<p><a href="#RFC8417" class="xref">[RFC8417]</a> &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; <samp>txn</samp> Claim &#12399;&#12371;&#12398;&#25313;&#24373;&#12398;&#12467;&#12531;&#12486;&#12461;&#12473;&#12488;&#12391;&#20351;&#29992;&#12373;&#12428;, OpenID Connect &#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12395;&#38306;&#12431;&#12427;&#12398;&#38306;&#20418;&#32773;&#20840;&#20307;&#12398;&#30435;&#26619;&#35388;&#36321;&#12434;&#27083;&#31689;&#12377;&#12427;.</p>
+<p id="rfc.section.3.2.p.3">OP &#12364; <samp>txn</samp> &#12434;&#30330;&#34892;&#12377;&#12427;&#22580;&#21512;, &#23550;&#24540;&#12377;&#12427;&#30435;&#26619;&#35388;&#36321;&#12434;&#32173;&#25345;&#12377;&#12427;&#24517;&#35201;&#12364;&#12354;&#12426; (MUST), &#23569;&#12394;&#12367;&#12392;&#12418;&#27425;&#12398;&#35443;&#32048;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;.</p>
+<p></p>
+
+<ul>
+<li>transaction id,</li>
+<li>&#25505;&#29992;&#12373;&#12428;&#12390;&#12356;&#12427; authentication methods, &#12362;&#12424;&#12403;</li>
+<li>transaction type (scope &#20516;&#12394;&#12393;).</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.3.2.p.5">&#12371;&#12398;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12487;&#12540;&#12479;&#12399;, &#12381;&#12428;&#12382;&#12428;&#12398;&#35215;&#23450;&#12395;&#12424;&#12427;&#30435;&#26619;&#30446;&#30340;&#12398;&#12383;&#12417;&#12395;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12487;&#12540;&#12479;&#12434;&#20445;&#23384;&#12377;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427;&#38480;&#12426;&#20445;&#23384;&#12375;&#32154;&#12369;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<p id="rfc.section.3.2.p.6">RP &#12399;&#12371;&#12398; Claim &#12434; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12434;&#20171;&#12375;&#12390;, &#12414;&#12383;&#12399; scope &#20516;&#12395;&#12424;&#12387;&#12390;&#35672;&#21029;&#12373;&#12428;&#12427;&#12487;&#12501;&#12457;&#12523;&#12488;&#12398; Claim &#12398;&#19968;&#37096;&#12392;&#12375;&#12390;, &#20182;&#12398; Claim &#12392;&#21516;&#27096;&#12395;&#35201;&#27714;&#12377;&#12427;.</p>
+<p><samp>txn</samp> &#20516;&#12399;&#24517;&#35201;&#12395;&#24540;&#12376;&#12390; RP &#12364;&#12371;&#12428;&#12425;&#12398;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12434;&#21442;&#29031;&#12391;&#12365;&#12427;&#12424;&#12358;&#12395;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<p id="rfc.section.3.2.p.8">&#27880;&#65306;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12398;&#35443;&#32048;&#12434;, OP &#12362;&#12424;&#12403;, &#12381;&#12428;&#12425;&#12398;&#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12363;&#12425;&#21462;&#24471;&#12377;&#12427;&#12513;&#12459;&#12491;&#12474;&#12512;&#12399;&#12371;&#12398;&#20181;&#27096;&#12398;&#31684;&#22258;&#22806;&#12391;&#12354;&#12427;.</p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#verified-data-representation" id="verified-data-representation">Verified Data Representation</a>
+</h1>
+<p id="rfc.section.4.p.1">OpenID Connect &#12398;&#12371;&#12398;&#25313;&#24373;&#12399;, RP &#12364;&#26908;&#35388;&#28168;&#12415;&#12398; Claim &#12392;&#26410;&#26908;&#35388;&#12398; Claim &#12434;&#28151;&#22312;&#12373;&#12379;, &#26908;&#35388;&#28168;&#12415;&#12398; Claim &#12392;&#12375;&#12390;&#26410;&#26908;&#35388;&#12398; Claim &#12434;&#20598;&#30330;&#30340;&#12395;&#20966;&#29702;&#12391;&#12365;&#12394;&#12356;&#12424;&#12358;&#12395;&#12377;&#12427;&#12371;&#12392;&#12434;&#30446;&#30340;&#12392;&#12375;&#12390;&#12356;&#12427;.</p>
+<p id="rfc.section.4.p.2">&#12381;&#12428;&#25925;, &#25552;&#26696;&#12373;&#12428;&#12383;&#34920;&#29694;&#12399; <samp>verified_claims</samp> &#12467;&#12531;&#12486;&#12490;&#35201;&#32032;&#20869;&#12391;&#26908;&#35388;&#28168;&#12415; Claim &#12434; RP &#12395;&#25552;&#20379;&#12377;&#12427;&#12371;&#12392;&#12391;&#12354;&#12427;. &#12371;&#12398;&#12467;&#12531;&#12486;&#12490;&#12399;&#29305;&#23450;&#12398;&#26908;&#35388;&#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#36899;&#12377;&#12427;&#26908;&#35388;&#12398;&#12456;&#12499;&#12487;&#12531;&#12473;&#12392;&#12371;&#12398;&#12503;&#12525;&#12475;&#12473;&#12391;&#26908;&#35388;&#12373;&#12428;&#12383;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12395;&#12388;&#12356;&#12390;&#12398;&#35442;&#24403; Claim &#12391;&#27083;&#25104;&#12373;&#12428;&#12390;&#12356;&#12427;.</p>
+<p id="rfc.section.4.p.3">&#12371;&#12398;&#12475;&#12463;&#12471;&#12519;&#12531;&#12391;&#12399; <samp>verified_claims</samp> &#12398;&#27083;&#36896;&#12392;&#24847;&#21619;&#12395;&#12388;&#12356;&#12390;&#35443;&#12375;&#12367;&#35500;&#26126;&#12377;&#12427;. &#27231;&#26800;&#21487;&#35501;&#12394;&#27083;&#25991;&#23450;&#32681;&#12399; <a href="#json_schema" class="xref">Section 12</a> &#12391; JSON &#12473;&#12461;&#12540;&#12510;&#12392;&#12375;&#12390;&#25552;&#20379;&#12373;&#12428;&#12427;. <samp>verified_claims</samp> &#35201;&#32032;&#12434;&#21547;&#12416; JSON &#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12434;&#33258;&#21205;&#30340;&#12395;&#26908;&#35388;&#12377;&#12427;&#12383;&#12417;&#12395;&#20351;&#29992;&#12391;&#12365;&#12427;.</p>
+<p><samp>verified_claims</samp> &#12399;&#20197;&#19979;&#12398;&#12469;&#12502;&#35201;&#32032;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;:</p>
+<p></p>
+
+<ul>
+<li>
+<samp>verification</samp>: &#24517;&#38920; (REQUIRED). &#26908;&#35388;&#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#12377;&#12427;&#12377;&#12409;&#12390;&#12398;&#12487;&#12540;&#12479;&#12434;&#21547;&#12416;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;.</li>
+<li>
+<samp>claims</samp>: &#24517;&#38920; (REQUIRED). &#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12395;&#38306;&#12377;&#12427;&#12398;&#26908;&#35388;&#28168; Claim &#12398;&#12383;&#12417;&#12398;&#12467;&#12531;&#12486;&#12490;&#12391;&#12354;&#12427;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;.</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.p.6">&#27880;: &#23455;&#35013;&#12399;, &#12371;&#12398;&#20181;&#27096;&#12414;&#12383;&#12399;&#12371;&#12398;&#20181;&#27096;&#12398;&#25313;&#24373;&#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#12469;&#12502;&#35201;&#32032;&#12434;&#28961;&#35222;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#verification" id="verification">verification Element</a>
+</h1>
+<p id="rfc.section.4.1.p.1">&#12371;&#12398;&#35201;&#32032;&#12395;&#12399;, &#20491;&#20154;&#12398;&#36523;&#20803;&#12434;&#30906;&#35469;&#12375;, &#12381;&#12428;&#12382;&#12428;&#12398;&#20491;&#20154;&#12487;&#12540;&#12479;&#12434;&#12518;&#12540;&#12470;&#12540;&#12450;&#12459;&#12454;&#12531;&#12488;&#12395;&#12496;&#12452;&#12531;&#12489;&#12377;&#12427;&#12383;&#12417;&#12395;&#23455;&#34892;&#12373;&#12428;&#12383;&#12503;&#12525;&#12475;&#12473;&#12395;&#38306;&#12377;&#12427;&#24773;&#22577;&#12364;&#21547;&#12414;&#12428;&#12427;.</p>
+<p><samp>verification</samp> &#35201;&#32032;&#12399;&#20197;&#19979;&#12398;&#35201;&#32032;&#12434;&#21547;&#12416;:</p>
+<p><samp>trust_framework</samp>: &#24517;&#38920; (REQUIRED). OP &#12398; identity verification &#12503;&#12525;&#12475;&#12473;&#12392;, identity assurance &#12524;&#12505;&#12523;&#12434;&#31649;&#29702;&#12377;&#12427; trust framework &#12434;&#23450;&#12417;&#12427;&#25991;&#23383;&#21015;.</p>
+<p id="rfc.section.4.1.p.4">&#20363;&#12392;&#12375;&#12390;&#12399; <samp>eidas_ial_high</samp> &#12391;, &#12371;&#12428;&#12399; eIDAS <a href="#eIDAS" class="xref">[eIDAS]</a> &#20844;&#35469; eID &#12471;&#12473;&#12486;&#12512;&#12434;&#31034;&#12375;, assurance &#12524;&#12505;&#12523; "high" &#12398; identity assurance &#12434;&#25552;&#20379;&#12377;&#12427;.</p>
+<p id="rfc.section.4.1.p.5">&#27161;&#28310;&#21270;&#12373;&#12428;&#12383;&#20516;&#12398;&#21021;&#26399;&#12522;&#12473;&#12488;&#12399;, <a href="#predefined_values_tf">Trust Frameworks</a> &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;. &#36861;&#21152;&#12398; trust framework identifiers &#12418;&#23566;&#20837;&#12391;&#12365;&#12427; [how&#65311;]. RP &#12399;&#29702;&#35299;&#12391;&#12365;&#12394;&#12356; trust framework identifiers &#12434;&#21547;&#12416; <samp>verified_claims</samp> Claim &#12434;&#28961;&#35222;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (SHOLUD).</p>
+<p><samp>trust_framework</samp> &#12399;, <samp>verification</samp> &#35201;&#32032;&#12398;&#20013;&#12391; RP &#12395;&#25552;&#20379;&#12373;&#12428;&#12427;&#36861;&#21152;&#12398;&#12487;&#12540;&#12479;&#12434;&#27770;&#23450;&#12377;&#12427;. &#12383;&#12392;&#12360;&#12400;, eIDAS &#20844;&#35469; eID &#12471;&#12473;&#12486;&#12512;&#12399;, &#12487;&#12540;&#12479;&#12434;&#36861;&#21152;&#12377;&#12427;&#24517;&#35201;&#12399;&#12394;&#12356;&#12364;, eIDAS &#12395;&#31649;&#29702;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356; OP &#12399; RP &#12364;&#27861;&#30340;&#32681;&#21209;&#12434;&#26524;&#12383;&#12377;&#12383;&#12417;&#12395; verification evidence &#12434;&#25552;&#20379;&#12377;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427;. &#24460;&#32773;&#12398;&#20363;&#12392;&#12375;&#12390;&#12399;, &#12489;&#12452;&#12484;&#12398;&#12510;&#12493;&#12540;&#12525;&#12531;&#12480;&#12522;&#12531;&#12464;&#38450;&#27490;&#27861; (<samp>de_aml</samp>) &#12395;&#22522;&#12389;&#12356;&#12390;&#34892;&#21205;&#12377;&#12427; OP &#12391;&#12354;&#12427;.</p>
+<p><samp>time</samp>: ID &#12398;&#26908;&#35388;&#12364;&#34892;&#12431;&#12428;&#12383;&#26085;&#26178;&#12434;&#31034;&#12377; ISO 8601:2004 [ISO8601-2004] <samp>YYYY-MM-DDThh:mm:ss&#177;hh</samp> &#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12398;&#12479;&#12452;&#12512;&#12473;&#12479;&#12531;&#12503;. &#29305;&#23450;&#12398;&#12488;&#12521;&#12473;&#12488;&#12501;&#12524;&#12540;&#12512;&#12527;&#12540;&#12463;&#12391;&#12399;, &#12371;&#12398;&#35201;&#32032;&#12398;&#23384;&#22312;&#12364;&#24517;&#35201;&#12395;&#12394;&#12427;&#22580;&#21512;&#12364;&#12354;&#12427;.</p>
+<p><samp>verification_process</samp>: OP &#12395;&#12424;&#12387;&#12390;&#23455;&#34892;&#12373;&#12428;&#12427; identity verification &#12503;&#12525;&#12475;&#12473;&#12408;&#12398;&#19968;&#24847;&#12398;&#21442;&#29031;. &#32027;&#20105;(&#12394;&#12356;&#12375;&#12399;&#32027;&#20105;&#35299;&#27770;)&#12414;&#12383;&#12399;&#30435;&#26619;&#12398;&#22580;&#21512;&#12398;&#12496;&#12483;&#12463;&#12488;&#12524;&#12540;&#12473;&#12395;&#20351;&#29992;&#12373;&#12428;&#12427;.&#29305;&#23450;&#12398;&#12488;&#12521;&#12473;&#12488;&#12501;&#12524;&#12540;&#12512;&#12527;&#12540;&#12463;&#12391;&#12399;, &#12371;&#12398;&#35201;&#32032;&#12398;&#23384;&#22312;&#12364;&#24517;&#35201;&#12395;&#12394;&#12427;&#22580;&#21512;&#12364;&#12354;&#12427;.</p>
+<p id="rfc.section.4.1.p.9">&#27880;&#65306;<samp>verification_process</samp> &#12399; OP &#12391;&#12398; identity verification &#12503;&#12525;&#12475;&#12473;&#12434;&#25351;&#12377;&#12364;, <samp>txn</samp> Claim &#12399; OP &#12364; RP &#12395;&#23550;&#12375;&#12390;&#12518;&#12540;&#12470;&#26908;&#35388;&#28168; identity &#12487;&#12540;&#12479;&#12434;&#35388;&#26126;&#12375;&#12383;&#29305;&#23450;&#12398; OpenID Connect &#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12434;&#25351;&#12377;.</p>
+<p><samp>evidence</samp>: OP &#12364;&#12518;&#12540;&#12470;&#12398; identity &#12434;&#20491;&#21029;&#12398; JSON &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12392;&#12375;&#12390;&#26908;&#35388;&#12377;&#12427;&#12383;&#12417;&#12395;&#20351;&#29992;&#12375;&#12383; <samp>evidence</samp> &#12395;&#38306;&#12377;&#12427;&#24773;&#22577;&#12434;&#21547;&#12416; JSON &#37197;&#21015;. &#12377;&#12409;&#12390;&#12398;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12395;&#12399;, &#12456;&#12499;&#12487;&#12531;&#12473;&#12398;&#12479;&#12452;&#12503;&#12434;&#27770;&#23450;&#12377;&#12427; <samp>type</samp> &#12503;&#12525;&#12497;&#12486;&#12451;&#12364;&#21547;&#12414;&#12428;&#12390;&#12356;&#12427;. RP &#12399;&#12371;&#12398;&#24773;&#22577;&#12434; <samp>evidence</samp> &#12503;&#12525;&#12497;&#12486;&#12451;&#12434;&#36969;&#20999;&#12395;&#20966;&#29702;&#12377;&#12427;&#12383;&#12417;&#12395;&#21033;&#29992;&#12377;&#12427;.</p>
+<p id="rfc.section.4.1.p.11">&#37325;&#35201;:&#23455;&#35013;&#12399;&#12371;&#12398;&#20181;&#27096;&#12414;&#12383;&#12399;&#12371;&#12398;&#20181;&#27096;&#12398;&#25313;&#24373;&#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#12469;&#12502;&#35201;&#32032;&#12434;&#28961;&#35222;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<h1 id="rfc.section.4.1.1">
+<a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#evidence" id="evidence">Evidence</a>
+</h1>
+<p id="rfc.section.4.1.1.p.1">&#27425;&#12398;&#12456;&#12499;&#12487;&#12531;&#12473;&#12398;&#12479;&#12452;&#12503;&#12364;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;:</p>
+<p></p>
+
+<ul>
+<li>
+<samp>id_document</samp>: &#12354;&#12425;&#12422;&#12427;&#31278;&#39006;&#12398;&#25919;&#24220;&#30330;&#34892;&#12398;&#36523;&#20998;&#35388;&#26126;&#26360;&#12395;&#22522;&#12389;&#12367;&#26908;&#35388;</li>
+<li>
+<samp>utility_bill</samp>: &#20844;&#20849;&#26009;&#37329;&#12398;&#25903;&#25173;&#12395;&#22522;&#12389;&#12367;&#26908;&#35388;</li>
+<li>
+<samp>qes</samp>: eIDAS &#35469;&#23450;&#38651;&#23376;&#32626;&#21517;&#12395;&#22522;&#12389;&#12367;&#26908;&#35388;</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.1.1.1">
+<a href="#rfc.section.4.1.1.1">4.1.1.1.</a> <a href="#id-document" id="id-document">id_document</a>
+</h1>
+<p id="rfc.section.4.1.1.1.p.1">&#27425;&#12398;&#31278;&#39006;&#12398;&#23646;&#24615;&#12364; <samp>id_document</samp> &#12456;&#12499;&#12487;&#12531;&#12473;&#12398;&#12469;&#12502;&#35201;&#32032;&#12392;&#12375;&#12390;&#21547;&#12414;&#12428;&#12427;.</p>
+<p><samp>method</samp>: &#24517;&#38920; (REQUIRED). id document &#12434;&#26908;&#35388;&#12377;&#12427;&#12383;&#12417;&#12395;&#20351;&#12431;&#12428;&#12427;&#12513;&#12477;&#12483;&#12489;. &#20107;&#21069;&#12395;&#23450;&#32681;&#12373;&#12428;&#12383;&#20516;&#12399; <a href="#predefined_values_vm">Verification Methods</a> &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;.</p>
+<p><samp>verifier</samp>: &#12458;&#12503;&#12471;&#12519;&#12531; (OPTIONAL). OP &#12395;&#20195;&#12431;&#12387;&#12390; identity verification &#12434;&#23455;&#34892;&#12375;&#12383;&#27861;&#20154;&#12434;&#31034;&#12377; JSON &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;. &#12371;&#12398;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12399;, OP &#12364; identity verification &#12434;&#23455;&#34892;&#12375;&#12394;&#12363;&#12387;&#12383;&#22580;&#21512;&#12395;&#12398;&#12415;&#21547;&#12417;&#12427;&#24517;&#35201;&#12364;&#12354;&#12427; (SHOULD). &#12371;&#12398;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12399;&#27425;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;:</p>
+<p></p>
+
+<ul>
+<li>
+<samp>organization</samp>: OP &#12395;&#20195;&#12431;&#12387;&#12390;&#26908;&#35388;&#12434;&#34892;&#12387;&#12383;&#32068;&#32340;&#12434;&#34920;&#12377;&#25991;&#23383;&#21015;.</li>
+<li>
+<samp>txn</samp>: identity verification &#12398;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12434;&#21442;&#29031;&#12377;&#12427;&#35672;&#21029;&#23376;. &#12371;&#12398;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#35672;&#21029;&#23376;&#12399;, &#30435;&#26619;&#20013;&#12398;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12398;&#35443;&#32048;&#12434;&#20998;&#26512;&#12391;&#12365;&#12427;.</li>
+</ul>
+
+<p> </p>
+<p><samp>time</samp>: &#12371;&#12398; id document &#12364;&#26908;&#35388;&#12373;&#12428;&#12383;&#26085;&#20184;&#12434;&#34920;&#12377; ISO 8601:2004 [ISO8601-2004] <samp>YYYY-MM-DDThh:mm:ss&#177;hh</samp> &#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12398;&#12479;&#12452;&#12512;&#12473;&#12479;&#12531;&#12503;.</p>
+<p><samp>document</samp>: ID &#26908;&#35388;&#12395;&#20351;&#29992;&#12373;&#12428;&#12427; id document &#12434;&#34920;&#12377; JSON &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;. &#27425;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;:</p>
+<p></p>
+
+<ul>
+<li>
+<samp>type</samp>: &#24517;&#38920; (REQUIRED). id document &#12398;&#12479;&#12452;&#12503;&#12434;&#31034;&#12377;&#25991;&#23383;&#21015;. &#27161;&#28310;&#21270;&#12373;&#12428;&#12383;&#20516;&#12399; <a href="#predefined_values_idd">Identity Documents</a> &#12391;&#23450;&#32681;&#12373;&#12428;&#12427;. OP &#12399;&#20107;&#21069;&#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#20516;&#12434;&#20351;&#29992;&#12377;&#12427;&#12363;&#12418;&#12375;&#12428;&#12378; (MAY), &#12381;&#12398;&#22580;&#21512;, RP &#12399;&#12450;&#12469;&#12540;&#12471;&#12519;&#12531;&#12434;&#20966;&#29702;&#12391;&#12365;&#12394;&#12356;&#12363;, &#30435;&#26619;&#30446;&#30340;&#12391;&#12371;&#12398;&#20516;&#12434;&#20445;&#23384;&#12377;&#12427;&#12384;&#12369;&#12363;, &#12414;&#12383;&#12399;&#12381;&#12428;&#12395;&#35328;&#21450;&#12373;&#12428;&#12383;&#12499;&#12472;&#12493;&#12473;&#12525;&#12472;&#12483;&#12463;&#12391;&#12354;&#12427;&#12371;&#12392;&#12434;&#34920;&#12377;.</li>
+<li>
+<samp>number</samp>: identity document &#12398;&#30058;&#21495;&#12434;&#34920;&#12377;&#25991;&#23383;&#21015;.</li>
+<li>
+<samp>issuer</samp>: &#12371;&#12398; identity document &#12398;&#30330;&#34892;&#32773;&#12398;&#24773;&#22577;&#12434;&#21547;&#12416; JSON &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;. &#12371;&#12398;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12399;&#27425;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;: <ul>
+<li>
+<samp>name</samp>:&#24517;&#38920; (REQUIRED). identity document &#12398;&#30330;&#34892;&#32773;&#12398;&#21517;&#31216;.</li>
+<li>
+<samp>country</samp>: &#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12434; ICAO 2-letter-code <a href="#ICAO-Doc9303" class="xref">[ICAO-Doc9303]</a> &#12392;&#12375;&#12390;&#30330;&#34892;&#12375;&#12383;&#22269;&#12414;&#12383;&#12399;&#32068;&#32340;&#12434;&#31034;&#12377;&#25991;&#23383;&#21015; (&#20363;&#65306; "JP") . ICAO 3-letter codes &#12399;, "UNO" &#12394;&#12393;, &#23550;&#24540;&#12377;&#12427; ISO 2-letter codes &#12364;&#12394;&#12356;&#22580;&#21512;&#12395;&#20351;&#29992;&#12391;&#12365;&#12427;.</li>
+</ul>
+</li>
+<li>
+<samp>date_of_issuance</samp>: &#29305;&#23450;&#12398;&#31278;&#39006;&#12398;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#29992;&#12395;&#12371;&#12398;&#23646;&#24615;&#12364;&#23384;&#22312;&#12377;&#12427;&#22580;&#21512;&#12399;&#24517;&#38920; (REQUIRED). ISO 8601:2004 YYYY-MM-DD &#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12391;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12364;&#30330;&#34892;&#12373;&#12428;&#12383;&#26085;&#20184;.</li>
+<li>
+<samp>date_of_expiry</samp>: &#29305;&#23450;&#12398;&#31278;&#39006;&#12398;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#29992;&#12395;&#12371;&#12398;&#23646;&#24615;&#12364;&#23384;&#22312;&#12377;&#12427;&#22580;&#21512;&#12399;&#24517;&#38920; (REQUIRED). ISO 8601:2004 YYYY-MM-DD &#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12398;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12398;&#26377;&#21177;&#26399;&#38480;.</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.1.1.2">
+<a href="#rfc.section.4.1.1.2">4.1.1.2.</a> <a href="#utility-bill" id="utility-bill">utility_bill</a>
+</h1>
+<p id="rfc.section.4.1.1.2.p.1">&#27425;&#12398;&#31278;&#39006;&#12398;&#35201;&#32032;&#12364; <samp>utility_bill</samp> &#12456;&#12499;&#12487;&#12531;&#12473;&#12398;&#12469;&#12502;&#35201;&#32032;&#12392;&#12375;&#12390;&#21547;&#12414;&#12428;&#12427;.</p>
+<p><samp>provider</samp>: &#24517;&#38920; (REQUIRED). &#35531;&#27714;&#26360;&#12434;&#30330;&#34892;&#12375;&#12383;&#21508;&#12503;&#12525;&#12496;&#12452;&#12480;&#12434;&#35672;&#21029;&#12377;&#12427; JSON &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;. &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12399;&#27425;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;&#12391;&#27083;&#25104;&#12373;&#12428;&#12427;:</p>
+<p></p>
+
+<ul>
+<li>
+<samp>name</samp>: &#12503;&#12525;&#12496;&#12452;&#12480;&#12434;&#25351;&#23450;&#12377;&#12427;&#25991;&#23383;&#21015;.</li>
+<li>OpenID Connect &#12398; <samp>address</samp> Claim (<a href="#OpenID" class="xref">[OpenID]</a>) &#12398;&#12377;&#12409;&#12390;&#12398;&#35201;&#32032;</li>
+</ul>
+
+<p> </p>
+<p><samp>date</samp>: &#12371;&#12398;&#35531;&#27714;&#26360;&#12364;&#30330;&#34892;&#12373;&#12428;&#12383;&#26085;&#26178;&#12434;&#21547;&#12416; ISO 8601:2004 YYYY-MM-DD &#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12398;&#25991;&#23383;&#21015;.</p>
+<h1 id="rfc.section.4.1.1.3">
+<a href="#rfc.section.4.1.1.3">4.1.1.3.</a> <a href="#qes" id="qes">qes</a>
+</h1>
+<p id="rfc.section.4.1.1.3.p.1">&#27425;&#12398;&#31278;&#39006;&#12398;&#35201;&#32032;&#12364; <samp>qes</samp> &#12456;&#12499;&#12487;&#12531;&#12473;&#12398;&#12469;&#12502;&#35201;&#32032;&#12392;&#12375;&#12390;&#21547;&#12414;&#12428;&#12427;.</p>
+<p><samp>issuer</samp>: &#24517;&#38920; (REQUIRED). &#32626;&#21517;&#32773;&#12398;&#35388;&#26126;&#26360;&#12434;&#30330;&#34892;&#12375;&#12383;&#35388;&#26126;&#27231;&#38306;&#12434;&#31034;&#12377;&#25991;&#23383;&#21015;.</p>
+<p><samp>serial_number</samp>:&#24517;&#38920; (REQUIRED). &#32626;&#21517;&#12395;&#20351;&#29992;&#12373;&#12428;&#12427;&#35388;&#26126;&#26360;&#12398;&#12471;&#12522;&#12450;&#12523;&#12490;&#12531;&#12496;&#12540;&#12434;&#21547;&#12416;&#25991;&#23383;&#21015;.</p>
+<p><samp>created_at</samp>: &#24517;&#38920; (REQUIRED).  ISO 8601:2004 YYYY-MM-DDThh:mm:ss&#177;hh &#12501;&#12457;&#12540;&#12510;&#12483;&#12488;&#12398;&#32626;&#21517;&#12364;&#20316;&#12425;&#12428;&#12383;&#26178;&#38291;.</p>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> <a href="#claimselement" id="claimselement">claims Element</a>
+</h1>
+<p><samp>claims</samp> &#35201;&#32032;&#12395;&#12399;&#12503;&#12525;&#12475;&#12473;&#12395;&#12424;&#12387;&#12390;&#26908;&#35388;&#12373;&#12428;, &#23550;&#24540;&#12377;&#12427; <samp>verification</samp> &#35201;&#32032;&#12395;&#12424;&#12387;&#12390;&#27770;&#23450;&#12373;&#12428;&#12383;&#12509;&#12522;&#12471;&#12540;&#12395;&#24467;&#12387;&#12390;&#26908;&#35388;&#12373;&#12428;&#12383;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12395;&#12388;&#12356;&#12390;&#12398; Claim &#12364;&#21547;&#12414;&#12428;&#12427;.</p>
+<p><samp>claims</samp> &#35201;&#32032;&#12395;&#12399; OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.1 &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;&#20197;&#19979;&#12398; Claim &#12364;&#19968;&#12388;&#20197;&#19978;&#21547;&#12414;&#12428;&#12427;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356; (MAY)</p>
+<p></p>
+
+<ul>
+<li><samp>name</samp></li>
+<li><samp>given_name</samp></li>
+<li><samp>middle_name</samp></li>
+<li><samp>family_name</samp></li>
+<li><samp>birthdate</samp></li>
+<li><samp>address</samp></li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.2.p.4">&#12414;&#12383;&#12399; <a href="#userclaims" class="xref">Section 3.1</a> &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; Claim &#12434;&#21547;&#12416;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356;.</p>
+<p><samp>claims</samp> &#35201;&#32032;&#12399;, &#20804;&#24351;&#35201;&#32032;&#12398; <samp>verification</samp> &#12391;&#25552;&#31034;&#12373;&#12428;&#12383;&#26908;&#35388;&#12503;&#12525;&#12475;&#12473;&#12391;&#12381;&#12428;&#12382;&#12428;&#12398; Claim &#12398;&#20516;&#12364;&#26908;&#35388;&#12373;&#12428;&#12383;&#22580;&#21512;, &#20182;&#12398; Claim &#12418;&#21547;&#12416;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356; (MAY).</p>
+<p id="rfc.section.4.2.p.6">Claim &#21517;&#12399;, OpenID Connect &#20181;&#27096; <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.2 &#12391;&#25351;&#23450;&#12373;&#12428;&#12390;&#12356;&#12427;&#35328;&#35486;&#12479;&#12464;&#12391;&#27880;&#37320;&#12434;&#20184;&#12369;&#12390;&#12418;&#12424;&#12356; (MAY).</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#requesting-verified-claims" id="requesting-verified-claims">Requesting Verified Claims</a>
+</h1>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#req_claims" id="req_claims">Requesting End-User Claims</a>
+</h1>
+<p id="rfc.section.5.1.p.1">Verified Claims &#12399; OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.5. &#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; <samp>claims</samp> parameter &#12434;&#21033;&#29992;&#12377;&#12427;&#12371;&#12392;&#12391;, End-User &#12395;&#12388;&#12356;&#12390; &#20491;&#12293;&#12398; Claims &#12398;&#12524;&#12505;&#12523;&#12391;&#35201;&#27714;&#12391;&#12365;&#12427;.</p>
+<p><samp>verified_claims</samp> &#12399; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12398; <samp>userinfo</samp> &#12363; <samp>id_token</samp> &#35201;&#32032;&#12395;&#36861;&#21152;&#12373;&#12428;&#12427;.</p>
+<p><samp>verified_claims</samp> &#12395;&#12399;&#12493;&#12473;&#12488;&#12373;&#12428;&#12383; <samp>claims</samp> &#35201;&#32032;&#12398;&#20013;&#12395; End-User &#12395;&#12388;&#12356;&#12390;&#12398;&#26377;&#21177;&#12394; Claims &#12364;&#21547;&#12414;&#12428;&#12427;&#12383;&#12417;, syntax &#12399;&#27425;&#12398;&#12424;&#12358;&#12395;&#12493;&#12473;&#12488;&#12373;&#12428;&#12383;&#35201;&#32032;&#12398;&#24335;&#12434;&#21547;&#12416;&#12424;&#12358;&#12395;&#25313;&#24373;&#12373;&#12428;&#12427;. <samp>verified_claims</samp> &#35201;&#32032;&#12399; <samp>claims</samp> &#35201;&#32032;&#12434;&#21547;&#12415;, <samp>null</samp> &#20516;&#12434;&#25345;&#12388;&#12461;&#12540;&#12392;&#12375;&#12390;&#35201;&#27714;&#12377;&#12427; Claims &#12434;&#21547;&#12416;. &#20197;&#19979;&#12395;&#20363;&#12434;&#31034;&#12377;.</p>
+<pre>{  
+   "userinfo":{  
+      "verified_claims":{  
+         "claims":{  
+            "given_name":null,
+            "family_name":null,
+            "birthdate":null
+         }
+      }
+   }	
+}
+</pre>
+<p><samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12434;&#20351;&#29992;&#12377;&#12427;&#12392;, RP &#12399;&#12518;&#12540;&#12473;&#12465;&#12540;&#12473;&#12395;&#24517;&#35201;&#12394; End-User &#12395;&#38306;&#12377;&#12427; Claims &#12434;&#27491;&#30906;&#12395;&#36984;&#25246;&#12391;&#12365;&#12427;. &#12375;&#12383;&#12364;&#12387;&#12390;, &#12371;&#12398;&#25313;&#24373;&#12399; RPs &#12399;&#12487;&#12540;&#12479;&#26368;&#23567;&#21270;&#12398;&#35201;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
+<p id="rfc.section.5.1.p.5">RPs &#12399;, OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.5.1 &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; <samp>essential</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#21033;&#29992;&#12377;&#12427;&#12371;&#12392;&#12395;&#12424;&#12426;, &#29305;&#23450;&#12398; Claim &#12364;&#12518;&#12540;&#12470;&#12540;&#12472;&#12515;&#12540;&#12491;&#12540;&#12398;&#27491;&#24120;&#12394;&#23436;&#20102;&#12395;&#19981;&#21487;&#27424;&#12391;&#12354;&#12427;&#12371;&#12392;&#12434;&#31034;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;. &#27425;&#12398;&#20363;&#12391;&#12399;, &#22995;&#12392;&#21517;&#12398;&#20001;&#26041;&#12434;&#24517;&#38920;&#12392;&#12375;&#12390;&#25351;&#23450;&#12375;&#12390;&#12356;&#12427;.</p>
+<pre>{  
+   "userinfo":{  
+      "verified_claims":{  
+         "claims":{  
+            "given_name":{"essential": true},
+            "family_name":{"essential": true},
+            "birthdate":null
+         }
+      }
+   }	
+}
+</pre>
+<p id="rfc.section.5.1.p.6">&#12371;&#12398;&#20181;&#27096;&#12391;&#12399;, RP &#12364;&#35201;&#27714;&#12377;&#12427;&#29305;&#23450;&#12398; End-User Claim &#12398;&#31227;&#36578;&#12398;&#30446;&#30340;&#12434;&#35500;&#26126;&#12391;&#12365;&#12427;&#12424;&#12358;&#12395;&#12377;&#12427;&#12383;&#12417;&#12395;, &#36861;&#21152;&#12398;&#12501;&#12451;&#12540;&#12523;&#12489; <samp>purpose</samp> &#12434;&#23566;&#20837;&#12377;&#12427;.  <samp>purpose</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12399;, &#20491;&#12293;&#12395;&#35201;&#27714;&#12373;&#12428;&#12383;&#21508; Claim &#12398;&#12513;&#12531;&#12496;&#12540;&#20516;&#12395;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;&#12364;, 1&#12388;&#12398; Claim &#12395;&#12399;&#35079;&#25968;&#12398;&#38306;&#36899;&#12377;&#12427;&#30446;&#30340;&#12434;&#21547;&#12417;&#12427;&#12371;&#12392;&#12399;&#12391;&#12365;&#12394;&#12356;.</p>
+<p><samp>purpose</samp> OPTIONAL. OP &#12363;&#12425;&#29305;&#23450;&#12398; End-User Claim &#12434;&#21462;&#24471;&#12377;&#12427;&#30446;&#30340;&#12434;&#35500;&#26126;&#12377;&#12427;&#25991;&#23383;&#21015;. <samp>purpose</samp> &#12399; 3 &#25991;&#23383;&#26410;&#28288;&#12363; 300 &#25991;&#23383;&#20197;&#19978;&#12392;&#12394;&#12387;&#12390;&#12399;&#12394;&#12425;&#12394;&#12356; (MUST NOT).  &#12418;&#12375;&#12371;&#12398;&#12523;&#12540;&#12523;&#12395;&#36949;&#21453;&#12375;&#12383;&#22580;&#21512;, authentication request &#12399;&#22833;&#25943;&#12375;, OP &#12399; <samp>invalid_request</samp> &#12456;&#12521;&#12540;&#12434; RP &#12395;&#12395;&#36820;&#12373;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).  &#31227;&#36578;&#12373;&#12428;&#12427;&#12487;&#12540;&#12479;&#12398;&#21033;&#29992;&#30446;&#30340;&#12420;&#25215;&#35469;&#12375;&#12424;&#12358;&#12392;&#12375;&#12390;&#12356;&#12427;&#35469;&#21487;&#20869;&#23481;&#12434;&#12518;&#12540;&#12470;&#12540;&#12395;&#26126;&#31034;&#12377;&#12427;&#12383;&#12417;, OP &#12399;&#21508;&#21516;&#24847;&#30011;&#38754;&#12395;&#12371;&#12398; purpose &#12434;&#34920;&#31034;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).  <samp>purpose</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12364;&#12522;&#12463;&#12456;&#12473;&#12488;&#12395;&#23384;&#22312;&#12375;&#12394;&#12356;&#22580;&#21512;, OP &#12399; RP &#12372;&#12392;&#12395;&#20107;&#21069;&#35373;&#23450;&#12373;&#12428;&#12383;&#20516;&#12434;&#34920;&#31034;&#12391;&#12365;&#12427; (MAY).  UI &#12525;&#12540;&#12459;&#12522;&#12476;&#12540;&#12471;&#12519;&#12531;&#12398;&#35443;&#32048;&#12395;&#12388;&#12356;&#12390;&#12399;, <a href="#purpose" class="xref">Section 8</a> &#21442;&#29031;.</p>
+<p id="rfc.section.5.1.p.8">&#20363;:</p>
+<pre>{  
+   "userinfo":{  
+      "verified_claims":{  
+         "claims":{  
+            "given_name":{  
+               "essential":true,
+               "purpose":"To make communication look more personal"
+            },
+            "family_name":{  
+               "essential":true
+            },
+            "birthdate":{  
+               "purpose":"To send you best wishes on your birthday"
+            }
+         }
+      }
+   }
+}
+</pre>
+<p id="rfc.section.5.1.p.9">&#27880;: &#20516;&#12364; <samp>null</samp> &#12398; <samp>claims</samp> &#12469;&#12502;&#35201;&#32032;&#12399;, &#32771;&#12360;&#12425;&#12428;&#12427;&#12377;&#12409;&#12390;&#12398; Claims &#12395;&#23550;&#12377;&#12427;&#12522;&#12463;&#12456;&#12473;&#12488;&#12392;&#12375;&#12390;&#35299;&#37320;&#12373;&#12428;&#12427;. &#20197;&#19979;&#12395;&#20363;&#12434;&#31034;&#12377;:</p>
+<pre>{  
+   "userinfo":{  
+      "verified_claims":{  
+         "claims":null
+      }
+   }	
+}
+</pre>
+<p id="rfc.section.5.1.p.10">&#27880;: <samp>claims</samp> &#12469;&#12502;&#35201;&#32032;&#12399;&#30465;&#30053;&#12391;&#12365;, &#12371;&#12428;&#12399;, &#20516;&#12364; <samp>null</samp> &#12391;&#12354;&#12427; <samp>claims</samp> &#35201;&#32032;&#12392;&#21516;&#31561;&#12391;&#12354;&#12427;.</p>
+<p id="rfc.section.5.1.p.11">&#27880;: <samp>claims</samp> &#12469;&#12502;&#35201;&#32032;&#12364;&#31354;&#12363;, <a href="#claimselement" class="xref">Section 4.2</a> &#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;&#35201;&#20214;&#12434;&#28288;&#12383;&#12394;&#12373;&#12356; Claims &#12434;&#21547;&#12416;&#22580;&#21512;, OP &#12399; <samp>invalid_request</samp> &#12456;&#12521;&#12540;&#12391;&#12488;&#12521;&#12531;&#12470;&#12463;&#12471;&#12519;&#12531;&#12434;&#20013;&#26029;&#12377;&#12427;&#12384;&#12429;&#12358;.</p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#req_verification" id="req_verification">Requesting Verification Data</a>
+</h1>
+<p><samp>verification</samp> &#35201;&#32032;&#20869;&#23481;&#12399;, &#22522;&#26412;&#30340;&#12395;&#12381;&#12428;&#12382;&#12428;&#12398; <samp>trust_framework</samp> &#12392; Claim source &#12398;&#12509;&#12522;&#12471;&#12540;&#12395;&#12424;&#12387;&#12390;&#27770;&#23450;&#12373;&#12428;&#12427;.</p>
+<p id="rfc.section.5.2.p.2">&#12371;&#12398;&#20181;&#27096;&#12399; RP &#12364;&#29305;&#23450;&#12398;&#12487;&#12540;&#12479;&#12434; <samp>verification</samp> &#35201;&#32032;&#12395;&#26126;&#31034;&#30340;&#12395;&#35201;&#27714;&#12377;&#12427;&#26041;&#27861;&#12418;&#23450;&#32681;&#12377;&#12427;. &#27083;&#25991;&#12399; <a href="#req_claims" class="xref">Section 5.1</a> &#12391;&#25351;&#23450;&#12373;&#12428;&#12383;&#12523;&#12540;&#12523;&#12395;&#22522;&#12389;&#12356;&#12390;&#12362;&#12426;, <samp>verification</samp> &#35201;&#32032;&#12398;&#27083;&#36896;&#12408;&#12398;&#12490;&#12499;&#12466;&#12540;&#12471;&#12519;&#12531;&#12398;&#12383;&#12417;&#12395;&#12381;&#12428;&#12425;&#12434;&#25313;&#24373;&#12377;&#12427;.</p>
+<p id="rfc.section.5.2.p.3">&#27425;&#12398;&#20363;&#12391;&#31034;&#12377;&#12424;&#12358;&#12395;, <samp>verification</samp> &#20869;&#12398;&#35201;&#32032;&#12392;&#12375;&#12390;&#12381;&#12428;&#12382;&#12428;&#12398;&#35201;&#32032;&#12434;&#36861;&#21152;&#12377;&#12427;&#12371;&#12392;&#12391;, <a href="#req_claims" class="xref">Section 5.1</a> &#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;&#12398;&#12392;&#21516;&#12376;&#26041;&#27861;&#12391;&#12522;&#12463;&#12456;&#12473;&#12488;&#12391;&#12365;&#12427;.</p>
+<pre>{  
+   "verified_claims":{  
+      "verification":{  
+         "date":null,
+         "evidence":null
+      },
+      "claims":null
+   }
+}
+</pre>
+<p id="rfc.section.5.2.p.4">&#12371;&#12428;&#12399;, &#30330;&#34892;&#12373;&#12428;&#12383;&#12450;&#12469;&#12540;&#12471;&#12519;&#12531;&#12395;&#26908;&#35388;&#12398;&#26085;&#20184;&#12392;&#21033;&#29992;&#21487;&#33021;&#12394;&#35388;&#25312;&#12364;&#23384;&#22312;&#12377;&#12427;&#12371;&#12392;&#12434;&#35201;&#27714;&#12377;&#12427;.</p>
+<p id="rfc.section.5.2.p.5">&#27880;: <samp>verified_claims</samp> Claim &#12398;&#24517;&#38920;&#35201;&#32032;&#12391;&#12354;&#12427;&#12383;&#12417;, RP &#12399;&#26126;&#31034;&#30340;&#12395; <samp>trust_framework</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#35201;&#27714;&#12377;&#12427;&#24517;&#35201;&#12399;&#12394;&#12356;.</p>
+<p id="rfc.section.5.2.p.6">RP &#12399;, &#27083;&#36896;&#12434;1&#27573;&#28145;&#12367;&#25496;&#12426;&#19979;&#12370;, &#29305;&#23450;&#12398;&#12487;&#12540;&#12479;&#12364;&#12377;&#12409;&#12390;&#12398; <samp>evidence</samp> &#20869;&#12395;&#23384;&#22312;&#12377;&#12427;&#12371;&#12392;&#12434;&#35201;&#27714;&#12377;&#12427;&#22580;&#21512;&#12418;&#12354;&#12427;. result array &#20869;&#12398;&#12377;&#12409;&#12390;&#12398;&#12456;&#12531;&#12488;&#12522;&#12398;&#12503;&#12525;&#12488;&#12479;&#12452;&#12503;&#12392;&#12375;&#12390;, &#21336;&#19968;&#12398;&#12456;&#12531;&#12488;&#12522;&#12364;&#20351;&#29992;&#12373;&#12428;&#12427;.</p>
+<pre>{  
+   "verified_claims":{  
+      "verification":{  
+         "date":null,
+         "evidence":[  
+            {  
+               "method":null,
+               "document":null
+            }
+         ]
+      },
+      "claims":null
+   }
+}
+</pre>
+<p id="rfc.section.5.2.p.7">&#12371;&#12398;&#20363;&#12391;&#12399;, &#29305;&#23450;&#12398;&#12518;&#12540;&#12470;&#12540;&#12450;&#12459;&#12454;&#12531;&#12488;&#12391;&#21033;&#29992;&#21487;&#33021;&#12394;&#12377;&#12409;&#12390;&#12398;&#35388;&#25312;&#12395;&#12388;&#12356;&#12390;, <samp>method</samp> &#35201;&#32032;&#12392; <samp>document</samp> &#35201;&#32032;&#12434;&#35201;&#27714;&#12377;&#12427;.</p>
+<p id="rfc.section.5.2.p.8">&#27880;: <samp>evidence</samp> &#12456;&#12531;&#12488;&#12522;&#12398;&#24517;&#38920;&#35201;&#32032;&#12391;&#12354;&#12427;&#12383;&#12417;, RP &#12399;&#26126;&#31034;&#30340;&#12395; <samp>type</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#35201;&#27714;&#12377;&#12427;&#24517;&#35201;&#12399;&#12394;&#12356;.</p>
+<p id="rfc.section.5.2.p.9">RP &#12399;, <samp>document</samp> &#35201;&#32032;&#20869;&#12395;&#29305;&#23450;&#12398;&#12487;&#12540;&#12479;&#12364;&#23384;&#22312;&#12377;&#12427;&#12371;&#12392;&#12434;&#35201;&#27714;&#12377;&#12427;&#22580;&#21512;&#12418;&#12354;&#12427;. &#12371;&#12428;&#12418;, &#19978;&#35352;&#12391;&#20351;&#29992;&#12375;&#12383;&#27083;&#25991;&#35215;&#21063;&#12395;&#24467;&#12358;.</p>
+<pre>{  
+   "verified_claims":{  
+      "verification":{  
+         "date":null,
+         "evidence":[  
+            {  
+               "method":null,
+               "document":{  
+                  "issuer":null,
+                  "number":null,
+                  "date_of_issuance":null
+               }
+            }
+         ]
+      },
+      "claims":null
+   }
+}
+</pre>
+<p id="rfc.section.5.2.p.10">&#27880;: <samp>document</samp> &#12456;&#12531;&#12488;&#12522;&#12398;&#24517;&#38920;&#35201;&#32032;&#12391;&#12354;&#12427;&#12383;&#12417;, RP &#12399;&#26126;&#31034;&#30340;&#12395; <samp>type</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#35201;&#27714;&#12377;&#12427;&#24517;&#35201;&#12399;&#12394;&#12356;.</p>
+<p id="rfc.section.5.2.p.11">RP &#12395;&#35201;&#27714;&#12373;&#12428;&#12383;&#26908;&#35388;&#12487;&#12540;&#12479;&#12434;&#25552;&#20379;&#12377;&#12427;&#12363;&#27770;&#23450;&#12377;&#12427;&#12398;&#12399;, Claim source &#12398;&#35009;&#37327;&#12391;&#12354;&#12427;.</p>
+<h1 id="rfc.section.5.3">
+<a href="#rfc.section.5.3">5.3.</a> <a href="#constraintedclaims" id="constraintedclaims">Defining constraints on Verification Data</a>
+</h1>
+<p id="rfc.section.5.3.p.1">RP &#12399; <samp>verification</samp> &#12469;&#12502;&#35201;&#32032;&#12398;&#35201;&#32032;&#12395;&#38306;&#12377;&#12427;&#35201;&#20214;&#12434;&#34920;&#29694;&#12391;&#12365;&#12427; (MAY).</p>
+<p id="rfc.section.5.3.p.2">&#12371;&#12371;&#12391;&#12418;&#20877;&#12403;, <samp>verified_claims</samp> claim &#12398;&#12493;&#12473;&#12488;&#12373;&#12428;&#12383;&#24615;&#36074;&#12395;&#12424;&#12387;&#12390;, OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.5. &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;&#27083;&#25991;&#12398;&#25313;&#24373;&#12364;&#24517;&#35201;&#12391;&#12354;&#12427;.</p>
+<p id="rfc.section.5.3.p.3">OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.5.1 &#12399;, Claim &#12398; &#36861;&#21152;&#24773;&#22577;/&#21046;&#32004;&#12434;&#25345;&#12388; JSON object &#12434;&#35201;&#27714;&#12377;&#12427;&#12424;&#12358;&#12394; Claim &#12398;&#12513;&#12531;&#12496;&#12540;&#20516;&#12391;&#12354;&#12427;&#12371;&#12392;&#12434;&#35377;&#12377;&#27083;&#25991;&#12434;&#23450;&#32681;&#12377;&#12427;.  &#12381;&#12398;&#12383;&#12417;&#12395;, &#29305;&#21029;&#12394;&#12463;&#12456;&#12522;&#12398;&#24847;&#21619;&#12434;&#25345;&#12388;3&#12388;&#12398;&#12513;&#12531;&#12496;&#12540; (<samp>essential</samp>, <samp>value</samp>, &#12362;&#12424;&#12403; <samp>values</samp>) &#12434;&#23450;&#32681;&#12375;, &#20182;&#12398;&#29305;&#21029;&#12394;&#12513;&#12531;&#12496;&#12540;&#12434;&#23450;&#32681;&#12391;&#12365;&#12427;&#12424;&#12358;&#12395;&#12377;&#12427; (&#29702;&#35299;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#12513;&#12531;&#12496;&#12540;&#12399;&#28961;&#35222;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356;).</p>
+<p id="rfc.section.5.3.p.4">&#12371;&#12398;&#20181;&#27096;&#12399;&#12381;&#12398;&#12513;&#12459;&#12491;&#12474;&#12512;&#12434;&#20877;&#21033;&#29992;&#12375;, &#26032;&#12375;&#12356;&#12381;&#12398;&#12424;&#12358;&#12394; <samp>max_age</samp> &#12513;&#12531;&#12496;&#12540;&#12434;&#23566;&#20837;&#12377;&#12427; (&#19979;&#35352;&#21442;&#29031;).</p>
+<p id="rfc.section.5.3.p.5">&#12414;&#12378;, <samp>value</samp> &#12363; <samp>values</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#21033;&#29992;&#12375;&#12390;, <samp>trust_framework</samp>, <samp>evidence/type</samp>, <samp>evidence/method</samp>, &#21450;&#12403; <samp>evidence/document/type</samp> &#12398;&#21033;&#29992;&#21487;&#33021;&#12394;&#20516;&#12434;&#21046;&#38480;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427; (MAY).</p>
+<p id="rfc.section.5.3.p.6">&#27425;&#12398;&#20363;&#12399;, RP &#12364; AML(&#35379;&#27880;: Anti-Money Laundering) &#12395;&#22522;&#12389;&#12356;&#12390;, &#25919;&#24220;&#30330;&#34892;&#12398;ID&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12434;&#20351;&#29992;&#12375;&#12390;, &#37504;&#34892;&#12398;&#25903;&#24215;&#12391;&#30452;&#25509;&#26412;&#20154;&#30906;&#35469;&#12434;&#34892;&#12387;&#12383;&#20154;&#12395;&#38480;&#23450;&#12375;&#12383;&#12518;&#12540;&#12470;&#12540;&#12398;&#35388;&#26126;&#12434;&#21462;&#24471;&#12375;&#12383;&#12356;&#12371;&#12392;&#12434;&#31034;&#12375;&#12390;&#12356;&#12427;.</p>
+<pre>{  
+   "userinfo":{  
+      "verified_claims":{  
+         "verification":{  
+            "trust_framework":{  
+               "value":"de_aml"
+            },
+            "evidence":[  
+               {  
+                  "type":{  
+                     "value":"id_document"
+                  },
+                  "method":{  
+                     "value":"pipp"
+                  },
+                  "document":{  
+                     "type":{  
+                        "values":[  
+                           "idcard",
+                           "passport"
+                        ]
+                     }
+                  }
+               }
+            ]
+         },
+         "claims":null
+      }
+   }
+}
+</pre>
+<p id="rfc.section.5.3.p.7">RP &#12399;, &#26908;&#35388;&#12487;&#12540;&#12479;&#12398;&#32076;&#36942;&#26178;&#38291;, &#12377;&#12394;&#12431;&#12385; <samp>verification</samp> &#35201;&#32032;&#12391;&#20027;&#24373;&#12373;&#12428;&#12383;&#26908;&#35388;&#12503;&#12525;&#12475;&#12473;&#12364;&#23455;&#34892;&#12373;&#12428;&#12390;&#12363;&#12425;&#12398;&#32076;&#36942;&#26178;&#38291;&#12395;&#38306;&#12377;&#12427;&#35201;&#20214;&#12418;&#34920;&#29694;&#12391;&#12365;&#12427; (MAY).</p>
+<p id="rfc.section.5.3.p.8">&#12375;&#12383;&#12364;&#12387;&#12390;, &#12371;&#12398;&#20181;&#27096;&#12391;&#12399;&#26032;&#12375;&#12356;&#12513;&#12531;&#12496;&#12540; <samp>max_age</samp> &#12434;&#23450;&#32681;&#12375;&#12390;&#12356;&#12427;.</p>
+<p><samp>max_age</samp>: OPTIONAL. &#26085;&#20184;&#12414;&#12383;&#12399;&#12479;&#12452;&#12512;&#12473;&#12479;&#12531;&#12503;&#12434;&#21547;&#12416; Claims &#12395;&#12398;&#12415;&#36969;&#29992;&#21487;&#33021;&#12394; JSON &#25968;&#20516;. &#26085;&#20184;/&#12479;&#12452;&#12512;&#12473;&#12479;&#12531;&#12503;&#12398;&#20516;&#12363;&#12425;&#12522;&#12463;&#12456;&#12473;&#12488;&#12398;&#26178;&#28857;&#12414;&#12391;&#12398;&#32076;&#36942;&#12434;&#35377;&#21487;&#12377;&#12427;&#26368;&#22823;&#26178;&#38291; (&#31186;) &#12434;&#23450;&#32681;&#12377;&#12427;. OP &#12399;, &#26085;&#20184;&#20516;&#12398;&#26368;&#24460;&#12398;&#26377;&#21177;&#12394;&#31186;&#12363;&#12425;&#38283;&#22987;&#12375;&#12383;&#32076;&#36942;&#26178;&#38291;&#12398;&#35336;&#31639;&#12434;&#34892;&#12431;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356;. &#20197;&#19979;&#12399;, &#12487;&#12540;&#12479;&#12398;&#26908;&#35388;&#12503;&#12525;&#12475;&#12473;&#12364; 63113852 &#31186;&#20197;&#21069;&#12391;&#12354;&#12427;&#12371;&#12392;&#12434;&#35469;&#12417;&#12394;&#12356; Claims &#12398;&#12522;&#12463;&#12456;&#12473;&#12488;&#12398;&#20363;&#12391;&#12354;&#12427;.</p>
+<p id="rfc.section.5.3.p.10">&#20197;&#19979;&#12395;&#20363;&#12434;&#31034;&#12377;:</p>
+<pre>{  
+   "userinfo":{  
+      "verified_claims":{  
+         "verification":{  
+            "date":{  
+               "max_age":63113852
+            }
+         },
+         "claims":null
+      }
+   }
+}
+</pre>
+<p id="rfc.section.5.3.p.11">OP &#12399;&#12371;&#12398;&#35201;&#20214;&#12434;&#28288;&#12383;&#12381;&#12358;&#12392;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (SHOULD). &#12518;&#12540;&#12470;&#12540;&#12398;&#26908;&#35388;&#12487;&#12540;&#12479;&#12364;&#12522;&#12463;&#12456;&#12473;&#12488;&#12373;&#12428;&#12383; <samp>max_age</samp> &#12424;&#12426;&#12418;&#21476;&#12356;&#22580;&#21512;, OP &#12399;&#12518;&#12540;&#12470;&#12540;&#12395;&#12458;&#12531;&#12521;&#12452;&#12531;&#12391;&#12398; identity verification &#12503;&#12525;&#12475;&#12473;&#12434;&#20171;&#12375;&#12390;, &#12518;&#12540;&#12470;&#12540;&#12398;&#30906;&#35469;&#12434;&#26356;&#26032;&#12375;&#12424;&#12358;&#12392;&#12377;&#12427;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356; (MAY). &#20363;&#12360;&#12400; &#38651;&#23376;ID&#12459;&#12540;&#12489;&#12414;&#12383;&#12399;&#12499;&#12487;&#12458;&#35672;&#21029;&#12450;&#12503;&#12525;&#12540;&#12481;&#12434;&#21033;&#29992;&#12377;&#12427;&#12371;&#12392;&#12395;&#12424;&#12387;&#12390;.</p>
+<p id="rfc.section.5.3.p.12">OP &#12364;&#35201;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12394;&#12356;&#22580;&#21512; (<samp>essential</samp> &#12392;&#12510;&#12540;&#12463;&#12373;&#12428;&#12390;&#12356;&#12427;&#22580;&#21512;&#12391;&#12418;), RP &#12395;&#21033;&#29992;&#21487;&#33021;&#12394;&#12487;&#12540;&#12479;&#12434;&#25552;&#20379;&#12375;, RP &#12399;&#12487;&#12540;&#12479;&#12398;&#20351;&#29992;&#26041;&#27861;&#12434;&#27770;&#23450;&#12391;&#12365;&#12427;. OP &#12399;, &#24517;&#38920; Claims &#12392;&#12375;&#12390;&#35201;&#27714;&#12373;&#12428;&#12383;&#12377;&#12409;&#12390;&#12398; Claims &#12434;&#36820;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12394;&#12356;&#22580;&#21512;&#12395;&#12456;&#12521;&#12540;&#12434;&#36820;&#12375;&#12390;&#12399;&#12394;&#12425;&#12394;&#12356; (MUST NOT).</p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#examples" id="examples">Examples</a>
+</h1>
+<p id="rfc.section.6.p.1">&#20197;&#19979;&#12398;&#12475;&#12463;&#12471;&#12519;&#12531;&#12391;&#12399; <samp>verified_claims</samp> &#12395;&#38306;&#12377;&#12427;&#20363;&#12434;&#31034;&#12377;.</p>
+<p id="rfc.section.6.p.2">&#26368;&#21021;&#12392; 2&#12388;&#30446;&#12398;&#12475;&#12463;&#12471;&#12519;&#12531;&#12391;&#12399;, &#19968;&#33324;&#30340;&#12394; identity assurance &#12398;&#12465;&#12540;&#12473;&#12398; JSON snippets &#12434;&#31034;&#12375;, RP &#12395;&#12399; End-User &#12395;&#38306;&#12377;&#12427;&#23455;&#38555;&#12398; Claims &#12392;&#19968;&#32210;&#12395;, &#27096;&#12293;&#12394;&#26908;&#35388;&#26041;&#27861;&#12395;&#12424;&#12427; verification evidence &#12364;&#25552;&#20379;&#12373;&#12428;&#12427;.</p>
+<p id="rfc.section.6.p.3">3&#12388;&#30446;&#12398;&#12475;&#12463;&#12471;&#12519;&#12531;&#12391;&#12399;, OP &#12364; RP &#12395;&#23550;&#12375;&#12390; identity verification &#12503;&#12525;&#12475;&#12473;&#12398;&#12456;&#12499;&#12487;&#12531;&#12473;&#12434;&#25552;&#20379;&#12377;&#12427;&#24517;&#35201;&#12364;&#12394;&#12356; eIDAS &#20844;&#35469; eID &#12471;&#12473;&#12486;&#12512;&#12398;&#22580;&#21512;, &#12393;&#12398;&#12424;&#12358;&#12395;&#12371;&#12398;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12398;&#12467;&#12531;&#12486;&#12531;&#12484;&#12364;&#35211;&#12360;&#12427;&#12363;&#12434;&#35500;&#26126;&#12375;&#12390;&#12356;&#12427;.</p>
+<p id="rfc.section.6.p.4">&#24460;&#32154;&#12398;&#12475;&#12463;&#12471;&#12519;&#12531;&#12391;&#12399;, &#30064;&#12394;&#12427;&#32076;&#36335;&#12391; <samp>verified_claims</samp> Claim &#12434;&#20351;&#29992;&#12375;, &#20182;&#12398; (unverified) Claims &#12392;&#32068;&#12415;&#21512;&#12431;&#12379;&#12390;&#20351;&#29992;&#12377;&#12427;&#20363;&#12434;&#21547;&#12416;.</p>
+<h1 id="rfc.section.6.1">
+<a href="#rfc.section.6.1">6.1.</a> <a href="#id-document-1" id="id-document-1">id_document</a>
+</h1>
+<pre>{  
+   "verified_claims":{  
+      "verification":{  
+         "trust_framework":"de_aml",
+         "time":"2012-04-23T18:25:43.511+01",
+         "verification_process":"676q3636461467647q8498785747q487",
+         "evidence":[  
+            {  
+               "type":"id_document",
+               "method":"pipp",
+               "document":{  
+                  "type":"idcard",
+                  "issuer":{  
+                     "name":"Stadt Augsburg",
+                     "country":"DE"
+                  },
+                  "number":"53554554",
+                  "date_of_issuance":"2012-04-23",
+                  "date_of_expiry":"2022-04-22"
+               }
+            }
+         ]
+      },
+      "claims":{  
+         "given_name":"Max",
+         "family_name":"Meier",
+         "birthdate":"1956-01-28",
+         "place_of_birth":{  
+            "country":"DE",
+            "locality":"Musterstadt"
+         },
+         "nationality":"DE",
+         "address":{  
+            "locality":"Maxstadt",
+            "postal_code":"12344",
+            "country":"DE",
+            "street_address":"An der Sandd&#252;ne 22"
+         }
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.2">
+<a href="#rfc.section.6.2">6.2.</a> <a href="#id-document-utility-bill" id="id-document-utility-bill">id_document + utility bill</a>
+</h1>
+<pre>{  
+   "verified_claims":{  
+      "verification":{  
+         "trust_framework":"de_aml",
+         "time":"2012-04-23T18:25:43.511+01",
+         "verification_process":"676q3636461467647q8498785747q487",
+         "evidence":[  
+            {  
+               "type":"id_document",
+               "method":"pipp",
+               "document":{  
+                  "document_type":"de_erp_replacement_idcard",
+                  "issuer":{  
+                     "name":"Stadt Augsburg",
+                     "country":"DE"
+                  },
+                  "number":"53554554",
+                  "date_of_issuance":"2012-04-23",
+                  "date_of_expiry":"2022-04-22"
+               }
+            },
+            {  
+               "type":"utility_bill",
+               "provider":{  
+                  "name":"Stadtwerke Musterstadt",
+                  "country":"DE",
+                  "region":"Th&#252;ringen",
+                  "street_address":"Energiestrasse 33"
+               },
+               "date":"2013-01-31"
+            }
+         ]
+      },
+      "claims":{  
+         "given_name":"Max",
+         "family_name":"Meier",
+         "birthdate":"1956-01-28",
+         "place_of_birth":{  
+            "country":"DE",
+            "locality":"Musterstadt"
+         },
+         "nationality":"DE",
+         "address":{  
+            "locality":"Maxstadt",
+            "postal_code":"12344",
+            "country":"DE",
+            "street_address":"An der Sandd&#252;ne 22"
+         }
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.3">
+<a href="#rfc.section.6.3">6.3.</a> <a href="#notified-eid-system-eidas" id="notified-eid-system-eidas">Notified eID system (eIDAS)</a>
+</h1>
+<pre>{  
+   "verified_claims":{  
+      "verification":{  
+         "trust_framework":"eidas_ial_substantial"
+      },
+      "claims":{  
+         "given_name":"Max",
+         "family_name":"Meier",
+         "birthdate":"1956-01-28",
+         "place_of_birth":{  
+            "country":"DE",
+            "locality":"Musterstadt"
+         },
+         "nationality":"DE",
+         "address":{  
+            "locality":"Maxstadt",
+            "postal_code":"12344",
+            "country":"DE",
+            "street_address":"An der Sandd&#252;ne 22"
+         }
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.4">
+<a href="#rfc.section.6.4">6.4.</a> <a href="#verified-claims-in-userinfo-response" id="verified-claims-in-userinfo-response">Verified Claims in UserInfo Response</a>
+</h1>
+<h1 id="rfc.section.6.4.1">
+<a href="#rfc.section.6.4.1">6.4.1.</a> <a href="#request" id="request">Request</a>
+</h1>
+<p id="rfc.section.6.4.1.p.1">&#12371;&#12398;&#20363;&#12391;&#12399;, RP &#12399; <samp>scope</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12434; <samp>email</samp> <samp>address</samp> &#12434;&#35201;&#27714;&#12377;&#12427;&#12383;&#12417;&#12395;&#20351;&#29992;&#12375;, &#12373;&#12425;&#12395; verified Claims &#12434;&#35201;&#27714;&#12377;&#12427;&#12383;&#12417;&#12395; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12434;&#20351;&#29992;&#12377;&#12427;&#12371;&#12392;&#12434;&#24819;&#23450;&#12377;&#12427;.</p>
+<p id="rfc.section.6.4.1.p.2">scope &#20516;&#12399;&#27425;&#12398;&#36890;&#12426;: <samp>scope=openid email</samp></p>
+<p><samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#20516;&#12399;&#27425;&#12398;&#36890;&#12426;:</p>
+<pre>{  
+   "userinfo":{  
+       "verified_claims":{  
+         "claims":{  
+            "given_name":null,
+            "family_name":null,
+            "birthdate":null
+         }
+      }
+   }	
+}
+</pre>
+<h1 id="rfc.section.6.4.2">
+<a href="#rfc.section.6.4.2">6.4.2.</a> <a href="#userinfo-response" id="userinfo-response">UserInfo Response</a>
+</h1>
+<p id="rfc.section.6.4.2.p.1">&#12381;&#12428;&#12382;&#12428;&#12398; UserInfo &#12524;&#12473;&#12509;&#12531;&#12473;&#12399;&#27425;&#12398;&#36890;&#12426;:</p>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{  
+   "iss":"https://server.example.com",
+   "sub":"248289761001",
+   "email":"janedoe@example.com",
+   "email_verified":true,
+   "verified_claims":{  
+      "verification":{  
+         "trust_framework":"de_aml",
+         "time":"2012-04-23T18:25:43.511+01",
+         "verification_process":"676q3636461467647q8498785747q487",
+         "evidence":[  
+            {  
+               "type":"id_document",
+               "method":"pipp",
+               "document":{  
+                  "type":"idcard",
+                  "issuer":{  
+                     "name":"Stadt Augsburg",
+                     "country":"DE"
+                  },
+                  "number":"53554554",
+                  "date_of_issuance":"2012-04-23",
+                  "date_of_expiry":"2022-04-22"
+               }
+            }
+         ]
+      },
+      "claims":{  
+         "given_name":"Max",
+         "family_name":"Meier",
+         "birthdate":"1956-01-28"
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.5">
+<a href="#rfc.section.6.5">6.5.</a> <a href="#verified-claims-in-id-tokens" id="verified-claims-in-id-tokens">Verified Claims in ID Tokens</a>
+</h1>
+<h1 id="rfc.section.6.5.1">
+<a href="#rfc.section.6.5.1">6.5.1.</a> <a href="#request-1" id="request-1">Request</a>
+</h1>
+<p id="rfc.section.6.5.1.p.1">&#12371;&#12398;&#22580;&#21512;, RP &#12399; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12391; End-User &#12395;&#38306;&#12377;&#12427;&#20182;&#12398; Claims &#12392;&#19968;&#32210;&#12395; verified Claims &#12434;&#35201;&#27714;&#12375;, ID Token (grant type <samp>code</samp> &#12398;&#22580;&#21512;&#12399; token endpoint &#12363;&#12425;&#37197;&#20449;&#12373;&#12428;&#12427;) &#12395;&#12524;&#12473;&#12509;&#12531;&#12473;&#12434;&#21106;&#12426;&#24403;&#12390;&#12427;.</p>
+<p><samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#20516;&#12399;&#27425;&#12398;&#36890;&#12426;:</p>
+<pre>{  
+   "id_token":{  
+      "email":null,
+      "preferred_username":null,
+      "picture":null,
+      "verified_claims":{  
+         "claims":{  
+            "given_name":null,
+            "family_name":null,
+            "birthdate":null
+         }
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.5.2">
+<a href="#rfc.section.6.5.2">6.5.2.</a> <a href="#id-token" id="id-token">ID Token</a>
+</h1>
+<p id="rfc.section.6.5.2.p.1">&#12381;&#12428;&#12382;&#12428;&#12398; ID Token &#12399;&#27425;&#12398;&#36890;&#12426;:</p>
+<pre>{  
+   "iss":"https://server.example.com",
+   "sub":"24400320",
+   "aud":"s6BhdRkqt3",
+   "nonce":"n-0S6_WzA2Mj",
+   "exp":1311281970,
+   "iat":1311280970,
+   "auth_time":1311280969,
+   "acr":"urn:mace:incommon:iap:silver",
+   "email":"janedoe@example.com",
+   "preferred_username":"j.doe",
+   "picture":"http://example.com/janedoe/me.jpg",
+   "verified_claims":{  
+      "verification":{  
+         "trust_framework":"de_aml",
+         "time":"2012-04-23T18:25:43.511+01",
+         "verification_process":"676q3636461467647q8498785747q487",
+         "evidence":[  
+            {  
+               "type":"id_document",
+               "method":"pipp",
+               "document":{  
+                  "type":"idcard",
+                  "issuer":{  
+                     "name":"Stadt Augsburg",
+                     "country":"DE"
+                  },
+                  "number":"53554554",
+                  "date_of_issuance":"2012-04-23",
+                  "date_of_expiry":"2022-04-22"
+               }
+            }
+         ]
+      },
+      "claims":{  
+         "given_name":"Max",
+         "family_name":"Meier",
+         "birthdate":"1956-01-28"
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.6">
+<a href="#rfc.section.6.6">6.6.</a> <a href="#aggregated-claims" id="aggregated-claims">Aggregated Claims</a>
+</h1>
+<p id="rfc.section.6.6.p.1">Note: &#25913;&#34892;&#12399;&#25522;&#36617;&#19978;&#12398;&#37117;&#21512;&#12395;&#12424;&#12427;</p>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{ 
+   "iss":"https://server.example.com", 
+   "sub":"248289761001",
+   "email":"janedoe@example.com",
+   "email_verified":true,
+   "_claim_names":{  
+      "verified_claims":"src1"
+   },
+   "_claim_sources":{  
+      "src1":{  
+      "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
+      lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
+      JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
+      mFtaWx5X25hbWUiOiJNZWllciIsImJpcnRoZGF0ZSI6IjE5NTYtMDEtMjgifX19.M8tTKxzj5LBgqGj
+      UAzFooEiCPJ4wcZVQDrnW5_ooAG4"
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.6.7">
+<a href="#rfc.section.6.7">6.7.</a> <a href="#distributed-claims" id="distributed-claims">Distributed Claims</a>
+</h1>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "iss":"https://server.example.com",  
+   "sub":"248289761001",
+   "email":"janedoe@example.com",
+   "email_verified":true,
+   "_claim_names":{  
+      "verified_claims":"src1"
+   },
+   "_claim_sources":{  
+      "src1":{  
+         "endpoint":"https://server.yetanotherop.com/claim_source",
+         "access_token":"ksj3n283dkeafb76cdef"
+      }
+   }
+}
+</pre>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#opmetadata" id="opmetadata">OP Metadata</a>
+</h1>
+<p id="rfc.section.7.p.1">OP &#12399; &#20197;&#19979;&#12398;&#26032;&#12375;&#12356;&#23646;&#24615;&#12434;&#21033;&#29992;&#12375;&#12390; openid-configuration (see <a href="#OpenID-Discovery" class="xref">[OpenID-Discovery]</a>) &#12391; verified Claims &#12395;&#38306;&#12377;&#12427;&#27231;&#33021;&#12434;&#36890;&#30693;&#12377;&#12427;.</p>
+<p><samp>verified_claims_supported</samp>: <samp>verified_claims</samp> &#12434;&#12469;&#12509;&#12540;&#12488;&#12377;&#12427;&#12363;, &#12388;&#12414;&#12426; OpenID Connect for Identity Assurance extension &#12398;&#12469;&#12509;&#12540;&#12488;&#12434;&#31034;&#12377; Boolean &#20516;.</p>
+<p><samp>trust_frameworks_supported</samp> &#12469;&#12509;&#12540;&#12488;&#12377;&#12427;&#20840;&#12390;&#12398; trust frameworks &#12434;&#21547;&#12416; JSON &#37197;&#21015;.</p>
+<p><samp>evidence_supported</samp> OP &#12364;&#21033;&#29992;&#12377;&#12427;&#20840;&#12390;&#12398; identity evidence &#12398;&#31278;&#39006;&#12434;&#21547;&#12416; JSON &#37197;&#21015;.</p>
+<p><samp>id_documents_supported</samp> OP &#12364; identity verification &#12395;&#21033;&#29992;&#12375;&#12390;&#12356;&#12427;&#12377;&#12409;&#12390;&#12398; identity documents &#12434;&#21547;&#12416; JSON &#37197;&#21015;.</p>
+<p><samp>id_documents_verification_methods_supported</samp> <a href="#verification" class="xref">Section 4.1</a> &#12395;&#23450;&#32681;&#12373;&#12428;&#12427; OP &#12364;&#12469;&#12509;&#12540;&#12488;&#12377;&#12427; id document verification method &#12434;&#21547;&#12416; JSON&#37197;&#21015;.</p>
+<p><samp>claims_in_verified_claims_supported</samp> <samp>verified_claims</samp> &#20869;&#12391;&#12469;&#12509;&#12540;&#12488;&#12373;&#12428;&#12427;&#20840;&#12390;&#12398; claims &#12434;&#21547;&#12416; JSON &#37197;&#21015;</p>
+<p id="rfc.section.7.p.8">&#20197;&#19979;&#12395; openid-configuration &#12398; snippet &#12398;&#20363;&#12434;&#31034;&#12377;.</p>
+<pre>{  
+...
+   "verified_claims_supported":true,
+   "trust_frameworks_supported":[
+     "nist_800_63A_ial_2",
+     "nist_800_63A_ial_3"
+   ],
+   "evidence_supported":[
+      "id_document",
+      "utility_bill",
+      "qes"
+   ]
+   "id_documents_supported":[  
+       "idcard",
+       "passport",
+       "driving_permit"
+   ]
+   "id_documents_verification_methods_supported":[  
+       "pipp",
+       "sripp",
+       "eid"
+   ]
+   "claims_in_verified_claims_supported":[  
+      "given_name",
+      "family_name",
+      "birthdate",
+      "place_of_birth",
+      "nationality",
+      "address"
+   ],
+...
+}
+</pre>
+<p id="rfc.section.7.p.9">OP &#12399; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12434;&#12469;&#12509;&#12540;&#12488;&#12375;, <samp>claims_parameter_supported</samp> &#35201;&#32032;&#12434;&#21033;&#29992;&#12375;&#12390; openid-configuration &#12391;&#12371;&#12428;&#12434;&#20844;&#38283;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#purpose" id="purpose">Transaction-specific Purpose</a>
+</h1>
+<p id="rfc.section.8.p.1">&#12371;&#12398;&#20181;&#27096;&#12391;&#12399;,  RP &#12364;&#35201;&#27714;&#12375;&#12390;&#12356;&#12427;&#12518;&#12540;&#12470;&#12540;&#12487;&#12540;&#12479;&#12398;&#31227;&#36578;&#30446;&#30340;&#12398;&#35500;&#26126;&#12434;&#21487;&#33021;&#12395;&#12377;&#12427; <samp>purpose</samp> &#12522;&#12463;&#12456;&#12473;&#12488;&#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12434;&#23566;&#20837;&#12377;&#12427;.</p>
+<p><samp>purpose</samp> OPTIONAL. OP &#12363;&#12425;&#29305;&#23450;&#12398;&#12518;&#12540;&#12470;&#12540;&#12487;&#12540;&#12479;&#12434;&#21462;&#24471;&#12377;&#12427;&#30446;&#30340;&#12434;&#35500;&#26126;&#12377;&#12427;&#25991;&#23383;&#21015;. <samp>purpose</samp> &#12399; 3 &#25991;&#23383;&#26410;&#28288;&#12363; 300 &#25991;&#23383;&#20197;&#19978;&#12392;&#12394;&#12387;&#12390;&#12399;&#12394;&#12425;&#12394;&#12356; (MUST NOT). &#12418;&#12375;&#12371;&#12398;&#12523;&#12540;&#12523;&#12395;&#36949;&#21453;&#12375;&#12383;&#22580;&#21512;, authentication request &#12399;&#22833;&#25943;&#12375;, OP &#12399; <samp>invalid_request</samp> &#12456;&#12521;&#12540;&#12434; RP &#12395;&#12395;&#36820;&#12373;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<p id="rfc.section.8.p.3">&#31227;&#36578;&#12373;&#12428;&#12427;&#12487;&#12540;&#12479;&#12398;&#21033;&#29992;&#30446;&#30340;&#12420;&#25215;&#35469;&#12375;&#12424;&#12358;&#12392;&#12375;&#12390;&#12356;&#12427;&#35469;&#21487;&#20869;&#23481;&#12434;&#12518;&#12540;&#12470;&#12540;&#12395;&#26126;&#31034;&#12377;&#12427;&#12383;&#12417;, OP &#12399;&#21508;&#21516;&#24847;&#30011;&#38754;&#12395;&#12371;&#12398; purpose &#12434;&#34920;&#31034;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).</p>
+<p id="rfc.section.8.p.4">&#19968;&#36011;&#24615;&#12398;&#12354;&#12427; UX &#12434;&#30906;&#20445;&#12377;&#12427;&#12383;&#12417;&#12395;, RP &#12399;&#29305;&#23450;&#12398;&#35328;&#35486;&#12391; <samp>purpose</samp> &#12434;&#36865;&#20449;&#12375;, <samp>ui_locales</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12434;&#20351;&#29992;&#12375;&#12390;&#21516;&#12376;&#35328;&#35486;&#12434;&#20351;&#29992;&#12377;&#12427;&#12424;&#12358; OP &#12395;&#35201;&#27714;&#12377;&#12427;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356; (MAY).</p>
+<p><samp>purpose</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12364;&#12522;&#12463;&#12456;&#12473;&#12488;&#12395;&#23384;&#22312;&#12375;&#12394;&#12356;&#22580;&#21512;, OP &#12399; RP &#12372;&#12392;&#12395;&#20107;&#21069;&#35373;&#23450;&#12373;&#12428;&#12383;&#20516;&#12434;&#34920;&#31034;&#12391;&#12365;&#12427; (MAY).</p>
+<p id="rfc.section.8.p.6">&#27880;: &#12452;&#12531;&#12472;&#12455;&#12463;&#12471;&#12519;&#12531;&#25915;&#25731;&#12434;&#38450;&#12368;&#12383;&#12417;&#12395;, OP &#12399;&#12518;&#12540;&#12470;&#12540;&#12452;&#12531;&#12479;&#12540;&#12501;&#12455;&#12452;&#12473;&#12395;&#34920;&#31034;&#12373;&#12428;&#12427;&#21069;&#12395;&#12486;&#12461;&#12473;&#12488;&#12434;&#36969;&#20999;&#12395;&#12456;&#12473;&#12465;&#12540;&#12503;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).  OP &#12399;, RP &#12395;&#12424;&#12387;&#12390;&#25552;&#20379;&#12373;&#12428;&#12383; URL &#12487;&#12467;&#12540;&#12489;&#12373;&#12428;&#12383; purpose &#12486;&#12461;&#12473;&#12488;&#20013;&#12395;&#29305;&#27530;&#25991;&#23383;&#12434;&#20104;&#26399;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST). OP &#12399;, purpose &#12486;&#12461;&#12473;&#12488;&#20869;&#12398;&#29305;&#27530;&#25991;&#23383;&#12434;&#20351;&#29992;&#12375;&#12390;, OP &#12398; Web &#12452;&#12531;&#12479;&#12540;&#12501;&#12455;&#12452;&#12473;&#12395;&#12467;&#12540;&#12489;&#12434;&#12452;&#12531;&#12472;&#12455;&#12463;&#12488; (&#20363;: &#12463;&#12525;&#12473;&#12469;&#12452;&#12488;&#12473;&#12463;&#12522;&#12503;&#12486;&#12451;&#12531;&#12464;, &#25913;&#12374;&#12435;&#12394;&#12393;) &#20986;&#26469;&#12394;&#12356;&#12424;&#12358;&#12395;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).  OP &#12399;&#36969;&#20999;&#12394;&#12456;&#12473;&#12465;&#12540;&#12503;&#12434;&#36969;&#29992;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST). OP &#12399;, &#12371;&#12398;&#30446;&#30340;&#12398;&#12383;&#12417;&#12395; purpose &#12486;&#12461;&#12473;&#12488;&#12363;&#12425;&#25991;&#23383;&#12434;&#21066;&#38500;&#12375;&#12390;&#12399;&#12394;&#12425;&#12394;&#12356; (SHALL NOT).</p>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> <a href="#Privacy" id="Privacy">Privacy Consideration</a>
+</h1>
+<p id="rfc.section.9.p.1">OP and RP MUST establish a legal basis before exchanging any personally identifiable information. It can be established upfront or in the course of the OpenID process.</p>
+<h1 id="rfc.section.10">
+<a href="#rfc.section.10">10.</a> <a href="#Security" id="Security">Security Considerations</a>
+</h1>
+<p id="rfc.section.10.p.1">The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.</p>
+<p id="rfc.section.10.p.2">The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.</p>
+<h1 id="rfc.section.11">
+<a href="#rfc.section.11">11.</a> <a href="#predefined_values" id="predefined_values">Predefined Values</a>
+</h1>
+<h1 id="rfc.section.11.1">
+<a href="#rfc.section.11.1">11.1.</a> <a href="#predefined_values_tf" id="predefined_values_tf">Trust Frameworks</a>
+</h1>
+<p id="rfc.section.11.1.p.1">This section defines trust framework identifiers for use with this specification.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Identifier</th>
+<th class="left">Definition</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">de_aml</td>
+<td class="left">The OP verifies and maintains user identities in conforms with the German Anti-Money Laundering Law.</td>
+</tr>
+<tr>
+<td class="left">eidas_ial_substantial</td>
+<td class="left">The OP is able to attest user identities in accordance with the EU regulation No 910/2014 (eIDAS) at the identitfication assurance level "Substantial".</td>
+</tr>
+<tr>
+<td class="left">eidas_ial_high</td>
+<td class="left">The OP is able to attest user identities in accordance with the EU regulation No 910/2014 (eIDAS) at the identitfication assurance level "High".</td>
+</tr>
+<tr>
+<td class="left">nist_800_63A_ial_2</td>
+<td class="left">The OP is able to attest user identities in accordance with the NIST Special Publication 800-63A at the Identity Assurance Level 2.</td>
+</tr>
+<tr>
+<td class="left">nist_800_63A_ial_3</td>
+<td class="left">The OP is able to attest user identities in accordance with the NIST Special Publication 800-63A at the Identity Assurance Level 3.</td>
+</tr>
+<tr>
+<td class="left">jp_aml</td>
+<td class="left">The OP verifies and maintains user identities in conforms with the Japanese Act on Prevention of Transfer of Criminal Proceeds.</td>
+</tr>
+<tr>
+<td class="left">jp_mpiupa</td>
+<td class="left">The OP verifies and maintains user identities in conformance with the Japanese Act for Identification, etc. by Mobile Voice Communications Carriers of Their Subscribers, etc. and for Prevention of Improper Use of Mobile Voice Communications Services.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.11.2">
+<a href="#rfc.section.11.2">11.2.</a> <a href="#predefined_values_idd" id="predefined_values_idd">Identity Documents</a>
+</h1>
+<p id="rfc.section.11.2.p.1">This section defines identity document identifiers for use with this specification.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Identifier</th>
+<th class="left">Definition</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">idcard</td>
+<td class="left">An identity document issued by a country's government for the purpose of identifying a citizen.</td>
+</tr>
+<tr>
+<td class="left">passport</td>
+<td class="left">A passport is a travel document, usually issued by a country's government, that certifies the identity and nationality of its holder primarily for the purpose of international travel.<a href="#OxfordPassport" class="xref">[OxfordPassport]</a>
+</td>
+</tr>
+<tr>
+<td class="left">driving_permit</td>
+<td class="left">Official document permitting an individual to operate motorized vehicles. In the absence of a formal identity document, a driver's license may be accepted in many countries for identity verification.</td>
+</tr>
+<tr>
+<td class="left">de_idcard_foreigners</td>
+<td class="left">ID Card issued by the German government to foreign nationals.</td>
+</tr>
+<tr>
+<td class="left">de_emergency_idcard</td>
+<td class="left">ID Card issued by the German government to foreign nationals as passports replacement</td>
+</tr>
+<tr>
+<td class="left">de_erp</td>
+<td class="left">Electronic Resident Permit issued by the German government to foreign nationals</td>
+</tr>
+<tr>
+<td class="left">de_erp_replacement_idcard</td>
+<td class="left">Electronic Resident Permit issued by the German government to foreign nationals as replacement for another identity document</td>
+</tr>
+<tr>
+<td class="left">de_idcard_refugees</td>
+<td class="left">ID Card issued by the German government to refugees as passports replacement</td>
+</tr>
+<tr>
+<td class="left">de_idcard_apatrids</td>
+<td class="left">ID Card issued by the German government to apatrids as passports replacement</td>
+</tr>
+<tr>
+<td class="left">de_certificate_of_suspension_of_deportation</td>
+<td class="left">identity document issued to refugees in case of suspension of deportation that are marked as "id card replacement"</td>
+</tr>
+<tr>
+<td class="left">de_permission_to_reside</td>
+<td class="left">permission to reside issued by the German governed to foreign nationals appliying for asylum</td>
+</tr>
+<tr>
+<td class="left">de_replacement_idcard</td>
+<td class="left">ID Card replacement document issued by the German government to foreign nationals (see Act on the Residence, Economic Activity and Integration of Foreigners in the Federal Territory, Residence Act, Appendix D1 ID Card replacement according to &#167; 48 Abs. 2 i.V.m. &#167; 78a Abs. 4)</td>
+</tr>
+<tr>
+<td class="left">jp_drivers_license</td>
+<td class="left">Japanese drivers license</td>
+</tr>
+<tr>
+<td class="left">jp_residency_card_for_foreigner</td>
+<td class="left">Japanese residence card for foreigners.</td>
+</tr>
+<tr>
+<td class="left">jp_individual_number_card</td>
+<td class="left">Japanese national id card.</td>
+</tr>
+<tr>
+<td class="left">jp_permanent_residency_card_for_foreigner</td>
+<td class="left">Japanese special residency card for foreigners to permit permanently resident.</td>
+</tr>
+<tr>
+<td class="left">jp_health_insurance_card</td>
+<td class="left">Japanese health and insurance card.</td>
+</tr>
+<tr>
+<td class="left">jp_residency_card</td>
+<td class="left">Japanese residency card</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.11.3">
+<a href="#rfc.section.11.3">11.3.</a> <a href="#predefined_values_vm" id="predefined_values_vm">Verification Methods</a>
+</h1>
+<p id="rfc.section.11.3.p.1">This section defines verification method identifiers for use with this specification.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Identifier</th>
+<th class="left">Definition</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">pipp</td>
+<td class="left">Physical In-Person Proofing</td>
+</tr>
+<tr>
+<td class="left">sripp</td>
+<td class="left">Supervised remote In-Person Proofing</td>
+</tr>
+<tr>
+<td class="left">eid</td>
+<td class="left">Online verification of an electronic ID card</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.12">
+<a href="#rfc.section.12">12.</a> <a href="#json_schema" id="json_schema">JSON Schema</a>
+</h1>
+<p id="rfc.section.12.p.1">This section contains the JSON Schema of assertions containing the <samp>verified_claims</samp> claim.</p>
+<pre>{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions":{
+    "qes":{
+      "type":"object",
+      "properties":{
+        "type":{
+          "type":"string",
+          "enum":[
+            "qes"
+          ]
+        },
+        "issuer":{
+          "type":"string"
+        },
+        "serial_number":{
+          "type":"string"
+        },
+        "created_at":{
+          "type":"string",
+          "format":"date"
+        }
+      },
+      "required": ["type","issuer","serial_number","issued_at"]
+    },
+    "utility_bill":{
+      "type":"object",
+      "properties":{
+        "type":{
+          "type":"string",
+          "enum":[
+            "utility_bill"
+          ]
+        },
+        "provider":{
+          "type":"object",
+          "properties":{
+            "name":{
+              "type":"string"
+            },
+            "country":{
+              "type":"string"
+            },
+            "region":{
+              "type":"string"
+            },
+            "street_address":{
+              "type":"string"
+            }
+          }
+        },
+        "date":{
+          "type":"string"
+        }
+      },
+      "required": ["type","provider","date"]
+    },
+    "id_document":{
+      "type":"object",
+      "properties":{
+        "type":{
+          "type":"string",
+          "enum":[
+            "id_document"
+          ]
+        },
+        "method":{
+          "type":"string",
+          "enum":["pipp","sripp","eid"]
+        },
+        "verifier":{
+          "type":"object",
+          "properties":{
+            "organization":{
+              "type":"string"
+            },
+            "txn":{
+              "type":"string"
+            }
+          }
+        },
+        "time":{
+              "type":"string",
+              "format":"time"
+        },
+        "document":{
+          "type":"object",
+          "properties":{
+            "type":{
+              "type":"string",
+              "enum":[
+                "idcard",
+                "passport",
+                "driving_permit",
+                "de_idcard_foreigners",
+                "de_emergency_idcard",
+                "de_erp",
+                "de_erp_replacement_idcard",
+                "de_idcard_refugees",
+                "de_idcard_apatrids",
+                "de_certificate_of_suspension_of_deportation",
+                "de_permission_to_reside",
+                "de_replacement_idcard",
+                "jp_drivers_license",
+                "jp_residency_card_for_foreigner",
+                "jp_individual_number_card",
+                "jp_permanent_residency_card_for_foreigner",
+                "jp_health_insurance_card",
+                "jp_residency_card"
+              ]
+            },
+            "number":{
+              "type":"string"
+            },
+            "issuer":{
+              "type":"object",
+              "properties":{
+                "name":{
+                  "type":"string"
+                },
+                "country":{
+                  "type":"string"
+                }
+              }
+            },
+            "date_of_issuance":{
+              "type":"string",
+              "format":"date"
+            },
+            "date_of_expiry":{
+              "type":"string",
+              "format":"date"
+            }
+          }
+        }
+      },
+      "required":[
+        "type",
+        "method",
+        "document"
+      ]
+    }
+  },
+  "type":"object",
+  "properties":{
+    "verified_claims":{
+      "type":"object",
+      "properties":{
+        "verification":{
+          "type":"object",
+          "properties":{
+            "trust_framework":{
+              "type":"string",
+              "enum":[
+                "de_aml",
+                "eidas_ial_substantial",
+                "eidas_ial_hig",
+                "nist_800_63A_ial_2",
+                "nist_800_63A_ial_3",
+                "jp_aml",
+                "jp_mpiupa"
+              ]
+            },
+            "time":{
+              "type":"string",
+              "format":"time"
+            },
+            "verification_process":{
+              "type":"string"
+            },
+            "evidence":{
+              "type":"array",
+              "minItems": 1,
+              "items":{
+                "oneOf":[
+                  {
+                    "$ref":"#/definitions/id_document"
+                  },
+                  {
+                    "$ref":"#/definitions/utility_bill"
+                  },
+                  {
+                    "$ref":"#/definitions/qes"
+                  }
+                ]
+              }
+            }
+          },
+          "required":["trust_framework"],
+          "additionalProperties": false
+        },
+        "claims":{
+          "type":"object",
+          "minProperties": 1
+        }
+      },
+      "required":["verification","claims"],
+      "additionalProperties": false
+    },
+    "txn": {"type": "string"}
+  },
+  "required":["verified_claims"]
+}
+</pre>
+<h1 id="rfc.references">
+<a href="#rfc.references">13.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">13.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="ICAO-Doc9303">[ICAO-Doc9303]</b></td>
+<td class="top">
+<a title="INTERNATIONAL CIVIL AVIATION ORGANIZATION">ORGANIZATION, I. C. A.</a>, "<a href="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</a>", 2015.</td>
+</tr>
+<tr>
+<td class="reference"><b id="ISO3166-1">[ISO3166-1]</b></td>
+<td class="top">
+<a title="International Organization for Standardization">Standardization, I. O. F.</a>, "<a href="https://www.iso.org/standard/63545.html">ISO 3166-1:1997. Codes for the representation of names of countries and their subdivisions -- Part 1: Country codes</a>", 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="ISO3166-3">[ISO3166-3]</b></td>
+<td class="top">
+<a title="International Organization for Standardization">Standardization, I. O. F.</a>, "<a href="https://www.iso.org/standard/63547.html">ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</a>", 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="OpenID">[OpenID]</b></td>
+<td class="top">
+<a title="NRI">Sakimura, N.</a>, <a title="Ping Identity">Bradley, J.</a>, <a title="Microsoft">Jones, M.</a>, <a title="Google">de Medeiros, B.</a> and <a title="Salesforce">C. Mortimore</a>, "<a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</a>", Nov 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="OpenID-Discovery">[OpenID-Discovery]</b></td>
+<td class="top">
+<a title="NRI">Sakimura, N.</a>, <a title="Ping Identity">Bradley, J.</a>, <a title="Google">de Medeiros, B.</a> and <a title="Illumila">E. Jay</a>, "<a href="https://openid.net/specs/openid-connect-discovery-1_0.html">OpenID Connect Discovery 1.0 incorporating errata set 1</a>", Nov 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8417">[RFC8417]</b></td>
+<td class="top">
+<a>Hunt, P.</a>, <a>Jones, M.</a>, <a>Denniss, W.</a> and <a>M. Ansari</a>, "<a href="https://tools.ietf.org/html/rfc8417">Security Event Token (SET)</a>", RFC 8417, DOI 10.17487/RFC8417, July 2018.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">13.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="eIDAS">[eIDAS]</b></td>
+<td class="top">
+<a>European Parliament</a>, "<a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</a>", July 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-oauth-jwt-introspection-response">[I-D.ietf-oauth-jwt-introspection-response]</b></td>
+<td class="top">
+<a>Lodderstedt, T.</a> and <a>V. Dzhuvinov</a>, "<a href="https://tools.ietf.org/html/draft-ietf-oauth-jwt-introspection-response-08">JWT Response for OAuth Token Introspection</a>", Internet-Draft draft-ietf-oauth-jwt-introspection-response-08, September 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="NIST-SP-800-63a">[NIST-SP-800-63a]</b></td>
+<td class="top">
+<a title="NIST">Grassi, P. A.</a>, <a title="Altmode Networks">Fentony, James.</a>, <a title="NIST">Lefkovitz, Naomi.</a>, <a title="Department of Homeland Security">Danker, Jamie.</a>, <a title="NIST">Choong, Yee-Yin.</a>, <a title="NIST">Greene, Kristen.</a> and <a title="NIST">Mary. Theofanos</a>, "<a href="https://doi.org/10.6028/NIST.SP.800-63a">NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</a>", June 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="OxfordPassport">[OxfordPassport]</b></td>
+<td class="top">
+<a>Cane, P.</a> and <a>Mary. Conaghan</a>, "<a href="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">The New Oxford Companion to Law. ISBN 9780199290543.</a>", 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7662">[RFC7662]</b></td>
+<td class="top">
+<a>Richer, J.</a>, "<a href="https://tools.ietf.org/html/rfc7662">OAuth 2.0 Token Introspection</a>", RFC 7662, DOI 10.17487/RFC7662, October 2015.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.3">
+<a href="#rfc.references.3">13.3.</a> &#32763;&#35379;&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="oidfj">[oidfj]</b></td>
+<td class="top">
+<a title="OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;">OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;</a>, "<a href="https://www.openid.or.jp">OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;</a>"</td>
+</tr>
+<tr>
+<td class="reference"><b id="oidfj-github">[oidfj-github]</b></td>
+<td class="top">
+<a>OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;</a>, "<a href="https://github.com/openid-foundation-japan">Github&#12524;&#12509;&#12472;&#12488;&#12522;&#12540;</a>"</td>
+</tr>
+<tr>
+<td class="reference"><b id="oidfj-kycwg">[oidfj-kycwg]</b></td>
+<td class="top">
+<a title="OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;">OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;</a>, "<a href="https://www.openid.or.jp">KYC&#12527;&#12540;&#12461;&#12531;&#12464;&#12464;&#12523;&#12540;&#12503;</a>"</td>
+</tr>
+<tr>
+<td class="reference"><b id="oidfj-trans">[oidfj-trans]</b></td>
+<td class="top">
+<a title="OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;">OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531;</a>, "<a href="http://openid-foundation-japan.github.com/">&#32763;&#35379;&#12539;&#25945;&#32946;&#12527;&#12540;&#12461;&#12531;&#12464;&#12464;&#12523;&#12540;&#12503;</a>"</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#Acknowledgements" id="Acknowledgements">Acknowledgements</a>
+</h1>
+<p id="rfc.section.A.p.1">The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.</p>
+<p id="rfc.section.A.p.2">I would like to thank Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to evolve this specification.</p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#notices" id="notices">Notices</a>
+</h1>
+<p id="rfc.section.B.p.1">Copyright (c) 2019 The OpenID Foundation.</p>
+<p id="rfc.section.B.p.2">The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.</p>
+<p id="rfc.section.B.p.3">The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.</p>
+<h1 id="rfc.appendix.C">
+<a href="#rfc.appendix.C">Appendix C.</a> <a href="#document-history" id="document-history">Document History</a>
+</h1>
+<p id="rfc.section.C.p.1">[[ To be removed from the final specification ]]</p>
+<p id="rfc.section.C.p.2">-07</p>
+<p></p>
+
+<ul>
+<li>fixed typos</li>
+<li>changed <samp>nationality</samp> String claim to <samp>nationalities</samp> String array claim</li>
+<li>replaced <samp>agent</samp> in id_document verifier element by <samp>txn</samp> element</li>
+<li>qes method: fixed error in description of <samp>issuer</samp>
+</li>
+<li>qes method: changed <samp>issued_at</samp> to <samp>created_at</samp> since this field applies to the signature (that is created and not issued)</li>
+<li>Changed format of <samp>nationalities</samp> and issuing <samp>country</samp> to ICAO codes</li>
+<li>Changed <samp>date</samp> in verification element to <samp>time</samp>
+</li>
+<li>Added Japanese trust frameworks to pre-defined values</li>
+<li>Added Japanese id documents to pre-defined values</li>
+<li>adapted JSON schema and examples</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.C.p.4">-06</p>
+<p></p>
+
+<ul>
+<li>Incorporated review feedback by Marcos Sanz and Adam Cooper</li>
+<li>Added text on integrity, authenticity, and confidentiality for data passed between OP and RP to Security Considerations section</li>
+<li>added <samp>purpose</samp> field to <samp>claims</samp> parameter</li>
+<li>added feature to let the RP explicitly requested certain <samp>verification</samp> data</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.C.p.6">-05</p>
+<p></p>
+
+<ul>
+<li>incorporated review feedback by Mike Jones</li>
+<li>Added OIDF Copyright Notices</li>
+<li>Moved Acknowledgements to Appendix A</li>
+<li>Removed RFC 2119 keywords from scope &amp; requirements section and rephrased section</li>
+<li>rephrased introduction</li>
+<li>replaced <samp>birth_name</samp> with <samp>birth_family_name</samp>, <samp>birth_given_name</samp>, and <samp>birth_middle_name</samp>
+</li>
+<li>replaced <samp>transaction_id</samp> with <samp>txn</samp> from RFC 8417</li>
+<li>added references to eIDAS, ISO 3166-1, ISO 3166-3, and ISO 8601-2004</li>
+<li>added note on <samp>purpose</samp> and locales</li>
+<li>changed file name and document title to include 1.0 version id</li>
+<li>corrected evidence plural</li>
+<li>lots of editorial fixes</li>
+<li>Alignment with OpenID Connect Core wording</li>
+<li>Renamed <samp>id</samp> to <samp>verification_process</samp>
+</li>
+<li>Renamed <samp>verified_person_data</samp> to <samp>verified_claims</samp>
+</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.C.p.8">-04</p>
+<p></p>
+
+<ul><li>incorporated review feedback by Marcos Sanz</li></ul>
+
+<p> </p>
+<p id="rfc.section.C.p.10">-03</p>
+<p></p>
+
+<ul>
+<li>enhanced draft to support multiple evidence</li>
+<li>added a JSON Schema for assertions containing the <samp>verified_person_data</samp> Claim</li>
+<li>added more identity document definitions</li>
+<li>added <samp>region</samp> field to <samp>place_of_birth</samp> Claim</li>
+<li>changed <samp>eidas_loa_substantial/high</samp> to <samp>eidas_ial_substantial/high</samp>
+</li>
+<li>fixed typos in examples</li>
+<li>uppercased all editorial occurences of the term <samp>claims</samp> to align with OpenID Connect Core</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.C.p.12">-02</p>
+<p></p>
+
+<ul>
+<li>added new request parameter <samp>purpose</samp>
+</li>
+<li>simplified/reduced number of verification methods</li>
+<li>simplfied identifiers</li>
+<li>added <samp>identity_documents_supported</samp> to metadata section</li>
+<li>improved examples</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.C.p.14">-01</p>
+<p></p>
+
+<ul>
+<li>fixed some typos</li>
+<li>remove organization element (redundant) (issue 1080)</li>
+<li>allow other Claims about the End-User in the <samp>claims</samp> sub element (issue 1079)</li>
+<li>changed <samp>legal_context</samp> to <samp>trust_framework</samp>
+</li>
+<li>added explanation how the content of the verification element is determined by the trust framework</li>
+<li>added URI-based identifiers for <samp>trust_framework</samp>, <samp>identity_document</samp> and (verification) <samp>method</samp>
+</li>
+<li>added example attestation for notified/regulated eID system</li>
+<li>adopted OP metadata section accordingly</li>
+<li>changed error behavior for <samp>max_age</samp> member to alig with OpenID Core</li>
+<li>Added feature to let the RP express requirements for verification data (trust framework, identity documents, verification method)</li>
+<li>Added privacy consideration section and added text on legal basis for data exchange</li>
+<li>Added explanation about regulated and un-regulated eID systems</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.C.p.16">-00 (WG document)</p>
+<p></p>
+
+<ul>
+<li>turned the proposal into a WG document</li>
+<li>changed name</li>
+<li>added terminology section and reworked introduction</li>
+<li>added several examples (ID Token vs UserInfo, unverified &amp; verified claims, aggregated &amp; distributed claims)</li>
+<li>incorporated text proposal of Marcos Sanz regarding max_age</li>
+<li>added IANA registration for new error code <samp>unable_to_meet_requirement</samp>
+</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.D">
+<a href="#rfc.appendix.D">Appendix D.</a> <a href="#translator" id="translator">&#32763;&#35379;&#32773;</a>
+</h1>
+<p id="rfc.section.D.p.1">&#26412;&#20181;&#27096;&#12398;&#32763;&#35379;&#12399;, OpenID&#12501;&#12449;&#12454;&#12531;&#12487;&#12540;&#12471;&#12519;&#12531;&#12472;&#12515;&#12497;&#12531; <a href="#oidfj" class="xref">[oidfj]</a> KYC&#12527;&#12540;&#12461;&#12531;&#12464;&#12464;&#12523;&#12540;&#12503;<a href="#oidfj-kycwg" class="xref">[oidfj-kycwg]</a>, &#32763;&#35379;&#12539;&#25945;&#32946;&#12527;&#12540;&#12461;&#12531;&#12464;&#12464;&#12523;&#12540;&#12503; <a href="#oidfj-trans" class="xref">[oidfj-trans]</a> &#12434;&#20027;&#20307;&#12392;&#12375;&#12390;, &#26377;&#24535;&#12398;&#12513;&#12531;&#12496;&#12540;&#12395;&#12424;&#12387;&#12390;&#34892;&#12431;&#12428;&#12414;&#12375;&#12383;.  &#36074;&#21839;&#12420;&#20462;&#27491;&#20381;&#38972;&#12394;&#12393;&#12395;&#12388;&#12356;&#12390;&#12399;, Github&#12524;&#12509;&#12472;&#12488;&#12522;&#12540; <a href="#oidfj-github" class="xref">[oidfj-github]</a>&#12395;&#12372;&#36899;&#32097;&#12367;&#12384;&#12373;&#12356;.</p>
+<p></p>
+
+<ul>
+<li>Muneomi Sakuta (SoftBank Corp.)</li>
+<li>Yuu Kikuchi (OPTiM Corp.)</li>
+<li>Nov Matake (YAuth.jp)</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Torsten Lodderstedt</span> 
+	  <span class="n hidden">
+		<span class="family-name">Lodderstedt</span>
+	  </span>
+	</span>
+	<span class="org vcardline">yes.com</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:torsten@lodderstedt.net">torsten@lodderstedt.net</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Daniel Fett</span> 
+	  <span class="n hidden">
+		<span class="family-name">Fett</span>
+	  </span>
+	</span>
+	<span class="org vcardline">yes.com</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:mail@danielfett.de">mail@danielfett.de</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>

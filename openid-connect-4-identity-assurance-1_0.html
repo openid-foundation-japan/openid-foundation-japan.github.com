@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -53,7 +53,7 @@
 	  font-family: verdana, helvetica, arial, sans-serif;
 	  font-size: 10pt;
 	  max-width: 55em;
-	  
+
 	  }
 	  cite {
 	  font-style: normal;
@@ -64,7 +64,7 @@
 	  dl {
 	  margin-left: 2em;
 	  }
-	
+
 	  ul.empty {
 	  list-style-type: none;
 	  }
@@ -193,7 +193,7 @@
 	  font-size: 9pt;
 	  margin-top: .5em;
 	  }
-	
+
 	  table.header {
 	  border-spacing: 1px;
 	  width: 95%;
@@ -205,7 +205,7 @@
 	  }
 	  td.topnowrap {
 	  vertical-align: top;
-	  white-space: nowrap; 
+	  white-space: nowrap;
 	  }
 	  table.header td {
 	  background-color: gray;
@@ -248,7 +248,7 @@
 	  ul p {
 	  margin-left: 0em;
 	  }
-	
+
 	  .comment {
 	  background-color: yellow;
 	  }
@@ -299,22 +299,22 @@
 	  font-size: 14pt;
 	  background-color: yellow;
 	  }
-	
-	
+
+
 	  @media print {
 	  .noprint {
 		display: none;
 	  }
-	
+
 	  a {
 		color: black;
 		text-decoration: none;
 	  }
-	
+
 	  table.header {
 		width: 90%;
 	  }
-	
+
 	  td.header {
 		width: 50%;
 		color: black;
@@ -322,44 +322,44 @@
 		vertical-align: top;
 		font-size: 12pt;
 	  }
-	
+
 	  ul.toc a::after {
 		content: leader('.') target-counter(attr(href), page);
 	  }
-	
+
 	  ul.ind li li a {
 		content: target-counter(attr(href), page);
 	  }
-	
+
 	  .print2col {
 		column-count: 2;
 		-moz-column-count: 2;
 		column-fill: auto;
 	  }
 	  }
-	
+
 	  @page {
 	  @top-left {
-		   content: "Internet-Draft"; 
-	  } 
+		   content: "Internet-Draft";
+	  }
 	  @top-right {
-		   content: "December 2010"; 
-	  } 
+		   content: "December 2010";
+	  }
 	  @top-center {
 		   content: "Abbreviated Title";
-	  } 
-	  @bottom-left {
-		   content: "Doe"; 
-	  } 
-	  @bottom-center {
-		   content: "Expires June 2011"; 
-	  } 
-	  @bottom-right {
-		   content: "[Page " counter(page) "]"; 
-	  } 
 	  }
-	
-	  @page:first { 
+	  @bottom-left {
+		   content: "Doe";
+	  }
+	  @bottom-center {
+		   content: "Expires June 2011";
+	  }
+	  @bottom-right {
+		   content: "[Page " counter(page) "]";
+	  }
+	  }
+
+	  @page:first {
 		@top-left {
 		  content: normal;
 		}
@@ -435,7 +435,7 @@
 
   <table class="header">
     <tbody>
-    
+
     	<tr>
 <td class="left">connect</td>
 <td class="right">T. Lodderstedt</td>
@@ -453,13 +453,13 @@
 <td class="right">August 15, 2019</td>
 </tr>
 
-    	
+
     </tbody>
   </table>
 
   <p class="title">OpenID Connect for Identity Assurance 1.0<br />
   <span class="filename">openid-connect-4-identity-assurance-1_0-07</span></p>
-  
+
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
@@ -471,7 +471,7 @@
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 
-  
+
   <hr class="noprint" />
   <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
   <ul class="toc">
@@ -808,47 +808,47 @@
 <p id="rfc.section.5.1.p.1">Verified Claims &#12399; OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.5. &#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; <samp>claims</samp> parameter &#12434;&#21033;&#29992;&#12377;&#12427;&#12371;&#12392;&#12391;, End-User &#12395;&#12388;&#12356;&#12390; &#20491;&#12293;&#12398; Claims &#12398;&#12524;&#12505;&#12523;&#12391;&#35201;&#27714;&#12391;&#12365;&#12427;.</p>
 <p><samp>verified_claims</samp> &#12399; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12398; <samp>userinfo</samp> &#12363; <samp>id_token</samp> &#35201;&#32032;&#12395;&#36861;&#21152;&#12373;&#12428;&#12427;.</p>
 <p><samp>verified_claims</samp> &#12395;&#12399;&#12493;&#12473;&#12488;&#12373;&#12428;&#12383; <samp>claims</samp> &#35201;&#32032;&#12398;&#20013;&#12395; End-User &#12395;&#12388;&#12356;&#12390;&#12398;&#26377;&#21177;&#12394; Claims &#12364;&#21547;&#12414;&#12428;&#12427;&#12383;&#12417;, syntax &#12399;&#27425;&#12398;&#12424;&#12358;&#12395;&#12493;&#12473;&#12488;&#12373;&#12428;&#12383;&#35201;&#32032;&#12398;&#24335;&#12434;&#21547;&#12416;&#12424;&#12358;&#12395;&#25313;&#24373;&#12373;&#12428;&#12427;. <samp>verified_claims</samp> &#35201;&#32032;&#12399; <samp>claims</samp> &#35201;&#32032;&#12434;&#21547;&#12415;, <samp>null</samp> &#20516;&#12434;&#25345;&#12388;&#12461;&#12540;&#12392;&#12375;&#12390;&#35201;&#27714;&#12377;&#12427; Claims &#12434;&#21547;&#12416;. &#20197;&#19979;&#12395;&#20363;&#12434;&#31034;&#12377;.</p>
-<pre>{  
-   "userinfo":{  
-      "verified_claims":{  
-         "claims":{  
+<pre>{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
             "given_name":null,
             "family_name":null,
             "birthdate":null
          }
       }
-   }	
+   }
 }
 </pre>
 <p><samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12434;&#20351;&#29992;&#12377;&#12427;&#12392;, RP &#12399;&#12518;&#12540;&#12473;&#12465;&#12540;&#12473;&#12395;&#24517;&#35201;&#12394; End-User &#12395;&#38306;&#12377;&#12427; Claims &#12434;&#27491;&#30906;&#12395;&#36984;&#25246;&#12391;&#12365;&#12427;. &#12375;&#12383;&#12364;&#12387;&#12390;, &#12371;&#12398;&#25313;&#24373;&#12399; RPs &#12399;&#12487;&#12540;&#12479;&#26368;&#23567;&#21270;&#12398;&#35201;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;.</p>
 <p id="rfc.section.5.1.p.5">RPs &#12399;, OpenID Connect specification <a href="#OpenID" class="xref">[OpenID]</a> &#12398; Section 5.5.1 &#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427; <samp>essential</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#21033;&#29992;&#12377;&#12427;&#12371;&#12392;&#12395;&#12424;&#12426;, &#29305;&#23450;&#12398; Claim &#12364;&#12518;&#12540;&#12470;&#12540;&#12472;&#12515;&#12540;&#12491;&#12540;&#12398;&#27491;&#24120;&#12394;&#23436;&#20102;&#12395;&#19981;&#21487;&#27424;&#12391;&#12354;&#12427;&#12371;&#12392;&#12434;&#31034;&#12377;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;. &#27425;&#12398;&#20363;&#12391;&#12399;, &#22995;&#12392;&#21517;&#12398;&#20001;&#26041;&#12434;&#24517;&#38920;&#12392;&#12375;&#12390;&#25351;&#23450;&#12375;&#12390;&#12356;&#12427;.</p>
-<pre>{  
-   "userinfo":{  
-      "verified_claims":{  
-         "claims":{  
+<pre>{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
             "given_name":{"essential": true},
             "family_name":{"essential": true},
             "birthdate":null
          }
       }
-   }	
+   }
 }
 </pre>
 <p id="rfc.section.5.1.p.6">&#12371;&#12398;&#20181;&#27096;&#12391;&#12399;, RP &#12364;&#35201;&#27714;&#12377;&#12427;&#29305;&#23450;&#12398; End-User Claim &#12398;&#31227;&#36578;&#12398;&#30446;&#30340;&#12434;&#35500;&#26126;&#12391;&#12365;&#12427;&#12424;&#12358;&#12395;&#12377;&#12427;&#12383;&#12417;&#12395;, &#36861;&#21152;&#12398;&#12501;&#12451;&#12540;&#12523;&#12489; <samp>purpose</samp> &#12434;&#23566;&#20837;&#12377;&#12427;.  <samp>purpose</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12399;, &#20491;&#12293;&#12395;&#35201;&#27714;&#12373;&#12428;&#12383;&#21508; Claim &#12398;&#12513;&#12531;&#12496;&#12540;&#20516;&#12395;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427;&#12364;, 1&#12388;&#12398; Claim &#12395;&#12399;&#35079;&#25968;&#12398;&#38306;&#36899;&#12377;&#12427;&#30446;&#30340;&#12434;&#21547;&#12417;&#12427;&#12371;&#12392;&#12399;&#12391;&#12365;&#12394;&#12356;.</p>
 <p><samp>purpose</samp> OPTIONAL. OP &#12363;&#12425;&#29305;&#23450;&#12398; End-User Claim &#12434;&#21462;&#24471;&#12377;&#12427;&#30446;&#30340;&#12434;&#35500;&#26126;&#12377;&#12427;&#25991;&#23383;&#21015;. <samp>purpose</samp> &#12399; 3 &#25991;&#23383;&#26410;&#28288;&#12363; 300 &#25991;&#23383;&#20197;&#19978;&#12392;&#12394;&#12387;&#12390;&#12399;&#12394;&#12425;&#12394;&#12356; (MUST NOT).  &#12418;&#12375;&#12371;&#12398;&#12523;&#12540;&#12523;&#12395;&#36949;&#21453;&#12375;&#12383;&#22580;&#21512;, authentication request &#12399;&#22833;&#25943;&#12375;, OP &#12399; <samp>invalid_request</samp> &#12456;&#12521;&#12540;&#12434; RP &#12395;&#12395;&#36820;&#12373;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).  &#31227;&#36578;&#12373;&#12428;&#12427;&#12487;&#12540;&#12479;&#12398;&#21033;&#29992;&#30446;&#30340;&#12420;&#25215;&#35469;&#12375;&#12424;&#12358;&#12392;&#12375;&#12390;&#12356;&#12427;&#35469;&#21487;&#20869;&#23481;&#12434;&#12518;&#12540;&#12470;&#12540;&#12395;&#26126;&#31034;&#12377;&#12427;&#12383;&#12417;, OP &#12399;&#21508;&#21516;&#24847;&#30011;&#38754;&#12395;&#12371;&#12398; purpose &#12434;&#34920;&#31034;&#12375;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356; (MUST).  <samp>purpose</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12364;&#12522;&#12463;&#12456;&#12473;&#12488;&#12395;&#23384;&#22312;&#12375;&#12394;&#12356;&#22580;&#21512;, OP &#12399; RP &#12372;&#12392;&#12395;&#20107;&#21069;&#35373;&#23450;&#12373;&#12428;&#12383;&#20516;&#12434;&#34920;&#31034;&#12391;&#12365;&#12427; (MAY).  UI &#12525;&#12540;&#12459;&#12522;&#12476;&#12540;&#12471;&#12519;&#12531;&#12398;&#35443;&#32048;&#12395;&#12388;&#12356;&#12390;&#12399;, <a href="#purpose" class="xref">Section 8</a> &#21442;&#29031;.</p>
 <p id="rfc.section.5.1.p.8">&#20363;:</p>
-<pre>{  
-   "userinfo":{  
-      "verified_claims":{  
-         "claims":{  
-            "given_name":{  
+<pre>{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
+            "given_name":{
                "essential":true,
                "purpose":"To make communication look more personal"
             },
-            "family_name":{  
+            "family_name":{
                "essential":true
             },
-            "birthdate":{  
+            "birthdate":{
                "purpose":"To send you best wishes on your birthday"
             }
          }
@@ -857,12 +857,12 @@
 }
 </pre>
 <p id="rfc.section.5.1.p.9">&#27880;: &#20516;&#12364; <samp>null</samp> &#12398; <samp>claims</samp> &#12469;&#12502;&#35201;&#32032;&#12399;, &#32771;&#12360;&#12425;&#12428;&#12427;&#12377;&#12409;&#12390;&#12398; Claims &#12395;&#23550;&#12377;&#12427;&#12522;&#12463;&#12456;&#12473;&#12488;&#12392;&#12375;&#12390;&#35299;&#37320;&#12373;&#12428;&#12427;. &#20197;&#19979;&#12395;&#20363;&#12434;&#31034;&#12377;:</p>
-<pre>{  
-   "userinfo":{  
-      "verified_claims":{  
+<pre>{
+   "userinfo":{
+      "verified_claims":{
          "claims":null
       }
-   }	
+   }
 }
 </pre>
 <p id="rfc.section.5.1.p.10">&#27880;: <samp>claims</samp> &#12469;&#12502;&#35201;&#32032;&#12399;&#30465;&#30053;&#12391;&#12365;, &#12371;&#12428;&#12399;, &#20516;&#12364; <samp>null</samp> &#12391;&#12354;&#12427; <samp>claims</samp> &#35201;&#32032;&#12392;&#21516;&#31561;&#12391;&#12354;&#12427;.</p>
@@ -873,9 +873,9 @@
 <p><samp>verification</samp> &#35201;&#32032;&#20869;&#23481;&#12399;, &#22522;&#26412;&#30340;&#12395;&#12381;&#12428;&#12382;&#12428;&#12398; <samp>trust_framework</samp> &#12392; Claim source &#12398;&#12509;&#12522;&#12471;&#12540;&#12395;&#12424;&#12387;&#12390;&#27770;&#23450;&#12373;&#12428;&#12427;.</p>
 <p id="rfc.section.5.2.p.2">&#12371;&#12398;&#20181;&#27096;&#12399; RP &#12364;&#29305;&#23450;&#12398;&#12487;&#12540;&#12479;&#12434; <samp>verification</samp> &#35201;&#32032;&#12395;&#26126;&#31034;&#30340;&#12395;&#35201;&#27714;&#12377;&#12427;&#26041;&#27861;&#12418;&#23450;&#32681;&#12377;&#12427;. &#27083;&#25991;&#12399; <a href="#req_claims" class="xref">Section 5.1</a> &#12391;&#25351;&#23450;&#12373;&#12428;&#12383;&#12523;&#12540;&#12523;&#12395;&#22522;&#12389;&#12356;&#12390;&#12362;&#12426;, <samp>verification</samp> &#35201;&#32032;&#12398;&#27083;&#36896;&#12408;&#12398;&#12490;&#12499;&#12466;&#12540;&#12471;&#12519;&#12531;&#12398;&#12383;&#12417;&#12395;&#12381;&#12428;&#12425;&#12434;&#25313;&#24373;&#12377;&#12427;.</p>
 <p id="rfc.section.5.2.p.3">&#27425;&#12398;&#20363;&#12391;&#31034;&#12377;&#12424;&#12358;&#12395;, <samp>verification</samp> &#20869;&#12398;&#35201;&#32032;&#12392;&#12375;&#12390;&#12381;&#12428;&#12382;&#12428;&#12398;&#35201;&#32032;&#12434;&#36861;&#21152;&#12377;&#12427;&#12371;&#12392;&#12391;, <a href="#req_claims" class="xref">Section 5.1</a> &#12395;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12427;&#12398;&#12392;&#21516;&#12376;&#26041;&#27861;&#12391;&#12522;&#12463;&#12456;&#12473;&#12488;&#12391;&#12365;&#12427;.</p>
-<pre>{  
-   "verified_claims":{  
-      "verification":{  
+<pre>{
+   "verified_claims":{
+      "verification":{
          "date":null,
          "evidence":null
       },
@@ -886,12 +886,12 @@
 <p id="rfc.section.5.2.p.4">&#12371;&#12428;&#12399;, &#30330;&#34892;&#12373;&#12428;&#12383;&#12450;&#12469;&#12540;&#12471;&#12519;&#12531;&#12395;&#26908;&#35388;&#12398;&#26085;&#20184;&#12392;&#21033;&#29992;&#21487;&#33021;&#12394;&#35388;&#25312;&#12364;&#23384;&#22312;&#12377;&#12427;&#12371;&#12392;&#12434;&#35201;&#27714;&#12377;&#12427;.</p>
 <p id="rfc.section.5.2.p.5">&#27880;: <samp>verified_claims</samp> Claim &#12398;&#24517;&#38920;&#35201;&#32032;&#12391;&#12354;&#12427;&#12383;&#12417;, RP &#12399;&#26126;&#31034;&#30340;&#12395; <samp>trust_framework</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#35201;&#27714;&#12377;&#12427;&#24517;&#35201;&#12399;&#12394;&#12356;.</p>
 <p id="rfc.section.5.2.p.6">RP &#12399;, &#27083;&#36896;&#12434;1&#27573;&#28145;&#12367;&#25496;&#12426;&#19979;&#12370;, &#29305;&#23450;&#12398;&#12487;&#12540;&#12479;&#12364;&#12377;&#12409;&#12390;&#12398; <samp>evidence</samp> &#20869;&#12395;&#23384;&#22312;&#12377;&#12427;&#12371;&#12392;&#12434;&#35201;&#27714;&#12377;&#12427;&#22580;&#21512;&#12418;&#12354;&#12427;. result array &#20869;&#12398;&#12377;&#12409;&#12390;&#12398;&#12456;&#12531;&#12488;&#12522;&#12398;&#12503;&#12525;&#12488;&#12479;&#12452;&#12503;&#12392;&#12375;&#12390;, &#21336;&#19968;&#12398;&#12456;&#12531;&#12488;&#12522;&#12364;&#20351;&#29992;&#12373;&#12428;&#12427;.</p>
-<pre>{  
-   "verified_claims":{  
-      "verification":{  
+<pre>{
+   "verified_claims":{
+      "verification":{
          "date":null,
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "method":null,
                "document":null
             }
@@ -904,14 +904,14 @@
 <p id="rfc.section.5.2.p.7">&#12371;&#12398;&#20363;&#12391;&#12399;, &#29305;&#23450;&#12398;&#12518;&#12540;&#12470;&#12540;&#12450;&#12459;&#12454;&#12531;&#12488;&#12391;&#21033;&#29992;&#21487;&#33021;&#12394;&#12377;&#12409;&#12390;&#12398;&#35388;&#25312;&#12395;&#12388;&#12356;&#12390;, <samp>method</samp> &#35201;&#32032;&#12392; <samp>document</samp> &#35201;&#32032;&#12434;&#35201;&#27714;&#12377;&#12427;.</p>
 <p id="rfc.section.5.2.p.8">&#27880;: <samp>evidence</samp> &#12456;&#12531;&#12488;&#12522;&#12398;&#24517;&#38920;&#35201;&#32032;&#12391;&#12354;&#12427;&#12383;&#12417;, RP &#12399;&#26126;&#31034;&#30340;&#12395; <samp>type</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#35201;&#27714;&#12377;&#12427;&#24517;&#35201;&#12399;&#12394;&#12356;.</p>
 <p id="rfc.section.5.2.p.9">RP &#12399;, <samp>document</samp> &#35201;&#32032;&#20869;&#12395;&#29305;&#23450;&#12398;&#12487;&#12540;&#12479;&#12364;&#23384;&#22312;&#12377;&#12427;&#12371;&#12392;&#12434;&#35201;&#27714;&#12377;&#12427;&#22580;&#21512;&#12418;&#12354;&#12427;. &#12371;&#12428;&#12418;, &#19978;&#35352;&#12391;&#20351;&#29992;&#12375;&#12383;&#27083;&#25991;&#35215;&#21063;&#12395;&#24467;&#12358;.</p>
-<pre>{  
-   "verified_claims":{  
-      "verification":{  
+<pre>{
+   "verified_claims":{
+      "verification":{
          "date":null,
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "method":null,
-               "document":{  
+               "document":{
                   "issuer":null,
                   "number":null,
                   "date_of_issuance":null
@@ -934,24 +934,24 @@
 <p id="rfc.section.5.3.p.4">&#12371;&#12398;&#20181;&#27096;&#12399;&#12381;&#12398;&#12513;&#12459;&#12491;&#12474;&#12512;&#12434;&#20877;&#21033;&#29992;&#12375;, &#26032;&#12375;&#12356;&#12381;&#12398;&#12424;&#12358;&#12394; <samp>max_age</samp> &#12513;&#12531;&#12496;&#12540;&#12434;&#23566;&#20837;&#12377;&#12427; (&#19979;&#35352;&#21442;&#29031;).</p>
 <p id="rfc.section.5.3.p.5">&#12414;&#12378;, <samp>value</samp> &#12363; <samp>values</samp> &#12501;&#12451;&#12540;&#12523;&#12489;&#12434;&#21033;&#29992;&#12375;&#12390;, <samp>trust_framework</samp>, <samp>evidence/type</samp>, <samp>evidence/method</samp>, &#21450;&#12403; <samp>evidence/document/type</samp> &#12398;&#21033;&#29992;&#21487;&#33021;&#12394;&#20516;&#12434;&#21046;&#38480;&#12377;&#12427;&#12371;&#12392;&#12364;&#12391;&#12365;&#12427; (MAY).</p>
 <p id="rfc.section.5.3.p.6">&#27425;&#12398;&#20363;&#12399;, RP &#12364; AML(&#35379;&#27880;: Anti-Money Laundering) &#12395;&#22522;&#12389;&#12356;&#12390;, &#25919;&#24220;&#30330;&#34892;&#12398;ID&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#12434;&#20351;&#29992;&#12375;&#12390;, &#37504;&#34892;&#12398;&#25903;&#24215;&#12391;&#30452;&#25509;&#26412;&#20154;&#30906;&#35469;&#12434;&#34892;&#12387;&#12383;&#20154;&#12395;&#38480;&#23450;&#12375;&#12383;&#12518;&#12540;&#12470;&#12540;&#12398;&#35388;&#26126;&#12434;&#21462;&#24471;&#12375;&#12383;&#12356;&#12371;&#12392;&#12434;&#31034;&#12375;&#12390;&#12356;&#12427;.</p>
-<pre>{  
-   "userinfo":{  
-      "verified_claims":{  
-         "verification":{  
-            "trust_framework":{  
+<pre>{
+   "userinfo":{
+      "verified_claims":{
+         "verification":{
+            "trust_framework":{
                "value":"de_aml"
             },
-            "evidence":[  
-               {  
-                  "type":{  
+            "evidence":[
+               {
+                  "type":{
                      "value":"id_document"
                   },
-                  "method":{  
+                  "method":{
                      "value":"pipp"
                   },
-                  "document":{  
-                     "type":{  
-                        "values":[  
+                  "document":{
+                     "type":{
+                        "values":[
                            "idcard",
                            "passport"
                         ]
@@ -969,11 +969,11 @@
 <p id="rfc.section.5.3.p.8">&#12375;&#12383;&#12364;&#12387;&#12390;, &#12371;&#12398;&#20181;&#27096;&#12391;&#12399;&#26032;&#12375;&#12356;&#12513;&#12531;&#12496;&#12540; <samp>max_age</samp> &#12434;&#23450;&#32681;&#12375;&#12390;&#12356;&#12427;.</p>
 <p><samp>max_age</samp>: OPTIONAL. &#26085;&#20184;&#12414;&#12383;&#12399;&#12479;&#12452;&#12512;&#12473;&#12479;&#12531;&#12503;&#12434;&#21547;&#12416; Claims &#12395;&#12398;&#12415;&#36969;&#29992;&#21487;&#33021;&#12394; JSON &#25968;&#20516;. &#26085;&#20184;/&#12479;&#12452;&#12512;&#12473;&#12479;&#12531;&#12503;&#12398;&#20516;&#12363;&#12425;&#12522;&#12463;&#12456;&#12473;&#12488;&#12398;&#26178;&#28857;&#12414;&#12391;&#12398;&#32076;&#36942;&#12434;&#35377;&#21487;&#12377;&#12427;&#26368;&#22823;&#26178;&#38291; (&#31186;) &#12434;&#23450;&#32681;&#12377;&#12427;. OP &#12399;, &#26085;&#20184;&#20516;&#12398;&#26368;&#24460;&#12398;&#26377;&#21177;&#12394;&#31186;&#12363;&#12425;&#38283;&#22987;&#12375;&#12383;&#32076;&#36942;&#26178;&#38291;&#12398;&#35336;&#31639;&#12434;&#34892;&#12431;&#12394;&#12369;&#12428;&#12400;&#12394;&#12425;&#12394;&#12356;. &#20197;&#19979;&#12399;, &#12487;&#12540;&#12479;&#12398;&#26908;&#35388;&#12503;&#12525;&#12475;&#12473;&#12364; 63113852 &#31186;&#20197;&#21069;&#12391;&#12354;&#12427;&#12371;&#12392;&#12434;&#35469;&#12417;&#12394;&#12356; Claims &#12398;&#12522;&#12463;&#12456;&#12473;&#12488;&#12398;&#20363;&#12391;&#12354;&#12427;.</p>
 <p id="rfc.section.5.3.p.10">&#20197;&#19979;&#12395;&#20363;&#12434;&#31034;&#12377;:</p>
-<pre>{  
-   "userinfo":{  
-      "verified_claims":{  
-         "verification":{  
-            "date":{  
+<pre>{
+   "userinfo":{
+      "verified_claims":{
+         "verification":{
+            "date":{
                "max_age":63113852
             }
          },
@@ -994,19 +994,19 @@
 <h1 id="rfc.section.6.1">
 <a href="#rfc.section.6.1">6.1.</a> <a href="#id-document-1" id="id-document-1">id_document</a>
 </h1>
-<pre>{  
-   "verified_claims":{  
-      "verification":{  
+<pre>{
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "type":"idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -1017,16 +1017,16 @@
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28",
-         "place_of_birth":{  
+         "place_of_birth":{
             "country":"DE",
             "locality":"Musterstadt"
          },
          "nationality":"DE",
-         "address":{  
+         "address":{
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
@@ -1039,19 +1039,19 @@
 <h1 id="rfc.section.6.2">
 <a href="#rfc.section.6.2">6.2.</a> <a href="#id-document-utility-bill" id="id-document-utility-bill">id_document + utility bill</a>
 </h1>
-<pre>{  
-   "verified_claims":{  
-      "verification":{  
+<pre>{
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "document_type":"de_erp_replacement_idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -1060,9 +1060,9 @@
                   "date_of_expiry":"2022-04-22"
                }
             },
-            {  
+            {
                "type":"utility_bill",
-               "provider":{  
+               "provider":{
                   "name":"Stadtwerke Musterstadt",
                   "country":"DE",
                   "region":"Th&#252;ringen",
@@ -1072,16 +1072,16 @@
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28",
-         "place_of_birth":{  
+         "place_of_birth":{
             "country":"DE",
             "locality":"Musterstadt"
          },
          "nationality":"DE",
-         "address":{  
+         "address":{
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
@@ -1094,21 +1094,21 @@
 <h1 id="rfc.section.6.3">
 <a href="#rfc.section.6.3">6.3.</a> <a href="#notified-eid-system-eidas" id="notified-eid-system-eidas">Notified eID system (eIDAS)</a>
 </h1>
-<pre>{  
-   "verified_claims":{  
-      "verification":{  
+<pre>{
+   "verified_claims":{
+      "verification":{
          "trust_framework":"eidas_ial_substantial"
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28",
-         "place_of_birth":{  
+         "place_of_birth":{
             "country":"DE",
             "locality":"Musterstadt"
          },
          "nationality":"DE",
-         "address":{  
+         "address":{
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
@@ -1127,16 +1127,16 @@
 <p id="rfc.section.6.4.1.p.1">&#12371;&#12398;&#20363;&#12391;&#12399;, RP &#12399; <samp>scope</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12434; <samp>email</samp> <samp>address</samp> &#12434;&#35201;&#27714;&#12377;&#12427;&#12383;&#12417;&#12395;&#20351;&#29992;&#12375;, &#12373;&#12425;&#12395; verified Claims &#12434;&#35201;&#27714;&#12377;&#12427;&#12383;&#12417;&#12395; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12434;&#20351;&#29992;&#12377;&#12427;&#12371;&#12392;&#12434;&#24819;&#23450;&#12377;&#12427;.</p>
 <p id="rfc.section.6.4.1.p.2">scope &#20516;&#12399;&#27425;&#12398;&#36890;&#12426;: <samp>scope=openid email</samp></p>
 <p><samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#20516;&#12399;&#27425;&#12398;&#36890;&#12426;:</p>
-<pre>{  
-   "userinfo":{  
-       "verified_claims":{  
-         "claims":{  
+<pre>{
+   "userinfo":{
+       "verified_claims":{
+         "claims":{
             "given_name":null,
             "family_name":null,
             "birthdate":null
          }
       }
-   }	
+   }
 }
 </pre>
 <h1 id="rfc.section.6.4.2">
@@ -1146,23 +1146,23 @@
 <pre>HTTP/1.1 200 OK
 Content-Type: application/json
 
-{  
+{
    "iss":"https://server.example.com",
    "sub":"248289761001",
    "email":"janedoe@example.com",
    "email_verified":true,
-   "verified_claims":{  
-      "verification":{  
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "type":"idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -1173,7 +1173,7 @@ Content-Type: application/json
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28"
@@ -1189,13 +1189,13 @@ Content-Type: application/json
 </h1>
 <p id="rfc.section.6.5.1.p.1">&#12371;&#12398;&#22580;&#21512;, RP &#12399; <samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#12540;&#12391; End-User &#12395;&#38306;&#12377;&#12427;&#20182;&#12398; Claims &#12392;&#19968;&#32210;&#12395; verified Claims &#12434;&#35201;&#27714;&#12375;, ID Token (grant type <samp>code</samp> &#12398;&#22580;&#21512;&#12399; token endpoint &#12363;&#12425;&#37197;&#20449;&#12373;&#12428;&#12427;) &#12395;&#12524;&#12473;&#12509;&#12531;&#12473;&#12434;&#21106;&#12426;&#24403;&#12390;&#12427;.</p>
 <p><samp>claims</samp> &#12497;&#12521;&#12513;&#12540;&#12479;&#20516;&#12399;&#27425;&#12398;&#36890;&#12426;:</p>
-<pre>{  
-   "id_token":{  
+<pre>{
+   "id_token":{
       "email":null,
       "preferred_username":null,
       "picture":null,
-      "verified_claims":{  
-         "claims":{  
+      "verified_claims":{
+         "claims":{
             "given_name":null,
             "family_name":null,
             "birthdate":null
@@ -1208,7 +1208,7 @@ Content-Type: application/json
 <a href="#rfc.section.6.5.2">6.5.2.</a> <a href="#id-token" id="id-token">ID Token</a>
 </h1>
 <p id="rfc.section.6.5.2.p.1">&#12381;&#12428;&#12382;&#12428;&#12398; ID Token &#12399;&#27425;&#12398;&#36890;&#12426;:</p>
-<pre>{  
+<pre>{
    "iss":"https://server.example.com",
    "sub":"24400320",
    "aud":"s6BhdRkqt3",
@@ -1220,18 +1220,18 @@ Content-Type: application/json
    "email":"janedoe@example.com",
    "preferred_username":"j.doe",
    "picture":"http://example.com/janedoe/me.jpg",
-   "verified_claims":{  
-      "verification":{  
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "type":"idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -1242,7 +1242,7 @@ Content-Type: application/json
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28"
@@ -1257,16 +1257,16 @@ Content-Type: application/json
 <pre>HTTP/1.1 200 OK
 Content-Type: application/json
 
-{ 
-   "iss":"https://server.example.com", 
+{
+   "iss":"https://server.example.com",
    "sub":"248289761001",
    "email":"janedoe@example.com",
    "email_verified":true,
-   "_claim_names":{  
+   "_claim_names":{
       "verified_claims":"src1"
    },
-   "_claim_sources":{  
-      "src1":{  
+   "_claim_sources":{
+      "src1":{
       "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
       lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
       JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
@@ -1283,15 +1283,15 @@ Content-Type: application/json
 Content-Type: application/json
 
 {
-   "iss":"https://server.example.com",  
+   "iss":"https://server.example.com",
    "sub":"248289761001",
    "email":"janedoe@example.com",
    "email_verified":true,
-   "_claim_names":{  
+   "_claim_names":{
       "verified_claims":"src1"
    },
-   "_claim_sources":{  
-      "src1":{  
+   "_claim_sources":{
+      "src1":{
          "endpoint":"https://server.yetanotherop.com/claim_source",
          "access_token":"ksj3n283dkeafb76cdef"
       }
@@ -1309,7 +1309,7 @@ Content-Type: application/json
 <p><samp>id_documents_verification_methods_supported</samp> <a href="#verification" class="xref">Section 4.1</a> &#12395;&#23450;&#32681;&#12373;&#12428;&#12427; OP &#12364;&#12469;&#12509;&#12540;&#12488;&#12377;&#12427; id document verification method &#12434;&#21547;&#12416; JSON&#37197;&#21015;.</p>
 <p><samp>claims_in_verified_claims_supported</samp> <samp>verified_claims</samp> &#20869;&#12391;&#12469;&#12509;&#12540;&#12488;&#12373;&#12428;&#12427;&#20840;&#12390;&#12398; claims &#12434;&#21547;&#12416; JSON &#37197;&#21015;</p>
 <p id="rfc.section.7.p.8">&#20197;&#19979;&#12395; openid-configuration &#12398; snippet &#12398;&#20363;&#12434;&#31034;&#12377;.</p>
-<pre>{  
+<pre>{
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
@@ -1321,17 +1321,17 @@ Content-Type: application/json
       "utility_bill",
       "qes"
    ]
-   "id_documents_supported":[  
+   "id_documents_supported":[
        "idcard",
        "passport",
        "driving_permit"
    ]
-   "id_documents_verification_methods_supported":[  
+   "id_documents_verification_methods_supported":[
        "pipp",
        "sripp",
        "eid"
    ]
-   "claims_in_verified_claims_supported":[  
+   "claims_in_verified_claims_supported":[
       "given_name",
       "family_name",
       "birthdate",
@@ -1966,16 +1966,16 @@ Content-Type: application/json
 <div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
-	  <span class="fn">Torsten Lodderstedt</span> 
+	  <span class="fn">Torsten Lodderstedt</span>
 	  <span class="n hidden">
 		<span class="family-name">Lodderstedt</span>
 	  </span>
 	</span>
 	<span class="org vcardline">yes.com</span>
 	<span class="adr">
-	  
+
 	  <span class="vcardline">
-		<span class="locality"></span> 
+		<span class="locality"></span>
 		<span class="region"></span>
 		<span class="code"></span>
 	  </span>
@@ -1987,16 +1987,16 @@ Content-Type: application/json
 </div><div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
-	  <span class="fn">Daniel Fett</span> 
+	  <span class="fn">Daniel Fett</span>
 	  <span class="n hidden">
 		<span class="family-name">Fett</span>
 	  </span>
 	</span>
 	<span class="org vcardline">yes.com</span>
 	<span class="adr">
-	  
+
 	  <span class="vcardline">
-		<span class="locality"></span> 
+		<span class="locality"></span>
 		<span class="region"></span>
 		<span class="code"></span>
 	  </span>
@@ -2006,6 +2006,14 @@ Content-Type: application/json
 
   </address>
 </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-15411889-1', 'auto');
+  ga('send', 'pageview');
+</script>
 </body>
 </html>

@@ -1,0 +1,3889 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>OpenID Connect for Identity Assurance 1.0</title>
+<meta content="Torsten Lodderstedt" name="author">
+<meta content="Daniel Fett" name="author">
+<meta content="Mark Haine" name="author">
+<meta content="Alberto Pulido" name="author">
+<meta content="Kai Lehmann" name="author">
+<meta content="Kosuke Koiwai" name="author">
+<meta content="
+       このドキュメントは，アクセスコントロール，資格決定やさらなる検証プロセスへの入力のための Claim または検証プロセス に関する，特定の検証レベル及び/または追加のメタデータを持つエンドユーザーに関する検証済みクレームを Relying Party に提供するための OpenID Connect の拡張機能を定義する． 
+    " name="description">
+<meta content="xml2rfc 3.20.0" name="generator">
+<meta content="security" name="keyword">
+<meta content="openid" name="keyword">
+<meta content="identity assurance" name="keyword">
+<meta content="ekyc" name="keyword">
+<meta content="openid-connect-4-identity-assurance-1_0-16" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.20.0
+    Python 3.10.12
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.0
+    intervaltree 3.1.0
+    Jinja2 3.1.3
+    lxml 4.9.4
+    platformdirs 4.2.0
+    pycountry 23.12.11
+    PyYAML 6.0.1
+    requests 2.31.0
+    setuptools 69.1.1
+    six 1.16.0
+    wcwidth 0.2.13
+    weasyprint 61.2
+-->
+<link href="openid-connect-4-identity-assurance.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+:root {
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
+}
+
+@viewport {
+  zoom: 1.0;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-wrap: break-word;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+blockquote > *:last-child {
+  margin-bottom: 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.refSubseries {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: var(--font-sans);
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  .breakable pre {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
+}
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+</head>
+<body class="xml2rfc">
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left"></td>
+<td class="center">openid-connect-4-identity-assurance-1_0</td>
+<td class="right">October 2024</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Lodderstedt, et al.</td>
+<td class="center">Standards Track</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">eKYC-IDA</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2024-10-01" class="published">1 October 2024</time>
+    </dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">T. Lodderstedt</div>
+<div class="org">sprind.org</div>
+</div>
+<div class="author">
+      <div class="author-name">D. Fett</div>
+<div class="org">Authlete</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Haine</div>
+<div class="org">Considrd.Consulting Ltd</div>
+</div>
+<div class="author">
+      <div class="author-name">A. Pulido</div>
+<div class="org">Santander</div>
+</div>
+<div class="author">
+      <div class="author-name">K. Lehmann</div>
+<div class="org">1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</div>
+</div>
+<div class="author">
+      <div class="author-name">K. Koiwai</div>
+<div class="org">KDDI Corporation</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">OpenID Connect for Identity Assurance 1.0</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">このドキュメントは，アクセスコントロール，資格決定やさらなる検証プロセスへの入力のための Claim または検証プロセス に関する，特定の検証レベル及び/または追加のメタデータを持つエンドユーザーに関する検証済みクレームを Relying Party に提供するための OpenID Connect の拡張機能を定義する．<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.1">
+      <h2 id="name-foreword">
+<a href="#name-foreword" class="section-name selfRef">Foreword</a>
+      </h2>
+<p id="section-note.1-1">The OpenID Foundation (OIDF) promotes, protects, and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.2">
+      <h2 id="name-introduction">
+<a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-note.2-1">OpenID Connect の本拡張機能は，Relying Party が追加の保証メタデータを使用してアイデンティティ情報を要求および受信する方法を標準化する．この仕様は，たとえば，マネーロンダリング防止法や健康データへのアクセスのような規制要件への準拠，リスクの軽減，不正防止のような，強力な保証を必要とするユースケースを可能にすることを目的としている．<a href="#section-note.2-1" class="pilcrow">¶</a></p>
+<p id="section-note.2-2">そのようなユースケースでは, 依拠当事者 (RP) は, OpenID プロバイダー (OP) が伝達するエンドユーザーに関する Claim の信頼性または assurance level を，その検証に利用したプロセス関連情報やエビデンスと一緒に，知る必要がある.<a href="#section-note.2-2" class="pilcrow">¶</a></p>
+<p id="section-note.2-3">OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 2 で定義されている <code>acr</code> Claim は, OpenID Connect トランザクションで実行される認証に関する情報を証明するのに適している. しかし, identity assurance には異なる表現が必要である. 認証は OpenID Connect トランザクションの一面である一方, 保証と関連する検証の詳細は，特定の Claim または Claim のグループに対するプロパティである．それらは通常, OpenID Connect トランザクションの結果として RP に伝えられるようになる.<a href="#section-note.2-3" class="pilcrow">¶</a></p>
+<p id="section-note.2-4">たとえば, 通常 OP が電子メールアドレスに与えることができる保証は「自己表明」または「検証済み」である. 対照的にエンドユーザーの姓は, OP オペレーターの訓練を受けた従業員に ID カードを提示することにより, それぞれのマネーロンダリング防止法に従って検証された可能性がある.<a href="#section-note.2-4" class="pilcrow">¶</a></p>
+<p id="section-note.2-5">Identity assurance には, エンドユーザーに関する各 Claim とともに保証データを伝達する方法が必要である. このドキュメントは, RP がエンドユーザーに関する検証済み Claim を 保証データとともに要求し, OP がこれらの検証済み Claim と付随する保証データを表すために利用する適切な表現とメカニズムを定義する.<a href="#section-note.2-5" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.3">
+      <h2 id="name-warning">
+<a href="#name-warning" class="section-name selfRef">Warning</a>
+      </h2>
+<p id="section-note.3-1">This document is not an OIDF International Standard. It is distributed for
+review and comment. It is subject to change without notice and may not be
+referred to as an International Standard.<a href="#section-note.3-1" class="pilcrow">¶</a></p>
+<p id="section-note.3-2">Recipients of this draft are invited to submit, with their comments,
+notification of any relevant patent rights of which they are aware and to
+provide supporting documentation.<a href="#section-note.3-2" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.4">
+      <h2 id="name-notational-conventions">
+<a href="#name-notational-conventions" class="section-name selfRef">Notational conventions</a>
+      </h2>
+<p id="section-note.4-1">The keywords "shall", "shall not", "should", "should not", "may", and "can" in
+this document are to be interpreted as described in ISO Directive Part 2
+<span>[<a href="#ISODIR2" class="cite xref">ISODIR2</a>]</span>. These keywords are not used as dictionary terms such that any
+occurrence of them shall be interpreted as keywords and are not to be
+interpreted with their natural language meanings.<a href="#section-note.4-1" class="pilcrow">¶</a></p>
+</section>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-scope" class="internal xref">Scope</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-normative-references" class="internal xref">Normative references</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-terms-and-definitions" class="internal xref">Terms and definitions</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-claim" class="internal xref">claim</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-identity-proofing" class="internal xref">identity proofing</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-identity-verification" class="internal xref">identity verification</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-identity-assurance" class="internal xref">identity assurance</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-verified-claim" class="internal xref">verified claim</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-claim-provider" class="internal xref">claim provider</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-verified-claims" class="internal xref">Verified claims</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-verified-claims-schema" class="internal xref">Verified claims schema</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-verified-claims-delivery" class="internal xref">Verified claims delivery</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-requesting-end-user-claims" class="internal xref">Requesting end-user claims</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-requesting-verification-dat" class="internal xref">Requesting verification data</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-defining-further-constraint" class="internal xref">Defining further constraints on verification data</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.1">
+                    <p id="section-toc.1-1.5.2.5.2.1.1"><a href="#section-5.5.1" class="auto internal xref">5.5.1</a>.  <a href="#name-value-values" class="internal xref">Value/values</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.2">
+                    <p id="section-toc.1-1.5.2.5.2.2.1"><a href="#section-5.5.2" class="auto internal xref">5.5.2</a>.  <a href="#name-max_age" class="internal xref">Max_age</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-requesting-claims-sets-with" class="internal xref">Requesting claims sets with different verification requirements</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7">
+                <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="auto internal xref">5.7</a>.  <a href="#name-returning-less-data-than-re" class="internal xref">Returning less data than requested</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.1">
+                    <p id="section-toc.1-1.5.2.7.2.1.1"><a href="#section-5.7.1" class="auto internal xref">5.7.1</a>.  <a href="#name-general-requirements" class="internal xref">General requirements</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.2">
+                    <p id="section-toc.1-1.5.2.7.2.2.1"><a href="#section-5.7.2" class="auto internal xref">5.7.2</a>.  <a href="#name-unavailable-data" class="internal xref">Unavailable data</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.3">
+                    <p id="section-toc.1-1.5.2.7.2.3.1"><a href="#section-5.7.3" class="auto internal xref">5.7.3</a>.  <a href="#name-non-consented-data" class="internal xref">Non-consented data</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.4">
+                    <p id="section-toc.1-1.5.2.7.2.4.1"><a href="#section-5.7.4" class="auto internal xref">5.7.4</a>.  <a href="#name-data-not-matching-requireme" class="internal xref">Data not matching requirements</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.5">
+                    <p id="section-toc.1-1.5.2.7.2.5.1"><a href="#section-5.7.5" class="auto internal xref">5.7.5</a>.  <a href="#name-omitting-elements" class="internal xref">Omitting elements</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.6">
+                    <p id="section-toc.1-1.5.2.7.2.6.1"><a href="#section-5.7.6" class="auto internal xref">5.7.6</a>.  <a href="#name-error-handling" class="internal xref">Error handling</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8">
+                <p id="section-toc.1-1.5.2.8.1"><a href="#section-5.8" class="auto internal xref">5.8</a>.  <a href="#name-requesting-sets-of-claims-b" class="internal xref">Requesting sets of claims by scope</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-aggregated-and-distributed-" class="internal xref">Aggregated and distributed claims</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-aggregated-and-distributed-c" class="internal xref">Aggregated and distributed claims assertions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-aggregated-and-distributed-cl" class="internal xref">Aggregated and distributed claims validation</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-requesting-verified-claims" class="internal xref">Requesting verified claims</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-op-metadata" class="internal xref">OP metadata</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-privacy-consideration" class="internal xref">Privacy consideration</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-security-considerations" class="internal xref">Security considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-security-profile" class="internal xref">Security profile</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-end-user-authentication" class="internal xref">End-user authentication</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-implementation-and-interope" class="internal xref">Implementation and interoperability</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-predefined-values" class="internal xref">Predefined values</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#section-14" class="auto internal xref">14</a>. <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#section-15" class="auto internal xref">15</a>. <a href="#name-translation-references" class="internal xref">Translation References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-iana-considerations" class="internal xref">IANA considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.1">
+                <p id="section-toc.1-1.16.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-media-type-registration" class="internal xref">Media type registration</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17">
+            <p id="section-toc.1-1.17.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-example-requests" class="internal xref">Example requests</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1">
+                <p id="section-toc.1-1.17.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-verification-of-claims-by-a" class="internal xref">Verification of claims by a document</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.2">
+                <p id="section-toc.1-1.17.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-verification-of-claims-by-t" class="internal xref">Verification of claims by trust framework and evidence types</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.3">
+                <p id="section-toc.1-1.17.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-verification-of-claims-by-tr" class="internal xref">Verification of claims by trust framework and check method</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.4">
+                <p id="section-toc.1-1.17.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-verification-of-claims-by-e" class="internal xref">Verification of claims by electronic signature</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18">
+            <p id="section-toc.1-1.18.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-example-responses" class="internal xref">Example responses</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.1">
+                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-document" class="internal xref">Document</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.2">
+                <p id="section-toc.1-1.18.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-document-and-verifier-detai" class="internal xref">Document and verifier details</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.3">
+                <p id="section-toc.1-1.18.2.3.1"><a href="#appendix-C.3" class="auto internal xref">C.3</a>.  <a href="#name-evidence-with-all-assurance" class="internal xref">Evidence with all assurance details</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.4">
+                <p id="section-toc.1-1.18.2.4.1"><a href="#appendix-C.4" class="auto internal xref">C.4</a>.  <a href="#name-notified-eid-system-eidas" class="internal xref">Notified eID system (eIDAS)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.5">
+                <p id="section-toc.1-1.18.2.5.1"><a href="#appendix-C.5" class="auto internal xref">C.5</a>.  <a href="#name-electronic_record" class="internal xref">Electronic_record</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.6">
+                <p id="section-toc.1-1.18.2.6.1"><a href="#appendix-C.6" class="auto internal xref">C.6</a>.  <a href="#name-vouch" class="internal xref">Vouch</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.7">
+                <p id="section-toc.1-1.18.2.7.1"><a href="#appendix-C.7" class="auto internal xref">C.7</a>.  <a href="#name-multiple-verified-claims" class="internal xref">Multiple verified claims</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.8">
+                <p id="section-toc.1-1.18.2.8.1"><a href="#appendix-C.8" class="auto internal xref">C.8</a>.  <a href="#name-claims-provided-by-the-op-a" class="internal xref">Claims provided by the OP and external sources</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.9">
+                <p id="section-toc.1-1.18.2.9.1"><a href="#appendix-C.9" class="auto internal xref">C.9</a>.  <a href="#name-self-issued-openid-provider" class="internal xref">Self-Issued OpenID provider and external claims</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19">
+            <p id="section-toc.1-1.19.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-example-requests-and-respon" class="internal xref">Example requests and responses</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19.2.1">
+                <p id="section-toc.1-1.19.2.1.1"><a href="#appendix-D.1" class="auto internal xref">D.1</a>.  <a href="#name-verified-claims-in-userinfo" class="internal xref">verified claims in UserInfo response</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19.2.1.2.1">
+                    <p id="section-toc.1-1.19.2.1.2.1.1"><a href="#appendix-D.1.1" class="auto internal xref">D.1.1</a>.  <a href="#name-request" class="internal xref">Request</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19.2.1.2.2">
+                    <p id="section-toc.1-1.19.2.1.2.2.1"><a href="#appendix-D.1.2" class="auto internal xref">D.1.2</a>.  <a href="#name-response" class="internal xref">Response</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19.2.2">
+                <p id="section-toc.1-1.19.2.2.1"><a href="#appendix-D.2" class="auto internal xref">D.2</a>.  <a href="#name-verified-claims-in-id-token" class="internal xref">verified claims in ID Tokens</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19.2.2.2.1">
+                    <p id="section-toc.1-1.19.2.2.2.1.1"><a href="#appendix-D.2.1" class="auto internal xref">D.2.1</a>.  <a href="#name-request-2" class="internal xref">Request</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19.2.2.2.2">
+                    <p id="section-toc.1-1.19.2.2.2.2.1"><a href="#appendix-D.2.2" class="auto internal xref">D.2.2</a>.  <a href="#name-response-2" class="internal xref">Response</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.20">
+            <p id="section-toc.1-1.20.1"><a href="#appendix-E" class="auto internal xref">Appendix E</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.21">
+            <p id="section-toc.1-1.21.1"><a href="#appendix-F" class="auto internal xref">Appendix F</a>.  <a href="#name-notices" class="internal xref">Notices</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.22">
+            <p id="section-toc.1-1.22.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-translator" class="internal xref">Translator</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23">
+            <p id="section-toc.1-1.23.1"><a href="#appendix-H" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="scope">
+<section id="section-1">
+      <h2 id="name-scope">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
+      </h2>
+<p id="section-1-1">本ドキュメントは，Relying Party がエンドユーザーに関する1つ以上の検証済み Claim を要求できるようにし，OpenID Provider が Relying Party に検証済み Claim を提供できるようにするための技術的メカニズムの定義である．("ツール")<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">法的側面(責任を含む)，トラストフレームワーク，商取引契約など，identity assurance の完全なソリューションを展開するために必要な追加の側面は範囲外である．本ドキュメントに基づくテクニカルソリューションをそれぞれの定義で補完するのは，個別の展開次第である．("ルール")<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Note: そのような側面は範囲外であるが，仕様の目的は，世界中の管轄区域における異なる法律および商業的要件を満たすのに十分な柔軟性を備えたテクニカルメカニズムの実装を可能にすることである．従って，そのような要件は本ドキュメントで例として検討する．<a href="#section-1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="normative-references">
+<section id="section-2">
+      <h2 id="name-normative-references">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-normative-references" class="section-name selfRef">Normative references</a>
+      </h2>
+<p id="section-2-1">Normative References については Section 13 参照．<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="terms-and-definitions">
+<section id="section-3">
+      <h2 id="name-terms-and-definitions">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-terms-and-definitions" class="section-name selfRef">Terms and definitions</a>
+      </h2>
+<p id="section-3-1">このドキュメントでは，以下の用語と定義を適用する．<a href="#section-3-1" class="pilcrow">¶</a></p>
+<div id="claim">
+<section id="section-3.1">
+        <h3 id="name-claim">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-claim" class="section-name selfRef">claim</a>
+        </h3>
+<p id="section-3.1-1">Entity に関する情報の部分集合.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="identity-proofing">
+<section id="section-3.2">
+        <h3 id="name-identity-proofing">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-identity-proofing" class="section-name selfRef">identity proofing</a>
+        </h3>
+<p id="section-3.2-1">エンドユーザーが OP または claim provider に自分自身を確実に識別できるエビデンスを提供し，それによって OpenID Connect provider (OP) または claim provider が有用な assurance level でその識別をアサート出来るようにするプロセス<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="identity-verification">
+<section id="section-3.3">
+        <h3 id="name-identity-verification">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-identity-verification" class="section-name selfRef">identity verification</a>
+        </h3>
+<p id="section-3.3-1">エンドユーザーの identity を確認するために，OP または claim provider が実施するプロセス<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="identity-assurance">
+<section id="section-3.4">
+        <h3 id="name-identity-assurance">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-identity-assurance" class="section-name selfRef">identity assurance</a>
+        </h3>
+<p id="section-3.4-1">OP または claim provider が, RP に対してある一定の確からしさをもって特定のエンドユーザーの identity データを主張するプロセスで，通常は assurance level で表される. 法的要件に応じて, OP は identity verification プロセスのエビデンスを RP に提供するよう要求される場合もある.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="verified-claim">
+<section id="section-3.5">
+        <h3 id="name-verified-claim">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-verified-claim" class="section-name selfRef">verified claim</a>
+        </h3>
+<p id="section-3.5-1">特定のエンドユーザーアカウントへの binding が identity verification プロセスの過程で検証されたエンドユーザー (通常は自然人) に関する claim<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="claim-provider">
+<section id="section-3.6">
+        <h3 id="name-claim-provider">
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-claim-provider" class="section-name selfRef">claim provider</a>
+        </h3>
+<p id="section-3.6-1">エンティティに関する claim 情報を提供できるサーバー; OpenID Connect Core の "claims provider" と同義.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="requirements">
+<section id="section-4">
+      <h2 id="name-requirements">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-requirements" class="section-name selfRef">Requirements</a>
+      </h2>
+<p id="section-4-1">RP は，必要最小限のデータセットの要求 (data minimization) と，このデータ，エビデンスおよび OP で採用されている identity verification プロセスに関する要件を表現できる．<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">この拡張機能は、eIDAS などの identity assurance に関連する特定の規制の下で動作する OP はもちろん，そのような規制なしで動作する他の OP でも使用できる．<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">適切な規制の下で運用されている OP は，明確に定義された責任を伴う明確に定義されたルールに従って運用することが承認されているため，追加のエビデンスを提供する必要なしに identity data を保証できると想定されている．例えば eIDAS の場合，ピアレビューは eIDAS コンプライアンスを保証し，それぞれの加盟国は、通知された eID システムによって主張された identity に対する責任を負う．<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">そのような明確な条件下で動作していない他のすべての OP は，RP が独自のリスクアセスメントを行い，OP から入手したデータを他の法律にマッピングできるように，identity evidence に加えて identity verification プロセスに関する data の提供要求を受け取るかもしれない．
+例えば，もし OP がマネーロンダリング防止法に従って identity data を検証及び維持する場合，RP は eHealth や前述の eIDAS のような異なる規制のコンテキストでそれぞれのアイデンティティ属性を利用することを選択できる．<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">本ドキュメントのコンセプトは，OP が identity assurance プロセスに関するメタデータとともに，identity data を提供できることである．このデータを評価し，それを独自の法的コンテキストにマッピングするのは RP の責任である．<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">技術的な観点から，これは本仕様は OP が信頼するトラストフレームワークに関する情報とともに Verified Claim を提供できるようにするだけでなく，identity verification process に関する情報の外部化もサポートすることを意味する．<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-7">本仕様で定義される表現は，いずれかの適切なチャネルを介してエンドユーザーに関する Verified Claim を RP に提供できる．OpenID Connect のコンテキストにおいて，Verified Claim はID Token または UserInfo レスポンスの一部として提供できる．OAuth Access Token または Token Introspection レスポンスで記述される形式を用いてリソースサーバーに Verified Claim を提供することもできる．<a href="#section-4-7" class="pilcrow">¶</a></p>
+<p id="section-4-8">本拡張は，真に国際的で異なる管轄区域を跨いで identity assurance をサポートすることを意図している．
+本拡張は従って，様々なトラストフレームワーク，identity エビデンスや保証プロセスをサポートするために拡張可能である．<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-9">実装者に可能な限りの柔軟性を与えるために, この拡張は既存の OpenID Connect の Claim および同じ OpenID Connect のアサーション(例えば, ID Token や UserInfo)内の他の拡張と組み合わせて使うことができる.<a href="#section-4-9" class="pilcrow">¶</a></p>
+<p id="section-4-10">例えば，OpenID Connect <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> は検証ステータスのないエンドユーザーの姓と名を表す Claim を定義している．これらの Claim は本拡張に従って表現される Verified Claim とともに同じ OpenID Connect のアサーションで使うことができる．<a href="#section-4-10" class="pilcrow">¶</a></p>
+<p id="section-4-11">同じように，<code>phone_number</code> と <code>email</code> Claim の検証ステータスを RP に通知する既存 Claim も本拡張とともに使うことができる．<a href="#section-4-11" class="pilcrow">¶</a></p>
+<p id="section-4-12">Verified Claim を表す場合でも，本拡張は可能かつ妥当であれば，既存の OpenID Connect の Claim を利用する．しかしながら，拡張は RP が未検証 Claim を Verified Claim として (誤って) 解釈できないようにする．<a href="#section-4-12" class="pilcrow">¶</a></p>
+<p id="section-4-13">identity assurance に関する一部の管轄区域の要件を満たすために, OpenID Connect for IDA claims <span>[<a href="#OpenID4IDAClaims" class="cite xref">OpenID4IDAClaims</a>]</span> 仕様では OpenID Connect <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> 仕様で定義されている Claims に加えて，End-User のデータを伝達するための多数の Claims が定義されている．<a href="#section-4-13" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="verified_claims">
+<section id="section-5">
+      <h2 id="name-verified-claims">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-verified-claims" class="section-name selfRef">Verified claims</a>
+      </h2>
+<div id="verified-claims-schema">
+<section id="section-5.1">
+        <h3 id="name-verified-claims-schema">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-verified-claims-schema" class="section-name selfRef">Verified claims schema</a>
+        </h3>
+<p id="section-5.1-1">基本的な考え方は <code>verified_claims</code> と呼ばれるコンテナ要素を使用し，RP に一連の Claim と，これらの Claim の検証に関連するそれぞれのメタデータ及び検証のエビデンスを提供することである．この方法は，検証されている claims が明確になり，RP が誤って検証されていない claims を 検証済み として処理するリスクが軽減される．<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">このドキュメントでは，保証された digital identity 属性と identity assurance メタデータを表現するスキーマの定義として [!@IDA-verified-claims] ドキュメントを使用する．<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">次の例では，トラストフレームワーク <code>trust_framework_example</code> に従って，OP が提供された Claim (<code>given_name</code> と <code>family_name</code>) を検証したことを RP に表明する:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.1-4">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "trust_framework_example"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Meier"
+    }
+  }
+}
+</pre><a href="#section-5.1-4" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1-5">このドキュメントは，RP が <span>[<a href="#IDA-verified-claims" class="cite xref">IDA-verified-claims</a>]</span> で定義されたスキーマを利用することを要求する．JSON Schema には実装者がスキーマを拡張できる箇所があるが，定義されたスキーマから逸脱することはこのドキュメントの正しい使用方法ではない．
+(訳注: 当文書内の JSON Schema はあくまで利便性のためであり，仕様を完全再現した物ではないため，仮に JSON Schema 上は拡張可能であっても，拡張を行うことで当文章準拠と言えなくなる場合がある点に注意すること．)<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="verified_claims_delivery">
+<section id="section-5.2">
+        <h3 id="name-verified-claims-delivery">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-verified-claims-delivery" class="section-name selfRef">Verified claims delivery</a>
+        </h3>
+<p id="section-5.2-1"><code>verified_claims</code> 要素は OpenID Connect UserInfo レスポンス，及び/または ID Token に追加することができる．<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">以下は，Verified Claims を含む ID トークンのペイロードの例である:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.2-3">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "248289761",
+  "aud": "https://rs.example.com/",
+  "exp": 1544645174,
+  "client_id": "s6BhdRkqt3_",
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "example"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Mustermann"
+    }
+  }
+}
+</pre><a href="#section-5.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.2-4">OP または Authorization Server (AS) は上記の assertions に集約または分散された <code>verified_claims</code> を含めることも出来る (詳細は <a href="#aggregated_distributed_claims" class="auto internal xref">Section 6</a> 参照)．<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="req_claims">
+<section id="section-5.3">
+        <h3 id="name-requesting-end-user-claims">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-requesting-end-user-claims" class="section-name selfRef">Requesting end-user claims</a>
+        </h3>
+<p id="section-5.3-1">Verified Claims は OpenID Connect specification <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5 に定義されている <code>claims</code> パラメータを利用することで, End-User について 個々の Claims のレベルで要求できる.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">注: <code>verified_claims</code> をリクエストするために使用される機械可読な構文定義は <span>[<a href="#verified_claims_request.json" class="cite xref">verified_claims_request.json</a>]</span> で JSON スキーマとして提供され，これを利用して <code>claims</code> リクエストパラメータを自動的に検証することができる．提供される JSON スキーマファイルは本ドキュメントの標準ではない実装であり，存在する矛盾は実装のバグか，解釈のいずれかである．<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3">検証済み Claim を要求するには，<code>verified_claims</code> 要素を <code>claims</code> パラメータの <code>userinfo</code> または <code>id_token</code> 要素に追加する．<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4"><code>verified_claims</code> にはネストされた <code>claims</code> 要素の中に End-User についての有効な Claims が含まれるため, syntax は次のようにネストされた要素の式を含むように拡張される，<code>verified_claims</code> 要素は <code>claims</code> 要素を含み，必要な Claims がキーとして含まれる．各 claim の値は <code>null</code> (デフォルト), または object のいずれかである．Object には <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> にて定義される <code>value</code> または <code>values</code>，及び/または以下で説明する <code>essential</code> キーを使用する制限を含めてもよい (MAY)．以下に例を示す.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.3-5">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.3-5" class="pilcrow">¶</a>
+</div>
+<p id="section-5.3-6"><code>claims</code> パラメータを使用すると, RP はそのユースケースに必要な End-User に関する指定した Claims を要求できるようになる. これにより RP はユースケースに必要な claims のみを要求することで， データ最小化の要件を満たすことが出来る．<a href="#section-5.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.3-7">Note: OpenID Connect Core または本ドキュメントのメカニズムを使用して，sub-claims (例えば，<code>address</code> claim の <code>country</code> subclaim) を要求することは出来ない．<a href="#section-5.3-7" class="pilcrow">¶</a></p>
+<p id="section-5.3-8">RP は OpenID Connect <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span>  仕様の Section 5.5.1 に定義された <code>essential</code> フィールドを使うことが出来る．次の例は，姓と名についてこれを示す．<a href="#section-5.3-8" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.3-9">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null
+      },
+      "claims": {
+        "given_name": {
+          "essential": true
+        },
+        "family_name": {
+          "essential": true
+        },
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.3-9" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="req_verification">
+<section id="section-5.4">
+        <h3 id="name-requesting-verification-dat">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-requesting-verification-dat" class="section-name selfRef">Requesting verification data</a>
+        </h3>
+<p id="section-5.4-1">RP はエンドユーザーに関する Claim を要求するのと同じ方法で検証データを要求する．claims request parameter が利用されている場合，構文は <a href="#req_claims" class="auto internal xref">Section 5.3</a> で指定したルールに基づき，<code>verification</code> 要素の構造にナビゲーションするためにそれらを拡張する．<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">次の例に示すように，<code>verification</code> 内の要素は，それぞれの要素を追加することによって要求される:<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.4-3">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.4-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.4-4">それは OP の準拠するトラストフレームワークとエンドユーザー Claim の検証日を要求する．<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+<p id="section-5.4-5">RP は OP  が <code>verification</code> 要素に追加するデータを明示的に要求しなければならない (SHALL).<a href="#section-5.4-5" class="pilcrow">¶</a></p>
+<p id="section-5.4-6">従って，RP はエビデンスを取得する場合，構造の1ステップ深くフィールドを設定しなければならない (SHALL)．<code>evidence</code> 配列の1つ以上のエントリは，result 配列のすべてのエントリのフィルタ基準とテンプレートとして使用される．次の例は，<code>document</code> タイプのみのエビデンスを要求するリクエストを示す．<a href="#section-5.4-6" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.4-7">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "document"
+            },
+            "method": null,
+            "document_details": {
+              "type": null
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.4-7" class="pilcrow">¶</a>
+</div>
+<p id="section-5.4-8">この例では OP に対して，evidence 配列メンバーごとに，それぞれの <code>method</code> と <code>document</code> 要素 (ドキュメントタイプに関するデータを含む) を，結果の <code>verified_claims</code> Claim に含むように要求している．<a href="#section-5.4-8" class="pilcrow">¶</a></p>
+<p id="section-5.4-9"><code>evidence</code> 配列の単一エントリは，特定の evidence タイプの要素に対するフィルターを表す．従って，RP は適切な <code>value</code> サブ要素値を含む <code>type</code> フィールドを含めることによって，このタイプを指定しなければならない (SHALL)．<code>values</code> サブ要素を <code>evidence/type</code> フィールドに使用してはならない (SHALL NOT)．<a href="#section-5.4-9" class="pilcrow">¶</a></p>
+<p id="section-5.4-10"><code>evidence</code> に複数のエントリが存在する場合，これらのフィルターは論理和によって紐付けられる．<a href="#section-5.4-10" class="pilcrow">¶</a></p>
+<p id="section-5.4-11"><code>check_details</code> は <code>evidence</code> に適用されるプロセスの配列である．RP は1つ以上のサブ要素に特定の値を要求することで <code>check_details</code> をフィルタリング出来る．同じサブ要素に複数のエントリがある場合，これはそれらの間の論理 OR として機能する．<a href="#section-5.4-11" class="pilcrow">¶</a></p>
+<p id="section-5.4-12"><code>assurance_details</code> は <code>evidence</code> と <code>check_details</code> がどのように <code>trust_framework</code> の要件を満たしているかを示す配列である．RP はこの情報を知る必要がある場合のみ要求することが望ましい (SHOULD)．<code>assurance_details</code>  が RP によって要求された場合，OP は <code>assurance_details</code> 要素と，それが持つ全てのサブ要素を一緒に返さなければならない（SHALL）．RP が <code>evidence</code> と <code>check_methods</code> のタイプをフィルタしたい場合，それらのメソッドを使用しなければならない (SHALL)．例えば，<code>assurance_type</code> を要求しても，フィルタリング効果はないほうがよい (SHOULD)．<a href="#section-5.4-12" class="pilcrow">¶</a></p>
+<p id="section-5.4-13">RP は <code>document</code>要素内の特定のデータの存在を要求することも出来る．これも上記で使用した構文規則に従う:<a href="#section-5.4-13" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.4-14">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "document"
+            },
+            "method": null,
+            "document_details": {
+              "type": null,
+              "issuer": {
+                "country": null,
+                "name": null
+              },
+              "document_number": null,
+              "date_of_issuance": null
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.4-14" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="constraintedclaims">
+<section id="section-5.5">
+        <h3 id="name-defining-further-constraint">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-defining-further-constraint" class="section-name selfRef">Defining further constraints on verification data</a>
+        </h3>
+<div id="value-values">
+<section id="section-5.5.1">
+          <h4 id="name-value-values">
+<a href="#section-5.5.1" class="section-number selfRef">5.5.1. </a><a href="#name-value-values" class="section-name selfRef">Value/values</a>
+          </h4>
+<p id="section-5.5.1-1">RP は <code>value</code> または <code>values</code> フィールドと <code>evidence/type</code> 要素を利用することで，<code>trust_framework</code>, <code>evidence/method</code>, <code>evidence/check_details</code>, 及び <code>evidence/document/type</code> 要素の <code>value</code> フィールドで利用可能な値を制限出来る．<a href="#section-5.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.5.1-2">注: <code>evidence/type</code> の制限の使用例は，以前のセクションで示した．<a href="#section-5.5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.5.1-3">次の例は，RP がトラストフレームワーク <code>gold</code> または <code>silver</code> のいずれかに準拠した Claims をリクエストする方法を示す．<a href="#section-5.5.1-3" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.5.1-4">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": {
+          "values": [
+            "gold",
+            "silver"
+          ]
+        }
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.5.1-4" class="pilcrow">¶</a>
+</div>
+<p id="section-5.5.1-5">次の例は，RP がドイツのマネーロンダリング防止法 (トラストフレームワーク <code>de_aml</code>) に基づき，<code>idcard</code> または <code>passport</code> を利用して銀行の窓口にて対面で識別された (物理的な身元確認 - <code>pipp</code> 手法) エンドユーザーに限定した証明の取得を希望していることを示す．<a href="#section-5.5.1-5" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.5.1-6">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": {
+          "value": "de_aml"
+        },
+        "evidence": [
+          {
+            "type": {
+              "value": "document"
+            },
+            "method": {
+              "value": "pipp"
+            },
+            "document": {
+              "type": {
+                "values": [
+                  "idcard",
+                  "passport"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.5.1-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.5.1-7">OP は可能な値のクエリ制約の一部または全部を無視してはならず (SHALL NOT)，これらの制約に一致しない利用可能な検証済み/検証データを提供してはならない (SHALL NOT)．<a href="#section-5.5.1-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="max-age">
+<section id="section-5.5.2">
+          <h4 id="name-max_age">
+<a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-max_age" class="section-name selfRef">Max_age</a>
+          </h4>
+<p id="section-5.5.2-1">RP は特定のエビデンスタイプの発行/失効からの経過時間や，<code>verification</code> 要素でアサートされた検証プロセスが行われてからの経過時間のような，特定のデータの経過時間に関する要件を表現することもできる．OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5.1 では新しい特別なクエリメンバーを定義できるクエリ構文を定義している．このドキュメントでは，日付またはタイムスタンプを含む要素 (例えば，<code>document</code> タイプのエビデンスの <code>time</code>，<code>date_of_issuance</code> 及び <code>date_of_expiry</code> 要素) の取り得る値に適用される新しいメンバー <code>max_age</code> を導入する．<a href="#section-5.5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.5.2-2"><code>max_age</code>: OPTIONAL. 日付またはタイムスタンプを含む Claims にのみ適用可能な JSON number 値．日付/タイムスタンプの値からリクエストの時点までに許容される最大経過時間(秒)を定義する．OP は日付値の最後の有効な秒から開始して経過時間を計算することが望ましい (SHOULD)．<a href="#section-5.5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.5.2-3">次の例は，データの検証プロセスが 63113852 秒より古いことが許容されていない Claims の要求例である:<a href="#section-5.5.2-3" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.5.2-4">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": {
+          "value": "jp_aml"
+        },
+        "time": {
+          "max_age": 63113852
+        }
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#section-5.5.2-4" class="pilcrow">¶</a>
+</div>
+<p id="section-5.5.2-5">OP はこの要件を満たすよう務めることが望ましい (SHOULD)．もし End-User の検証データが要求された <code>max_age</code> より古い場合，OP は例えば electronic ID card や video identification approach を利用するなど，オンラインの identity verification process を通じて End-User のverification を送信することで，End-User の verification の更新を試みることが出来る．<a href="#section-5.5.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="requesting-claims-sets-with-different-verification-requirements">
+<section id="section-5.6">
+        <h3 id="name-requesting-claims-sets-with">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-requesting-claims-sets-with" class="section-name selfRef">Requesting claims sets with different verification requirements</a>
+        </h3>
+<p id="section-5.6-1">異なった Claim Set に対して，異なったトラストフレームワーク， assurance レベルや方法を要求することが出来る．これは RP が単一オブジェクトを渡すのではなく，<code>verified_claims</code> オブジェクトの配列を送信することを要求する．<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+<p id="section-5.6-2">次の例はこの機能の利用例である．<a href="#section-5.6-2" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.6-3">
+<pre>{
+  "userinfo": {
+    "verified_claims": [
+      {
+        "verification": {
+          "trust_framework": {
+            "value": "eidas"
+          },
+          "assurance_level": {
+            "value": "high"
+          }
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null
+        }
+      },
+      {
+        "verification": {
+          "trust_framework": {
+            "value": "eidas"
+          },
+          "assurance_level":{
+            "values":[
+              "high",
+              "substantial"
+            ]
+          }
+        },
+        "claims": {
+          "birthdate": null
+        }
+      }
+    ]
+  }
+}
+</pre><a href="#section-5.6-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.6-4">RP が上記に従って複数の検証を要求すると，OP は配列内の各要素を個別に処理する．OP は要件を満たすことの出来るすべての <code>verified_claims</code> 要求要素に対して，<code>verified_claims</code> レスポンス要素を提供する．これは複数の <code>verified_claims</code> 要素に同じエンドユーザーの claim が含まれている場合，OP は満たせるだけ多くの verfied claims レスポンスオブジェクトで claim を配信することも意味する．例えば，OP が使用するトラストフレームワークが要求された複数のトラストフレームワークと互換性がある場合，それらのそれぞれに <code>verified_claims</code> 要素が提供される．<a href="#section-5.6-4" class="pilcrow">¶</a></p>
+<p id="section-5.6-5">RP は <code>values</code> 要素を利用して，リクエスト中の複数の <code>verified_claims</code> claims を複数の <code>trust_framework</code> 及び/または <code>assurance_level</code> 値と組み合わせることが出来る．このケースにおいて，<code>values</code> を処理するための上記のルールが特定の <code>verified_claims</code> リクエストオブジェクトに適用される．<a href="#section-5.6-5" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-5.6-6">
+<pre>{
+  "userinfo": {
+    "verified_claims": [
+      {
+        "verification": {
+          "trust_framework": {
+            "value": "gold"
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "document"
+              }
+            }
+          ]
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null
+        }
+      },
+      {
+        "verification": {
+          "trust_framework": {
+            "values": [
+              "silver",
+              "bronze"
+            ]
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "electronic_record"
+              }
+            }
+          ]
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null
+        }
+      }
+    ]
+  }
+}
+</pre><a href="#section-5.6-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.6-7">上記の例では，RP は エビデンスタイプ <code>document</code> を持つトラストフレームワーク <code>gold</code> もしくは エビデンスタイプ <code>electronic_record</code> を持つトラストフレームワーク <code>silver</code> または <code>bronze</code> に基づいて，姓と名を要求する．<a href="#section-5.6-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="returning-less-data-than-requested">
+<section id="section-5.7">
+        <h3 id="name-returning-less-data-than-re">
+<a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-returning-less-data-than-re" class="section-name selfRef">Returning less data than requested</a>
+        </h3>
+<div id="general-requirements">
+<section id="section-5.7.1">
+          <h4 id="name-general-requirements">
+<a href="#section-5.7.1" class="section-number selfRef">5.7.1. </a><a href="#name-general-requirements" class="section-name selfRef">General requirements</a>
+          </h4>
+<p id="section-5.7.1-1"><span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.3.3.6 に記載されているように，"OP は authorization endpoint からエンドユーザーに関する claim を少なく返すことを選択できる (MAY)"．このドキュメントではその規定を変更しない．OP は <span>[<a href="#OpenID4IDAClaims" class="cite xref">OpenID4IDAClaims</a>]</span> で定義された <code>verified_claims</code> JSON スキーマに準拠している限り，任意の <code>verified_claims</code> の <code>verification</code> 要素のサブセットを返すことも出来る (MAY)．<a href="#section-5.7.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.7.1-2">例えばデータが利用できない，または RP の要件に一致しないなど，OPs は RP に要求されたデータを配信出来ない場合がある．これらのケースをハンドリングするルールを以下で説明する．<a href="#section-5.7.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.7.1-3">このドキュメントの拡張は追加のルール定義やルールの上書きが出来る，例えば<a href="#section-5.7.1-3" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-5.7.1-4.1">スキーム固有のチェックに応じて claims の使用を許可または禁止する，<a href="#section-5.7.1-4.1" class="pilcrow">¶</a>
+</li>
+            <li class="compact" id="section-5.7.1-4.2">データが利用できない，または基準に一致しない場合，OP の動作に対する RP のよりきめ細かい制御を有効にする，または<a href="#section-5.7.1-4.2" class="pilcrow">¶</a>
+</li>
+            <li class="compact" id="section-5.7.1-4.3">要求を満たすことが出来ない場合に，トランザクションを中断する (エラーコードを返す)．<a href="#section-5.7.1-4.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+<p id="section-5.7.1-5">Important: 以下で説明する振舞いは，<code>essential</code> (<span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 5.5.1 で定義) の使用とは独立している．<a href="#section-5.7.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="unavailable-data">
+<section id="section-5.7.2">
+          <h4 id="name-unavailable-data">
+<a href="#section-5.7.2" class="section-number selfRef">5.7.2. </a><a href="#name-unavailable-data" class="section-name selfRef">Unavailable data</a>
+          </h4>
+<p id="section-5.7.2-1">OP が特定の claim に関するデータを持っていない場合，それぞれの claim を理解/サポートしていない場合，OPs は対応する ID Token または UserInfo レスポンスからそれぞれの claim を省略しなければならない (SHALL)．<a href="#section-5.7.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="non-consented-data">
+<section id="section-5.7.3">
+          <h4 id="name-non-consented-data">
+<a href="#section-5.7.3" class="section-number selfRef">5.7.3. </a><a href="#name-non-consented-data" class="section-name selfRef">Non-consented data</a>
+          </h4>
+<p id="section-5.7.3-1">エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータのサブセットのみを開示することを選択できる (MAY)．この場合，OP は共有についてエンドユーザーの同意を得ていない，対応する ID Token または UserInfo レスポンスデータを省略しなければならない (SHALL)．<a href="#section-5.7.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.7.3-2">または，エンドユーザーの同意に基づいて共有する特定のデータを決定する場合，エンドユーザーは要求されたデータを何も開示しないことを選択できる (MAY)．この場合，<span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．<a href="#section-5.7.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="data-not-matching-requirements">
+<section id="section-5.7.4">
+          <h4 id="name-data-not-matching-requireme">
+<a href="#section-5.7.4" class="section-number selfRef">5.7.4. </a><a href="#name-data-not-matching-requireme" class="section-name selfRef">Data not matching requirements</a>
+          </h4>
+<p id="section-5.7.4-1">利用可能なデータが <code>value</code>, <code>values</code>, または <code>max_age</code> で表現された RP の要件を満たさない場合，以下のロジックが適用される:<a href="#section-5.7.4-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-5.7.4-2.1">それぞれの要件が <code>verified_claims/verification</code> 内の claim に対して表現された場合，OP は <code>verified_claims</code> 要素全体を省略しなければならない (SHALL)．<a href="#section-5.7.4-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="compact" id="section-5.7.4-2.2">それ以外の場合，OP は 該当する各 claim をレスポンスから省略しなければならない (SHALL)．<a href="#section-5.7.4-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<p id="section-5.7.4-3">いずれの場合も，OP はRP に対してエラーを返してならない (SHALL)．<a href="#section-5.7.4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="omitting-elements">
+<section id="section-5.7.5">
+          <h4 id="name-omitting-elements">
+<a href="#section-5.7.5" class="section-number selfRef">5.7.5. </a><a href="#name-omitting-elements" class="section-name selfRef">Omitting elements</a>
+          </h4>
+<p id="section-5.7.5-1">上記のルールに従って有効なレスポンスの要件である要素を省略する場合，OP はその親要素も省略しなければならない (SHALL)．この OP はレスポンスが有効になるまでこのプロセスを繰り返さなければならない (SHALL)．<a href="#section-5.7.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="error-handling">
+<section id="section-5.7.6">
+          <h4 id="name-error-handling">
+<a href="#section-5.7.6" class="section-number selfRef">5.7.6. </a><a href="#name-error-handling" class="section-name selfRef">Error handling</a>
+          </h4>
+<p id="section-5.7.6-1">OP でエラーに遭遇した場合，<span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 3.1.2.6 で定義された 標準の OpenID Connect エラーレスポンスロジックが適用される．<a href="#section-5.7.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="req_scope">
+<section id="section-5.8">
+        <h3 id="name-requesting-sets-of-claims-b">
+<a href="#section-5.8" class="section-number selfRef">5.8. </a><a href="#name-requesting-sets-of-claims-b" class="section-name selfRef">Requesting sets of claims by scope</a>
+        </h3>
+<p id="section-5.8-1">エンドユーザーに関する Verified claims は OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 5.4 で定義された <code>scope</code> パラメータを利用して事前定義されたセットの一部として要求することが出来る．<a href="#section-5.8-1" class="pilcrow">¶</a></p>
+<p id="section-5.8-2">このアプローチを使用する場合，<code>scope</code> 値に関連付けられた claims は OP で管理的に定義される．OP 構成と RP の request parameters によって，claim が ID Token 経由または OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 5.3.2 で定義された UserInfo endpoint 経由で返却されるかが決定する．<a href="#section-5.8-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="aggregated_distributed_claims">
+<section id="section-6">
+      <h2 id="name-aggregated-and-distributed-">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-aggregated-and-distributed-" class="section-name selfRef">Aggregated and distributed claims</a>
+      </h2>
+<div id="aggregated-and-distributed-claims-assertions">
+<section id="section-6.1">
+        <h3 id="name-aggregated-and-distributed-c">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-aggregated-and-distributed-c" class="section-name selfRef">Aggregated and distributed claims assertions</a>
+        </h3>
+<p id="section-6.1-1">分散クレームが使用される場合，分散された <code>_claim_source</code> サブ要素内の <code>endpoint</code> 要素の値である URL は，https URI スキームを使用しなければならず (SHALL)，返却される JWT はその他の URI スキーム経由でアクセス出来ることは望ましくない (SHOULD NOT)．<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">集約または分散クレームの場合，外部クレームソースによって提供されるすべてのアサーションは次を含まなければならない (SHALL):<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-6.1-3.1">値 <code>provided-claims+jwt</code> を持つ <code>typ</code> ヘッダーパラメーター<a href="#section-6.1-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-6.1-3.2">Claim ソース を特定する <code>iss</code> Claim，<a href="#section-6.1-3.2" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-6.1-3.3">Claim ソース のコンテキストでエンドユーザーを識別する <code>sub</code> Claim, および<a href="#section-6.1-3.3" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-6.1-3.4">1つ以上の <code>verified_claims</code> オブジェクトを含む <code>verified_claims</code> 要素．<a href="#section-6.1-3.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-6.1-4">アサーションが OpenID Connect ID Token と混同されないようにするため，アサーションは下記を含んではならない (SHALL NOT):<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-6.1-5.1">
+            <code>exp</code> claim, または<a href="#section-6.1-5.1" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-6.1-5.2">
+            <code>aud</code> claim.<a href="#section-6.1-5.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-6.1-6">集約または分散クレームオブジェクトの <code>verified_claims</code> 要素は，次のいずれかの形式でなければならない (SHALL):<a href="#section-6.1-6" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-6.1-7.1">特定の Claim ソース (<span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> で定義) を参照する JSON 文字列<a href="#section-6.1-7.1" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-6.1-7.2">様々な Claim ソースを参照する文字列の JSON 配列<a href="#section-6.1-7.2" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-6.1-7.3">各オブジェクトの名前は，それぞれのクレームソースの名前である，<code>verified_claims</code> をリクエストするために定義された構文でフォーマットされたサブ要素で構成される JSON オブジェクト．すべてのこのような名前付きオブジェクトには，それぞれのクレームソースによって提供されるデータを表す <code>claim</code> と <code>verification</code> と呼ばれるサブオブジェクトが含まれる．これにより，これらのリクエストによって生じる余分な時間，コスト，データ衝突などを防ぐために，RP は分散クレームを実際にリクエストする前に先読みすることが可能になる．<a href="#section-6.1-7.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-6.1-8">注: あとの2つの形式は，<code>verified_claims</code> の特定のユースケースに対応するために OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.6.2 で定義されている構文を拡張する．<a href="#section-6.1-8" class="pilcrow">¶</a></p>
+<p id="section-6.1-9">以下は 集約 Claim としての 検証済み Claim を含むアサーションの例である<a href="#section-6.1-9" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-6.1-10">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "_claim_names": {
+    "verified_claims": "src1"
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJhbGciOiJQUzI1NiIsImtpZCI6IjFlOWdkazciLCJ0eXAiOiJwcm92aWRlZC1jbGFpbXMrand0In0.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGhlcm9wLmNvbSIsInN1YiI6ImU4MTQ4NjAzLTg5MzQtNDI0NS04MjViLWMxMDhiOGI2Yjk0NSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3JrIjoiaWFsX2V4YW1wbGVfZ29sZCJ9LCJjbGFpbXMiOnsiZ2l2ZW5fbmFtZSI6Ik1heCIsImZhbWlseV9uYW1lIjoiTWVpZXIiLCJiaXJ0aGRhdGUiOiIxOTU2LTAxLTI4In19fQ.VAtHwi85ihW98uulbNOBCkyCyD4jeDrTeaMNdI3Wllks1z-LT8kyzN5Iz7Nu2HpMmmCKZpgY552O0fm_-Fr3Vls3BvmJsh1A524jh9VlsCL-1WezJ-DShjMUyP76_3Xbdl-iYHdWLjoQ5hFZQg6GLrLxOGlQXX9b-kxtQm3DV9nFJhOqMl_5_U8IU_A1LfypmRvXuD1Frw8ASS7OmyGOCkuFDOaV7Uu0BuZjYWiMC8Eem4M2A9RhuoLKDBYuVlwIFaHx-cuGcRJZWDg9K5DekIuLE73Iz1Cuh49HumkC9qGqkTV6EARSJeqFxPhjnZNkJY1e1P7Q7cgyT2HywjR6Tw"
+    }
+  }
+}
+</pre><a href="#section-6.1-10" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-11">及び，分散クレーム．<a href="#section-6.1-11" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-6.1-12">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "_claim_names": {
+    "verified_claims": "src1"
+  },
+  "_claim_sources": {
+    "src1": {
+      "endpoint": "https://server.yetanotherop.com/claim_source",
+      "access_token": "ksj3n283dkeafb76cdef"
+    }
+  }
+}
+</pre><a href="#section-6.1-12" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-13">次の例は，2つの異なる外部 Claim ソースからの <code>verified_claims</code> を含む ID トークンの例で，1つは集約 Claim，もう1つは分散 Claim である．<a href="#section-6.1-13" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-6.1-14">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "_claim_names": {
+    "verified_claims": [
+      "src1",
+      "src2"
+    ]
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJhbGciOiJQUzI1NiIsImtpZCI6IjFlOWdkazciLCJ0eXAiOiJwcm92aWRlZC1jbGFpbXMrand0In0.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGhlcm9wLmNvbSIsInN1YiI6ImU4MTQ4NjAzLTg5MzQtNDI0NS04MjViLWMxMDhiOGI2Yjk0NSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3JrIjoiaWFsX2V4YW1wbGVfZ29sZCJ9LCJjbGFpbXMiOnsiZ2l2ZW5fbmFtZSI6Ik1heCIsImZhbWlseV9uYW1lIjoiTWVpZXIiLCJiaXJ0aGRhdGUiOiIxOTU2LTAxLTI4In19fQ.FPYS2Xjz9y9qEOJhBe5nMfL2mTagLDxwISxjM6gv3zRUvU2YBK-GHI_byvK8h46ly1C90ie-X9gOp-DLvpURvyAlZTsvxNL8s0Hi3-SRZCs5huhiCZr5s4FJBG-l0PNrYOIZAHfeQtobJ7muDld3BytS628140V0CHgh_EM8UUjzQmN8NpDaR9HdH0tIeUFqIZEwBluctgwek9eomg3k10dj6NzBUQSSnpgGf_o6f_sYoIAkBhpgRursD5pHbPSOKTGE9cJ882BbHeido746XLxjEfrU5yQwfA0ggVk5I_e-wv-xVXfVGda4WySZfbkwS5PMCMgMJM9ZT_L1pci0yQ"
+    },
+    "src2": {
+      "endpoint": "https://server.yetanotherop.com/claim_source",
+      "access_token": "ksj3n283dkeafb76cdef"
+    }
+  }
+}
+</pre><a href="#section-6.1-14" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-15">次の例は，2つの異なる外部 Claim ソースからの <code>verified_claims</code> を含む ID トークンと，検証済み Claim のコンテンツに関する追加データを示す (先読み)．<a href="#section-6.1-15" class="pilcrow">¶</a></p>
+<div class="breakable lang-json sourcecode" id="section-6.1-16">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "_claim_names": {
+    "verified_claims": {
+      "src1": {
+        "verification": {
+          "trust_framework": {
+            "value": "trust_framework_example"
+          }
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null
+        }
+      },
+      "src2": {
+        "verification": {
+          "trust_framework": {
+            "value": "grids_kyb"
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "document"
+              },
+              "registry": {
+                "country": {
+                  "essential": true,
+                  "value": "ES"
+                }
+              },
+              "document": {
+                "SKU": {
+                  "value": "REX"
+                }
+              }
+            }
+          ]
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null,
+          "email": null,
+          "nationalities": null
+        }
+      }
+    }
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJraWQiOiJmMDgxZDI5OC1jNTgzLTQ3NDAtYWQ1NC02ZDUzMTljZjhiNWQiLCJhbGciOiJSUzI1NiJ9.ew0KICAgImlzcyI6ICJodHRwczovL3NlcnZlci5leGFtcGxlLmNvbSIsDQogICAic3ViIjogIjE0ODI4OTc2MiIsDQogICAidmVyaWZpZWRfY2xhaW1zIjogew0KICAgICJ2ZXJpZmljYXRpb24iOiB7DQogICAgICAidHJ1c3RfZnJhbWV3b3JrIjogInRydXN0X2ZyYW1ld29ya19leGFtcGxlIg0KICAgIH0sDQogICAgImNsYWltcyI6IHsNCiAgICAgICJnaXZlbl9uYW1lIjogIk1heCIsDQogICAgICAiZmFtaWx5X25hbWUiOiAiTWVpZXIiDQogICAgfQ0KICB9DQp9.jg_qxYfV0M2IU8On1iK9RBY0Cx9u3jRJ0Qzxe19Ol5VLoUTM7Uxbr3E0ZFCASHWpmz9d2g67XKGHQMppnJKX4SnEdphm6MqjnmZ9E0cirALrC016DX5geFy_0QFC8PAnCttcDgyVCyzCcDxUCaHBSRsrDwGjYe5AjgaDL8S-R72lFQHqch6uj9nhiFBtG24_0EsF6msssQ61WyqS6aju0F0PJms8danIfwc5lHyv-zKuDlY-0kw-fVn4274jY-VofElm4mhsrpo-YJhCKlz0O3CV0g9AW_60TQHCmhn6yoosaTbjlQqh5lREpqULz-MQKnD0wRmYLgBZXtzIhxb7ZA"
+    },
+    "src2": {
+      "endpoint": "https://server.yetanotherop.com/claim_source",
+      "access_token": "ksj3n283dkeafb76cdef"
+    }
+  }
+}
+</pre><a href="#section-6.1-16" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-17">Claim ソースは，信頼性の実証と否認防止を提供するために <code>verified_claims</code> を含むアサーションを署名することが望ましい (SHOULD)．<a href="#section-6.1-17" class="pilcrow">¶</a></p>
+<p id="section-6.1-18">RP は署名されたアサーションの検証に使用されるキーマテリアルが，claim source の公開鍵を介しているかを判断することが望ましい (SHOULD)．これらのキーは <code>openid-configuration</code> メタデータドキュメント中の <code>jwks_uri</code> メタデータ値で利用可能な JSON web key set で利用できることが望ましい (SHOULD)．このドキュメントは特定の JWT の <code>iss</code> クレームを用いて検出できる．<a href="#section-6.1-18" class="pilcrow">¶</a></p>
+<p id="section-6.1-19">OP は集約および分散 Claim を，それ自身が提供する <code>verified_claims</code> と組み合わせることが出来る (<a href="#op_attested_and_external_claims" class="auto internal xref">Appendix C.8</a> 参照).<a href="#section-6.1-19" class="pilcrow">¶</a></p>
+<p id="section-6.1-20">ID トークンや埋め込まれた集約 Claim のように <code>verified_claims</code> 要素が応答の複数の場所に含まれている場合，RP は 特定の <code>verified_claims</code> 要素のコンテキストとして Claim ソースを保持しなければならない (SHALL)．<a href="#section-6.1-20" class="pilcrow">¶</a></p>
+<p id="section-6.1-21">注: 集約または分散 Claim を含む OP または AS によって提供されるアサーションには，同じエンドユーザー Claim の複数インスタンスを含むことが出来る．これらの様々なインスタンスを処理する方法を決定するのは RP 次第である．<a href="#section-6.1-21" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="aggregated-and-distributed-claims-validation">
+<section id="section-6.2">
+        <h3 id="name-aggregated-and-distributed-cl">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-aggregated-and-distributed-cl" class="section-name selfRef">Aggregated and distributed claims validation</a>
+        </h3>
+<p id="section-6.2-1">クライアントは，依存する集約及び分散した <code>verified_claims</code> を以下の方法で検証しなければならない (SHALL):<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-6.2-2">
+<li id="section-6.2-2.1">
+            <code>_claim_names</code> と <code>_claim_sources</code> の両方がレスポンスに存在することを確認する．<a href="#section-6.2-2.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-2.2">レスポンスの <code>_claim_names</code> メンバーに <code>verified_claims</code> 要素が存在することを確認する．<a href="#section-6.2-2.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-2.3">
+            <code>verified_claims</code> 要素に次のいずれの値が含まれていることを確認する:
+a. レスポンスの <code>_claim_sources</code> 要素内にキー名として存在する文字列．
+b. レスポンスの <code>_claim_sources</code> 要素内にキー名として存在する全てのメンバーを含む JSON 配列．
+c. レスポンスの <code>_claim_sources</code> 要素内にキー名として存在するすべての要素を含む JSON オブジェクトで，各要素は <code>verified_claims</code> を要求するために定義された構文でフォーマットされている．<a href="#section-6.2-2.3" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-2.4">
+            <code>_claim_sources</code> 要素が 1つ以上のサブ要素を持つ JSON 構造化オブジェクトであることを確認する．<a href="#section-6.2-2.4" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-2.5">
+            <code>_claim_sources</code> 要素のサブ要素が，レスポンスの<code>_claim_names</code>要素と一致する値を持つことを確認する．<a href="#section-6.2-2.5" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-6.2-3"><code>verified_claims</code> が分散クレームとして配信される場合，すなわち <code>_claim_sources</code> のサブ要素に <code>endpoint</code> クレームが含まれる場合, クライアントは次のことを行わなければならない (SHALL) :<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-6.2-4">
+<li id="section-6.2-4.1">分散された <code>_claim_sources</code> で定義された <code>endpoint</code> 要素が https URI スキームを使用していることを確認する．<a href="#section-6.2-4.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-4.2">分散された <code>_claim_sources</code> で定義された <code>endpoint</code> 要素から分散クレームオブジェクトを取得する．<a href="#section-6.2-4.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-4.3">
+            <code>endpoint</code> から返却されたオブジェクトが <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> に従った JWT であることを確認する．<a href="#section-6.2-4.3" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-6.2-5"><code>verified_claims</code> が集約クレームとして配信される場合，すなわち <code>_claim_sources</code> のサブ要素に <code>JWT</code> クレームが含まれる場合，クライアントは次のことを行わなければならない (SHALL) :<a href="#section-6.2-5" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-6.2-6">
+<li id="section-6.2-6.1">
+            <code>JWT</code> クレームの値が <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> に従って有効な JWT であることを確認する．<a href="#section-6.2-6.1" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-6.2-7">JWT が分散または集約メカニズムを介して配信されると，クライアントは次のことを行わなければならない (SHALL) :<a href="#section-6.2-7" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-6.2-8">
+<li id="section-6.2-8.1">返却された JWT の署名を検証する．<a href="#section-6.2-8.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-8.2">JWT に <code>typ</code>, <code>iss</code>, <code>sub</code>, 及び <code>verified_claims</code> 要素が含まれること，及びそれらの値が null または空でないことを確認する．<a href="#section-6.2-8.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-8.3">JWT に <code>exp</code> クレームまたは <code>aud</code> クレームが含まれていないことを確認する．<a href="#section-6.2-8.3" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.2-8.4">JWT 中の <code>typ</code> ヘッダーパラメーターの値が <code>provided-claims+jwt</code> であることを確認する．<a href="#section-6.2-8.4" class="pilcrow">¶</a>
+</li>
+        </ol>
+</section>
+</div>
+</section>
+</div>
+<div id="requesting-verified-claims">
+<section id="section-7">
+      <h2 id="name-requesting-verified-claims">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-requesting-verified-claims" class="section-name selfRef">Requesting verified claims</a>
+      </h2>
+<p id="section-7-1">OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.5 で定義されている <code>claims</code> パラメータを利用することで，検証済み Claim と関連する検証データのリクエストを個々のデータ要素レベルで明示的にリクエストできる．<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2"><code>scope</code> を使用して，OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の Section 5.4 で定義されている1つ以上の特定の事前定義された Claim セットを要求することもできる．<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">注: OP は，要求しなかったデータを RP に提供してはならない (SHALL NOT)．ただし，OP はその裁量によりレスポンスから Claim を省略してもよい (MAY)．<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">このセクションの authorize 呼び出しの例では，次のエンコードされていない claims request パラメータの例を使用する:<a href="#section-7-4" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-7-5">
+<pre>{
+    "id_token": {
+      "given_name": null,
+      "verified_claims": {
+        "verification": {
+          "trust_framework": null
+        },
+        "claims": {
+          "family_name": null
+        }
+      }
+    }
+  }
+</pre><a href="#section-7-5" class="pilcrow">¶</a>
+</div>
+<p id="section-7-6">以下は，ユーザーエージェントから authorization server に対して，クライアントの authorization code flow 開始に対する HTTP 302 リダイレクトレスポンスとして送信される non-normative な例である (改行は掲載上の都合による):<a href="#section-7-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7-7">
+<pre>  GET /authorize?
+     response_type=code
+     &amp;scope=openid%20email
+     &amp;client_id=s6BhdRkqt3
+     &amp;state=af0ifjsldkj
+     &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+     &amp;claims=%7B%22id_token%22%3A%20%7B%22
+     given_name%22%3A%20null%2C%22
+     verified_claims%22%3A%20%7B%22
+     verification%22%3A%20%7B%22
+     trust_framework%22%3A%20null%7D%2C%22
+     claims%22%3A%20%7B%22
+     family_name%22%3A%20null%7D%7D%7D%7D HTTP/1.1
+  Host: server.example.com
+</pre><a href="#section-7-7" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="opmetadata">
+<section id="section-8">
+      <h2 id="name-op-metadata">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-op-metadata" class="section-name selfRef">OP metadata</a>
+      </h2>
+<p id="section-8-1">OP は openid-configuration (<span>[<a href="#OpenID-Discovery" class="cite xref">OpenID-Discovery</a>]</span> 参照) において，次の新しい要素を使用して verified claims に関する能力を告知する:<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2"><code>trust_frameworks_supported</code>: Required. サポートする全てのトラストフレームワークを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3"><code>claims_in_verified_claims_supported</code>: Required. <code>verified_claims</code> 内でサポートする全ての claims を含む JSON 配列．この配列内に現れない claim は <code>verified_claims</code> オブジェクト内で返却してはならない (SHALL NOT)．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4"><code>evidence_supported</code>: 1つ以上のタイプのエビデンスがサポートされている場合，必須 (Required)． OP が使用する全ての identity evidence タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．この配列のメンバーは，<code>evidence</code> 要素 (<span>[<a href="#IDA-verified-claims" class="cite xref">IDA-verified-claims</a>]</span> の section 5.4.4 参照) で OP がサポートするエビデンスのタイプのみであることが望ましい（SHOULD）．<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-5"><code>documents_supported</code>: <code>evidence_supported</code> に "document" を含む場合に必須 (Required). OP が identity verification に使用する全ての identity document タイプを含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-5" class="pilcrow">¶</a></p>
+<p id="section-8-6"><code>documents_methods_supported</code>: Optional. OP が "document" タイプ (<span>[<a href="#predefined_values_page" class="cite xref">predefined_values_page</a>]</span> 参照) のエビデンスに対してサポートする検証方法を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-6" class="pilcrow">¶</a></p>
+<p id="section-8-7"><code>documents_check_methods_supported</code>: Optional. OP が "document" タイプ (<span>[<a href="#predefined_values_page" class="cite xref">predefined_values_page</a>]</span> 参照) のエビデンスに対してサポートするチェック方法を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-7" class="pilcrow">¶</a></p>
+<p id="section-8-8"><code>electronic_records_supported</code>: <code>evidence_supported</code> に "electronic_record" を含む場合に必須 (Required). OP のサポートする全ての electronic record タイプ (<span>[<a href="#predefined_values_page" class="cite xref">predefined_values_page</a>]</span> 参照) を含む JSON 配列．この配列は少なくとも1つ以上のメンバーを持たなければならない (SHALL)．<a href="#section-8-8" class="pilcrow">¶</a></p>
+<p id="section-8-9">以下は openid-configuration スニペットの例である:<a href="#section-8-9" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-8-10">
+<pre>{
+...
+   "trust_frameworks_supported":[
+     "nist_800_63A"
+   ],
+   "evidence_supported": [
+      "document",
+      "electronic_record",
+      "vouch",
+      "electronic_signature"
+   ],
+   "documents_supported": [
+       "idcard",
+       "passport",
+       "driving_permit"
+   ],
+   "documents_methods_supported": [
+       "pipp",
+       "sripp",
+       "eid"
+   ],
+   "electronic_records_supported": [
+       "secure_mail"
+   ],
+   "claims_in_verified_claims_supported": [
+      "given_name",
+      "family_name",
+      "birthdate",
+      "place_of_birth",
+      "nationalities",
+      "address"
+   ],
+...
+}
+</pre><a href="#section-8-10" class="pilcrow">¶</a>
+</div>
+<p id="section-8-11">OP が  OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 5.5 で定義される <code>claims</code> パラメータをサポートする場合，OP は <code>claims_parameter_supported</code> 要素を使用して OP メタデータでこれを告知しなければならない (SHALL)．<a href="#section-8-11" class="pilcrow">¶</a></p>
+<p id="section-8-12">OP が <code>verified_claims</code> 内において OpenID Connect 仕様 <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span> の section 5.6.2 で定義される分散及び/または集約クレームタイプをサポートしている場合，OP は <code>claim_types_supported</code> 要素を使用して，そのメタデータでこれを告知しなければならない (SHALL)．<a href="#section-8-12" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="Privacy">
+<section id="section-9">
+      <h2 id="name-privacy-consideration">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-privacy-consideration" class="section-name selfRef">Privacy consideration</a>
+      </h2>
+<p id="section-9-1">scopes の利用は定義済みのクレームセットを要求するための潜在的なショートカットであるが，scopes を利用すると RP に返却されるデータが厳密に必要な量より多くなり，データミニマイゼーションの目標が達成されないかもしれない．RP は必要なエンドユーザーの claim とメタデータのみを要求することが望ましい (SHOULD)．<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">タイムゾーンコンポーネントを含むタイムスタンプは，人物のロケーションを明らかにするかもしれない．人物のプライバシーを保護するため，verification element 中のタイムスタンプと時間を表す verified claims は，タイムゾーンが検証済みデータ内の同意された時間に関連する claim の重要な部分であるなど，タイムゾーンを含める特別な理由がない限り，協定世界時 (UTC) で表すことが望ましい (SHOULD)．<a href="#section-9-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="Security">
+<section id="section-10">
+      <h2 id="name-security-considerations">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security considerations</a>
+      </h2>
+<div id="security-profile">
+<section id="section-10.1">
+        <h3 id="name-security-profile">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-security-profile" class="section-name selfRef">Security profile</a>
+        </h3>
+<p id="section-10.1-1">このドキュメントはエンドユーザーのクレームと付随するメタデータを JSON オブジェクトと JSON Web Token で運ぶメカニズムにフォーカスしており，通常これは OpenID Connect プロトコル交換の一部として行われる．このような交換はセキュリティにセンシティブなユースケースで行われるため，実装者は次のことを行わなければならない (SHALL):<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-10.1-2.1">OpenID Connect の適切なセキュリティプロファイルをこのドキュメントと組み合わせること，また，<a href="#section-10.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-10.1-2.2">エンドユーザーが強力な認証方法を使用して認証されていることを確認すること．<a href="#section-10.1-2.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-10.1-3">複数のセキュリティプロファイルと新しいセキュリティプロファイルが開発中であるため，このドキュメントは特定のセキュリティプロファイルを定義または要求しない．
+実装者はニーズに最適なセキュリティプロファイルを柔軟に選択できる．
+実装者は <span>[<a href="#FAPI-1-SP" class="cite xref">FAPI-1-SP</a>]</span> または <span>[<a href="#FAPI-2-SP" class="cite xref">FAPI-2-SP</a>]</span> を検討することが望ましい．<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.1-4">実装者は，OpenID Foundation Certification Program (<a href="https://openid.net/certification/">https://openid.net/certification/</a>) のような，OpenID プロバイダーと Relying Party の両方がプロファイルのセキュリティと相互運用性の要件に準拠していることを確認できる certification program またはその他のリソースを持つセキュリティプロファイルを選択することが望ましい (SHOULD)．<a href="#section-10.1-4" class="pilcrow">¶</a></p>
+<p id="section-10.1-5">受信側は identity spoofing を防ぐため，発行されたアサーションの整合性と信頼性を確保しなければならない (SHALL)．<a href="#section-10.1-5" class="pilcrow">¶</a></p>
+<p id="section-10.1-6">受信側はトランスポートまたはアプリケーション層で適切な方法を使用し，プロトコル当事者間で交換される全てのエンドユーザーデータの機密性を確保しなければならない (SHALL)．<a href="#section-10.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="end-user-authentication">
+<section id="section-10.2">
+        <h3 id="name-end-user-authentication">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-end-user-authentication" class="section-name selfRef">End-user authentication</a>
+        </h3>
+<p id="section-10.2-1">エンドユーザーのセキュアな識別は，OP での identity verification だけでなく，OP でのユーザー認証の強度にも依存する．強力な識別と弱い認証を組み合わせると，セキュリティの間違った印象と同時に攻撃の余地を与える．例えば OP が単純な PIN ログインを使用する場合，攻撃者は他のユーザーの PIN を推測し，高い identity assurance レベルを持つ RP で自身を他のユーザーとして識別できる．この種の攻撃を防ぐため，エンドユーザーの検証済みクレームを要求するときに，RP は OP に対して通常は多要素認証を利用するといった適正なレベルでユーザーを認証することを要求することが望ましい (SHOULD)．OpenID Connect は <code>acr_values</code> リクエストパラメータによってこれをサポートする．<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="Interoperability">
+<section id="section-11">
+      <h2 id="name-implementation-and-interope">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-implementation-and-interope" class="section-name selfRef">Implementation and interoperability</a>
+      </h2>
+<p id="section-11-1">セキュリティと相互運用性のベネフィットを最大限得るためには，このドキュメント，基盤となる OpenID Connect と OAuth 仕様，及び選択したセキュリティプロファイルの実装が完全かつ正確であることが重要である．OpenID Foundation は，デプロイメントが仕様通りに動作することを確認するために使用することが出来るツールを提供している．情報は <a href="https://openid.net/certification/">https://openid.net/certification/</a> で入手できる.<a href="#section-11-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="predefined_values">
+<section id="section-12">
+      <h2 id="name-predefined-values">
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-predefined-values" class="section-name selfRef">Predefined values</a>
+      </h2>
+<p id="section-12-1">このドキュメントは verified claims を伝達する技術的なメカニズムにフォーカスしているため，trust frameworks, documents, methods, check methods の identifiers は定義していない．これは，例えば実装者，アイデンティティスキーム，または管轄区域など，技術仕様の採用者に委ねられている．<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-2">このような identifiers を定義する各当事者は，これらの identifiers の衝突安全性を確保しなければならない (SHALL)．これは，<code>https://mycompany.com/identifiers/cool_check_method</code> のように，この当事者の管理下にあるドメイン名を identifier 名に含めることで実現される．<a href="#section-12-2" class="pilcrow">¶</a></p>
+<p id="section-12-3">eKYC and Identity Assurance Working Group は，他の当事者と定義済みの値を共有するために使用できる wiki ページ <span>[<a href="#predefined_values_page" class="cite xref">predefined_values_page</a>]</span> を管理している．<a href="#section-12-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-13">
+      <h2 id="name-normative-references-2">
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+      </h2>
+<dl class="references">
+<dt id="IDA-verified-claims">[IDA-verified-claims]</dt>
+      <dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Haine, M.</span>, <span class="refAuthor">Pulido, A.</span>, <span class="refAuthor">Lehmann, K.</span>, and <span class="refAuthor">K. Koiwai</span>, <span class="refTitle">"OpenID Identity Assurance Schema Definition"</span>, <time datetime="2023-08-09" class="refDate">9 August 2023</time>, <span>&lt;<a href="https://openid.net/specs/openid-ida-verified-claims-1_0.html">https://openid.net/specs/openid-ida-verified-claims-1_0.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ISODIR2">[ISODIR2]</dt>
+      <dd>
+<span class="refAuthor">ISO/IEC</span>, <span class="refTitle">"ISO/IEC Directives, Part 2 - Principles and rules for the structure and drafting of ISO and IEC documents"</span>, <span>&lt;<a href="https://www.iso.org/sites/directives/current/part2/index.xhtml">https://www.iso.org/sites/directives/current/part2/index.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OpenID">[OpenID]</dt>
+      <dd>
+<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">de Medeiros, B.</span>, and <span class="refAuthor">C. Mortimore</span>, <span class="refTitle">"OpenID Connect Core 1.0 incorporating errata set 2"</span>, <time datetime="2014-11-08" class="refDate">8 November 2014</time>, <span>&lt;<a href="https://openid.net/specs/openid-connect-core-1_0.html">https://openid.net/specs/openid-connect-core-1_0.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OpenID-Discovery">[OpenID-Discovery]</dt>
+      <dd>
+<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.</span>, and <span class="refAuthor">E. Jay</span>, <span class="refTitle">"OpenID Connect Discovery 1.0 incorporating errata set 2"</span>, <time datetime="2014-11-08" class="refDate">8 November 2014</time>, <span>&lt;<a href="https://openid.net/specs/openid-connect-discovery-1_0.html">https://openid.net/specs/openid-connect-discovery-1_0.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OpenID4IDAClaims">[OpenID4IDAClaims]</dt>
+      <dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Haine, M.</span>, <span class="refAuthor">Pulido, A.</span>, <span class="refAuthor">Lehmann, K.</span>, and <span class="refAuthor">K. Koiwai</span>, <span class="refTitle">"OpenID Connect for Identity Assurance Claims Registration 1.0"</span>, <time datetime="2023-06-16" class="refDate">16 June 2023</time>, <span>&lt;<a href="https://openid.net/specs/openid-connect-4-ida-claims-1_0.html">https://openid.net/specs/openid-connect-4-ida-claims-1_0.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="predefined_values_page">[predefined_values_page]</dt>
+    <dd>
+<span class="refAuthor">OpenID Foundation</span>, <span class="refTitle">"Overview page for predefined values"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://openid.net/wg/ekyc-ida/identifiers/">https://openid.net/wg/ekyc-ida/identifiers/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-14">
+      <h2 id="name-informative-references">
+<a href="#section-14" class="section-number selfRef">14. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+      </h2>
+<dl class="references">
+<dt id="FAPI-1-SP">[FAPI-1-SP]</dt>
+      <dd>
+<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">E. Jay</span>, <span class="refTitle">"Financial-grade API (FAPI) Security Profile 1.0 - Part 2: Advanced"</span>, <time datetime="2021-03-12" class="refDate">12 March 2021</time>, <span>&lt;<a href="https://openid.net/specs/openid-financial-api-part-2-1_0.html">https://openid.net/specs/openid-financial-api-part-2-1_0.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FAPI-2-SP">[FAPI-2-SP]</dt>
+      <dd>
+<span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Tonge, D.</span>, and <span class="refAuthor">J. Heenan</span>, <span class="refTitle">"FAPI 2.0 Security Profile - draft"</span>, <time datetime="2024-04-03" class="refDate">3 April 2024</time>, <span>&lt;<a href="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA.MediaTypes">[IANA.MediaTypes]</dt>
+      <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"Media Types"</span>, <span>&lt;<a href="https://www.iana.org/assignments/media-types">https://www.iana.org/assignments/media-types</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2046">[RFC2046]</dt>
+      <dd>
+<span class="refAuthor">Freed, N.</span> and <span class="refAuthor">N. Borenstein</span>, <span class="refTitle">"Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types"</span>, <span class="seriesInfo">RFC 2046</span>, <span class="seriesInfo">DOI 10.17487/RFC2046</span>, <time datetime="1996-11" class="refDate">November 1996</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2046">https://www.rfc-editor.org/info/rfc2046</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6838">[RFC6838]</dt>
+      <dd>
+<span class="refAuthor">Freed, N.</span>, <span class="refAuthor">Klensin, J.</span>, and <span class="refAuthor">T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6838">https://www.rfc-editor.org/info/rfc6838</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7519">[RFC7519]</dt>
+      <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">N. Sakimura</span>, <span class="refTitle">"JSON Web Token (JWT)"</span>, <span class="seriesInfo">RFC 7519</span>, <span class="seriesInfo">DOI 10.17487/RFC7519</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7519">https://www.rfc-editor.org/info/rfc7519</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="verified_claims_request.json">[verified_claims_request.json]</dt>
+    <dd>
+<span class="refAuthor">OpenID Foundation</span>, <span class="refTitle">"JSON Schema for requesting verified_claims"</span>, <time datetime="2020" class="refDate">2020</time>, <span>&lt;<a href="https://openid.net/wg/ekyc-ida/references/">https://openid.net/wg/ekyc-ida/references/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-15">
+      <h2 id="name-translation-references">
+<a href="#section-15" class="section-number selfRef">15. </a><a href="#name-translation-references" class="section-name selfRef">Translation References</a>
+      </h2>
+<dl class="references">
+<dt id="oidfj">[oidfj]</dt>
+      <dd>
+<span class="refAuthor">OpenID ファウンデーションジャパン</span>, <span class="refTitle">"OpenID ファウンデーションジャパン"</span>, <span>&lt;<a href="https://www.openid.or.jp">https://www.openid.or.jp</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="oidfj-trans">[oidfj-trans]</dt>
+      <dd>
+<span class="refAuthor">OpenID ファウンデーションジャパン</span>, <span class="refTitle">"翻訳・教育ワーキンググループ"</span>, <span>&lt;<a href="http://openid-foundation-japan.github.com/">http://openid-foundation-japan.github.com/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="oidfj-kycwg">[oidfj-kycwg]</dt>
+      <dd>
+<span class="refAuthor">OpenID ファウンデーションジャパン</span>, <span class="refTitle">"KYC ワーキンググループ"</span>, <span>&lt;<a href="https://www.openid.or.jp">https://www.openid.or.jp</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="oidfj-github">[oidfj-github]</dt>
+    <dd>
+<span class="refAuthor">OpenID ファウンデーションジャパン</span>, <span class="refTitle">"Github レポジトリー"</span>, <span>&lt;<a href="https://github.com/openid-foundation-japan">https://github.com/openid-foundation-japan</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<div id="iana-considerations">
+<section id="appendix-A">
+      <h2 id="name-iana-considerations">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA considerations</a>
+      </h2>
+<div id="media-type-registration">
+<section id="appendix-A.1">
+        <h3 id="name-media-type-registration">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-media-type-registration" class="section-name selfRef">Media type registration</a>
+        </h3>
+<p id="appendix-A.1-1">This section registers the <code>application/provided-claims+jwt</code> media type <span>[<a href="#RFC2046" class="cite xref">RFC2046</a>]</span>
+in the IANA "Media Types" registry <span>[<a href="#IANA.MediaTypes" class="cite xref">IANA.MediaTypes</a>]</span> in the manner described in <span>[<a href="#RFC6838" class="cite xref">RFC6838</a>]</span>,
+which is used to indicate that the content is a JWT describing aggregated claims.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="appendix-A.1-2.1">Type name: application<a href="#appendix-A.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.2">Subtype name: provided-claims+jwt<a href="#appendix-A.1-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.3">Required parameters: n/a<a href="#appendix-A.1-2.3" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.4">Optional parameters: n/a<a href="#appendix-A.1-2.4" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.5">Encoding considerations: binary; An external claims JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.<a href="#appendix-A.1-2.5" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.6">Security considerations: See <a href="https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-representing-verified-claim">https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-representing-verified-claim</a><a href="#appendix-A.1-2.6" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.7">Interoperability considerations: n/a<a href="#appendix-A.1-2.7" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.8">Published specification: <a href="#verified_claims_delivery" class="auto internal xref">Section 5.2</a> of [[ this specification ]]<a href="#appendix-A.1-2.8" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.9">Applications that use this media type: When using [[ this specification ]], this media type is used in the <code>typ</code> header of assertions provided as aggregated or distributed claims (see section 5.6.2 of the OpenID Connect specification <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span>).<a href="#appendix-A.1-2.9" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.10">Fragment identifier considerations: n/a<a href="#appendix-A.1-2.10" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.11">
+            <p id="appendix-A.1-2.11.1">Additional information:<a href="#appendix-A.1-2.11.1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="appendix-A.1-2.11.2.1">File extension(s): n/a<a href="#appendix-A.1-2.11.2.1" class="pilcrow">¶</a>
+</li>
+              <li class="compact" id="appendix-A.1-2.11.2.2">Macintosh file type code(s): n/a<a href="#appendix-A.1-2.11.2.2" class="pilcrow">¶</a>
+</li>
+            </ul>
+</li>
+          <li class="compact" id="appendix-A.1-2.12">Person &amp; email address to contact for further information: Daniel Fett, mail@danielfett.de<a href="#appendix-A.1-2.12" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.13">Intended usage: COMMON<a href="#appendix-A.1-2.13" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.14">Restrictions on usage: none<a href="#appendix-A.1-2.14" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.15">Author: Daniel Fett, mail@danielfett.de<a href="#appendix-A.1-2.15" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.16">Change controller: IETF<a href="#appendix-A.1-2.16" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="appendix-A.1-2.17">Provisional registration? No<a href="#appendix-A.1-2.17" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="example-requests">
+<section id="appendix-B">
+      <h2 id="name-example-requests">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-example-requests" class="section-name selfRef">Example requests</a>
+      </h2>
+<p id="appendix-B-1">This section shows examples of requests for <code>verified_claims</code>.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<div id="verification-of-claims-by-a-document">
+<section id="appendix-B.1">
+        <h3 id="name-verification-of-claims-by-a">
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-verification-of-claims-by-a" class="section-name selfRef">Verification of claims by a document</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-B.1-1">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "document"
+            },
+            "method": null,
+            "document_details": {
+              "type": null
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#appendix-B.1-1" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B.1-2">Note that, as shown in the above example, this document requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-3">Support for these null value requests is mandatory for identity providers, so implementers are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="verification-of-claims-by-trust-framework-and-evidence-types">
+<section id="appendix-B.2">
+        <h3 id="name-verification-of-claims-by-t">
+<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-verification-of-claims-by-t" class="section-name selfRef">Verification of claims by trust framework and evidence types</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-B.2-1">
+<pre>{
+  "userinfo": {
+    "verified_claims": [
+      {
+        "verification": {
+          "trust_framework": {
+            "value": "gold"
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "document"
+              }
+            }
+          ]
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null
+        }
+      },
+      {
+        "verification": {
+          "trust_framework": {
+            "values": [
+              "silver",
+              "bronze"
+            ]
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "vouch"
+              }
+            }
+          ]
+        },
+        "claims": {
+          "given_name": null,
+          "family_name": null
+        }
+      }
+    ]
+  }
+}
+</pre><a href="#appendix-B.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="verification-of-claims-by-trust-framework-and-check-method">
+<section id="appendix-B.3">
+        <h3 id="name-verification-of-claims-by-tr">
+<a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-verification-of-claims-by-tr" class="section-name selfRef">Verification of claims by trust framework and check method</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-B.3-1">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": {
+          "value": "it_spid"
+        },
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "document"
+            },
+            "check_details": [
+              {
+                "check_method": {
+                  "value": "bvr"
+                }
+              }
+            ],
+            "document_details": {
+              "type": null,
+              "issuer": {
+                "country": null,
+                "name": null
+              },
+              "document_number": null,
+              "date_of_issuance": null
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#appendix-B.3-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="verification-of-claims-by-electronic-signature">
+<section id="appendix-B.4">
+        <h3 id="name-verification-of-claims-by-e">
+<a href="#appendix-B.4" class="section-number selfRef">B.4. </a><a href="#name-verification-of-claims-by-e" class="section-name selfRef">Verification of claims by electronic signature</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-B.4-1">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "electronic_signature"
+            },
+            "issuer": null,
+            "serial_number": null,
+            "created_at": null
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#appendix-B.4-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="example-responses">
+<section id="appendix-C">
+      <h2 id="name-example-responses">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-example-responses" class="section-name selfRef">Example responses</a>
+      </h2>
+<p id="appendix-C-1">This section shows examples of responses containing <code>verified_claims</code>.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-2">The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual claims about the end-user.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">The third subsection illustrates the possible contents of this object in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-4">Subsequent subsections contain examples for using the <code>verified_claims</code> claim on different channels and in combination with other (unverified) claims.<a href="#appendix-C-4" class="pilcrow">¶</a></p>
+<div id="document">
+<section id="appendix-C.1">
+        <h3 id="name-document">
+<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-document" class="section-name selfRef">Document</a>
+        </h3>
+<div class="breakable lang-json sourcecode" id="appendix-C.1-1">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "nist_800_63A",
+      "assurance_level": "ial2",
+      "assurance_process": {
+        "assurance_details": [
+          {
+            "assurance_type": "evidence_validation",
+            "assurance_classification": "strong",
+            "evidence_ref": [
+              {
+                "check_id": "DL1-93h506th2f45hf"
+              }
+            ]
+          },
+          {
+            "assurance_type": "verification",
+            "assurance_classification": "strong",
+            "evidence_ref": [
+              {
+                "check_id": "v-93jfk284ugjfj2093"
+              }
+            ]
+          }
+        ]
+      },
+      "time": "2021-06-06T05:32Z",
+      "verification_process": "7675D80F-57E0-AB14-9543-26B41FC22",
+      "evidence": [
+        {
+          "type": "document",
+          "check_details": [
+            {
+              "check_method": "vpiruv",
+              "organization": "doc_checker",
+              "check_id": "DL1-93h506th2f45hf"
+            },
+            {
+              "check_method": "pvp",
+              "organization": "face_checker",
+              "check_id": "v-93jfk284ugjfj2093"
+            }
+          ],
+          "time": "2021-06-06T05:33Z",
+          "document_details": {
+            "type": "driving_permit",
+            "document_number": "I1234568",
+            "date_of_issuance": "2019-09-05",
+            "date_of_expiry": "2024-08-01",
+            "issuer": {
+                "name": "CA DMV",
+                "country": "US",
+                "country_code": "USA",
+                "jurisdiction": "CA"
+            }
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Inga",
+      "family_name": "Silverstone",
+      "birthdate": "1991-11-06",
+      "place_of_birth": {
+        "country": "USA"
+      },
+      "address": {
+        "locality": "Shoshone",
+        "postal_code": "CA 92384",
+        "country": "USA",
+        "street_address": "114 Old State Hwy 127"
+      }
+    }
+  }
+}
+</pre><a href="#appendix-C.1-1" class="pilcrow">¶</a>
+</div>
+<p id="appendix-C.1-2">Same document under a different <code>trust_framework</code><a href="#appendix-C.1-2" class="pilcrow">¶</a></p>
+<div class="breakable lang-json sourcecode" id="appendix-C.1-3">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "uk_diatf",
+      "assurance_level": "medium",
+      "assurance_process": {
+        "policy": "gpg45",
+        "procedure": "m1c",
+        "assurance_details": [
+          {
+            "assurance_type": "evidence_validation",
+            "assurance_classification": "score_3",
+            "evidence_ref": [
+              {
+                "check_id": "DL1-93h506th2f45hf",
+                "evidence_metadata": {
+                  "evidence_classification": "score_3_strength"
+                }
+              }
+            ]
+          },
+          {
+            "assurance_type": "verification",
+            "assurance_classification": "score_3",
+            "evidence_ref": [
+              {
+                "check_id": "v-93jfk284ugjfj2093"
+              }
+            ]
+          }
+        ]
+      },
+      "time": "2021-06-06T05:32Z",
+      "verification_process": "7675D80F-57E0-AB14-9543-26B41FC22",
+      "evidence": [
+        {
+          "type": "document",
+          "check_details": [
+            {
+              "check_method": "vpiruv",
+              "organization": "doc_checker",
+              "check_id": "DL1-93h506th2f45hf",
+              "time": "2021-06-08T11:41Z"
+            },
+            {
+              "check_method": "pvp",
+              "organization": "face_checker",
+              "check_id": "v-93jfk284ugjfj2093",
+              "time": "2021-06-08T11:42Z"
+            }
+          ],
+          "time": "2021-06-06T05:33Z",
+          "document_details": {
+            "type": "driving_permit",
+            "document_number": "I1234568",
+            "date_of_issuance": "2019-09-05",
+            "date_of_expiry": "2024-08-01",
+            "issuer": {
+                "name": "CA DMV",
+                "country": "US",
+                "country_code": "USA",
+                "jurisdiction": "CA"
+            }
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Inga",
+      "family_name": "Silverstone",
+      "birthdate": "1991-11-06",
+      "place_of_birth": {
+        "country": "USA"
+      },
+      "address": {
+        "locality": "Shoshone",
+        "postal_code": "CA 92384",
+        "country": "USA",
+        "street_address": "114 Old State Hwy 127"
+      }
+    }
+  }
+}
+</pre><a href="#appendix-C.1-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="document-and-verifier-details">
+<section id="appendix-C.2">
+        <h3 id="name-document-and-verifier-detai">
+<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-document-and-verifier-detai" class="section-name selfRef">Document and verifier details</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-C.2-1">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "de_aml",
+      "time": "2012-04-23T18:25Z",
+      "verification_process": "f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
+      "evidence": [
+        {
+          "type": "document",
+          "method": "pipp",
+          "organization": "Deutsche Post",
+          "check_id": "1aa05779-0775-470f-a5c4-9f1f5e56cf06",
+          "time": "2012-04-22T11:30Z",
+          "document_details": {
+            "type": "idcard",
+            "issuer": {
+              "name": "Stadt Augsburg",
+              "country": "DE"
+            },
+            "document_number": "53554554",
+            "date_of_issuance": "2010-03-23",
+            "date_of_expiry": "2020-03-22"
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Meier",
+      "birthdate": "1956-01-28",
+      "place_of_birth": {
+        "country": "DE",
+        "locality": "Musterstadt"
+      },
+      "nationalities": [
+        "DE"
+      ],
+      "address": {
+        "locality": "Maxstadt",
+        "postal_code": "12344",
+        "country": "DE",
+        "street_address": "An der Weide 22"
+      }
+    }
+  }
+}
+</pre><a href="#appendix-C.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="evidence-with-all-assurance-details">
+<section id="appendix-C.3">
+        <h3 id="name-evidence-with-all-assurance">
+<a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-evidence-with-all-assurance" class="section-name selfRef">Evidence with all assurance details</a>
+        </h3>
+<div class="breakable lang-json sourcecode" id="appendix-C.3-1">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "uk_diatf",
+      "assurance_level": "medium",
+      "assurance_process": {
+        "policy": "gpg45",
+        "procedure": "m1b",
+        "assurance_details": [
+          {
+            "assurance_type": "evidence_validation",
+            "assurance_classification": "score_2",
+            "evidence_ref": [
+              {
+                "check_id": "DL1-85762937582385820",
+                "evidence_metadata": {
+                  "evidence_classification": "score_3_strength"
+                }
+              }
+            ]
+          },
+          {
+            "assurance_type": "verification",
+            "assurance_classification": "score_2",
+            "evidence_ref": [
+              {
+                "check_id": "kbv1-hf934hn09234ng03jj3",
+                "evidence_metadata": {
+                  "evidence_classification": "high_kbv"
+                }
+              },
+              {
+                "check_id": "kbv2-nm0f23u9459fj38u5j6",
+                "evidence_metadata": {
+                  "evidence_classification": "medium_kbv"
+                }
+              },
+              {
+                "check_id": "kbv3-jf9028h023hj0f9jh23",
+                "evidence_metadata": {
+                  "evidence_classification": "medium_kbv"
+                }
+              }
+            ]
+          },
+          {
+            "assurance_type": "counter_fraud",
+            "assurance_classification": "score_2",
+            "evidence_ref": [
+              {
+                "check_id": "GRO-9824hngvp9278hf5tmp924y5h",
+                "evidence_metadata": {
+                  "evidence_classification": "mortality_check"
+                }
+              },
+              {
+                "check_id": "fi-2nbf02hfn384ufn",
+                "evidence_metadata": {
+                  "evidence_classification": "id_fraud"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "time": "2021-05-11T14:29Z",
+      "verification_process": "7675D80F-57E0-AB14-9543-26B41FC22",
+      "evidence": [
+        {
+          "type": "document",
+          "check_details": [
+            {
+              "check_method": "data",
+              "organization": "DVLA",
+              "time": "2021-04-09T14:15Z",
+              "check_id": "DL1-85762937582385820"
+            }
+          ],
+          "time": "2021-04-09T14:12Z",
+          "document_details": {
+            "type": "driving_permit",
+            "personal_number": "MORGA753116SM9IJ",
+            "document_number": "MORGA753116SM9IJ35",
+            "serial_number": "ZG21000001",
+            "date_of_issuance": "2021-01-01",
+            "date_of_expiry": "2030-12-31",
+            "issuer": {
+              "name": "DVLA",
+              "country": "UK",
+              "country_code": "GBR",
+              "jurisdiction": "GB-GBN"
+            }
+          }
+        },
+        {
+          "type": "electronic_record",
+          "check_details": [
+            {
+              "check_method": "kbv",
+              "organization": "TheCreditBureau",
+              "check_id": "kbv1-hf934hn09234ng03jj3"
+            }
+          ],
+          "time": "2021-04-09T14:12Z",
+          "record": {
+            "type": "mortgage_account",
+            "source": {
+              "name": "TheCreditBureau"
+            }
+          }
+        },
+        {
+          "type": "electronic_record",
+          "check_details": [
+            {
+              "check_method": "kbv",
+              "organization": "OpenBankingTPP",
+              "check_id": "kbv2-nm0f23u9459fj38u5j6"
+            }
+          ],
+          "time": "2021-04-09T14:12Z",
+          "record": {
+            "type": "bank_account",
+            "source": {
+              "name": "TheBank"
+            }
+          }
+        },
+        {
+          "type": "electronic_record",
+          "check_details": [
+            {
+              "check_method": "kbv",
+              "organization": "GSMA",
+              "check_id": "kbv3-jf9028h023hj0f9jh23"
+            }
+          ],
+          "time": "2021-04-09T15:42Z",
+          "record": {
+            "type": "mno",
+            "source": {
+              "name": "Vodafone"
+            }
+          }
+        },
+        {
+          "type": "electronic_record",
+          "check_details": [
+            {
+              "check_method": "data",
+              "organization": "GRO",
+              "check_id": "GRO-9824hngvp9278hf5tmp924y5h"
+            }
+          ],
+          "time": "2021-04-09T16:12Z",
+          "record": {
+            "type": "death_register",
+            "source": {
+              "name": "General Register Office",
+              "street_address": "PO BOX 2",
+              "locality": "Southport",
+              "postal_code": "PR8 2JD",
+              "country": "UK",
+              "country_code": "GBR",
+              "jurisdiction": "GB-EAW"
+            }
+          }
+        },
+        {
+          "type": "electronic_record",
+          "check_details": [
+            {
+              "check_method": "data",
+              "organization": "NextLex",
+              "check_id": "fi-2nbf02hfn384ufn"
+            }
+          ],
+          "time": "2021-04-09T16:51Z",
+          "record": {
+            "type": "fraud_register",
+            "source": {
+              "name": "National Fraud Database",
+              "jurisdiction": "UK"
+            }
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Sarah",
+      "family_name": "Meredyth",
+      "birthdate": "1976-03-11",
+      "place_of_birth": {
+        "country": "UK"
+      },
+      "address": {
+        "locality": "Edinburgh",
+        "postal_code": "EH1 9GP",
+        "country": "UK",
+        "street_address": "122 Burns Crescent"
+      }
+    }
+  }
+}
+</pre><a href="#appendix-C.3-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="notified-eid-system-eidas">
+<section id="appendix-C.4">
+        <h3 id="name-notified-eid-system-eidas">
+<a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-notified-eid-system-eidas" class="section-name selfRef">Notified eID system (eIDAS)</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-C.4-1">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "eidas",
+      "assurance_level": "substantial"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Meier",
+      "birthdate": "1956-01-28",
+      "place_of_birth": {
+        "country": "DE",
+        "locality": "Musterstadt"
+      },
+      "nationalities": [
+        "DE"
+      ]
+    }
+  }
+}
+</pre><a href="#appendix-C.4-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="electronic-record">
+<section id="appendix-C.5">
+        <h3 id="name-electronic_record">
+<a href="#appendix-C.5" class="section-number selfRef">C.5. </a><a href="#name-electronic_record" class="section-name selfRef">Electronic_record</a>
+        </h3>
+<div class="breakable lang-json sourcecode" id="appendix-C.5-1">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "se_bankid",
+      "assurance_level": "al_2",
+      "time": "2021-03-03T09:42Z",
+      "verification_process": "4346D80F-57E0-4E26-9543-26B41FC22",
+      "evidence": [
+        {
+          "type": "electronic_record",
+          "check_details": [
+            {
+              "check_method": "data"
+            },
+            {
+              "check_method": "token"
+            }
+          ],
+          "time": "2021-02-15T16:51Z",
+          "record": {
+            "type": "population_register",
+            "source": {
+                "name": "Skatteverket",
+                "country": "Sverige",
+                "country_code": "SWE"
+            },
+            "personal_number": "4901224131",
+            "created_at": "1979-01-22"
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Fredrik",
+      "family_name": "Strömberg",
+      "birthdate": "1979-01-22",
+      "place_of_birth": {
+        "country": "SWE",
+        "locality": "Örnsköldsvik"
+      },
+      "nationalities": [
+        "SE"
+      ],
+      "address": {
+        "locality": "Karlstad",
+        "postal_code": "65344",
+        "country": "SWE",
+        "street_address": "Gatunamn 221b"
+      }
+    }
+  }
+}
+</pre><a href="#appendix-C.5-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="vouch">
+<section id="appendix-C.6">
+        <h3 id="name-vouch">
+<a href="#appendix-C.6" class="section-number selfRef">C.6. </a><a href="#name-vouch" class="section-name selfRef">Vouch</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-C.6-1">
+<pre>{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "uk_diatf",
+      "assurance_level": "very_high",
+      "time": "2020-03-19T13:05Z",
+      "verification_process": "76755DA2-81E1-5N14-9543-26B415B77",
+      "evidence": [
+        {
+          "type": "vouch",
+          "check_details": [
+            {
+              "check_method": "vcrypt"
+            },
+            {
+              "check_method": "bvr"
+            }
+          ],
+          "time": "2020-03-19T12:42Z",
+          "attestation": {
+            "type": "digital_attestation",
+            "reference_number": "6485-1619-3976-6671",
+            "date_of_issuance": "2021-06-04",
+            "voucher": {
+                "organization": "HMP Dartmoor"
+            }
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Sam",
+      "family_name": "Lawler",
+      "birthdate": "1981-04-13",
+      "place_of_birth": {
+        "country": "GBR"
+      },
+      "address": {
+        "postal_code": "98015",
+        "country": "Monaco"
+      }
+    }
+  }
+}
+</pre><a href="#appendix-C.6-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="multiple-verified-claims">
+<section id="appendix-C.7">
+        <h3 id="name-multiple-verified-claims">
+<a href="#appendix-C.7" class="section-number selfRef">C.7. </a><a href="#name-multiple-verified-claims" class="section-name selfRef">Multiple verified claims</a>
+        </h3>
+<div class="lang-json sourcecode" id="appendix-C.7-1">
+<pre>{
+  "verified_claims": [
+    {
+      "verification": {
+        "trust_framework": "eidas",
+        "assurance_level": "substantial"
+      },
+      "claims": {
+        "given_name": "Max",
+        "family_name": "Meier",
+        "birthdate": "1956-01-28",
+        "place_of_birth": {
+          "country": "DE",
+          "locality": "Musterstadt"
+        },
+        "nationalities": [
+          "DE"
+        ]
+      }
+    },
+    {
+      "verification": {
+        "trust_framework": "de_aml",
+        "time": "2012-04-23T18:25Z",
+        "verification_process": "f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
+        "evidence": [
+          {
+            "type": "document",
+            "method": "pipp",
+            "time": "2012-04-22T11:30Z",
+            "document": {
+              "type": "idcard"
+            }
+          }
+        ]
+      },
+      "claims": {
+        "address": {
+          "locality": "Maxstadt",
+          "postal_code": "12344",
+          "country": "DE",
+          "street_address": "An der Weide 22"
+        }
+      }
+    }
+  ]
+}
+</pre><a href="#appendix-C.7-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="op_attested_and_external_claims">
+<section id="appendix-C.8">
+        <h3 id="name-claims-provided-by-the-op-a">
+<a href="#appendix-C.8" class="section-number selfRef">C.8. </a><a href="#name-claims-provided-by-the-op-a" class="section-name selfRef">Claims provided by the OP and external sources</a>
+        </h3>
+<p id="appendix-C.8-1">This example shows how an OP can mix own claims and claims provided by
+external sources in a single ID Token.<a href="#appendix-C.8-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="appendix-C.8-2">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "trust_framework_example"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Meier"
+    }
+  },
+  "_claim_names": {
+    "verified_claims": [
+      "src1",
+      "src2"
+    ]
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGhlcm9wLmNvbSIsInN1YiI6ImU4MTQ4NjAzLTg5MzQtNDI0NS04MjViLWMxMDhiOGI2Yjk0NSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3JrIjoiaWFsX2V4YW1wbGVfZ29sZCJ9LCJjbGFpbXMiOnsiZ2l2ZW5fbmFtZSI6Ik1heCIsImZhbWlseV9uYW1lIjoiTWVpZXIiLCJiaXJ0aGRhdGUiOiIxOTU2LTAxLTI4In19fQ.FArlPUtUVn95HCExePlWJQ6ctVfVpQyeSbe3xkH9MH1QJjnk5GVbBW0qe1b7R3lE-8iVv__0mhRTUI5lcFhLjoGjDS8zgWSarVsEEjwBK7WD3r9cEw6ZAhfEkhHL9eqAaED2rhhDbHD5dZWXkJCuXIcn65g6rryiBanxlXK0ZmcK4fD9HV9MFduk0LRG_p4yocMaFvVkqawat5NV9QQ3ij7UBr3G7A4FojcKEkoJKScdGoozir8m5XD83Sn45_79nCcgWSnCX2QTukL8NywIItu_K48cjHiAGXXSzydDm_ccGCe0sY-Ai2-iFFuQo2PtfuK2SqPPmAZJxEFrFoLY4g"
+    },
+    "src2": {
+      "endpoint": "https://server.yetanotherop.com/claim_source",
+      "access_token": "ksj3n283dkeafb76cdef"
+    }
+  }
+}
+</pre><a href="#appendix-C.8-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="self-issued-openid-provider-and-external-claims">
+<section id="appendix-C.9">
+        <h3 id="name-self-issued-openid-provider">
+<a href="#appendix-C.9" class="section-number selfRef">C.9. </a><a href="#name-self-issued-openid-provider" class="section-name selfRef">Self-Issued OpenID provider and external claims</a>
+        </h3>
+<p id="appendix-C.9-1">This example shows how a Self-Issued OpenID provider (SIOP)
+may include verified claims obtained from different external claim
+sources into an ID Token.<a href="#appendix-C.9-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="appendix-C.9-2">
+<pre>{
+  "iss": "https://self-issued.me",
+  "sub": "248289761001",
+  "preferred_username": "superman445",
+  "_claim_names": {
+    "verified_claims": [
+      "src1",
+      "src2"
+    ]
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGhlcm9wLmNvbSIsInN1YiI6ImU4MTQ4NjAzLTg5MzQtNDI0NS04MjViLWMxMDhiOGI2Yjk0NSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3JrIjoiaWFsX2V4YW1wbGVfZ29sZCJ9LCJjbGFpbXMiOnsiZ2l2ZW5fbmFtZSI6Ik1heCIsImZhbWlseV9uYW1lIjoiTWVpZXIiLCJiaXJ0aGRhdGUiOiIxOTU2LTAxLTI4In19fQ.FArlPUtUVn95HCExePlWJQ6ctVfVpQyeSbe3xkH9MH1QJjnk5GVbBW0qe1b7R3lE-8iVv__0mhRTUI5lcFhLjoGjDS8zgWSarVsEEjwBK7WD3r9cEw6ZAhfEkhHL9eqAaED2rhhDbHD5dZWXkJCuXIcn65g6rryiBanxlXK0ZmcK4fD9HV9MFduk0LRG_p4yocMaFvVkqawat5NV9QQ3ij7UBr3G7A4FojcKEkoJKScdGoozir8m5XD83Sn45_79nCcgWSnCX2QTukL8NywIItu_K48cjHiAGXXSzydDm_ccGCe0sY-Ai2-iFFuQo2PtfuK2SqPPmAZJxEFrFoLY4g"
+    },
+    "src2": {
+      "endpoint": "https://op.mymno.com/claim_source",
+      "access_token": "ksj3n283dkeafb76cdef"
+    }
+  }
+}
+</pre><a href="#appendix-C.9-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="example-requests-and-responses">
+<section id="appendix-D">
+      <h2 id="name-example-requests-and-respon">
+<a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-example-requests-and-respon" class="section-name selfRef">Example requests and responses</a>
+      </h2>
+<p id="appendix-D-1">This section shows examples of pairs of requests and responses containing <code>verified_claims</code>.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<div id="verified-claims-in-userinfo-response">
+<section id="appendix-D.1">
+        <h3 id="name-verified-claims-in-userinfo">
+<a href="#appendix-D.1" class="section-number selfRef">D.1. </a><a href="#name-verified-claims-in-userinfo" class="section-name selfRef">verified claims in UserInfo response</a>
+        </h3>
+<div id="request">
+<section id="appendix-D.1.1">
+          <h4 id="name-request">
+<a href="#appendix-D.1.1" class="section-number selfRef">D.1.1. </a><a href="#name-request" class="section-name selfRef">Request</a>
+          </h4>
+<p id="appendix-D.1.1-1">In this example we assume the RP uses the <code>scope</code> parameter to request the email address and, additionally, the <code>claims</code> parameter, to request verified claims.<a href="#appendix-D.1.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-D.1.1-2">The scope value is: <code>scope=openid email</code><a href="#appendix-D.1.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-D.1.1-3">The value of the <code>claims</code> parameter is:<a href="#appendix-D.1.1-3" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="appendix-D.1.1-4">
+<pre>{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#appendix-D.1.1-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="response">
+<section id="appendix-D.1.2">
+          <h4 id="name-response">
+<a href="#appendix-D.1.2" class="section-number selfRef">D.1.2. </a><a href="#name-response" class="section-name selfRef">Response</a>
+          </h4>
+<p id="appendix-D.1.2-1">The respective UserInfo response would be<a href="#appendix-D.1.2-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="appendix-D.1.2-2">
+<pre>{
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "de_aml"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Meier",
+      "birthdate": "1956-01-28"
+    }
+  }
+}
+</pre><a href="#appendix-D.1.2-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="verified-claims-in-id-tokens">
+<section id="appendix-D.2">
+        <h3 id="name-verified-claims-in-id-token">
+<a href="#appendix-D.2" class="section-number selfRef">D.2. </a><a href="#name-verified-claims-in-id-token" class="section-name selfRef">verified claims in ID Tokens</a>
+        </h3>
+<div id="request-1">
+<section id="appendix-D.2.1">
+          <h4 id="name-request-2">
+<a href="#appendix-D.2.1" class="section-number selfRef">D.2.1. </a><a href="#name-request-2" class="section-name selfRef">Request</a>
+          </h4>
+<p id="appendix-D.2.1-1">In this case, the RP requests verified claims along with other claims about the end-user in the <code>claims</code> parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type <code>authorization_code</code>).<a href="#appendix-D.2.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-D.2.1-2">The <code>claims</code> parameter value is<a href="#appendix-D.2.1-2" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="appendix-D.2.1-3">
+<pre>{
+  "id_token": {
+    "email": null,
+    "preferred_username": null,
+    "picture": null,
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "verification_process": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "document"
+            },
+            "method": null,
+            "time": null,
+            "document_details": {
+              "type": null,
+              "issuer": {
+                "name": null,
+                "country": null
+              },
+              "document_number": null,
+              "date_of_issuance": null,
+              "date_of_expiry": null
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+</pre><a href="#appendix-D.2.1-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="response-1">
+<section id="appendix-D.2.2">
+          <h4 id="name-response-2">
+<a href="#appendix-D.2.2" class="section-number selfRef">D.2.2. </a><a href="#name-response-2" class="section-name selfRef">Response</a>
+          </h4>
+<p id="appendix-D.2.2-1">The decoded body of the respective ID Token could be<a href="#appendix-D.2.2-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="appendix-D.2.2-2">
+<pre>{
+  "iss": "https://server.example.com",
+  "sub": "24400320",
+  "aud": "s6BhdRkqt3",
+  "nonce": "n-0S6_WzA2Mj",
+  "exp": 1311281970,
+  "iat": 1311280970,
+  "auth_time": 1311280969,
+  "acr": "urn:mace:incommon:iap:silver",
+  "email": "janedoe@example.com",
+  "preferred_username": "j.doe",
+  "picture": "http://example.com/janedoe/me.jpg",
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "de_aml",
+      "time": "2012-04-23T18:25Z",
+      "verification_process": "f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
+      "evidence": [
+        {
+          "type": "document",
+          "method": "pipp",
+          "time": "2012-04-22T11:30Z",
+          "document_details": {
+            "type": "idcard",
+            "issuer": {
+              "name": "Stadt Augsburg",
+              "country": "DE"
+            },
+            "document_number": "53554554",
+            "date_of_issuance": "2010-03-23",
+            "date_of_expiry": "2020-03-22"
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Jane",
+      "family_name": "Doe",
+      "birthdate": "1956-01-28"
+    }
+  }
+}
+</pre><a href="#appendix-D.2.2-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="Acknowledgements">
+<section id="appendix-E">
+      <h2 id="name-acknowledgements">
+<a href="#appendix-E" class="section-number selfRef">Appendix E. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<p id="appendix-E-1">The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this document: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.<a href="#appendix-E-1" class="pilcrow">¶</a></p>
+<p id="appendix-E-2">We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this document.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="notices">
+<section id="appendix-F">
+      <h2 id="name-notices">
+<a href="#appendix-F" class="section-number selfRef">Appendix F. </a><a href="#name-notices" class="section-name selfRef">Notices</a>
+      </h2>
+<p id="appendix-F-1">Copyright (c) 2024 The OpenID Foundation.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
+<p id="appendix-F-2">The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.<a href="#appendix-F-2" class="pilcrow">¶</a></p>
+<p id="appendix-F-3">The technology described in this document was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this document make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this document to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="translator">
+<section id="appendix-G">
+      <h2 id="name-translator">
+<a href="#appendix-G" class="section-number selfRef">Appendix G. </a><a href="#name-translator" class="section-name selfRef">Translator</a>
+      </h2>
+<p id="appendix-G-1">本仕様の翻訳は, OpenID ファウンデーションジャパン <span>[<a href="#oidfj" class="cite xref">oidfj</a>]</span> KYC ワーキンググループ <span>[<a href="#oidfj-kycwg" class="cite xref">oidfj-kycwg</a>]</span>, 翻訳・教育ワーキンググループ <span>[<a href="#oidfj-trans" class="cite xref">oidfj-trans</a>]</span> を主体として, 有志のメンバーによって行われました.
+質問や修正依頼などについては, Github レポジトリー <span>[<a href="#oidfj-github" class="cite xref">oidfj-github</a>]</span> にご連絡ください.<a href="#appendix-G-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="appendix-G-2.1">Muneomi Sakuta (SoftBank Corp.)<a href="#appendix-G-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-G-2.2">Yuu Kikuchi (OPTiM Corp.)<a href="#appendix-G-2.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-G-2.3">Nov Matake (YAuth.jp)<a href="#appendix-G-2.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-H">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Torsten Lodderstedt</span></div>
+<div dir="auto" class="left"><span class="org">sprind.org</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:torsten@lodderstedt.net" class="email">torsten@lodderstedt.net</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Daniel Fett</span></div>
+<div dir="auto" class="left"><span class="org">Authlete</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mail@danielfett.de" class="email">mail@danielfett.de</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Mark Haine</span></div>
+<div dir="auto" class="left"><span class="org">Considrd.Consulting Ltd</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mark@considrd.consulting" class="email">mark@considrd.consulting</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Alberto Pulido</span></div>
+<div dir="auto" class="left"><span class="org">Santander</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:alberto.pulido@santander.co.uk" class="email">alberto.pulido@santander.co.uk</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Kai Lehmann</span></div>
+<div dir="auto" class="left"><span class="org">1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:kai.lehmann@1und1.de" class="email">kai.lehmann@1und1.de</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Kosuke Koiwai</span></div>
+<div dir="auto" class="left"><span class="org">KDDI Corporation</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:ko-koiwai@kddi.com" class="email">ko-koiwai@kddi.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
